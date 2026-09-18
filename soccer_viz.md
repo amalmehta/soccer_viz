@@ -98,11 +98,14 @@ DELIVERABLES:
 - sound/crowd.js — procedural stadium crowd sound (live and in videos)
 - library/plays/*.json — one iconic clip per file (source)
 - library/clips.js — the clips bundled for the page
-- build_site.py — builds the standalone website into site/
+- build_site.py — builds the standalone website into docs/
 - build_sounds.py — turns the crowd recordings in sound/recordings/ into sound/recordings.js
 - tools/check_plays.js — checks play files (page validator + realism checks)
 - tools/build_library.py — bundles library/plays/*.json into library/clips.js
-- site/ — the standalone website / installable app (deploy this folder)
+- docs/ — the built website / installable app (GitHub Pages serves this folder)
+- README.md + screenshots/ — repository front page with screenshots of the UI
+- https://amalmehta.github.io/birdseye-fc/ — the live site
+- https://github.com/amalmehta/birdseye-fc — public repository
 - Published Artifact URL — private link to the same page
 - soccer_viz.md — this spec, filled in
 
@@ -233,3 +236,9 @@ CHANGELOG:
   push, and while the ball is in front of them defenders give ground only at a jockeying backpedal
   (≤2.2 m/s, facing the ball); they may close right in on the dribbler. Now 1.9%, facing the ball
   96%. Note: plays are reconstructions, not traced from footage (footage can't be analysed)
+- 2026-09-18 — published (user: "lets add this to the site ... in the github make sure to add a
+  screenshot of the ui"): public repo github.com/amalmehta/birdseye-fc, live on GitHub Pages at
+  amalmehta.github.io/birdseye-fc. The build output moved from site/ to docs/ because Pages serves
+  a branch folder, so a push now deploys. README covers what it does, the layout, how to add a clip
+  and the rights position, with three UI screenshots (Arcade mid-goal, Broadcast, analysis and
+  controls) captured from the running app with headless Chrome over the DevTools protocol.
