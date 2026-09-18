@@ -1,0 +1,1261 @@
+{
+  "title": "Agüero wins City the title",
+  "subtitle": "Premier League, matchday 38 · Etihad Stadium · 13 May 2012",
+  "clock": "90+4'",
+  "duration": 11.5,
+  "teams": {
+    "A": {
+      "name": "Manchester City",
+      "short": "MCI",
+      "color": "#6CABDD",
+      "color2": "#1C2C5B",
+      "text": "#1C2C5B",
+      "pattern": "plain",
+      "shorts": "#FFFFFF",
+      "socks": "#6CABDD",
+      "gkColor": "#2E2E33"
+    },
+    "B": {
+      "name": "QPR",
+      "short": "QPR",
+      "color": "#D2232A",
+      "color2": "#111111",
+      "text": "#FFFFFF",
+      "pattern": "hoops",
+      "shorts": "#111111",
+      "socks": "#111111",
+      "gkColor": "#F2C94C"
+    }
+  },
+  "score": [
+    2,
+    2
+  ],
+  "players": [
+    {
+      "id": "aguero",
+      "team": "A",
+      "num": 16,
+      "name": "Agüero",
+      "star": true,
+      "look": {
+        "skin": "fair",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 173
+      },
+      "path": [
+        [
+          0,
+          70,
+          44
+        ],
+        [
+          1.2,
+          71.5,
+          42
+        ],
+        [
+          2.4,
+          73,
+          40
+        ],
+        [
+          3.6,
+          74.5,
+          38.5
+        ],
+        [
+          4.4,
+          77.5,
+          38.5
+        ],
+        [
+          5.2,
+          81,
+          39.5
+        ],
+        [
+          6,
+          85.5,
+          41
+        ],
+        [
+          6.8,
+          89.5,
+          42.5
+        ],
+        [
+          7.5,
+          92.5,
+          43.8
+        ],
+        [
+          8.2,
+          95,
+          44.5
+        ],
+        [
+          9,
+          97.5,
+          45
+        ],
+        [
+          10,
+          99.5,
+          47
+        ],
+        [
+          11.5,
+          101,
+          49.5
+        ]
+      ]
+    },
+    {
+      "id": "balotelli",
+      "team": "A",
+      "num": 45,
+      "name": "Balotelli",
+      "look": {
+        "skin": "dark",
+        "hair": "buzz",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 189
+      },
+      "path": [
+        [
+          0,
+          88,
+          33
+        ],
+        [
+          1.2,
+          87.5,
+          34
+        ],
+        [
+          2.4,
+          87,
+          35
+        ],
+        [
+          3.6,
+          86.7,
+          36
+        ],
+        [
+          4.8,
+          86.5,
+          36.5
+        ],
+        [
+          5.6,
+          86.3,
+          36.2
+        ],
+        [
+          6.8,
+          86,
+          36
+        ],
+        [
+          8.5,
+          87,
+          36.5
+        ],
+        [
+          10,
+          89,
+          37.5
+        ],
+        [
+          11.5,
+          90,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "dejong",
+      "team": "A",
+      "num": 34,
+      "name": "De Jong",
+      "look": {
+        "skin": "light",
+        "hair": "buzz",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 177
+      },
+      "path": [
+        [
+          0,
+          50,
+          32
+        ],
+        [
+          1.2,
+          56,
+          33
+        ],
+        [
+          2.4,
+          62,
+          34.5
+        ],
+        [
+          3.2,
+          65.5,
+          35
+        ],
+        [
+          4.5,
+          69,
+          35
+        ],
+        [
+          6,
+          72,
+          36
+        ],
+        [
+          8,
+          75,
+          37
+        ],
+        [
+          10,
+          77,
+          37
+        ],
+        [
+          11.5,
+          77.5,
+          37
+        ]
+      ]
+    },
+    {
+      "id": "hart",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "gk": true,
+      "path": [
+        [
+          0,
+          10,
+          34
+        ],
+        [
+          1.92,
+          10.7,
+          34
+        ],
+        [
+          3.83,
+          11.3,
+          34
+        ],
+        [
+          5.75,
+          12,
+          34
+        ],
+        [
+          7.67,
+          12.7,
+          34
+        ],
+        [
+          9.58,
+          13.3,
+          34
+        ],
+        [
+          11.5,
+          14,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "mci-cb1",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          40,
+          26
+        ],
+        [
+          1.92,
+          41,
+          26.2
+        ],
+        [
+          3.83,
+          42,
+          26.3
+        ],
+        [
+          5.75,
+          43,
+          26.5
+        ],
+        [
+          7.67,
+          44,
+          26.7
+        ],
+        [
+          9.58,
+          45,
+          26.8
+        ],
+        [
+          11.5,
+          46,
+          27
+        ]
+      ]
+    },
+    {
+      "id": "mci-cb2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          40,
+          42
+        ],
+        [
+          1.92,
+          41,
+          42
+        ],
+        [
+          3.83,
+          42,
+          42
+        ],
+        [
+          5.75,
+          43,
+          42
+        ],
+        [
+          7.67,
+          44,
+          42
+        ],
+        [
+          9.58,
+          45,
+          42
+        ],
+        [
+          11.5,
+          46,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "mci-lb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          58,
+          12
+        ],
+        [
+          1.92,
+          60.3,
+          12
+        ],
+        [
+          3.83,
+          62.7,
+          12
+        ],
+        [
+          5.75,
+          65,
+          12
+        ],
+        [
+          7.67,
+          67.3,
+          12
+        ],
+        [
+          9.58,
+          69.7,
+          12
+        ],
+        [
+          11.5,
+          72,
+          12
+        ]
+      ]
+    },
+    {
+      "id": "mci-rb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          60,
+          58
+        ],
+        [
+          1.92,
+          62.7,
+          57.8
+        ],
+        [
+          3.83,
+          65.3,
+          57.7
+        ],
+        [
+          5.75,
+          68,
+          57.5
+        ],
+        [
+          7.67,
+          70.7,
+          57.3
+        ],
+        [
+          9.58,
+          73.3,
+          57.2
+        ],
+        [
+          11.5,
+          76,
+          57
+        ]
+      ]
+    },
+    {
+      "id": "mci-fw",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          95,
+          30.5
+        ],
+        [
+          2,
+          95.3,
+          30.8
+        ],
+        [
+          4,
+          95.5,
+          31
+        ],
+        [
+          6,
+          96,
+          31.3
+        ],
+        [
+          8,
+          96.5,
+          31.5
+        ],
+        [
+          9.75,
+          96.8,
+          31.8
+        ],
+        [
+          11.5,
+          97,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "mci-am",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          70,
+          20
+        ],
+        [
+          1.92,
+          72,
+          20
+        ],
+        [
+          3.83,
+          74,
+          20
+        ],
+        [
+          5.75,
+          76,
+          20
+        ],
+        [
+          7.67,
+          78,
+          20
+        ],
+        [
+          9.58,
+          80,
+          20
+        ],
+        [
+          11.5,
+          82,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "mci-w",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          74,
+          61
+        ],
+        [
+          1.92,
+          76,
+          61
+        ],
+        [
+          3.83,
+          78,
+          61
+        ],
+        [
+          5.75,
+          80,
+          61
+        ],
+        [
+          7.67,
+          82,
+          61
+        ],
+        [
+          9.58,
+          84,
+          61
+        ],
+        [
+          11.5,
+          86,
+          61
+        ]
+      ]
+    },
+    {
+      "id": "kenny",
+      "team": "B",
+      "num": 1,
+      "name": "Kenny",
+      "gk": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 185
+      },
+      "path": [
+        [
+          0,
+          102.5,
+          34
+        ],
+        [
+          1.5,
+          102.5,
+          34.5
+        ],
+        [
+          3,
+          102.3,
+          35
+        ],
+        [
+          4.5,
+          102,
+          35.8
+        ],
+        [
+          6,
+          101.8,
+          36.5
+        ],
+        [
+          7.2,
+          102,
+          37.5
+        ],
+        [
+          8.2,
+          102.3,
+          37.4
+        ],
+        [
+          8.9,
+          102.6,
+          36.8
+        ],
+        [
+          10,
+          103,
+          35.8
+        ],
+        [
+          11.5,
+          103,
+          35.5
+        ]
+      ]
+    },
+    {
+      "id": "taiwo",
+      "team": "B",
+      "num": 3,
+      "name": "Taiwo",
+      "look": {
+        "skin": "dark",
+        "hair": "buzz",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 176
+      },
+      "path": [
+        [
+          0,
+          92,
+          44
+        ],
+        [
+          1.2,
+          91.5,
+          43
+        ],
+        [
+          2.4,
+          90.5,
+          42
+        ],
+        [
+          3.6,
+          90,
+          41
+        ],
+        [
+          4.8,
+          89.5,
+          40.5
+        ],
+        [
+          5.8,
+          89.5,
+          40.6
+        ],
+        [
+          6.6,
+          89.8,
+          40.6
+        ],
+        [
+          7.3,
+          90.8,
+          42.6
+        ],
+        [
+          8,
+          91,
+          45
+        ],
+        [
+          9,
+          92,
+          46
+        ],
+        [
+          10.5,
+          93,
+          46.5
+        ],
+        [
+          11.5,
+          93.5,
+          46.5
+        ]
+      ]
+    },
+    {
+      "id": "qpr-cb1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          92,
+          33
+        ],
+        [
+          2,
+          91,
+          34
+        ],
+        [
+          4,
+          90,
+          35
+        ],
+        [
+          5.5,
+          89.8,
+          34.5
+        ],
+        [
+          7,
+          91,
+          36
+        ],
+        [
+          8.5,
+          93,
+          37
+        ],
+        [
+          10,
+          94,
+          37
+        ],
+        [
+          11.5,
+          94.5,
+          37
+        ]
+      ]
+    },
+    {
+      "id": "qpr-cb2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          94,
+          26
+        ],
+        [
+          2,
+          94.3,
+          26.5
+        ],
+        [
+          4,
+          94.5,
+          27
+        ],
+        [
+          6,
+          94.8,
+          27.3
+        ],
+        [
+          8,
+          95,
+          27.5
+        ],
+        [
+          9.75,
+          95.5,
+          28.3
+        ],
+        [
+          11.5,
+          96,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "qpr-rb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          91,
+          20
+        ],
+        [
+          1.92,
+          91.3,
+          20.2
+        ],
+        [
+          3.83,
+          91.7,
+          20.3
+        ],
+        [
+          5.75,
+          92,
+          20.5
+        ],
+        [
+          7.67,
+          92.3,
+          20.7
+        ],
+        [
+          9.58,
+          92.7,
+          20.8
+        ],
+        [
+          11.5,
+          93,
+          21
+        ]
+      ]
+    },
+    {
+      "id": "qpr-dm1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          56,
+          29
+        ],
+        [
+          1.2,
+          59,
+          30
+        ],
+        [
+          2.4,
+          63,
+          31.5
+        ],
+        [
+          3.6,
+          67,
+          32
+        ],
+        [
+          4.8,
+          71,
+          32
+        ],
+        [
+          6.5,
+          75,
+          32.5
+        ],
+        [
+          8.5,
+          79,
+          33
+        ],
+        [
+          10,
+          80.5,
+          33
+        ],
+        [
+          11.5,
+          82,
+          33
+        ]
+      ]
+    },
+    {
+      "id": "qpr-dm2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          72,
+          48
+        ],
+        [
+          1.5,
+          74,
+          47
+        ],
+        [
+          3,
+          76,
+          46
+        ],
+        [
+          4.5,
+          79,
+          46
+        ],
+        [
+          6,
+          82,
+          46
+        ],
+        [
+          7.5,
+          84,
+          46.5
+        ],
+        [
+          9,
+          86,
+          47
+        ],
+        [
+          11.5,
+          88,
+          47
+        ]
+      ]
+    },
+    {
+      "id": "qpr-mf3",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          76,
+          24
+        ],
+        [
+          2,
+          78,
+          25
+        ],
+        [
+          4,
+          80,
+          26
+        ],
+        [
+          6,
+          83,
+          27
+        ],
+        [
+          8,
+          86,
+          28
+        ],
+        [
+          9.75,
+          87,
+          28
+        ],
+        [
+          11.5,
+          88,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "qpr-mf4",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          80,
+          56
+        ],
+        [
+          1.92,
+          81.7,
+          55.7
+        ],
+        [
+          3.83,
+          83.3,
+          55.3
+        ],
+        [
+          5.75,
+          85,
+          55
+        ],
+        [
+          7.67,
+          86.7,
+          54.7
+        ],
+        [
+          9.58,
+          88.3,
+          54.3
+        ],
+        [
+          11.5,
+          90,
+          54
+        ]
+      ]
+    },
+    {
+      "id": "qpr-fw",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          45,
+          40
+        ],
+        [
+          1.92,
+          46.2,
+          39.7
+        ],
+        [
+          3.83,
+          47.3,
+          39.3
+        ],
+        [
+          5.75,
+          48.5,
+          39
+        ],
+        [
+          7.67,
+          49.7,
+          38.7
+        ],
+        [
+          9.58,
+          50.8,
+          38.3
+        ],
+        [
+          11.5,
+          52,
+          38
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0,
+      "with": "dejong"
+    },
+    {
+      "t": 3,
+      "with": "dejong"
+    },
+    {
+      "t": 3.6,
+      "with": "aguero"
+    },
+    {
+      "t": 4.2,
+      "with": "aguero"
+    },
+    {
+      "t": 4.8,
+      "with": "balotelli"
+    },
+    {
+      "t": 5.4,
+      "with": "balotelli"
+    },
+    {
+      "t": 5.75,
+      "with": "aguero"
+    },
+    {
+      "t": 8.2,
+      "with": "aguero"
+    },
+    {
+      "t": 8.65,
+      "x": 105.4,
+      "y": 37.2
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "90+4', 2–2. City need a winner to take the title."
+    },
+    {
+      "t": 1.5,
+      "text": "De Jong drives forward and finds Agüero."
+    },
+    {
+      "t": 4.2,
+      "text": "Agüero plays it into Balotelli on the edge of the box…"
+    },
+    {
+      "t": 5.4,
+      "text": "…Balotelli, going down, pokes it back into Agüero's path."
+    },
+    {
+      "t": 6.6,
+      "text": "Agüero goes past Taiwo's challenge…"
+    },
+    {
+      "t": 8.2,
+      "text": "…and drills it in at the near post, past Kenny."
+    },
+    {
+      "t": 8.65,
+      "text": "City 3–2 QPR. Champions on goal difference."
+    }
+  ],
+  "events": [
+    {
+      "t": 3,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 4.2,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 5.4,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 7,
+      "type": "tackle",
+      "team": "B"
+    },
+    {
+      "t": 8.2,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 8.65,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "actions": [],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "Deep into stoppage time at the Etihad. City need one more…"
+    },
+    {
+      "t": 1.2,
+      "text": "De Jong carries it into the QPR half."
+    },
+    {
+      "t": 3.6,
+      "text": "Agüero… looks inside, gives it to Balotelli."
+    },
+    {
+      "t": 5.4,
+      "text": "Balotelli's stumbling, but it's pushed back to Agüero!"
+    },
+    {
+      "t": 6.8,
+      "text": "Agüero's through the challenge, into the box!"
+    },
+    {
+      "t": 8.2,
+      "text": "Agüero shoots—"
+    },
+    {
+      "t": 8.65,
+      "text": "IT'S IN! City have found the winner! Unbelievable scenes!"
+    },
+    {
+      "t": 10,
+      "text": "The whole stadium is shaking. Forty-four years of waiting, over."
+    }
+  ],
+  "note": "Touch order (De Jong, Agüero, Balotelli, Agüero past Taiwo, shot past Kenny) follows reports; positions, supporting players, QPR's away kit colours and goalkeeper kits are approximate. Commentary is original, not the broadcast.",
+  "venue": {
+    "time": "day",
+    "roof": "partial",
+    "stands": "#6CABDD",
+    "accent": "#D6DADF",
+    "track": false,
+    "grass": "#3F8A3E",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "Level at 2–2 in stoppage time, and with Manchester United winning at Sunderland, City had to score to win the league on goal difference. QPR, down to ten men, were defending deep in numbers."
+    },
+    {
+      "label": "Build-up",
+      "text": "De Jong's carry through midfield gave City a rare chance to attack before QPR could settle. Agüero moved the ball into Balotelli on the edge of the box, then kept running for the return."
+    },
+    {
+      "label": "Key moment",
+      "text": "Balotelli, going to ground under pressure, poked the ball back into Agüero's stride. The one-two turned a crowded edge of the box into a direct run at goal."
+    },
+    {
+      "label": "The finish",
+      "text": "Agüero rode Taiwo's challenge and kept balance on the right of the box. The shot was driven in at the near post, beating Kenny before QPR could close again."
+    }
+  ],
+  "footage": {
+    "youtube": "QdZfs3aj3uk",
+    "start": 0,
+    "channel": "Man City"
+  }
+}

@@ -1,0 +1,1343 @@
+{
+  "title": "Al-Owairan's solo run",
+  "subtitle": "FIFA World Cup, group F · RFK Stadium, Washington · 29 Jun 1994",
+  "clock": "5'",
+  "duration": 14.8,
+  "teams": {
+    "A": {
+      "name": "Saudi Arabia",
+      "short": "KSA",
+      "color": "#F4F4F0",
+      "color2": "#0B7A3B",
+      "text": "#0B7A3B",
+      "pattern": "plain",
+      "shorts": "#0B7A3B",
+      "socks": "#F4F4F0",
+      "gkColor": "#2A2A30"
+    },
+    "B": {
+      "name": "Belgium",
+      "short": "BEL",
+      "color": "#D0202E",
+      "color2": "#1A1A1E",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#D0202E",
+      "socks": "#D0202E",
+      "gkColor": "#F2C94C"
+    }
+  },
+  "score": [
+    0,
+    0
+  ],
+  "players": [
+    {
+      "id": "al-owairan",
+      "team": "A",
+      "num": 10,
+      "name": "Al-Owairan",
+      "star": true,
+      "look": {
+        "skin": "tan",
+        "hair": "short",
+        "hairColor": "black"
+      },
+      "path": [
+        [
+          0,
+          34,
+          50
+        ],
+        [
+          0.9,
+          35.5,
+          49
+        ],
+        [
+          2,
+          41,
+          48
+        ],
+        [
+          3.2,
+          48,
+          47
+        ],
+        [
+          4.4,
+          55,
+          45.5
+        ],
+        [
+          5.6,
+          62,
+          44
+        ],
+        [
+          6.8,
+          69,
+          43
+        ],
+        [
+          8,
+          76,
+          42
+        ],
+        [
+          9.2,
+          83,
+          41
+        ],
+        [
+          10.4,
+          89,
+          40
+        ],
+        [
+          11.3,
+          93,
+          38.5
+        ],
+        [
+          12.5,
+          97,
+          37
+        ],
+        [
+          13.65,
+          97.75,
+          36.75
+        ],
+        [
+          14.8,
+          98.5,
+          36.5
+        ]
+      ]
+    },
+    {
+      "id": "ksa-passer",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          25,
+          43
+        ],
+        [
+          2.11,
+          26.86,
+          42.86
+        ],
+        [
+          4.23,
+          28.71,
+          42.71
+        ],
+        [
+          6.34,
+          30.57,
+          42.57
+        ],
+        [
+          8.46,
+          32.43,
+          42.43
+        ],
+        [
+          10.57,
+          34.29,
+          42.29
+        ],
+        [
+          12.69,
+          36.14,
+          42.14
+        ],
+        [
+          14.8,
+          38,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "ksa-gk",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "gk": true,
+      "path": [
+        [
+          0,
+          8,
+          34
+        ],
+        [
+          2.11,
+          8.86,
+          34
+        ],
+        [
+          4.23,
+          9.71,
+          34
+        ],
+        [
+          6.34,
+          10.57,
+          34
+        ],
+        [
+          8.46,
+          11.43,
+          34
+        ],
+        [
+          10.57,
+          12.29,
+          34
+        ],
+        [
+          12.69,
+          13.14,
+          34
+        ],
+        [
+          14.8,
+          14,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "ksa-cb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          24,
+          30
+        ],
+        [
+          2.11,
+          25.71,
+          30
+        ],
+        [
+          4.23,
+          27.43,
+          30
+        ],
+        [
+          6.34,
+          29.14,
+          30
+        ],
+        [
+          8.46,
+          30.86,
+          30
+        ],
+        [
+          10.57,
+          32.57,
+          30
+        ],
+        [
+          12.69,
+          34.29,
+          30
+        ],
+        [
+          14.8,
+          36,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "ksa-lb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          30,
+          14
+        ],
+        [
+          2.11,
+          32,
+          14.29
+        ],
+        [
+          4.23,
+          34,
+          14.57
+        ],
+        [
+          6.34,
+          36,
+          14.86
+        ],
+        [
+          8.46,
+          38,
+          15.14
+        ],
+        [
+          10.57,
+          40,
+          15.43
+        ],
+        [
+          12.69,
+          42,
+          15.71
+        ],
+        [
+          14.8,
+          44,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "ksa-rb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          30,
+          58
+        ],
+        [
+          2.11,
+          32.29,
+          58
+        ],
+        [
+          4.23,
+          34.57,
+          58
+        ],
+        [
+          6.34,
+          36.86,
+          58
+        ],
+        [
+          8.46,
+          39.14,
+          58
+        ],
+        [
+          10.57,
+          41.43,
+          58
+        ],
+        [
+          12.69,
+          43.71,
+          58
+        ],
+        [
+          14.8,
+          46,
+          58
+        ]
+      ]
+    },
+    {
+      "id": "ksa-m1",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          44,
+          26
+        ],
+        [
+          2.11,
+          46.57,
+          25.71
+        ],
+        [
+          4.23,
+          49.14,
+          25.43
+        ],
+        [
+          6.34,
+          51.71,
+          25.14
+        ],
+        [
+          8.46,
+          54.29,
+          24.86
+        ],
+        [
+          10.57,
+          56.86,
+          24.57
+        ],
+        [
+          12.69,
+          59.43,
+          24.29
+        ],
+        [
+          14.8,
+          62,
+          24
+        ]
+      ]
+    },
+    {
+      "id": "ksa-m2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          50,
+          60
+        ],
+        [
+          2.11,
+          53.43,
+          60
+        ],
+        [
+          4.23,
+          56.86,
+          60
+        ],
+        [
+          6.34,
+          60.29,
+          60
+        ],
+        [
+          8.46,
+          63.71,
+          60
+        ],
+        [
+          10.57,
+          67.14,
+          60
+        ],
+        [
+          12.69,
+          70.57,
+          60
+        ],
+        [
+          14.8,
+          74,
+          60
+        ]
+      ]
+    },
+    {
+      "id": "ksa-m3",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          50,
+          40
+        ],
+        [
+          2.11,
+          52.29,
+          39.71
+        ],
+        [
+          4.23,
+          54.57,
+          39.43
+        ],
+        [
+          6.34,
+          56.86,
+          39.14
+        ],
+        [
+          8.46,
+          59.14,
+          38.86
+        ],
+        [
+          10.57,
+          61.43,
+          38.57
+        ],
+        [
+          12.69,
+          63.71,
+          38.29
+        ],
+        [
+          14.8,
+          66,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "ksa-fw1",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          70,
+          28
+        ],
+        [
+          2.11,
+          72.86,
+          27.71
+        ],
+        [
+          4.23,
+          75.71,
+          27.43
+        ],
+        [
+          6.34,
+          78.57,
+          27.14
+        ],
+        [
+          8.46,
+          81.43,
+          26.86
+        ],
+        [
+          10.57,
+          84.29,
+          26.57
+        ],
+        [
+          12.69,
+          87.14,
+          26.29
+        ],
+        [
+          14.8,
+          90,
+          26
+        ]
+      ]
+    },
+    {
+      "id": "ksa-fw2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          64,
+          34
+        ],
+        [
+          2.11,
+          67.14,
+          33.43
+        ],
+        [
+          4.23,
+          70.29,
+          32.86
+        ],
+        [
+          6.34,
+          73.43,
+          32.29
+        ],
+        [
+          8.46,
+          76.57,
+          31.71
+        ],
+        [
+          10.57,
+          79.71,
+          31.14
+        ],
+        [
+          12.69,
+          82.86,
+          30.57
+        ],
+        [
+          14.8,
+          86,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "preudhomme",
+      "team": "B",
+      "num": 1,
+      "name": "Preud'homme",
+      "gk": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown"
+      },
+      "path": [
+        [
+          0,
+          102,
+          34
+        ],
+        [
+          2,
+          101.88,
+          34.38
+        ],
+        [
+          4,
+          101.75,
+          34.75
+        ],
+        [
+          6,
+          101.63,
+          35.13
+        ],
+        [
+          8,
+          101.5,
+          35.5
+        ],
+        [
+          9.2,
+          101,
+          36
+        ],
+        [
+          10.4,
+          100.5,
+          36.5
+        ],
+        [
+          11.3,
+          100.2,
+          37.2
+        ],
+        [
+          12.1,
+          100.8,
+          36.4
+        ],
+        [
+          13.45,
+          100.9,
+          36.1
+        ],
+        [
+          14.8,
+          101,
+          35.8
+        ]
+      ]
+    },
+    {
+      "id": "bel-1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          46,
+          44
+        ],
+        [
+          2,
+          46,
+          45.5
+        ],
+        [
+          3.2,
+          47,
+          44.2
+        ],
+        [
+          4.4,
+          49,
+          45
+        ],
+        [
+          6,
+          52,
+          45
+        ],
+        [
+          8.2,
+          53.5,
+          45
+        ],
+        [
+          10.4,
+          55,
+          45
+        ],
+        [
+          12.6,
+          56.5,
+          45
+        ],
+        [
+          14.8,
+          58,
+          45
+        ]
+      ]
+    },
+    {
+      "id": "bel-2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          64,
+          40
+        ],
+        [
+          1.6,
+          63,
+          40.75
+        ],
+        [
+          3.2,
+          62,
+          41.5
+        ],
+        [
+          4.4,
+          60.5,
+          42
+        ],
+        [
+          5.6,
+          60.5,
+          41
+        ],
+        [
+          6.8,
+          63,
+          40
+        ],
+        [
+          8.8,
+          65.25,
+          40
+        ],
+        [
+          10.8,
+          67.5,
+          40
+        ],
+        [
+          12.8,
+          69.75,
+          40
+        ],
+        [
+          14.8,
+          72,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "bel-3",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          82,
+          34
+        ],
+        [
+          2.2,
+          81,
+          35
+        ],
+        [
+          4.4,
+          80,
+          36
+        ],
+        [
+          5.6,
+          78.75,
+          37
+        ],
+        [
+          6.8,
+          77.5,
+          38
+        ],
+        [
+          8,
+          76.5,
+          38.5
+        ],
+        [
+          9.2,
+          79,
+          39
+        ],
+        [
+          11.07,
+          81.33,
+          39
+        ],
+        [
+          12.93,
+          83.67,
+          39
+        ],
+        [
+          14.8,
+          86,
+          39
+        ]
+      ]
+    },
+    {
+      "id": "bel-4",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          80,
+          52
+        ],
+        [
+          2.2,
+          79.5,
+          51
+        ],
+        [
+          4.4,
+          79,
+          50
+        ],
+        [
+          5.6,
+          78,
+          48.5
+        ],
+        [
+          6.8,
+          77,
+          47
+        ],
+        [
+          8,
+          77,
+          45.8
+        ],
+        [
+          9.2,
+          80,
+          45
+        ],
+        [
+          10.4,
+          85,
+          44.5
+        ],
+        [
+          12.5,
+          90,
+          42
+        ],
+        [
+          13.65,
+          91,
+          41.5
+        ],
+        [
+          14.8,
+          92,
+          41
+        ]
+      ]
+    },
+    {
+      "id": "bel-5",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          90,
+          32
+        ],
+        [
+          1.7,
+          90,
+          32.75
+        ],
+        [
+          3.4,
+          90,
+          33.5
+        ],
+        [
+          5.1,
+          90,
+          34.25
+        ],
+        [
+          6.8,
+          90,
+          35
+        ],
+        [
+          8,
+          89.25,
+          36
+        ],
+        [
+          9.2,
+          88.5,
+          37
+        ],
+        [
+          10.4,
+          88.5,
+          37.3
+        ],
+        [
+          11.3,
+          89.5,
+          37
+        ],
+        [
+          12.5,
+          92,
+          36.5
+        ],
+        [
+          13.65,
+          93.5,
+          36
+        ],
+        [
+          14.8,
+          95,
+          35.5
+        ]
+      ]
+    },
+    {
+      "id": "bel-6",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          90,
+          24
+        ],
+        [
+          2.11,
+          91,
+          24.57
+        ],
+        [
+          4.23,
+          92,
+          25.14
+        ],
+        [
+          6.34,
+          93,
+          25.71
+        ],
+        [
+          8.46,
+          94,
+          26.29
+        ],
+        [
+          10.57,
+          95,
+          26.86
+        ],
+        [
+          12.69,
+          96,
+          27.43
+        ],
+        [
+          14.8,
+          97,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "bel-7",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          84,
+          14
+        ],
+        [
+          2.11,
+          85.14,
+          14.86
+        ],
+        [
+          4.23,
+          86.29,
+          15.71
+        ],
+        [
+          6.34,
+          87.43,
+          16.57
+        ],
+        [
+          8.46,
+          88.57,
+          17.43
+        ],
+        [
+          10.57,
+          89.71,
+          18.29
+        ],
+        [
+          12.69,
+          90.86,
+          19.14
+        ],
+        [
+          14.8,
+          92,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "bel-8",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          60,
+          30
+        ],
+        [
+          2.11,
+          61.43,
+          30.29
+        ],
+        [
+          4.23,
+          62.86,
+          30.57
+        ],
+        [
+          6.34,
+          64.29,
+          30.86
+        ],
+        [
+          8.46,
+          65.71,
+          31.14
+        ],
+        [
+          10.57,
+          67.14,
+          31.43
+        ],
+        [
+          12.69,
+          68.57,
+          31.71
+        ],
+        [
+          14.8,
+          70,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "bel-9",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          40,
+          34
+        ],
+        [
+          2.11,
+          40.86,
+          34
+        ],
+        [
+          4.23,
+          41.71,
+          34
+        ],
+        [
+          6.34,
+          42.57,
+          34
+        ],
+        [
+          8.46,
+          43.43,
+          34
+        ],
+        [
+          10.57,
+          44.29,
+          34
+        ],
+        [
+          12.69,
+          45.14,
+          34
+        ],
+        [
+          14.8,
+          46,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "bel-10",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          70,
+          55
+        ],
+        [
+          2.11,
+          72,
+          54.29
+        ],
+        [
+          4.23,
+          74,
+          53.57
+        ],
+        [
+          6.34,
+          76,
+          52.86
+        ],
+        [
+          8.46,
+          78,
+          52.14
+        ],
+        [
+          10.57,
+          80,
+          51.43
+        ],
+        [
+          12.69,
+          82,
+          50.71
+        ],
+        [
+          14.8,
+          84,
+          50
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0,
+      "with": "ksa-passer"
+    },
+    {
+      "t": 0.9,
+      "with": "al-owairan"
+    },
+    {
+      "t": 11.3,
+      "with": "al-owairan"
+    },
+    {
+      "t": 11.8,
+      "x": 105.5,
+      "y": 32.2
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "5' — Saudi Arabia and Belgium are level at 0–0."
+    },
+    {
+      "t": 0.9,
+      "text": "Al-Owairan picks the ball up deep in the Saudi half."
+    },
+    {
+      "t": 3.2,
+      "text": "Al-Owairan powers past the first challenge…"
+    },
+    {
+      "t": 5.6,
+      "text": "…and keeps going, straight through midfield."
+    },
+    {
+      "t": 8,
+      "text": "Two Belgians close in; Al-Owairan bursts between them."
+    },
+    {
+      "t": 10.4,
+      "text": "Into the box, with one more defender beaten."
+    },
+    {
+      "t": 11.3,
+      "text": "The finish beats Preud'homme. Saudi Arabia lead 1–0."
+    }
+  ],
+  "events": [
+    {
+      "t": 0,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 11.3,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 11.8,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "Early days here in Washington, and Belgium have started brightly."
+    },
+    {
+      "t": 0.9,
+      "text": "Al-Owairan collects it deep in the Saudi half…"
+    },
+    {
+      "t": 3.2,
+      "text": "Past one — and still carrying it forward at real pace!"
+    },
+    {
+      "t": 5.6,
+      "text": "Still going, over halfway, nobody can stop this!"
+    },
+    {
+      "t": 8,
+      "text": "Straight between two of them!"
+    },
+    {
+      "t": 10.4,
+      "text": "Into the penalty area now…"
+    },
+    {
+      "t": 11.3,
+      "text": "Al-Owairan shoots…"
+    },
+    {
+      "t": 11.8,
+      "text": "IT'S IN! What a run! Saudi Arabia lead with an astonishing goal!"
+    },
+    {
+      "t": 13.2,
+      "text": "Nearly the length of the pitch, all alone. Unforgettable."
+    }
+  ],
+  "venue": {
+    "time": "day",
+    "roof": "partial",
+    "stands": "#b04a33",
+    "accent": "#d6a83c",
+    "track": false,
+    "grass": "#6a9a3e",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "Only five minutes in, with the score 0–0, Belgium had started on the front foot. Players pushed forward left space behind the Belgian midfield for a counter from deep."
+    },
+    {
+      "label": "Key moment",
+      "text": "Al-Owairan took the ball in the Saudi half and went straight at goal. Beating the first challenge at pace meant the Belgian midfield was already chasing from behind."
+    },
+    {
+      "label": "Defenders' choices",
+      "text": "Belgians came in one or two at a time and never stopped the run early with a foul. Each tackle that missed left the next defender facing a player at full speed."
+    },
+    {
+      "label": "Why it worked",
+      "text": "Pace and a direct line kept the defence retreating all the way. By the time Al-Owairan reached the box, Preud'homme was left facing the attacker almost alone."
+    }
+  ],
+  "note": "Reconstructed from memory of the footage: the long solo run from inside the Saudi half is as remembered, but how the move started, the exact line of the run, which and how many Belgians were beaten, the finish and the kits are approximate. Commentary is original, not the broadcast.",
+  "actions": []
+}

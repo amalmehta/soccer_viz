@@ -1,0 +1,2982 @@
+<title>Birdseye FC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --ground: #EBF0EA;
+    --surface: #FFFFFF;
+    --ink: #11241A;
+    --muted: #566B5E;
+    --rule: #D2DCD3;
+    --chip: #E0E8E1;
+    --accent: #FFC53D;
+    --accent-ink: #2A1E00;
+    --focus: #1E6B3E;
+    --grass-a: #3E9A5A;
+    --grass-b: #46A462;
+    --grass-edge: #378F50;
+    --chalk: rgba(255, 255, 255, 0.88);
+    --shadow: rgba(17, 36, 26, 0.16);
+    --display: "Big Shoulders Display", "Arial Narrow", "Roboto Condensed", sans-serif;
+    --body: "Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0D1611;
+      --surface: #142019;
+      --ink: #E2ECE4;
+      --muted: #91A698;
+      --rule: #26362C;
+      --chip: #1C2A21;
+      --accent: #FFC53D;
+      --accent-ink: #2A1E00;
+      --focus: #8FD6A8;
+      --grass-a: #2C6F43;
+      --grass-b: #32794A;
+      --grass-edge: #28663D;
+      --chalk: rgba(236, 246, 238, 0.78);
+      --shadow: rgba(0, 0, 0, 0.45);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0D1611;
+    --surface: #142019;
+    --ink: #E2ECE4;
+    --muted: #91A698;
+    --rule: #26362C;
+    --chip: #1C2A21;
+    --accent: #FFC53D;
+    --accent-ink: #2A1E00;
+    --focus: #8FD6A8;
+    --grass-a: #2C6F43;
+    --grass-b: #32794A;
+    --grass-edge: #28663D;
+    --chalk: rgba(236, 246, 238, 0.78);
+    --shadow: rgba(0, 0, 0, 0.45);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font: 15px/1.55 var(--body);
+    padding-inline: 20px;
+    padding-block: 0 72px;
+    -webkit-font-smoothing: antialiased;
+  }
+  button, textarea { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  .top, .layout { max-width: 1240px; margin-inline: auto; }
+  .top {
+    display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 16px;
+    padding-block: 18px 22px;
+  }
+  .brand {
+    display: inline-flex; align-items: center; gap: 9px;
+    font: 900 24px/1 var(--display); letter-spacing: 0.02em; text-transform: uppercase;
+  }
+  .brand svg { width: 26px; height: 18px; flex: none; transform: translateY(1px); }
+  .tag { margin: 0; color: var(--muted); font-size: 14px; }
+
+  .layout {
+    display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 44px; align-items: start;
+  }
+  @media (max-width: 920px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 36px; } }
+
+  /* Stage */
+  .stage { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .stage-head {
+    display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px 24px;
+  }
+  .titles { min-width: 0; }
+  .eyebrow {
+    margin: 0 0 6px; color: var(--muted);
+    font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  h1 {
+    margin: 0; font: 800 clamp(32px, 4.4vw, 50px)/0.92 var(--display);
+    text-transform: uppercase; letter-spacing: 0.005em; text-wrap: balance;
+  }
+  .board { display: flex; align-items: center; gap: 12px; }
+  .clock {
+    font: 500 13px/1 var(--mono); color: var(--muted);
+    padding: 6px 8px; border: 1px solid var(--rule); border-radius: 6px;
+  }
+  .clock:empty { display: none; }
+  .team { display: inline-flex; align-items: center; gap: 7px; font: 800 20px/1 var(--display); letter-spacing: 0.04em; }
+  .kit { width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid transparent; display: inline-block; }
+  .score {
+    display: inline-flex; align-items: center; gap: 6px;
+    font: 800 36px/1 var(--display); font-variant-numeric: tabular-nums;
+    padding: 4px 12px 2px; background: var(--ink); color: var(--ground); border-radius: 6px;
+  }
+  .score .dash { opacity: 0.55; font-weight: 700; }
+  .score.pop { animation: pop 0.6s ease-out; }
+  @keyframes pop { 0% { background: var(--accent); color: var(--accent-ink); transform: scale(1.12); } 100% { transform: scale(1); } }
+
+  .pitch-wrap {
+    position: relative; border-radius: 10px; overflow: hidden;
+    background: var(--grass-edge); box-shadow: 0 1px 0 var(--shadow), 0 14px 32px -18px var(--shadow);
+  }
+  canvas { display: block; width: 100%; }
+
+  .caption-row { display: flex; gap: 12px; align-items: baseline; min-height: calc(1.35em * 2); font-size: 19px; }
+  .caption-time { font: 500 13px/1 var(--mono); color: var(--muted); flex: none; width: 3.2em; }
+  .caption { margin: 0; font-weight: 600; line-height: 1.35; text-wrap: balance; transition: opacity 0.25s; }
+  .caption.fade { opacity: 0.15; }
+
+  .controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .icon-btn {
+    width: 40px; height: 40px; flex: none; display: grid; place-items: center;
+    border-radius: 50%; border: 1px solid var(--rule); background: var(--surface); cursor: pointer;
+  }
+  .icon-btn svg { width: 16px; height: 16px; fill: currentColor; }
+  .icon-btn.play { width: 46px; height: 46px; background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+  .icon-btn.play svg { width: 18px; height: 18px; }
+  .scrub { position: relative; flex: 1 1 200px; min-width: 0; height: 28px; }
+  .ticks { position: absolute; inset: 0 8px; pointer-events: none; }
+  .ticks i { position: absolute; top: 20px; width: 2px; height: 6px; margin-left: -1px; background: var(--muted); opacity: 0.5; border-radius: 1px; }
+  .ticks i.goal { top: 19px; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: var(--accent); opacity: 1; box-shadow: 0 0 0 1.5px var(--ink); }
+  input[type="range"] {
+    -webkit-appearance: none; appearance: none; position: absolute; inset: 0;
+    width: 100%; height: 20px; margin: 0; background: transparent; cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 6px; border-radius: 3px;
+    background: linear-gradient(to right, var(--ink) var(--p, 0%), var(--rule) var(--p, 0%));
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 16px; height: 16px; margin-top: -5px;
+    border-radius: 50%; background: var(--accent); border: 2px solid var(--ink);
+  }
+  input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; background: var(--rule); }
+  input[type="range"]::-moz-range-progress { height: 6px; border-radius: 3px; background: var(--ink); }
+  input[type="range"]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 2px solid var(--ink); }
+  .time { font: 500 13px/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .speed { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+  .speed button {
+    border: 0; background: var(--surface); padding: 7px 10px; cursor: pointer;
+    font: 500 12px/1 var(--mono); color: var(--muted);
+  }
+  .speed button + button { border-left: 1px solid var(--rule); }
+  .speed button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+  @media (max-width: 560px) {
+    .scrub { order: 5; flex-basis: 100%; }
+    .time { margin-left: auto; }
+  }
+  .note { margin: 0; font-size: 13px; color: var(--muted); }
+  .looks { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; }
+  .looks-label { font-size: 11px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
+  .looks-seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+  .looks-seg button {
+    border: 0; background: var(--surface); padding: 7px 12px; cursor: pointer;
+    font-size: 13px; font-weight: 600; color: var(--muted);
+  }
+  .looks-seg button + button { border-left: 1px solid var(--rule); }
+  .looks-seg button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+  .looks-seg button:disabled { cursor: default; }
+  .look-status { font-size: 13px; color: var(--muted); }
+  .media { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; align-items: start; }
+  /* Side by side at equal height: the pitch is 113:76, the video 16:9 */
+  @media (min-width: 700px) { .media.has-footage { grid-template-columns: minmax(0, 1fr) minmax(0, 1.195fr); } }
+  .footage { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+  .footage-frame { position: relative; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 10px; overflow: hidden; background: #000; }
+  .footage-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .footage figcaption { font-size: 12.5px; color: var(--muted); }
+  .link-btn { border: 0; background: none; padding: 0; font: inherit; color: var(--ink); text-decoration: underline; cursor: pointer; }
+  .footage-tools { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .footage-form { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; width: 100%; }
+  .footage-form label { font-size: 13px; color: var(--muted); }
+  .footage-form input {
+    font: inherit; font-size: 14px; padding: 7px 10px; border-radius: 8px;
+    border: 1px solid var(--rule); background: var(--surface); color: var(--ink);
+  }
+  .footage-form #footageUrl { flex: 1 1 260px; min-width: 0; }
+  .footage-note { flex-basis: 100%; margin: 0; font-size: 12.5px; color: var(--muted); }
+  .analysis { max-width: 68ch; border-top: 1px solid var(--rule); padding-top: 18px; margin-top: 4px; }
+  .analysis h2 { margin: 0 0 10px; font: 800 22px/1 var(--display); text-transform: uppercase; letter-spacing: 0.02em; }
+  .analysis p { margin: 0 0 10px; line-height: 1.6; text-wrap: pretty; }
+  .analysis strong { font-weight: 700; }
+  .voice-btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; cursor: pointer;
+    border: 1px solid var(--rule); border-radius: 999px; background: var(--surface);
+    font-size: 13px; font-weight: 600; color: var(--muted);
+  }
+  .voice-btn svg { width: 15px; height: 15px; fill: currentColor; }
+  .voice-btn[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+  .voice-select {
+    font: inherit; font-size: 13px; color: var(--ink); background: var(--surface);
+    border: 1px solid var(--rule); border-radius: 8px; padding: 6px 8px; max-width: 240px;
+  }
+  .voice-hint { margin: -4px 0 0; font-size: 13px; color: var(--muted); }
+  .foot-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px 16px; }
+  .video { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px 10px; margin-left: auto; }
+  .video select {
+    font: inherit; font-size: 13.5px; color: var(--ink); background: var(--surface);
+    border: 1px solid var(--rule); border-radius: 8px; padding: 8px 10px; max-width: 100%;
+  }
+  .video-status { font-size: 13px; color: var(--muted); }
+  .btn svg { width: 14px; height: 14px; fill: currentColor; vertical-align: -2px; margin-right: 7px; }
+
+  /* Sidebar */
+  .side { display: flex; flex-direction: column; gap: 30px; }
+  .side h2 { margin: 0 0 10px; font: 800 22px/1 var(--display); text-transform: uppercase; letter-spacing: 0.02em; }
+  .gen label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  textarea {
+    width: 100%; resize: vertical; min-height: 84px; padding: 10px 12px;
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; line-height: 1.45;
+  }
+  textarea::placeholder { color: var(--muted); opacity: 0.8; }
+  .gen-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .btn {
+    padding: 9px 16px; border-radius: 8px; border: 1px solid var(--rule);
+    background: var(--surface); font-weight: 600; font-size: 14px; cursor: pointer;
+  }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+  .btn:disabled { opacity: 0.5; cursor: default; }
+  .status { margin: 10px 0 0; font-size: 14px; min-height: 1.4em; }
+  .status.working::before {
+    content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 0 1.5px var(--ink); animation: bob 0.9s ease-in-out infinite alternate;
+  }
+  @keyframes bob { from { transform: translateY(1px); } to { transform: translateY(-3px); } }
+  .fine { margin: 6px 0 0; font-size: 12.5px; color: var(--muted); }
+
+  .lib { border-top: 1px solid var(--rule); padding-top: 22px; }
+  .group-label {
+    margin: 14px 0 4px; font-size: 11px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted);
+  }
+  .group-label:first-of-type { margin-top: 0; }
+  .play-item {
+    width: 100%; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2px 10px;
+    text-align: left; padding: 9px 12px; margin-inline: -12px; width: calc(100% + 24px);
+    background: transparent; border: 1px solid transparent; border-radius: 8px; cursor: pointer;
+  }
+  .play-item:hover { background: var(--chip); }
+  .play-item[aria-current="true"] { background: var(--surface); border-color: var(--rule); }
+  .pi-title { font-weight: 600; }
+  .pi-meta { grid-column: 1; font-size: 12.5px; color: var(--muted); }
+  .pi-kits { grid-column: 2; grid-row: 1 / span 2; display: inline-flex; }
+  .pi-kits i { width: 12px; height: 12px; border-radius: 50%; border: 2px solid transparent; }
+  .pi-kits i + i { margin-left: -3px; }
+
+  /* Feedback */
+  .fb-tab {
+    position: fixed; right: 16px; bottom: 16px; z-index: 10;
+    padding: 6px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
+    background: var(--surface); color: var(--muted); border: 1px solid var(--rule); cursor: pointer;
+    box-shadow: 0 6px 16px -10px var(--shadow);
+  }
+  .fb-tab:hover { color: var(--ink); }
+  .fb-panel {
+    position: fixed; right: 16px; bottom: 56px; z-index: 11; width: min(320px, calc(100vw - 32px));
+    padding: 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px;
+    box-shadow: 0 18px 40px -20px var(--shadow);
+  }
+  .fb-panel h3 { margin: 0 0 8px; font-size: 14px; }
+  .fb-panel textarea { min-height: 88px; font-size: 14px; }
+  .fb-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .fb-row .status { margin: 0; font-size: 13px; color: var(--muted); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .score.pop, .status.working::before { animation: none; }
+    .caption { transition: none; }
+  }
+</style>
+
+<header class="top">
+  <span class="brand">
+    <svg viewBox="0 0 26 18" aria-hidden="true"><rect x="1" y="1" width="24" height="16" rx="2.5" fill="var(--grass-a)" stroke="var(--ink)" stroke-width="1.5"/><line x1="13" y1="1" x2="13" y2="17" stroke="#fff" stroke-width="1.2"/><circle cx="13" cy="9" r="3" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="19" cy="6" r="1.8" fill="var(--accent)" stroke="var(--ink)" stroke-width="0.8"/></svg>
+    Birdseye FC
+  </span>
+  <p class="tag">Famous goals and classic moves, drawn from above.</p>
+</header>
+
+<div class="layout">
+  <main class="stage">
+    <div class="stage-head">
+      <div class="titles">
+        <p class="eyebrow" id="subtitle"></p>
+        <h1 id="title"></h1>
+      </div>
+      <div class="board" aria-label="Scoreline">
+        <span class="clock" id="clock"></span>
+        <span class="team"><i class="kit" id="kitA"></i><span id="shortA"></span></span>
+        <span class="score" id="score"><span id="scoreA">0</span><span class="dash">–</span><span id="scoreB">0</span></span>
+        <span class="team"><span id="shortB"></span><i class="kit" id="kitB"></i></span>
+      </div>
+    </div>
+
+    <div class="looks">
+      <span class="looks-label" id="looksLabel">Look</span>
+      <div class="looks-seg" role="group" aria-labelledby="looksLabel">
+        <button data-look="classic" aria-pressed="true">Classic</button>
+        <button data-look="broadcast" aria-pressed="false">Broadcast</button>
+        <button data-look="arcade" aria-pressed="false">Arcade</button>
+        <button data-look="stadium3d" aria-pressed="false">3D</button>
+      </div>
+      <button class="voice-btn" id="crowdBtn" aria-pressed="true" hidden
+        title="Stadium crowd sound that follows the play. It's also added to downloaded videos.">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="4" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="8" cy="4" r="2.3"/><path d="M0.5 13c0-3 1.6-4.8 3.5-4.8S7.5 10 7.5 13zM8.5 13c0-3 1.6-4.8 3.5-4.8s3.5 1.8 3.5 4.8zM4 13.5c0-3.4 1.8-5.6 4-5.6s4 2.2 4 5.6z"/></svg>
+        <span id="crowdLabel">Crowd on</span>
+      </button>
+      <button class="voice-btn" id="voiceBtn" aria-pressed="true" hidden
+        title="Reads the commentary aloud while the play runs. Downloaded videos stay silent.">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h2.5L8 3v10L4.5 10H2z"/><path id="voiceWaves" d="M10.2 5.2a4 4 0 0 1 0 5.6l-1-1a2.6 2.6 0 0 0 0-3.6zM12.3 3.1a7 7 0 0 1 0 9.8l-1-1a5.6 5.6 0 0 0 0-7.8z"/></svg>
+        <span id="voiceLabel">Voice on</span>
+      </button>
+      <select class="voice-select" id="voiceSelect" aria-label="Commentary voice" hidden></select>
+      <span class="look-status" id="lookStatus" role="status"></span>
+    </div>
+
+    <p class="voice-hint" id="voiceHint" hidden></p>
+
+    <div class="media" id="media">
+      <div class="pitch-wrap" id="pitchWrap">
+        <canvas id="pitch" role="img"></canvas>
+      </div>
+      <figure class="footage" id="footage" hidden>
+        <div class="footage-frame">
+          <iframe id="footageFrame" title="Real footage from YouTube" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <figcaption><span id="footageSource">Real footage via YouTube</span> · <button class="link-btn" id="footageEdit" type="button">Change</button> · <button class="link-btn" id="footageRemove" type="button">Remove</button></figcaption>
+      </figure>
+    </div>
+
+    <div class="footage-tools" id="footageTools" hidden>
+      <p class="footage-note" id="footageBlocked" hidden></p>
+      <button class="btn" id="footageAdd" type="button">+ Add real footage</button>
+      <form class="footage-form" id="footageForm" hidden>
+        <label for="footageUrl">YouTube link</label>
+        <input id="footageUrl" type="url" placeholder="https://www.youtube.com/watch?v=…" autocomplete="off">
+        <label for="footageStart">Starts at</label>
+        <input id="footageStart" type="text" inputmode="numeric" placeholder="1:35" size="6" autocomplete="off">
+        <button class="btn primary" type="submit">Show beside the animation</button>
+        <button class="btn" type="button" id="footageCancel">Cancel</button>
+        <p class="footage-note" id="footageNote">Paste a clip of this moment. "Starts at" is where the video lines up with the start of the animation; a time in the link (t=95) works too.</p>
+      </form>
+    </div>
+
+    <div class="caption-row">
+      <span class="caption-time" id="captionTime"></span>
+      <p class="caption" id="caption" aria-live="polite"></p>
+    </div>
+
+    <div class="controls">
+      <button class="icon-btn play" id="playBtn" aria-label="Play">
+        <svg viewBox="0 0 16 16" id="playIcon"><path d="M4 2.5v11l9.5-5.5z"/></svg>
+      </button>
+      <button class="icon-btn" id="restartBtn" aria-label="Restart">
+        <svg viewBox="0 0 16 16"><path d="M8 2.5a5.5 5.5 0 1 1-5.3 7h1.6A4 4 0 1 0 8 4v2.2L4.6 3.25 8 .3z"/></svg>
+      </button>
+      <div class="scrub">
+        <div class="ticks" id="ticks"></div>
+        <input type="range" id="scrubber" min="0" max="10" step="0.01" value="0" aria-label="Playback position">
+      </div>
+      <span class="time" id="time">0:00.0 / 0:00.0</span>
+      <div class="speed" role="group" aria-label="Playback speed">
+        <button data-speed="0.5" aria-pressed="false">0.5×</button>
+        <button data-speed="1" aria-pressed="true">1×</button>
+        <button data-speed="2" aria-pressed="false">2×</button>
+      </div>
+    </div>
+    <div class="foot-row">
+      <p class="note" id="note"></p>
+      <div class="video" id="videoControls">
+        <span class="video-status" id="videoStatus" role="status"></span>
+        <select id="videoFormat" aria-label="Video format"></select>
+        <button class="btn" id="videoBtn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M7 1.5h2v7.1l2.6-2.6 1.4 1.4L8 12.4 3 7.4 4.4 6 7 8.6zM2 13h12v2H2z"/></svg>Download video</button>
+      </div>
+    </div>
+    <section class="analysis" id="analysis" hidden>
+      <h2>Analysis</h2>
+      <div id="analysisBody"></div>
+    </section>
+  </main>
+
+  <aside class="side">
+    <section class="gen">
+      <h2>Animate a play</h2>
+      <label for="prompt">Describe a goal, a move or a moment</label>
+      <textarea id="prompt" rows="3" placeholder="e.g. Zidane's volley in the 2002 Champions League final"></textarea>
+      <div class="gen-actions">
+        <button class="btn primary" id="animateBtn">Animate</button>
+        <button class="btn" id="stopBtn" hidden>Stop</button>
+      </div>
+      <p class="status" id="genStatus" role="status"></p>
+      <p class="fine" id="genFine">Uses your Claude account. Video links can't be opened, so describe the play in words.</p>
+    </section>
+    <section class="lib">
+      <h2>Library</h2>
+      <div id="library"></div>
+    </section>
+  </aside>
+</div>
+
+<button class="fb-tab" id="fbTab" aria-expanded="false" aria-controls="fbPanel">Feedback</button>
+<div class="fb-panel" id="fbPanel" hidden>
+  <h3>What would make this better?</h3>
+  <textarea id="fbText" aria-label="Your feedback" placeholder="A play you want, something that looks off…"></textarea>
+  <div class="fb-row">
+    <button class="btn primary" id="fbSend">Send</button>
+    <p class="status" id="fbStatus" role="status"></p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mp4-muxer@5.1.3/build/mp4-muxer.js"></script>
+<script src="looks/broadcast.js"></script>
+<script src="looks/arcade.js"></script>
+<script src="looks/stadium3d.js"></script>
+<script src="sound/crowd.js"></script>
+<script src="library/clips.js"></script>
+<script>
+(() => {
+  "use strict";
+
+  // ---------- Pitch geometry (metres) ----------
+  const W = 105, H = 68, M = 4;
+  const GOAL_Y0 = 30.34, GOAL_Y1 = 37.66;
+
+  // ---------- Built-in plays ----------
+  const MESSI_2011 = {
+    title: "Messi's solo goal",
+    subtitle: "Champions League semi-final, 1st leg · Bernabéu · 27 Apr 2011",
+    clock: "87'",
+    duration: 15.5,
+    teams: {
+      A: { name: "Barcelona", short: "BAR", color: "#A50044", color2: "#004D98", text: "#FFFFFF", pattern: "stripes", shorts: "#004D98", socks: "#004D98", gkColor: "#2E2E33" },
+      B: { name: "Real Madrid", short: "RMA", color: "#F4F4EF", color2: "#1D2B6B", text: "#1D2B6B", pattern: "plain", shorts: "#F4F4EF", socks: "#F4F4EF", gkColor: "#F2A03D" }
+    },
+    score: [1, 0],
+    players: [
+      { id: "messi", team: "A", num: 10, name: "Messi", star: true, look: { skin: "light", hair: "short", hairColor: "dark-brown", beard: "none", height: 170 }, path: [[0,50,48],[2.2,51,46],[2.9,52,45],[4.1,57,43.6],[5.1,62,42.6],[6.4,69,42],[7.4,75,41.6],[8.4,81,42],[9.4,87,42.4],[10.4,92,41.8],[11.2,95.5,40.6],[11.9,97.5,39.6],[13,99,38.5],[15.5,98,38.5]] },
+      { id: "busquets", team: "A", num: 16, name: "Busquets", look: { skin: "light", hair: "short", hairColor: "black", beard: "stubble", height: 189 }, path: [[0,44,40],[2.2,47,40],[3,48,39],[6,52,38],[10,58,37]] },
+      { id: "bar-gk", team: "A", num: null, name: null, gk: true, path: [[0,6,34]] },
+      { id: "bar-cb1", team: "A", num: null, name: null, path: [[0,30,27],[15.5,36,28]] },
+      { id: "bar-cb2", team: "A", num: null, name: null, path: [[0,31,41],[15.5,37,41]] },
+      { id: "bar-rb", team: "A", num: null, name: null, path: [[0,47,61],[8,58,60],[15.5,68,57]] },
+      { id: "bar-lb", team: "A", num: null, name: null, path: [[0,42,11],[15.5,52,14]] },
+      { id: "bar-cm1", team: "A", num: null, name: null, path: [[0,53,26],[8,61,29],[15.5,72,31]] },
+      { id: "bar-cm2", team: "A", num: null, name: null, path: [[0,44,22],[10,55,23],[15.5,60,24]] },
+      { id: "bar-rw", team: "A", num: null, name: null, path: [[0,63,59],[10,79,56],[15.5,86,53]] },
+      { id: "bar-fw", team: "A", num: null, name: null, path: [[0,73,21],[10,85,24],[15.5,93,27]] },
+      { id: "casillas", team: "B", num: 1, name: "Casillas", gk: true, look: { skin: "fair", hair: "short", hairColor: "dark-brown", beard: "stubble", height: 185 }, path: [[0,103,34],[8,102.5,35.5],[10.4,101,38.5],[11.2,100,39.8],[11.6,101.3,38],[12.4,101.2,36],[15.5,101.2,36]] },
+      { id: "lass", team: "B", num: 24, name: "Lass", look: { skin: "dark", hair: "buzz", hairColor: "black", beard: "none", height: 173 }, path: [[0,60,40],[2.9,58.5,40.5],[4.1,58.6,41],[5.1,59,43.5],[6.6,63,44.5],[9,72,44.5],[12,80,44],[15.5,84,43]] },
+      { id: "albiol", team: "B", num: 18, name: "Albiol", look: { skin: "light", hair: "short", hairColor: "dark-brown", beard: "stubble", height: 190 }, path: [[0,82,39],[4,80,39],[6.4,76,39.5],[7.4,75,38.6],[9,79,40],[12,88,40],[15.5,92,39]] },
+      { id: "ramos", team: "B", num: 4, name: "Ramos", look: { skin: "olive", hair: "long", hairColor: "dark-brown", beard: "stubble", height: 184 }, path: [[0,84,30],[5,83,32],[8,85,36],[9.3,86.5,39.3],[10.2,88,40.5],[12,93,39.5],[15.5,95,36]] },
+      { id: "marcelo", team: "B", num: 12, name: "Marcelo", look: { skin: "brown", hair: "afro", hairColor: "black", beard: "none", height: 174 }, path: [[0,78,54],[5,80,52],[8.5,86,49],[10.6,92,45.5],[11.4,95,43.8],[13,97,41.5],[15.5,97,41.5]] },
+      { id: "rma-rb", team: "B", num: null, name: null, path: [[0,84,18],[8,87,22],[12,93,27],[15.5,95,29]] },
+      { id: "rma-dm", team: "B", num: null, name: null, path: [[0,66,33],[4,63,35],[8,69,37],[12,79,37],[15.5,85,34]] },
+      { id: "rma-fw1", team: "B", num: null, name: null, path: [[0,49,25],[6,53,27],[12,60,29],[15.5,64,30]] },
+      { id: "rma-fw2", team: "B", num: null, name: null, path: [[0,56,35],[6,57,37],[12,64,38],[15.5,68,38]] },
+      { id: "rma-w", team: "B", num: null, name: null, path: [[0,59,57],[6,63,54],[12,72,50],[15.5,76,48]] }
+    ],
+    ball: [
+      { t: 0, with: "busquets" },
+      { t: 2.2, with: "busquets" },
+      { t: 2.9, with: "messi" },
+      { t: 11.2, with: "messi" },
+      { t: 11.7, x: 105.4, y: 31 }
+    ],
+    captions: [
+      { t: 0, text: "87' — Barça lead 1–0. Madrid are down to ten." },
+      { t: 2.2, text: "Busquets lays it off to Messi." },
+      { t: 4.0, text: "Messi skips past Lass Diarra…" },
+      { t: 6.6, text: "…leaves Albiol behind…" },
+      { t: 8.8, text: "…and Ramos can't get a foot in." },
+      { t: 10.3, text: "Marcelo arrives too late." },
+      { t: 11.2, text: "Right foot, across Casillas, far corner." },
+      { t: 12.6, text: "Real Madrid 0–2 Barcelona." }
+    ],
+    events: [
+      { t: 2.2, type: "pass", team: "A" },
+      { t: 11.2, type: "shot", team: "A" },
+      { t: 11.7, type: "goal", team: "A" }
+    ],
+    commentary: [
+      { t: 0, text: "Eighty-seven minutes gone at the Bernabéu, and Barcelona are hanging on…" },
+      { t: 2.2, text: "Busquets, simply, into Messi. Here we go." },
+      { t: 4.0, text: "Away from Lass Diarra, still running…" },
+      { t: 6.4, text: "Albiol steps out to meet the run — beaten as well!" },
+      { t: 8.6, text: "Ramos can't get near the ball!" },
+      { t: 10.3, text: "Marcelo racing back, Casillas rushing out…" },
+      { t: 11.2, text: "Messi…" },
+      { t: 11.7, text: "…IT'S IN! What a goal! Barcelona two, Real Madrid nil!" },
+      { t: 13.2, text: "Straight through the heart of Madrid. Remarkable." }
+    ],
+    venue: { time: "night", roof: "partial", stands: "#2a3550", accent: "#d9dde3", track: false, grass: "#2e7a3c", mowing: "stripes" },
+    analysis: [
+      { label: "Context", text: "Barcelona led 1–0 and Madrid were down to ten after Pepe's red card, so Madrid had to push forward and left space between their lines." },
+      { label: "The run", text: "Busquets's lay-off found Messi facing goal. Messi went through the middle rather than wide, beating Lass Diarra, then Albiol, then Ramos, keeping the ball within a stride so no defender could commit to a tackle." },
+      { label: "The finish", text: "With Marcelo closing and Casillas coming out, Messi opened up and slid a right-footed shot across the keeper into the far corner." },
+      { label: "Why it worked", text: "The defenders came one at a time instead of together. Sharp changes of pace beat each one before the next could help." }
+    ],
+    note: "Reconstructed from match reports; positions, kits and player looks are approximate. Commentary is original, not the broadcast."
+  };
+
+  const GENERIC_TEAMS = {
+    A: { name: "Attack", short: "ATT", color: "#2C5BD6", color2: "#0F2B7A", text: "#FFFFFF", pattern: "plain", shorts: "#FFFFFF", socks: "#2C5BD6", gkColor: "#F2C94C" },
+    B: { name: "Defence", short: "DEF", color: "#EE6A55", color2: "#8A2A1C", text: "#FFFFFF", pattern: "plain", shorts: "#1E2430", socks: "#EE6A55", gkColor: "#34C77B" }
+  };
+
+  const GIVE_AND_GO = {
+    title: "Give-and-go",
+    subtitle: "The one-two · beat a defender with two touches",
+    clock: "",
+    duration: 9.5,
+    teams: GENERIC_TEAMS,
+    score: [0, 0],
+    players: [
+      { id: "a8", team: "A", num: 8, name: null, star: true, path: [[0,54,38],[2,60,38],[3,65,40.5],[3.6,70,41],[4.6,77.5,39],[5.6,82,37.5],[6.6,86.5,36.5],[7.6,89,36],[9.5,90,36]] },
+      { id: "a9", team: "A", num: 9, name: null, path: [[0,66,27],[2.7,66.5,28.5],[3.5,68,29.5],[5,74,29.5],[7,80,28.5],[9.5,82,29]] },
+      { id: "a7", team: "A", num: 7, name: null, path: [[0,70,56],[4,76,54],[7,84,51],[9.5,86,50]] },
+      { id: "a6", team: "A", num: 6, name: null, path: [[0,44,30],[9.5,56,33]] },
+      { id: "d4", team: "B", num: 4, name: null, path: [[0,70,38.5],[2,64.5,38.2],[2.8,63,37.5],[3.8,66,38],[5.5,74,37.5],[7.5,81,37],[9.5,83,37]] },
+      { id: "d5", team: "B", num: 5, name: null, path: [[0,70.5,24],[2.7,69.5,26],[4,71,28],[6,78,31],[7.5,82,32],[9.5,84,32]] },
+      { id: "d3", team: "B", num: 3, name: null, path: [[0,76,50],[4,79,48],[7,86,46],[9.5,88,45]] },
+      { id: "d8", team: "B", num: 8, name: null, path: [[0,62,46],[5,68,44],[9.5,76,42]] },
+      { id: "dgk", team: "B", num: 1, name: null, gk: true, path: [[0,102.5,34],[5,101.5,34.5],[6.6,100.5,35.5],[7.3,101,35],[9.5,101,35]] }
+    ],
+    ball: [
+      { t: 0, with: "a8" },
+      { t: 2, with: "a8" },
+      { t: 2.6, with: "a9" },
+      { t: 2.8, with: "a9" },
+      { t: 4.0, with: "a8" },
+      { t: 6.6, with: "a8" },
+      { t: 7.3, x: 105.4, y: 30.9 }
+    ],
+    captions: [
+      { t: 0, text: "8 carries straight at the centre-back." },
+      { t: 2, text: "Pass into 9, who acts as the wall." },
+      { t: 2.8, text: "8 sprints past; 9 returns it first time." },
+      { t: 4, text: "Two touches, one defender gone." },
+      { t: 6.6, text: "Through on goal." },
+      { t: 7.3, text: "Finished low, far post." }
+    ],
+    events: [
+      { t: 2, type: "pass", team: "A" },
+      { t: 2.8, type: "pass", team: "A" },
+      { t: 6.6, type: "shot", team: "A" },
+      { t: 7.3, type: "goal", team: "A" }
+    ],
+    commentary: [
+      { t: 0, text: "Number 8 picks it up and runs straight at the centre-back." },
+      { t: 2, text: "Into the 9…" },
+      { t: 2.8, text: "…and straight back into the path of the runner! Lovely one-two." },
+      { t: 4.2, text: "The defender is left for dead." },
+      { t: 6.6, text: "Just the keeper to beat…" },
+      { t: 7.3, text: "Tucked away! Textbook." }
+    ],
+    venue: { time: "day", roof: "open", stands: "#3a4a5c", accent: "#8fa1b3", track: false, grass: "#3a8a48", mowing: "checks" },
+    analysis: [
+      { label: "The setup", text: "Number 8 dribbles straight at the centre-back, pulling that defender forward and out of the back line." },
+      { label: "The wall pass", text: "The pass into 9 is early and firm. 9 returns it first time into the space behind the defender, who is still facing the wrong way." },
+      { label: "The finish", text: "8 never breaks stride, so the defender who stepped out can't recover, and the run reaches goal before the cover can shift across." },
+      { label: "Why it works", text: "Two quick touches beat a defender without a dribble. The timing is everything: the runner goes the moment the ball leaves the foot." }
+    ],
+    note: "A textbook version of the move."
+  };
+
+  const OVERLAP = {
+    title: "Overlapping run",
+    subtitle: "Full-back overlap · make a 2v1 on the flank",
+    clock: "",
+    duration: 10,
+    teams: GENERIC_TEAMS,
+    score: [0, 0],
+    players: [
+      { id: "a2", team: "A", num: 2, name: null, star: true, path: [[0,58,61],[1,60,61],[2.5,67,63.5],[4,78,63.5],[4.9,85,62],[6.2,93,59],[7.5,95,58],[10,95,57]] },
+      { id: "a7", team: "A", num: 7, name: null, path: [[0,71,57],[1.6,71.5,57.5],[2.6,73,55],[3.6,75.5,52],[5,79,49],[7,85,46],[10,87,45]] },
+      { id: "a9", team: "A", num: 9, name: null, path: [[0,84,33],[4,86,35],[6.2,90,39],[7.2,96.5,37.5],[7.8,97.5,37],[10,97,37]] },
+      { id: "a10", team: "A", num: 10, name: null, path: [[0,70,40],[6,80,40.5],[10,86,42]] },
+      { id: "a6", team: "A", num: 6, name: null, path: [[0,55,45],[10,66,47]] },
+      { id: "d3", team: "B", num: 3, name: null, path: [[0,79,58],[3.6,77,55.5],[4.4,78.5,57],[6,86,59.5],[7,89,57],[10,90,56]] },
+      { id: "d5", team: "B", num: 5, name: null, path: [[0,92,40],[6,93,39.5],[7.2,95.5,40.5],[10,96,41]] },
+      { id: "d4", team: "B", num: 4, name: null, path: [[0,92,28],[7,94,31],[10,95,32]] },
+      { id: "d8", team: "B", num: 8, name: null, path: [[0,80,45],[4,81,48],[7,87,49],[10,89,49]] },
+      { id: "dgk", team: "B", num: 1, name: null, gk: true, path: [[0,102.5,34],[6.2,102,37.5],[7.3,102.2,37.5],[7.8,102.6,36.8],[10,102.6,36.8]] }
+    ],
+    ball: [
+      { t: 0, with: "a2" },
+      { t: 1, with: "a2" },
+      { t: 1.6, with: "a7" },
+      { t: 3.6, with: "a7" },
+      { t: 4.9, with: "a2" },
+      { t: 6.2, with: "a2" },
+      { t: 7.2, with: "a9", lofted: true },
+      { t: 7.35, with: "a9" },
+      { t: 7.8, x: 105.4, y: 31.5 }
+    ],
+    captions: [
+      { t: 0, text: "Full-back 2 plays it into the winger." },
+      { t: 1.6, text: "7 drives inside, and the defender follows." },
+      { t: 2.5, text: "Meanwhile 2 bends a run around the outside." },
+      { t: 3.6, text: "Slipped into the space the defender left." },
+      { t: 6.2, text: "Early cross for the 9." },
+      { t: 7.35, text: "Tapped in." }
+    ],
+    events: [
+      { t: 1, type: "pass", team: "A" },
+      { t: 3.6, type: "pass", team: "A" },
+      { t: 6.2, type: "pass", team: "A" },
+      { t: 7.35, type: "shot", team: "A" },
+      { t: 7.8, type: "goal", team: "A" }
+    ],
+    commentary: [
+      { t: 0, text: "The full-back plays it up the line to the winger." },
+      { t: 1.6, text: "Number 7 cuts inside, and the defender goes with the ball…" },
+      { t: 2.5, text: "…look at the run from the full-back on the overlap!" },
+      { t: 3.6, text: "Slipped through!" },
+      { t: 6.2, text: "The cross is in, towards the 9…" },
+      { t: 7.35, text: "Tapped in! That's how you make a two-on-one count." }
+    ],
+    venue: { time: "day", roof: "open", stands: "#3a4a5c", accent: "#8fa1b3", track: false, grass: "#3a8a48", mowing: "checks" },
+    analysis: [
+      { label: "The trigger", text: "The full-back plays into the winger, and the winger dribbles inside, dragging the opposing full-back infield." },
+      { label: "The overlap", text: "The full-back runs round the outside into the space that defender just left, making a two-against-one on the flank." },
+      { label: "The delivery", text: "A slipped pass releases the full-back, who crosses early, before the centre-backs can turn and reset." },
+      { label: "Why it works", text: "One defender can't track two runners: stay with the winger and the overlap is free; switch and the winger is free." }
+    ],
+    note: "A textbook version of the move."
+  };
+
+  // ---------- Validation (used for built-in and AI plays) ----------
+  const EVENT_TYPES = new Set(["pass", "shot", "goal", "save", "tackle"]);
+  const PATTERNS = new Set(["plain", "stripes", "hoops", "halves", "sash"]);
+  // Stylised player appearance: a handful of features that still read at sprite size
+  const SKIN_TONES = { light: "#f1c9a5", fair: "#e0ac7e", olive: "#c68e5c", tan: "#a8703f", brown: "#7f4f2c", dark: "#5a3822" };
+  const HAIR_COLORS = { black: "#15110e", "dark-brown": "#2e2016", brown: "#5a3c24", "light-brown": "#8a6440", blond: "#c9a064", red: "#8f3f1f", grey: "#9a9790" };
+  const HAIR_STYLES = new Set(["short", "buzz", "bald", "long", "ponytail", "curly", "afro"]);
+  const BEARDS = new Set(["none", "stubble", "beard"]);
+  const VENUE_TIMES = new Set(["day", "dusk", "night"]);
+  const ROOFS = new Set(["open", "partial", "closed"]);
+  const MOWING = new Set(["stripes", "checks", "plain"]);
+  const ACTION_TYPES = new Set(["kick", "volley", "bicycle", "header", "divingHeader", "chest", "lunge", "slide", "dive", "jump", "celebrate", "dejected"]);
+
+  function playError(message) {
+    const e = new Error(message);
+    e.userMsg = message;
+    return e;
+  }
+
+  function luminance(hex) {
+    const c = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255)
+      .map(v => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)));
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  }
+  function contrast(a, b) {
+    const la = luminance(a), lb = luminance(b);
+    return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+  }
+  function shade(hex, f) {
+    const c = [1, 3, 5].map(i => Math.round(parseInt(hex.slice(i, i + 2), 16) * f));
+    return "#" + c.map(v => Math.max(0, Math.min(255, v)).toString(16).padStart(2, "0")).join("");
+  }
+
+  function normalizePlay(raw) {
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+      throw playError("Claude's answer wasn't a play. Try describing it differently.");
+    }
+    if (typeof raw.error === "string") throw playError(raw.error.slice(0, 180));
+
+    const num = (v, d) =>
+      (typeof v === "number" || (typeof v === "string" && v.trim() !== "")) && Number.isFinite(+v) ? +v : d;
+    const str = (v, max) => (typeof v === "string" ? v.trim().slice(0, max) : "");
+    const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+    const hex = (v, d) => (typeof v === "string" && /^#[0-9a-f]{6}$/i.test(v.trim()) ? v.trim() : d);
+
+    const players = [];
+    const ids = new Set();
+    let starSeen = false;
+    for (const p of Array.isArray(raw.players) ? raw.players.slice(0, 26) : []) {
+      if (!p || typeof p !== "object") continue;
+      const id = str(p.id, 40);
+      const team = p.team === "A" || p.team === "B" ? p.team : null;
+      if (!id || ids.has(id) || !team) continue;
+      const path = [];
+      const keys = (Array.isArray(p.path) ? p.path : [])
+        .filter(k => Array.isArray(k) && k.length >= 3)
+        .map(k => [clamp(num(k[0], NaN), 0, 30), clamp(num(k[1], NaN), -2, 107), clamp(num(k[2], NaN), -2, 70)])
+        .filter(k => k.every(Number.isFinite))
+        .sort((a, b) => a[0] - b[0]);
+      for (const k of keys) if (!path.length || k[0] > path[path.length - 1][0] + 0.01) path.push(k);
+      if (!path.length) continue;
+      ids.add(id);
+      const n = p.num == null ? NaN : Math.round(clamp(num(p.num, NaN), 0, 99));
+      const star = p.star === true && !starSeen;
+      if (star) starSeen = true;
+      const lk = p.look && typeof p.look === "object" ? p.look : {};
+      const look = {};
+      if (SKIN_TONES[lk.skin]) look.skin = lk.skin;
+      if (HAIR_STYLES.has(lk.hair)) look.hair = lk.hair;
+      if (HAIR_COLORS[lk.hairColor]) look.hairColor = lk.hairColor;
+      if (BEARDS.has(lk.beard)) look.beard = lk.beard;
+      const height = num(lk.height, NaN);
+      if (Number.isFinite(height)) look.height = Math.round(clamp(height, 155, 205));
+      players.push({ id, team, num: Number.isFinite(n) ? n : null, name: str(p.name, 18) || null, star, gk: p.gk === true, look, path });
+    }
+    if (players.length < 2) throw playError("The play came back without enough players. Try again.");
+
+    const ball = [];
+    const balls = (Array.isArray(raw.ball) ? raw.ball : [])
+      .filter(k => k && typeof k === "object" && Number.isFinite(num(k.t, NaN)))
+      .map(k => {
+        const kf = { t: clamp(num(k.t, 0), 0, 30) };
+        if (typeof k.with === "string" && ids.has(k.with)) kf.with = k.with;
+        else {
+          const x = num(k.x, NaN), y = num(k.y, NaN);
+          if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+          kf.x = clamp(x, -2, 107);
+          kf.y = clamp(y, -2, 70);
+        }
+        if (k.lofted === true) kf.lofted = true;
+        return kf;
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.t - b.t);
+    for (const k of balls) if (!ball.length || k.t > ball[ball.length - 1].t + 0.01) ball.push(k);
+    if (!ball.length) throw playError("The play came back without a ball. Try again.");
+
+    const lastT = Math.max(...players.map(p => p.path[p.path.length - 1][0]), ball[ball.length - 1].t);
+    let duration = num(raw.duration, 0);
+    if (!(duration > 0)) duration = lastT + 2;
+    duration = clamp(Math.max(duration, Math.min(lastT, 30)), 4, 30);
+
+    const team = (v, fallback) => {
+      v = v && typeof v === "object" ? v : {};
+      const color = hex(v.color, fallback.color);
+      let text = hex(v.text, "");
+      if (!text || contrast(text, color) < 3) text = luminance(color) > 0.4 ? "#12201A" : "#FFFFFF";
+      const color2 = hex(v.color2, shade(color, 0.55));
+      const shorts = hex(v.shorts, color2);
+      let gkColor = hex(v.gkColor, fallback.gkColor);
+      if (contrast(gkColor, color) < 1.4) gkColor = contrast("#34C77B", color) >= 1.4 ? "#34C77B" : "#F2C94C";
+      return {
+        name: str(v.name, 24) || fallback.name,
+        short: (str(v.short, 4) || fallback.short).toUpperCase(),
+        color,
+        color2,
+        text,
+        pattern: PATTERNS.has(v.pattern) ? v.pattern : "plain",
+        shorts,
+        socks: hex(v.socks, shorts),
+        gkColor
+      };
+    };
+    const teams = raw.teams && typeof raw.teams === "object" ? raw.teams : {};
+    const teamA = team(teams.A, GENERIC_TEAMS.A);
+    let teamB = team(teams.B, GENERIC_TEAMS.B);
+    if (contrast(teamA.color, teamB.color) < 1.25 && teamA.color2.toLowerCase() === teamB.color2.toLowerCase()) {
+      teamB = { ...teamB, color: GENERIC_TEAMS.B.color, color2: GENERIC_TEAMS.B.color2, text: "#FFFFFF" };
+    }
+
+    const captions = (Array.isArray(raw.captions) ? raw.captions : [])
+      .filter(c => c && typeof c === "object" && typeof c.text === "string" && Number.isFinite(num(c.t, NaN)))
+      .map(c => ({ t: clamp(num(c.t, 0), 0, duration), text: c.text.trim().slice(0, 100) }))
+      .filter(c => c.text)
+      .sort((a, b) => a.t - b.t)
+      .slice(0, 12);
+
+    const commentary = (Array.isArray(raw.commentary) ? raw.commentary : [])
+      .filter(c => c && typeof c === "object" && typeof c.text === "string" && Number.isFinite(num(c.t, NaN)))
+      .map(c => ({ t: clamp(num(c.t, 0), 0, duration), text: c.text.trim().slice(0, 110) }))
+      .filter(c => c.text)
+      .sort((a, b) => a.t - b.t)
+      .slice(0, 14);
+
+    const events = (Array.isArray(raw.events) ? raw.events : [])
+      .filter(e => e && EVENT_TYPES.has(e.type) && Number.isFinite(num(e.t, NaN)))
+      .map(e => ({ t: clamp(num(e.t, 0), 0, duration), type: e.type, team: e.team === "B" ? "B" : "A" }))
+      .sort((a, b) => a.t - b.t)
+      .slice(0, 20);
+
+    const actions = (Array.isArray(raw.actions) ? raw.actions : [])
+      .filter(a => a && typeof a === "object" && ids.has(a.id) && ACTION_TYPES.has(a.type) && Number.isFinite(num(a.t, NaN)))
+      .map(a => ({ t: clamp(num(a.t, 0), 0, duration), id: a.id, type: a.type, ...(a.side === 1 || a.side === -1 ? { side: a.side } : {}) }))
+      .sort((x, y) => x.t - y.t)
+      .slice(0, 40);
+
+    const v = raw.venue && typeof raw.venue === "object" ? raw.venue : {};
+    const analysis = (Array.isArray(raw.analysis) ? raw.analysis : [])
+      .filter(a => a && typeof a === "object" && typeof a.text === "string" && a.text.trim())
+      .map(a => ({ label: str(a.label, 28), text: a.text.trim().slice(0, 400) }))
+      .slice(0, 5);
+
+    const score = Array.isArray(raw.score) ? raw.score : [];
+    return {
+      title: str(raw.title, 60) || "Untitled play",
+      subtitle: str(raw.subtitle, 110),
+      clock: str(raw.clock, 8),
+      duration,
+      teams: { A: teamA, B: teamB },
+      score: [0, 1].map(i => Math.round(clamp(num(score[i], 0), 0, 20))),
+      players,
+      ball,
+      captions,
+      commentary,
+      events,
+      note: str(raw.note, 400),
+      venue: {
+        time: VENUE_TIMES.has(v.time) ? v.time : "night",
+        roof: ROOFS.has(v.roof) ? v.roof : "partial",
+        stands: hex(v.stands, "#1d232c"),
+        accent: hex(v.accent, "#3a4150"),
+        track: v.track === true,
+        grass: hex(v.grass, "#2c7437"),
+        mowing: MOWING.has(v.mowing) ? v.mowing : "stripes"
+      },
+      analysis,
+      actions,
+      // Official clip of the real moment on YouTube (embedded on the website, never copied)
+      footage: raw.footage && typeof raw.footage === "object" && /^[A-Za-z0-9_-]{11}$/.test(raw.footage.youtube || "")
+        ? { id: raw.footage.youtube, start: Math.max(0, num(raw.footage.start, 0)), channel: str(raw.footage.channel, 40) }
+        : null
+    };
+  }
+
+  // ---------- Motion ----------
+  function catmull(p0, p1, p2, p3, u) {
+    return 0.5 * (2 * p1 + (-p0 + p2) * u + (2 * p0 - 5 * p1 + 4 * p2 - p3) * u * u + (-p0 + 3 * p1 - 3 * p2 + p3) * u * u * u);
+  }
+  function pathPos(path, t) {
+    const n = path.length;
+    if (n === 1 || t <= path[0][0]) return { x: path[0][1], y: path[0][2] };
+    if (t >= path[n - 1][0]) return { x: path[n - 1][1], y: path[n - 1][2] };
+    let i = 0;
+    while (i < n - 2 && t > path[i + 1][0]) i++;
+    const a = path[Math.max(i - 1, 0)], b = path[i], c = path[i + 1], d = path[Math.min(i + 2, n - 1)];
+    const u = (t - b[0]) / (c[0] - b[0]);
+    return { x: catmull(a[1], b[1], c[1], d[1], u), y: catmull(a[2], b[2], c[2], d[2], u) };
+  }
+  function moveHeading(pl, t) {
+    const a = pathPos(pl.path, t - 0.08), b = pathPos(pl.path, t + 0.08);
+    const dx = b.x - a.x, dy = b.y - a.y;
+    return Math.hypot(dx, dy) < 0.03 ? null : Math.atan2(dy, dx);
+  }
+
+  // ---------- Off-ball movement ----------
+  // Players who never touch the ball play the game around it. Defenders hold a zone that slides with
+  // the ball, stay goal-side of the nearest attacker, and the one nearest the ball carrier presses.
+  // Keepers stay on the line between ball and goal. Attackers move up with play and keep making short
+  // runs into space. Everyone reacts with a short delay and never outruns a sprint. Named players and
+  // anyone on the ball keep their exact choreographed paths. Returns new paths; the play is untouched.
+  function offBallPaths(play, ballAt) {
+    const involved = new Set(play.ball.filter(k => k.with).map(k => k.with));
+    for (const a of play.actions) involved.add(a.id);
+    const movers = play.players.filter(pl => !(involved.has(pl.id) || pl.star || pl.name));
+    const paths = new Map(movers.map(pl => [pl.id, []]));
+    if (!movers.length) return paths;
+    const lim = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+    const step = 0.2, lag = 0.8;
+    const lagged = t => {
+      let x = 0, y = 0, n = 0;
+      for (let s = t - lag; s <= t + 1e-6; s += 0.2) { const b = ballAt(Math.max(0, s)); x += b.x; y += b.y; n++; }
+      return { x: x / n, y: y / n };
+    };
+    const carrierAt = t => {
+      const k = play.ball;
+      for (let i = 0; i < k.length; i++) {
+        if (!k[i].with) continue;
+        if (Math.abs(k[i].t - t) < 0.05) return k[i].with;
+        if (i + 1 < k.length && k[i + 1].with === k[i].with && t >= k[i].t && t <= k[i + 1].t) return k[i].with;
+      }
+      return null;
+    };
+    const teamOf = new Map(play.players.map(pl => [pl.id, pl.team]));
+    const lastOf = (pl, t) => {
+      const path = paths.get(pl.id);
+      return path && path.length ? { x: path[path.length - 1][1], y: path[path.length - 1][2] } : pathPos(pl.path, t);
+    };
+    const toward = (from, to, dist) => {
+      const d = Math.hypot(to.x - from.x, to.y - from.y) || 1;
+      return { x: from.x + ((to.x - from.x) / d) * dist, y: from.y + ((to.y - from.y) / d) * dist };
+    };
+    const start = lagged(0);
+    // Attackers first, so defenders can mark where they are
+    const order = [...movers].sort((p, q) => (p.team === "A" ? 0 : 1) - (q.team === "A" ? 0 : 1));
+
+    for (let t = 0; t <= play.duration + step; t += step) {
+      const ball = ballAt(t), drift = lagged(t);
+      const now = new Map();
+      for (const pl of play.players) if (!paths.has(pl.id)) now.set(pl.id, pathPos(pl.path, t));
+      const carrier = carrierAt(t);
+      const carrierPos = carrier ? now.get(carrier) || ball : null;
+
+      // The defender nearest an attacking ball carrier presses
+      let presser = null;
+      if (carrierPos && teamOf.get(carrier) === "A") {
+        let best = 12;
+        for (const pl of play.players) {
+          if (pl.team !== "B" || pl.gk) continue;
+          const q = paths.has(pl.id) ? lastOf(pl, t) : now.get(pl.id);
+          const d = Math.hypot(q.x - carrierPos.x, q.y - carrierPos.y);
+          if (d < best) { best = d; presser = pl.id; }
+        }
+      }
+
+      for (const pl of order) {
+        const prev = lastOf(pl, 0);
+        // Defenders anchor to where they started (shifted with the ball); attackers follow their runs
+        const anchor = pl.team === "B" ? pathPos(pl.path, 0) : pathPos(pl.path, t);
+        const ownGoal = pl.team === "B" ? { x: 105, y: 34 } : { x: 0, y: 34 };
+        let target, vmax = 6.5;
+        if (pl.gk) {
+          const d = Math.hypot(ball.x - ownGoal.x, ball.y - ownGoal.y);
+          target = toward(ownGoal, ball, lim(d / 7, 1, 6));
+          vmax = 5;
+        } else if (pl.team === "B") {
+          const zone = { x: anchor.x + 0.32 * (drift.x - start.x), y: anchor.y + 0.38 * (drift.y - start.y) };
+          target = zone;
+          let mark = null, markDist = 16;
+          for (const other of play.players) {
+            if (other.team !== "A" || !now.has(other.id)) continue;
+            const o = now.get(other.id), d = Math.hypot(o.x - zone.x, o.y - zone.y);
+            if (d < markDist) { markDist = d; mark = o; }
+          }
+          // Caught upfield of the ball? Track back towards it
+          if (target.x < ball.x) target.x += (ball.x - target.x) * 0.6;
+          if (mark) {
+            const goalSide = toward(mark, ownGoal, 1.8);
+            const w = Math.min(0.95, 1 - markDist / 18);
+            target = { x: target.x + (goalSide.x - target.x) * w, y: target.y + (goalSide.y - target.y) * w };
+          }
+          if (pl.id === presser) {
+            target = toward(carrierPos, ownGoal, 2.4);
+            vmax = 8;
+          }
+        } else {
+          const seed = idHash(pl.id), phase = (seed % 628) / 100, period = 3.2 + (seed % 17) / 10;
+          target = {
+            x: anchor.x + 0.42 * (drift.x - start.x) + Math.sin((2 * Math.PI * t) / period + phase),
+            y: anchor.y + 0.25 * (drift.y - start.y) + 0.8 * Math.sin((4 * Math.PI * t) / period + phase * 1.7)
+          };
+        }
+
+        // React with a short delay, never faster than a sprint
+        const dx = target.x - prev.x, dy = target.y - prev.y, want = Math.hypot(dx, dy);
+        const move = Math.min(vmax * step, want * Math.min(1, step / 0.35));
+        let x = prev.x + (want ? (dx / want) * move : 0), y = prev.y + (want ? (dy / want) * move : 0);
+        // While the ball is in front of them, defenders give ground at a jockeying backpedal
+        // (2 m/s at most) instead of turning and running from it; once it's past them they sprint back
+        const jockey = () => {
+          if (pl.team !== "B" || pl.gk || ball.x > prev.x + 1) return;
+          const mx = x - prev.x, my = y - prev.y, ml = Math.hypot(mx, my);
+          const bl = Math.hypot(ball.x - prev.x, ball.y - prev.y) || 1;
+          const facing = ml ? (mx * (ball.x - prev.x) + my * (ball.y - prev.y)) / (ml * bl) : 1;
+          if (facing < -0.17 && ml > 2.2 * step) { x = prev.x + (mx / ml) * 2.2 * step; y = prev.y + (my / ml) * 2.2 * step; }
+        };
+        jockey();
+        // Keep a little room around other players
+        for (const [id, o] of now) {
+          if (id === pl.id) continue;
+          // Defenders are allowed close to the dribbler (that's where tackles happen); others keep clear
+          const gap = Math.hypot(x - o.x, y - o.y), room = id === carrier ? (pl.team === "B" ? 1.2 : 2.2) : 1.8;
+          if (gap < room) { x = o.x + ((x - o.x) / (gap || 1)) * room; y = o.y + ((y - o.y) / (gap || 1)) * room; }
+        }
+        // Making room mustn't turn into a burst of impossible speed
+        const moved = Math.hypot(x - prev.x, y - prev.y), cap = 9 * step;
+        if (moved > cap) { x = prev.x + ((x - prev.x) / moved) * cap; y = prev.y + ((y - prev.y) / moved) * cap; }
+        jockey();
+        x = lim(x, -2, 107);
+        y = lim(y, -2, 70);
+        if (pl.gk) x = pl.team === "B" ? lim(x, 97, 105) : lim(x, 0, 8);
+        paths.get(pl.id).push([t, x, y]);
+        now.set(pl.id, { x, y });
+      }
+    }
+    return paths;
+  }
+
+  // ---------- Actions: what a body does beyond running ----------
+  // Kicks, lunges, keeper dives and goal celebrations are worked out from the play itself; plays can
+  // add special moments (bicycle kicks, diving headers, volleys...) in "actions". Poses use the run
+  // cycle's joint angles: hips and shoulders swing forward (+), knees and elbows fold (+), pitch leans
+  // the body forward (+), roll tips it onto its right side (+). Legs and arms are [right, left].
+  const ACTION_TIMING = {
+    // [seconds before the moment it starts, total seconds, rank when two overlap, hold the end pose]
+    kick: [0.3, 0.55, 2], volley: [0.35, 0.7, 5], bicycle: [0.5, 1.1, 5], header: [0.35, 0.75, 5],
+    divingHeader: [0.45, 1.1, 5], chest: [0.3, 0.6, 5], lunge: [0.3, 0.85, 3], slide: [0.4, 1.2, 4],
+    dive: [0.25, 1.4, 4, true], jump: [0.35, 0.75, 3], celebrate: [0, 30, 1, true], dejected: [0, 30, 1, true]
+  };
+  const easeIn = u => (u <= 0 ? 0 : u >= 1 ? 1 : u * u * (3 - 2 * u));
+
+  function buildActions(play, byId, ballAt) {
+    const list = [];
+    const add = (id, type, at, extra = {}) => {
+      const [lead, dur, rank, hold] = ACTION_TIMING[type];
+      list.push({ id, type, at, t0: at - lead, t1: Math.min(play.duration + 0.01, at - lead + dur), rank, hold: !!hold, ...extra });
+    };
+    const pos = (id, t) => pathPos(byId[id].path, t);
+    for (const a of play.actions) add(a.id, a.type, a.t, { side: a.side, explicit: true });
+
+    const k = play.ball;
+    const shotTimes = play.events.filter(e => e.type === "shot" || e.type === "goal").map(e => e.t);
+
+    // Kicks: the ball leaves a player's feet
+    for (let i = 0; i + 1 < k.length; i++) {
+      const a = k[i], b = k[i + 1];
+      if (!a.with || b.with === a.with) continue;
+      if (list.some(x => x.explicit && x.id === a.with && Math.abs(x.at - a.t) < 0.45)) continue;
+      const from = pos(a.with, a.t), to = b.with ? pos(b.with, b.t) : { x: b.x, y: b.y };
+      const shot = shotTimes.some(st => Math.abs(st - a.t) < 0.4) || (!b.with && b.x > 104);
+      add(a.with, "kick", a.t, { dir: Math.atan2(to.y - from.y, to.x - from.x), power: shot ? 1 : 0.7 });
+    }
+
+    // Lunges: a defender closing on the ball carrier gets within reach
+    for (let i = 0; i + 1 < k.length; i++) {
+      const a = k[i], b = k[i + 1];
+      if (!a.with || a.with !== b.with) continue;
+      const carrier = byId[a.with];
+      for (const d of play.players) {
+        if (d.team === carrier.team || d.gk) continue;
+        let best = null, prev = Infinity, closing = false;
+        for (let t = a.t; t <= b.t + 1e-6; t += 0.1) {
+          const q = pos(d.id, t), c = pos(carrier.id, t);
+          const dist = Math.hypot(q.x - c.x, q.y - c.y);
+          if (dist < prev - 0.05) closing = true;
+          if (closing && dist < 2.8 && (!best || dist < best.dist)) best = { t, dist, dir: Math.atan2(c.y - q.y, c.x - q.x) };
+          prev = dist;
+        }
+        if (best && !list.some(x => x.id === d.id && x.rank >= 3 && Math.abs(x.at - best.t) < 1.5)) add(d.id, "lunge", best.t, { dir: best.dir });
+      }
+    }
+
+    // Keeper dives: a shot passes the goalkeeper within reach
+    for (const shot of list.filter(x => (x.type === "kick" && x.power === 1) || ["volley", "bicycle", "header", "divingHeader"].includes(x.type))) {
+      const keeper = play.players.find(q => q.gk && q.team !== byId[shot.id].team);
+      if (!keeper || list.some(x => x.id === keeper.id && x.type === "dive" && Math.abs(x.at - shot.at) < 1.5)) continue;
+      for (let t = shot.at; t < shot.at + 1.6 && t <= play.duration; t += 0.03) {
+        const ball = ballAt(t), kp = pos(keeper.id, t);
+        if (Math.abs(ball.x - kp.x) < 0.8) {
+          const lateral = ball.y - kp.y;
+          if (Math.abs(lateral) < 7) add(keeper.id, "dive", t, { side: Math.sign(lateral) || 1, reach: Math.min(1, Math.abs(lateral) / 3) });
+          break;
+        }
+      }
+    }
+
+    // After a goal: the scorer celebrates, team-mates join in, the defence drops its head
+    for (const g of play.events.filter(e => e.type === "goal")) {
+      let scorer = null;
+      for (const kf of k) if (kf.with && kf.t <= g.t) scorer = kf.with;
+      const ball = ballAt(g.t);
+      for (const q of play.players) {
+        if (q.gk) continue;
+        const at = pos(q.id, g.t);
+        const near = Math.hypot(at.x - ball.x, at.y - ball.y) < 32;
+        const stagger = (idHash(q.id) % 5) * 0.1;
+        if (q.id === scorer) add(q.id, "celebrate", g.t + 0.35);
+        else if (q.team === g.team && near) add(q.id, "celebrate", g.t + 0.6 + stagger);
+        else if (q.team !== g.team && near) add(q.id, "dejected", g.t + 0.7 + stagger);
+      }
+    }
+
+    const byPlayer = new Map();
+    for (const a of list) {
+      if (!byPlayer.has(a.id)) byPlayer.set(a.id, []);
+      byPlayer.get(a.id).push(a);
+    }
+    return byPlayer;
+  }
+
+  // Joint angles for an action at progress u (0..1); `world` holds the dive's sideways shift in world y
+  function actionPose(a, u, t) {
+    const P = { lift: 0, pitch: 0, roll: 0, fwd: 0, worldY: 0, legs: null, arms: null, legW: 1 };
+    const L = (hip, knee) => ({ hip, knee }), A = (shoulder, elbow) => ({ shoulder, elbow });
+    switch (a.type) {
+      case "kick": { // back-swing, strike, follow-through with the right foot
+        const pw = a.power || 0.7;
+        const hip = u < 0.55 ? -0.8 * pw * easeIn(u / 0.55) : -0.8 * pw + 2.05 * pw * easeIn((u - 0.55) / 0.3);
+        const knee = u < 0.55 ? 1.3 * easeIn(u / 0.55) : Math.max(0.1, 1.3 - 4 * (u - 0.55));
+        P.legs = [L(hip, knee), L(0.15, 0.35)];
+        P.arms = [A(-0.5, 0.5), A(0.9, 0.6)];
+        P.pitch = u < 0.55 ? 0.12 : -0.12 * pw;
+        break;
+      }
+      case "volley": {
+        const hip = u < 0.45 ? -0.4 * easeIn(u / 0.45) : -0.4 + 1.9 * easeIn((u - 0.45) / 0.3);
+        P.legs = [L(hip, 0.25), L(0.1, 0.35)];
+        P.arms = [A(-0.4, 0.4), A(1.3, 0.3)];
+        P.pitch = -0.45 * Math.sin(Math.PI * u);
+        break;
+      }
+      case "bicycle": { // fall back, scissor the legs overhead
+        P.lift = 0.55 * Math.sin(Math.PI * Math.min(1, u / 0.75));
+        P.pitch = -1.9 * easeIn(u / 0.45);
+        P.legs = [L(u < 0.5 ? 0.6 : 0.6 + 1.8 * easeIn((u - 0.5) / 0.2), 0.2), L(1.2, 1.0)];
+        P.arms = [A(-1.0, 0.5), A(-1.0, 0.5)];
+        break;
+      }
+      case "header":
+        P.lift = 0.3 * Math.sin(Math.PI * u);
+        P.pitch = 0.3 * Math.sin(Math.PI * Math.min(1, u / 0.7));
+        P.legs = [L(0.4, 0.9), L(-0.2, 0.6)];
+        P.arms = [A(0.9, 0.6), A(0.9, 0.6)];
+        break;
+      case "divingHeader":
+        P.pitch = 1.4 * easeIn(u / 0.4);
+        P.lift = 0.22 * Math.sin(Math.PI * Math.min(1, u / 0.55));
+        P.fwd = 1.6 * easeIn(u / 0.6);
+        P.legs = [L(-0.5, 0.4), L(-0.3, 0.6)];
+        P.arms = [A(1.3, 0.3), A(1.3, 0.3)];
+        break;
+      case "chest":
+        P.pitch = -0.5 * Math.sin(Math.PI * u);
+        P.lift = 0.04;
+        P.legs = [L(0.2, 0.5), L(-0.1, 0.4)];
+        P.arms = [A(0.7, 0.9), A(0.7, 0.9)];
+        break;
+      case "lunge": { // stretch a leg into the ball carrier's path, then recover
+        const r = u < 0.35 ? easeIn(u / 0.35) : u < 0.6 ? 1 : 1 - 0.7 * easeIn((u - 0.6) / 0.4);
+        P.pitch = 0.45 * r;
+        P.lift = -0.12 * r;
+        P.fwd = 0.6 * r;
+        P.legs = [L(1.2 * r, 0.1), L(-0.5 * r, 0.25)];
+        P.arms = [A(-0.3 * r, 0.3), A(0.8 * r, 0.3)];
+        break;
+      }
+      case "slide": {
+        const r = easeIn(u / 0.3);
+        P.pitch = -1.25 * r;
+        P.lift = -0.05 * r;
+        P.fwd = 2.2 * easeIn(u / 0.8);
+        P.legs = [L(1.4 * r, 0), L(0.6 * r, 1.2 * r)];
+        P.arms = [A(-1.2 * r, 0.4), A(-0.6 * r, 0.4)];
+        break;
+      }
+      case "dive": { // spring sideways at full stretch and land on the side
+        const r = easeIn(u / 0.3), side = a.side || 1, reach = a.reach == null ? 1 : a.reach;
+        P.roll = 1.4 * r;
+        P.lift = 0.3 * Math.sin(Math.PI * Math.min(1, u / 0.45));
+        P.worldY = side * (0.6 + 1.2 * reach) * r;
+        P.legs = [L(0.25, 0.3), L(-0.2, 0.4)];
+        P.arms = [A(3.0 * r, 0.1), A(3.0 * r, 0.1)];
+        break;
+      }
+      case "jump":
+        P.lift = 0.3 * Math.sin(Math.PI * u);
+        P.legs = [L(0.3, 0.8), L(-0.1, 0.6)];
+        P.arms = [A(2.4, 0.3), A(2.4, 0.3)];
+        break;
+      case "celebrate":
+        P.lift = 0.1 * Math.abs(Math.sin((t - a.t0) * 6));
+        P.pitch = -0.1;
+        P.arms = [A(2.9, 0.2), A(2.9, 0.2)];
+        P.legW = 0; // keep running
+        break;
+      case "dejected": // hands on head
+        P.pitch = 0.12;
+        P.arms = [A(2.7, 2.3), A(2.7, 2.3)];
+        P.legW = 0;
+        break;
+    }
+    return P;
+  }
+
+  function gaitPose(g) {
+    return {
+      lift: -Math.abs(Math.sin(g.phase)) * 0.025 * g.run,
+      pitch: 0.04 + 0.14 * g.run + 0.1 * g.sprint,
+      legs: [0, Math.PI].map(off => ({
+        hip: (0.12 + 0.45 * g.run + 0.15 * g.sprint) * Math.sin(g.phase + off),
+        knee: 0.08 + g.run * (0.2 + 1.35 * Math.max(0, Math.cos(g.phase + off)))
+      })),
+      arms: [0, Math.PI].map(off => ({ shoulder: -(0.15 + 0.65 * g.run) * Math.sin(g.phase + off), elbow: 0.35 + 1.05 * g.run }))
+    };
+  }
+
+  // Gait: stride length grows with speed (about 1.4 m jogging, 2.3 m sprinting) and the step phase
+  // advances with distance covered, so feet never slide. One full cycle (2π) is two steps.
+  const GAIT_DT = 0.05;
+
+  function idHash(id) {
+    let hh = 2166136261;
+    for (let i = 0; i < id.length; i++) { hh ^= id.charCodeAt(i); hh = Math.imul(hh, 16777619); }
+    return hh >>> 0;
+  }
+
+  // Period details from the play's year: the look of the ball, the cut of the kit and the boots.
+  // Styled after each era's designs, not exact match balls.
+  function eraFor(year) {
+    const y = year || 2020;
+    const ball =
+      y < 1970 ? { base: "#9a6433", pattern: "leather", accent: "#4a2d14" } :
+      y < 1978 ? { base: "#f7f7f2", pattern: "panels", accent: "#15171c" } :
+      y < 1998 ? { base: "#f7f7f2", pattern: "triads", accent: "#15171c" } :
+      y < 2002 ? { base: "#f7f7f2", pattern: "stripes", accent: "#1f4aa8", accent2: "#d4202c" } :
+      y < 2006 ? { base: "#f4f1e6", pattern: "triangles", accent: "#c9a227", accent2: "#b0202c" } :
+      y < 2010 ? { base: "#f7f7f2", pattern: "curves", accent: "#15171c", accent2: "#c9a227" } :
+      y < 2014 ? { base: "#f7f7f2", pattern: "stripes", accent: "#2a7de1", accent2: "#e23b3b" } :
+      y < 2018 ? { base: "#f7f7f2", pattern: "swirl", accent: "#f08a1c", accent2: "#1f9e5a" } :
+                 { base: "#f7f7f2", pattern: "pixels", accent: "#2b2f36", accent2: "#8a9099" };
+    // fit: shirt width, shorts: leg length of the shorts, collar: polo collar in the trim colour
+    const kit =
+      y < 1980 ? { fit: 0.98, shorts: 0.72, collar: true } :
+      y < 1990 ? { fit: 0.97, shorts: 0.62, collar: true } :
+      y < 2000 ? { fit: 1.14, shorts: 1.2, collar: true } :
+      y < 2010 ? { fit: 1.06, shorts: 1.06, collar: false } :
+                 { fit: 0.95, shorts: 0.98, collar: false };
+    const boots = y < 1995 ? ["#101216"]
+      : y < 2008 ? ["#101216", "#101216", "#101216", "#e9ecef", "#b8bec6"]
+      : ["#ff6a1a", "#f5e71c", "#1fb6ff", "#ff3fa4", "#101216", "#e9ecef", "#7cf05a"];
+    return { year: y, ball, kit, boots };
+  }
+
+  // A player's appearance: the play's description where it has one, a varied default otherwise
+  function resolveLook(pl) {
+    let hh = 2166136261;
+    for (let i = 0; i < pl.id.length; i++) { hh ^= pl.id.charCodeAt(i); hh = Math.imul(hh, 16777619); }
+    const roll = shift => ((hh >>> shift) & 1023) / 1024;
+    const lk = pl.look || {};
+    const skins = Object.keys(SKIN_TONES);
+    const colors = ["black", "dark-brown", "brown", "dark-brown", "black", "light-brown", "blond"];
+    const s = roll(3), b = roll(13);
+    const hair = lk.hair || (s < 0.55 ? "short" : s < 0.7 ? "buzz" : s < 0.8 ? "curly" : s < 0.88 ? "long" : s < 0.93 ? "bald" : s < 0.97 ? "afro" : "ponytail");
+    const height = lk.height || Math.round(172 + roll(19) * 20);
+    return {
+      skin: SKIN_TONES[lk.skin || skins[Math.floor(roll(7) * skins.length)]],
+      hair,
+      hairColor: HAIR_COLORS[lk.hairColor || colors[Math.floor(roll(9) * colors.length)]],
+      beard: lk.beard || (b < 0.5 ? "none" : b < 0.85 ? "stubble" : "beard"),
+      height,
+      scale: height / 180
+    };
+  }
+  function gaitTable(pl, duration) {
+    const n = Math.ceil((duration + 1) / GAIT_DT) + 2;
+    const phase = new Float32Array(n), speed = new Float32Array(n);
+    let prev = pathPos(pl.path, 0), ph = 0;
+    for (let i = 1; i < n; i++) {
+      const p = pathPos(pl.path, i * GAIT_DT);
+      const ds = Math.hypot(p.x - prev.x, p.y - prev.y);
+      const v = ds / GAIT_DT;
+      ph += (ds * Math.PI) / (1.4 + 0.9 * Math.min(1, v / 8));
+      phase[i] = ph;
+      speed[i] = v;
+      prev = p;
+    }
+    speed[0] = speed[1];
+    return { phase, speed };
+  }
+
+  function compile(play) {
+    const byId = Object.fromEntries(play.players.map(p => [p.id, p]));
+    const defaultHeading = team => (team === "A" ? 0 : Math.PI);
+    const tables = new Map(play.players.map(p => [p.id, gaitTable(p, play.duration)]));
+    const looks = new Map(play.players.map(p => [p.id, resolveLook(p)]));
+    let actionsBy = null;
+    const era = eraFor(yearOf(play));
+
+    // { phase, speed m/s, run 0..1 (standing..running), sprint 0..1 }
+    function gait(pl, t) {
+      const tb = tables.get(pl.id);
+      const f = Math.max(0, t) / GAIT_DT;
+      const i = Math.min(tb.phase.length - 2, Math.floor(f)), u = Math.min(1, f - i);
+      const v = tb.speed[i] + (tb.speed[i + 1] - tb.speed[i]) * u;
+      return {
+        phase: tb.phase[i] + (tb.phase[i + 1] - tb.phase[i]) * u,
+        speed: v,
+        run: Math.min(1, v / 5.5),
+        sprint: Math.max(0, Math.min(1, (v - 5) / 3))
+      };
+    }
+
+    function hasBall(id, t) {
+      const k = play.ball;
+      for (let i = 0; i < k.length; i++) {
+        if (k[i].with !== id) continue;
+        if (Math.abs(k[i].t - t) < 0.05) return true;
+        if (i + 1 < k.length && k[i + 1].with === id && t >= k[i].t && t <= k[i + 1].t) return true;
+      }
+      return false;
+    }
+
+    function feet(pl, t) {
+      const p = pathPos(pl.path, t);
+      const h = moveHeading(pl, t) ?? defaultHeading(pl.team);
+      // While dribbling the ball is knocked a little ahead every few steps, then run onto
+      const g = gait(pl, t);
+      const reach = 1.0 + 0.6 * g.run * Math.pow(Math.max(0, Math.sin(g.phase / 2)), 2);
+      return { x: p.x + Math.cos(h) * reach, y: p.y + Math.sin(h) * reach };
+    }
+
+    function ballAt(t) {
+      const k = play.ball, n = k.length;
+      const at = (kf, tt) => (kf.with ? feet(byId[kf.with], tt) : { x: kf.x, y: kf.y });
+      if (t <= k[0].t) return { ...at(k[0], t), h: 0 };
+      if (t >= k[n - 1].t) return { ...at(k[n - 1], t), h: 0 };
+      let i = 0;
+      while (i < n - 2 && t > k[i + 1].t) i++;
+      const a = k[i], b = k[i + 1];
+      if (a.with && a.with === b.with) return { ...feet(byId[a.with], t), h: 0 };
+      const pa = at(a, a.t), pb = at(b, b.t);
+      const u = (t - a.t) / Math.max(b.t - a.t, 1e-6);
+      const e = u * (1.3 - 0.3 * u);
+      return { x: pa.x + (pb.x - pa.x) * e, y: pa.y + (pb.y - pa.y) * e, h: b.lofted ? 4 * u * (1 - u) : 0 };
+    }
+
+    // Supporting players get off-ball movement; everything below (actions, poses, looks) uses it
+    for (const [id, path] of offBallPaths(play, ballAt)) {
+      byId[id] = { ...byId[id], path };
+      tables.set(id, gaitTable(byId[id], play.duration));
+    }
+    actionsBy = buildActions(play, byId, ballAt);
+
+    // Everything a look needs to pose a player: position, facing, lift, lean, roll and joint angles
+    function bodyAt(pl, t) {
+      const g = gait(pl, t);
+      const base = gaitPose(g);
+      const src = byId[pl.id];
+      const p = pathPos(src.path, t);
+      const ball = ballAt(t);
+      const toBall = Math.atan2(ball.y - p.y, ball.x - p.x);
+      const moving = moveHeading(src, t);
+      let heading = moving ?? toBall;
+      // Defenders and keepers keep their eyes on the ball, turning their back only to sprint back
+      if (pl.team === "B" || pl.gk) {
+        const away = moving == null ? 0 : Math.abs(Math.atan2(Math.sin(moving - toBall), Math.cos(moving - toBall)));
+        if (pl.gk || g.speed < 4 || away < 1.9) heading = toBall;
+      }
+      let active = null;
+      for (const a of actionsBy.get(pl.id) || []) {
+        if (t >= a.t0 && t <= a.t1 && (!active || a.rank > active.rank || (a.rank === active.rank && a.t0 > active.t0))) active = a;
+      }
+      if (!active) return { gait: g, action: null, heading, x: p.x, y: p.y, roll: 0, ...base };
+      const span = active.t1 - active.t0;
+      const w = easeIn((t - active.t0) / Math.min(0.2, span * 0.25)) * (active.hold ? 1 : easeIn((active.t1 - t) / Math.min(0.2, span * 0.25)));
+      const P = actionPose(active, (t - active.t0) / span, t);
+      if (active.dir != null && w > 0.3) heading = active.dir;
+      const mix = (x, y, k) => x + (y - x) * k;
+      const lw = w * P.legW;
+      // A dive tips the keeper toward the ball's side of the body
+      const roll = P.roll * w * (Math.sign(Math.cos(heading) * (active.side || 1)) || 1);
+      return {
+        gait: g,
+        action: active.type,
+        heading,
+        x: p.x + Math.cos(heading) * P.fwd * w,
+        y: p.y + Math.sin(heading) * P.fwd * w + P.worldY * w,
+        lift: mix(base.lift, P.lift, w),
+        pitch: mix(base.pitch, P.pitch, w),
+        roll,
+        legs: base.legs.map((l, i) => (P.legs ? { hip: mix(l.hip, P.legs[i].hip, lw), knee: mix(l.knee, P.legs[i].knee, lw) } : l)),
+        arms: base.arms.map((l, i) => (P.arms ? { shoulder: mix(l.shoulder, P.arms[i].shoulder, w), elbow: mix(l.elbow, P.arms[i].elbow, w) } : l))
+      };
+    }
+
+    const track = [];
+    for (let t = 0; t <= play.duration + 1e-6; t += 0.05) track.push(ballAt(t));
+
+    const star = play.players.find(p => p.star) || null;
+    const aria = `${play.title}. Overhead animation. ${play.captions.map(c => c.text).join(" ")}`;
+    return {
+      play, byId, ballAt, track, star, aria, gait, hasBall, era, bodyAt,
+      lookOf: pl => looks.get(pl.id),
+      bootColor: pl => era.boots[idHash(pl.id) % era.boots.length]
+    };
+  }
+
+  // ---------- Rendering ----------
+  // `let` so video export can point the renderer at an offscreen canvas (see withView)
+  let canvas = document.getElementById("pitch");
+  let ctx = canvas.getContext("2d");
+  let pitchLayer = document.createElement("canvas");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let cssW = 0, cssH = 0, scale = 1, dpr = 1, rotated = false;
+  let colors = {};
+
+  const X = x => (x + M) * scale;
+  const Y = y => (y + M) * scale;
+
+  function readColors() {
+    const cs = getComputedStyle(document.documentElement);
+    const v = n => cs.getPropertyValue(n).trim();
+    colors = { a: v("--grass-a"), b: v("--grass-b"), edge: v("--grass-edge"), chalk: v("--chalk"), accent: v("--accent"), ink: v("--ink"), ground: v("--ground"), muted: v("--muted"), rule: v("--rule") };
+  }
+
+  function drawPitchLayer() {
+    pitchLayer.width = Math.round(cssW * dpr);
+    pitchLayer.height = Math.round(cssH * dpr);
+    const g = pitchLayer.getContext("2d");
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.fillStyle = colors.edge;
+    g.fillRect(0, 0, cssW, cssH);
+    const stripes = 14;
+    for (let i = 0; i < stripes; i++) {
+      g.fillStyle = i % 2 ? colors.a : colors.b;
+      g.fillRect(X((i * W) / stripes), Y(0), (W / stripes) * scale + 0.5, H * scale);
+    }
+    g.strokeStyle = colors.chalk;
+    g.fillStyle = colors.chalk;
+    g.lineWidth = Math.max(1.2, 0.13 * scale);
+    const box = (x0, y0, x1, y1) => g.strokeRect(X(Math.min(x0, x1)), Y(y0), Math.abs(x1 - x0) * scale, (y1 - y0) * scale);
+    const arc = (x, y, r, a0, a1) => { g.beginPath(); g.arc(X(x), Y(y), r * scale, a0, a1); g.stroke(); };
+    const spot = (x, y) => { g.beginPath(); g.arc(X(x), Y(y), Math.max(1.6, 0.22 * scale), 0, Math.PI * 2); g.fill(); };
+
+    box(0, 0, W, H);
+    g.beginPath(); g.moveTo(X(52.5), Y(0)); g.lineTo(X(52.5), Y(H)); g.stroke();
+    arc(52.5, 34, 9.15, 0, Math.PI * 2);
+    spot(52.5, 34);
+    const arcA = Math.acos(5.5 / 9.15);
+    for (const side of [0, 1]) {
+      const f = x => (side ? W - x : x);
+      box(f(0), 13.84, f(16.5), 54.16);
+      box(f(0), 24.84, f(5.5), 43.16);
+      spot(f(11), 34);
+      if (side) arc(f(11), 34, 9.15, Math.PI - arcA, Math.PI + arcA);
+      else arc(11, 34, 9.15, -arcA, arcA);
+      const gx = side ? W : -2;
+      g.save();
+      g.fillStyle = "rgba(255,255,255,0.16)";
+      g.fillRect(X(gx), Y(GOAL_Y0), 2 * scale, (GOAL_Y1 - GOAL_Y0) * scale);
+      g.restore();
+      g.strokeRect(X(gx), Y(GOAL_Y0), 2 * scale, (GOAL_Y1 - GOAL_Y0) * scale);
+    }
+    arc(0, 0, 1, 0, Math.PI / 2);
+    arc(W, 0, 1, Math.PI / 2, Math.PI);
+    arc(0, H, 1, -Math.PI / 2, 0);
+    arc(W, H, 1, Math.PI, Math.PI * 1.5);
+  }
+
+  function resize() {
+    const wrap = document.getElementById("pitchWrap");
+    cssW = wrap.clientWidth;
+    cssH = (cssW * (H + 2 * M)) / (W + 2 * M);
+    dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    scale = cssW / (W + 2 * M);
+    canvas.style.height = cssH + "px";
+    canvas.width = Math.round(cssW * dpr);
+    canvas.height = Math.round(cssH * dpr);
+    readColors();
+    drawPitchLayer();
+    render();
+  }
+
+  function roundRect(g, x, y, w, h, r) {
+    g.beginPath();
+    g.moveTo(x + r, y);
+    g.arcTo(x + w, y, x + w, y + h, r);
+    g.arcTo(x + w, y + h, x, y + h, r);
+    g.arcTo(x, y + h, x, y, r);
+    g.arcTo(x, y, x + w, y, r);
+    g.closePath();
+  }
+
+  // Text and labels stay upright on screen even when the pitch is rotated
+  function upright(x, y, fn) {
+    ctx.save();
+    ctx.translate(x, y);
+    if (rotated) ctx.rotate(Math.PI / 2);
+    fn();
+    ctx.restore();
+  }
+
+  // Epic looks live in looks/*.js and register on window.BirdseyeLooks as
+  // { label, ready, load?(), draw(env) }. env: ctx (CSS-px transform set), w, h, t, R, live, api.
+  function lookApi() {
+    return {
+      W, H, pathPos, moveHeading, scoreAt, roundRect, hexA, colors, reduceMotion, shade, luminance, drawBall, paintBallTexture,
+      fonts: { display: FONT_DISPLAY, body: FONT_BODY, mono: '"DM Mono", ui-monospace, monospace' }
+    };
+  }
+
+  function draw(R, t) {
+    if (!cssW) return;
+    const epic = look !== "classic" && window.BirdseyeLooks ? window.BirdseyeLooks[look] : null;
+    if (epic && epic.ready) {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      epic.draw({ ctx, w: cssW, h: cssH, t, R, live: !exporting, api: lookApi() });
+      return;
+    }
+    const { play } = R;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (rotated) {
+      // Vertical video: team A attacks up the screen
+      ctx.translate(0, cssW);
+      ctx.rotate(-Math.PI / 2);
+    }
+    ctx.drawImage(pitchLayer, 0, 0, cssW, cssH);
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    // Ball route: whole route faint, travelled part highlighted
+    const idx = Math.min(R.track.length - 1, Math.floor(t / 0.05));
+    ctx.setLineDash([2, 5]);
+    ctx.strokeStyle = "rgba(255,255,255,0.42)";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    R.track.forEach((p, i) => (i ? ctx.lineTo(X(p.x), Y(p.y)) : ctx.moveTo(X(p.x), Y(p.y))));
+    ctx.stroke();
+    ctx.setLineDash([]);
+    if (idx > 0) {
+      ctx.strokeStyle = colors.accent;
+      ctx.lineWidth = Math.max(2, 0.34 * scale);
+      ctx.beginPath();
+      for (let i = 0; i <= idx; i++) {
+        const p = R.track[i];
+        i ? ctx.lineTo(X(p.x), Y(p.y)) : ctx.moveTo(X(p.x), Y(p.y));
+      }
+      const b = R.ballAt(t);
+      ctx.lineTo(X(b.x), Y(b.y));
+      ctx.stroke();
+    }
+
+    const ball = R.ballAt(t);
+    const r = Math.max(7, 1.5 * scale);
+
+    // Star player's fading trail
+    if (R.star) {
+      const steps = 40, span = 2.2;
+      ctx.lineWidth = Math.max(2.5, 0.42 * scale);
+      let prev = null;
+      for (let i = 0; i <= steps; i++) {
+        const tt = t - span + (span * i) / steps;
+        if (tt < 0) continue;
+        const p = pathPos(R.star.path, tt);
+        if (prev) {
+          ctx.strokeStyle = hexA(play.teams[R.star.team].color, (i / steps) * 0.75);
+          ctx.beginPath();
+          ctx.moveTo(X(prev.x), Y(prev.y));
+          ctx.lineTo(X(p.x), Y(p.y));
+          ctx.stroke();
+        }
+        prev = p;
+      }
+    }
+
+    const states = play.players.map(pl => {
+      const src = R.byId[pl.id];
+      const p = pathPos(src.path, t);
+      let h = moveHeading(src, t);
+      if (h == null) h = Math.atan2(ball.y - p.y, ball.x - p.x);
+      return { pl, x: X(p.x), y: Y(p.y), h, key: !!(pl.num != null || pl.name || pl.star) };
+    });
+
+    // Shadows
+    ctx.fillStyle = "rgba(10, 30, 18, 0.28)";
+    for (const s of states) {
+      const rr = s.key ? r : r * 0.8;
+      ctx.beginPath();
+      ctx.ellipse(s.x + 1.5, s.y + 2.5, rr, rr * 0.8, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Tokens: supporting players first, key players on top
+    const ordered = states.slice().sort((a, b) => a.key - b.key || (a.pl.star ? 1 : 0) - (b.pl.star ? 1 : 0));
+    for (const s of ordered) {
+      const tm = play.teams[s.pl.team];
+      const rr = s.key ? r : r * 0.8;
+      ctx.globalAlpha = s.key ? 1 : 0.88;
+
+      if (s.pl.star) {
+        const pulse = reduceMotion || (!playing && !exporting)
+          ? 0.5
+          : 0.5 + 0.5 * Math.sin((exporting ? t * 1000 : performance.now()) / 260);
+        ctx.strokeStyle = colors.accent;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, rr + 4 + pulse * 1.5, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Facing notch
+      ctx.fillStyle = "rgba(255,255,255,0.92)";
+      ctx.beginPath();
+      ctx.moveTo(s.x + Math.cos(s.h) * (rr + 4.5), s.y + Math.sin(s.h) * (rr + 4.5));
+      ctx.lineTo(s.x + Math.cos(s.h + 0.5) * (rr + 0.5), s.y + Math.sin(s.h + 0.5) * (rr + 0.5));
+      ctx.lineTo(s.x + Math.cos(s.h - 0.5) * (rr + 0.5), s.y + Math.sin(s.h - 0.5) * (rr + 0.5));
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = s.pl.gk ? tm.gkColor : tm.color;
+      ctx.strokeStyle = tm.color2;
+      ctx.lineWidth = s.key ? 2.2 : 1.8;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, rr, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      if (s.pl.num != null && rr >= 7) {
+        ctx.fillStyle = s.pl.gk ? (luminance(tm.gkColor) > 0.4 ? "#12201A" : "#FFFFFF") : tm.text;
+        ctx.font = `800 ${Math.round(rr * 1.25)}px ${FONT_DISPLAY}`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        upright(s.x, s.y, () => ctx.fillText(String(s.pl.num), 0, rr * 0.08));
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    // Ball (nudged to the edge of a token so it never covers a shirt number)
+    const lift = ball.h * 2.4 * scale;
+    const br = Math.max(3.6, 0.78 * scale) * (1 + ball.h * 0.35);
+    let bx = X(ball.x), by = Y(ball.y);
+    if (ball.h < 0.05) {
+      for (const s of states) {
+        const rr = s.key ? r : r * 0.8, d = Math.hypot(bx - s.x, by - s.y);
+        if (d < rr + br) {
+          const ang = d > 0.01 ? Math.atan2(by - s.y, bx - s.x) : s.h;
+          bx = s.x + Math.cos(ang) * (rr + br - 1);
+          by = s.y + Math.sin(ang) * (rr + br - 1);
+        }
+      }
+    }
+    ctx.fillStyle = `rgba(10, 30, 18, ${0.35 - ball.h * 0.15})`;
+    ctx.beginPath();
+    ctx.ellipse(bx + 1.5, by + 2, br, br * 0.75, 0, 0, Math.PI * 2);
+    ctx.fill();
+    drawBall(ctx, rotated ? bx + lift : bx, rotated ? by : by - lift, br, R.era.ball);
+
+    // Name labels
+    ctx.font = `600 ${cssW < 520 ? 10 : 11.5}px ${FONT_BODY}`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    for (const s of states) {
+      if (!s.pl.name) continue;
+      const w = ctx.measureText(s.pl.name).width + 10;
+      const lh = cssW < 520 ? 15 : 17;
+      const ly = s.pl.star ? -r - 7 - lh / 2 : r + 5 + lh / 2;
+      upright(s.x, s.y, () => {
+        ctx.fillStyle = s.pl.star ? colors.accent : "rgba(12, 28, 19, 0.74)";
+        roundRect(ctx, -w / 2, ly - lh / 2, w, lh, lh / 2);
+        ctx.fill();
+        ctx.fillStyle = s.pl.star ? "#2A1E00" : "#FFFFFF";
+        ctx.fillText(s.pl.name, 0, ly + 0.5);
+      });
+    }
+
+  }
+
+  const FONT_DISPLAY = '"Big Shoulders Display", "Arial Narrow", sans-serif';
+  const FONT_BODY = '"Figtree", system-ui, sans-serif';
+
+  // Period ball: its era's panel design, lit from the top left. `flat` skips light and outline
+  // so the same design can be painted onto the 3D ball's texture.
+  function drawBall(g, x, y, r, style, spin = 0, flat = false) {
+    g.save();
+    g.translate(x, y);
+    g.beginPath();
+    g.arc(0, 0, r, 0, Math.PI * 2);
+    if (flat) {
+      g.fillStyle = style.base;
+    } else {
+      const lit = g.createRadialGradient(-r * 0.35, -r * 0.4, r * 0.1, 0, 0, r);
+      lit.addColorStop(0, "#ffffff");
+      lit.addColorStop(0.35, style.base);
+      lit.addColorStop(1, shade(style.base, 0.72));
+      g.fillStyle = lit;
+    }
+    g.fill();
+    g.save();
+    g.clip();
+    g.rotate(spin);
+    const a1 = style.accent, a2 = style.accent2 || style.accent;
+    const blob = (px, py, pr, c) => { g.fillStyle = c; g.beginPath(); g.arc(px, py, pr, 0, Math.PI * 2); g.fill(); };
+    g.lineCap = "round";
+    switch (style.pattern) {
+      case "leather":
+        g.strokeStyle = a1;
+        g.lineWidth = r * 0.12;
+        g.beginPath(); g.arc(-r * 0.9, 0, r * 0.9, -0.9, 0.9); g.stroke();
+        g.beginPath(); g.arc(r * 0.9, 0, r * 0.9, Math.PI - 0.9, Math.PI + 0.9); g.stroke();
+        break;
+      case "panels":
+        blob(0, 0, r * 0.3, a1);
+        for (let i = 0; i < 5; i++) { const q = (i * 2 * Math.PI) / 5; blob(Math.cos(q) * r * 0.85, Math.sin(q) * r * 0.85, r * 0.26, a1); }
+        break;
+      case "triads":
+        g.strokeStyle = a1;
+        g.lineWidth = r * 0.2;
+        for (let i = 0; i < 3; i++) {
+          const q = (i * 2 * Math.PI) / 3;
+          g.beginPath(); g.arc(Math.cos(q) * r * 0.62, Math.sin(q) * r * 0.62, r * 0.42, q + 2.2, q + 4.1); g.stroke();
+        }
+        break;
+      case "triangles":
+        for (let i = 0; i < 3; i++) {
+          const q = (i * 2 * Math.PI) / 3;
+          g.fillStyle = i % 2 ? a2 : a1;
+          g.beginPath();
+          g.moveTo(Math.cos(q) * r * 0.2, Math.sin(q) * r * 0.2);
+          g.lineTo(Math.cos(q - 0.35) * r, Math.sin(q - 0.35) * r);
+          g.lineTo(Math.cos(q + 0.35) * r, Math.sin(q + 0.35) * r);
+          g.fill();
+        }
+        break;
+      case "curves":
+        g.strokeStyle = a1;
+        g.lineWidth = r * 0.22;
+        g.beginPath(); g.arc(-r * 0.2, -r, r * 1.05, 0.4, 2.6); g.stroke();
+        g.strokeStyle = a2;
+        g.lineWidth = r * 0.09;
+        g.beginPath(); g.arc(r * 0.2, r, r * 1.05, 3.6, 5.8); g.stroke();
+        break;
+      case "stripes":
+        g.lineWidth = r * 0.16;
+        g.strokeStyle = a1;
+        g.beginPath(); g.arc(0, r * 1.4, r * 1.25, 3.7, 5.7); g.stroke();
+        g.strokeStyle = a2;
+        g.beginPath(); g.arc(0, -r * 1.4, r * 1.25, 0.56, 2.6); g.stroke();
+        break;
+      case "swirl":
+        g.lineWidth = r * 0.2;
+        [a1, a2, a1].forEach((c, i) => {
+          const q = (i * 2 * Math.PI) / 3;
+          g.strokeStyle = c;
+          g.beginPath(); g.arc(Math.cos(q) * r * 0.5, Math.sin(q) * r * 0.5, r * 0.55, q + 1.2, q + 3.4); g.stroke();
+        });
+        break;
+      case "pixels":
+        for (let i = 0; i < 4; i++) {
+          const q = (i * Math.PI) / 2 + 0.4;
+          g.fillStyle = i % 2 ? a2 : a1;
+          g.fillRect(Math.cos(q) * r * 0.55 - r * 0.2, Math.sin(q) * r * 0.55 - r * 0.2, r * 0.4, r * 0.4);
+        }
+        break;
+    }
+    g.restore();
+    if (!flat) {
+      g.strokeStyle = "rgba(10,14,18,0.85)";
+      g.lineWidth = Math.max(1, r * 0.12);
+      g.beginPath(); g.arc(0, 0, r, 0, Math.PI * 2); g.stroke();
+    }
+    g.restore();
+  }
+
+  function paintBallTexture(g, w, h, style) {
+    g.fillStyle = style.base;
+    g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 6; i++) {
+      for (const row of [0, 1]) drawBall(g, ((i + row * 0.5) / 6) * w + w / 12, (row ? 0.72 : 0.28) * h, h * 0.2, style, i * 0.9, true);
+    }
+  }
+
+  function hexA(hex, a) {
+    const c = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16));
+    return `rgba(${c[0]}, ${c[1]}, ${c[2]}, ${Math.max(0, Math.min(1, a)).toFixed(3)})`;
+  }
+
+  // ---------- Playback + UI ----------
+  const $ = id => document.getElementById(id);
+  const scrubber = $("scrubber");
+  const playBtn = $("playBtn");
+  let current = null;
+  let t = 0, playing = false, speed = 1, lastFrame = 0, exporting = false;
+  let shownCaption = -2, shownScore = "";
+
+  const fmt = s => `${Math.floor(s / 60)}:${(s % 60).toFixed(1).padStart(4, "0")}`;
+
+  function scoreAt(play, time) {
+    const sc = play.score.slice();
+    for (const ev of play.events) if (ev.type === "goal" && ev.t <= time) sc[ev.team === "A" ? 0 : 1]++;
+    return sc;
+  }
+
+  function render() {
+    if (!current) return;
+    draw(current, t);
+    const { play } = current;
+
+    scrubber.value = t;
+    scrubber.style.setProperty("--p", `${(t / play.duration) * 100}%`);
+    $("time").textContent = `${fmt(t)} / ${fmt(play.duration)}`;
+
+    let ci = -1;
+    play.captions.forEach((c, i) => { if (c.t <= t + 1e-6) ci = i; });
+    if (ci !== shownCaption) {
+      shownCaption = ci;
+      const el = $("caption");
+      el.classList.add("fade");
+      requestAnimationFrame(() => {
+        el.textContent = ci >= 0 ? play.captions[ci].text : "";
+        $("captionTime").textContent = ci >= 0 ? fmt(play.captions[ci].t).replace(/\.\d$/, "") : "";
+        el.classList.remove("fade");
+      });
+    }
+
+    const sc = scoreAt(play, t);
+    const key = sc.join("-");
+    if (key !== shownScore) {
+      const grew = shownScore && playing && sc[0] + sc[1] > shownScore.split("-").reduce((a, b) => a + +b, 0);
+      shownScore = key;
+      $("scoreA").textContent = sc[0];
+      $("scoreB").textContent = sc[1];
+      if (grew && !reduceMotion) {
+        const s = $("score");
+        s.classList.remove("pop");
+        void s.offsetWidth;
+        s.classList.add("pop");
+      }
+    }
+  }
+
+  function frame(now) {
+    if (!playing) return;
+    const dt = Math.min((now - lastFrame) / 1000, 0.1);
+    lastFrame = now;
+    t += dt * speed * lookRate(current.play, t);
+    if (t >= current.play.duration) {
+      t = current.play.duration;
+      setPlaying(false, true);
+    }
+    speakCommentary();
+    crowdTick();
+    render();
+    if (playing) requestAnimationFrame(frame);
+  }
+
+  function setPlaying(on, reachedEnd) {
+    if (on && current && t >= current.play.duration - 0.01) t = 0;
+    playing = on && !!current;
+    if (!playing && !reachedEnd) hushCommentary();
+    crowdTick();
+    footageSync();
+    playBtn.setAttribute("aria-label", playing ? "Pause" : "Play");
+    $("playIcon").innerHTML = playing
+      ? '<path d="M3.5 2.5h3.2v11H3.5zM9.3 2.5h3.2v11H9.3z"/>'
+      : '<path d="M4 2.5v11l9.5-5.5z"/>';
+    if (playing) {
+      lastFrame = performance.now();
+      requestAnimationFrame(frame);
+    } else render();
+  }
+
+  function loadPlay(play, { autoplay }) {
+    hushCommentary();
+    spokenIndex = -1;
+    current = compile(play);
+    t = 0;
+    shownCaption = -2;
+    shownScore = "";
+    const { teams } = play;
+    $("title").textContent = play.title;
+    $("subtitle").textContent = play.subtitle;
+    $("clock").textContent = play.clock;
+    $("shortA").textContent = teams.A.short;
+    $("shortB").textContent = teams.B.short;
+    for (const side of ["A", "B"]) {
+      const k = $("kit" + side);
+      k.style.background = teams[side].color;
+      k.style.borderColor = teams[side].color2;
+      k.title = teams[side].name;
+    }
+    $("note").textContent = play.note;
+    $("analysisBody").replaceChildren(...play.analysis.map(a => {
+      const para = document.createElement("p");
+      if (a.label) {
+        const lead = document.createElement("strong");
+        lead.textContent = `${a.label}. `;
+        para.append(lead);
+      }
+      para.append(a.text);
+      return para;
+    }));
+    $("analysis").hidden = !play.analysis.length;
+    renderFootage(play);
+    canvas.setAttribute("aria-label", current.aria);
+    scrubber.max = play.duration;
+
+    const ticks = $("ticks");
+    ticks.replaceChildren();
+    for (const c of play.captions) {
+      const i = document.createElement("i");
+      i.style.left = `${(c.t / play.duration) * 100}%`;
+      ticks.append(i);
+    }
+    for (const ev of play.events) {
+      if (ev.type !== "goal") continue;
+      const i = document.createElement("i");
+      i.className = "goal";
+      i.style.left = `${(ev.t / play.duration) * 100}%`;
+      ticks.append(i);
+    }
+    renderLibrary();
+    setPlaying(!!autoplay && !reduceMotion);
+    render();
+  }
+
+  playBtn.addEventListener("click", () => setPlaying(!playing));
+  $("restartBtn").addEventListener("click", () => { t = 0; setPlaying(true); });
+  scrubber.addEventListener("input", () => {
+    hushCommentary();
+    t = Math.min(+scrubber.value, current.play.duration);
+    render();
+  });
+  document.querySelectorAll(".speed button").forEach(b =>
+    b.addEventListener("click", () => {
+      speed = +b.dataset.speed;
+      footageSync();
+      document.querySelectorAll(".speed button").forEach(o => o.setAttribute("aria-pressed", String(o === b)));
+    })
+  );
+  document.addEventListener("keydown", e => {
+    const tag = document.activeElement?.tagName;
+    if (tag === "TEXTAREA" || tag === "INPUT" || tag === "BUTTON" || !current) return;
+    if (e.key === " " || e.key === "k") { e.preventDefault(); setPlaying(!playing); }
+    if (e.key === "ArrowRight") { t = Math.min(current.play.duration, t + 1); render(); }
+    if (e.key === "ArrowLeft") { t = Math.max(0, t - 1); render(); }
+  });
+
+  // ---------- Looks ----------
+  let look = "classic";
+  const lookButtons = document.querySelectorAll(".looks-seg button");
+  const lookStatus = $("lookStatus");
+
+  // Plays run at real match speed in every look, live and in videos
+  function lookRate() {
+    return 1;
+  }
+
+  function pressLook(name) {
+    lookButtons.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.look === name)));
+  }
+
+  async function setLook(name) {
+    const mod = name === "classic" ? null : (window.BirdseyeLooks || {})[name];
+    if (name !== "classic" && !mod) {
+      lookStatus.textContent = "That look didn't load. Reload the page to try again.";
+      return;
+    }
+    look = name;
+    pressLook(name);
+    hushCommentary();
+    updateVoiceBtn();
+    updateCrowdBtn();
+    try { localStorage.setItem("birdseye.look", name); } catch (e) { /* ignore */ }
+    lookStatus.textContent = "";
+    if (mod && !mod.ready) {
+      lookStatus.textContent = "Loading…";
+      try {
+        await mod.load();
+      } catch (e) {
+        console.error(`Look "${name}" failed to load:`, e);
+        if (look === name) {
+          look = "classic";
+          pressLook("classic");
+          lookStatus.textContent = "Couldn't load that look, so Classic is showing.";
+          render();
+        }
+        return;
+      }
+      if (look !== name) return;
+      lookStatus.textContent = "";
+    }
+    render();
+  }
+  lookButtons.forEach(b => b.addEventListener("click", () => setLook(b.dataset.look)));
+
+  // ---------- Commentary voice (Arcade) ----------
+  // Reads commentary lines aloud with the browser's speech synthesis during live playback.
+  // If a line arrives while the previous one is still being read, only the newest waits its turn.
+  const synth = "speechSynthesis" in window ? window.speechSynthesis : null;
+  const voiceBtn = document.getElementById("voiceBtn");
+  let voiceOn = true, spokenIndex = -1, pendingLine = null, voice = null;
+  try { voiceOn = localStorage.getItem("birdseye.voice") !== "off"; } catch (e) { /* default on */ }
+
+  // Best voices first: Premium / Natural / Enhanced system voices, then Google's, then standard.
+  // Novelty voices (Bubbles, Grandma, Zarvox...) never make the list.
+  const voiceSelect = document.getElementById("voiceSelect"), voiceHint = document.getElementById("voiceHint");
+  const NOVELTY = /\b(Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Eddy|Flo|Fred|Good News|Grandma|Grandpa|Jester|Junior|Kathy|Organ|Ralph|Reed|Rocko|Sandy|Shelley|Superstar|Trinoids|Whisper|Wobble|Zarvox)\b/i;
+  let needsVoiceHint = false, savedVoiceName = null;
+  try { savedVoiceName = localStorage.getItem("birdseye.voiceName"); } catch (e) { /* none saved */ }
+
+  function voiceQuality(v) {
+    if (/\(Premium\)/i.test(v.name)) return 100;
+    if (/Natural|Neural/i.test(v.name)) return 90;
+    if (/\(Enhanced\)/i.test(v.name)) return 80;
+    if (/^Google/i.test(v.name)) return 60;
+    return 20;
+  }
+  const voiceTag = q => (q >= 100 ? "Premium" : q >= 90 ? "Natural" : q >= 80 ? "Enhanced" : q >= 60 ? "Google" : "Standard");
+
+  function englishVoices() {
+    const rank = v => voiceQuality(v) + (/^en-GB/i.test(v.lang) ? 5 : 0);
+    return synth.getVoices()
+      .filter(v => /^en/i.test(v.lang) && !NOVELTY.test(v.name))
+      .sort((a, b) => rank(b) - rank(a) || a.name.localeCompare(b.name));
+  }
+
+  function refreshVoices() {
+    const list = englishVoices();
+    voiceSelect.replaceChildren(...list.map(v => {
+      const o = document.createElement("option");
+      o.value = v.name;
+      o.textContent = `${v.name.replace(/\s*\((Premium|Enhanced)\)/i, "")} · ${voiceTag(voiceQuality(v))} · ${v.lang}`;
+      return o;
+    }));
+    voice = list.find(v => v.name === savedVoiceName) || list[0] || null;
+    if (voice) voiceSelect.value = voice.name;
+    needsVoiceHint = list.length > 0 && voiceQuality(list[0]) < 80;
+    const ua = navigator.userAgent;
+    voiceHint.textContent = /Mac/.test(ua)
+      ? "Sounds robotic? Add a Premium English voice in System Settings › Accessibility › Spoken Content › System voice › Manage Voices, then restart your browser."
+      : /Windows/.test(ua)
+        ? "Sounds robotic? Microsoft Edge has natural voices, or add voices in Settings › Time & language › Speech."
+        : "Sounds robotic? Install a higher-quality English voice for your device, then restart your browser.";
+    updateVoiceBtn();
+  }
+
+  voiceSelect.addEventListener("change", () => {
+    voice = englishVoices().find(v => v.name === voiceSelect.value) || voice;
+    savedVoiceName = voiceSelect.value;
+    try { localStorage.setItem("birdseye.voiceName", savedVoiceName); } catch (e) { /* ignore */ }
+    hushCommentary();
+    if (voiceOn) sayLine({ t, text: "Into the box… and it's in! What a goal!" });
+  });
+
+  // Commentary delivery. The browser voice only takes rate, pitch and volume per utterance, so each
+  // line is split into phrases at its pauses and every phrase gets its own delivery: energy follows
+  // the crowd's mood at that moment, "!" phrases come faster and higher, "…" phrases are held for
+  // suspense. Natural-sounding voices get a lighter touch because big pitch shifts make them odd.
+  function phrasesOf(text) {
+    const out = [];
+    let cur = "";
+    for (const part of text.split(/(…|—|!|\?|\.(?=\s|$))/)) {
+      if (!part) continue;
+      if (/^(…|—|!|\?|\.)$/.test(part)) {
+        if (part === "!" || part === "?" || part === ".") cur += part;
+        if (cur.trim()) out.push({ text: cur.trim(), end: part });
+        cur = "";
+      } else cur += part;
+    }
+    if (cur.trim()) out.push({ text: cur.trim(), end: "" });
+    return out;
+  }
+
+  function deliveryFor(phrase, mood, good, lift = 0) {
+    const shout = phrase.end === "!" || /\b[A-Z][A-Z']+\b/.test(phrase.text);
+    const suspense = phrase.end === "…";
+    let energy = Math.min(1, mood + lift);
+    if (shout) energy = Math.max(energy, 0.8);
+    if (suspense) energy = Math.max(energy, 0.35);
+    const k = good ? 0.55 : 1;
+    return {
+      // Capitalised words are said, not spelled out
+      text: phrase.text.replace(/\b[A-Z][A-Z']+\b/g, w => w.toLowerCase()),
+      rate: Math.min(1.6, 1.06 + k * 0.3 * energy - (suspense ? 0.12 * k : 0)),
+      pitch: Math.min(1.7, 1 + k * (0.04 + 0.38 * energy) + (suspense ? 0.06 * k : 0)),
+      volume: 0.85 + 0.15 * energy
+    };
+  }
+
+  function sayLine(line) {
+    const phrases = phrasesOf(line.text.replace(/^[…—\s]+/, ""));
+    if (!phrases.length) return;
+    if (!voice) refreshVoices();
+    const good = !!voice && voiceQuality(voice) >= 80;
+    const mood = window.BirdseyeCrowd && current ? window.BirdseyeCrowd.levels(current, line.t).excite : 0.3;
+    phrases.forEach((phrase, i) => {
+      const d = deliveryFor(phrase, mood, good, phrases.length > 1 ? (0.12 * i) / (phrases.length - 1) : 0);
+      const utter = new SpeechSynthesisUtterance(d.text);
+      if (voice) utter.voice = voice;
+      utter.lang = voice ? voice.lang : "en-GB";
+      utter.rate = d.rate;
+      utter.pitch = d.pitch;
+      utter.volume = 1;
+      utter.onstart = () => { if (crowd) crowd.duck(true); };
+      if (i === phrases.length - 1) {
+        utter.onend = utter.onerror = () => {
+          if (crowd) crowd.duck(false);
+          const next = pendingLine;
+          pendingLine = null;
+          if (next && playing && t - next.t < 2.5) sayLine(next);
+        };
+      }
+      synth.speak(utter);
+    });
+  }
+
+  function speakCommentary() {
+    if (!synth || !voiceOn || look !== "arcade" || !playing || !current) return;
+    const lines = current.play.commentary.length ? current.play.commentary : current.play.captions;
+    let idx = -1;
+    lines.forEach((c, i) => { if (c.t <= t + 1e-6) idx = i; });
+    if (idx < 0 || idx === spokenIndex) return;
+    spokenIndex = idx;
+    const line = lines[idx];
+    if (t - line.t > 0.6) return; // jumped past this line (scrub or load): stay quiet
+    if (synth.speaking || synth.pending) pendingLine = line;
+    else sayLine(line);
+  }
+
+  function hushCommentary() {
+    pendingLine = null;
+    if (synth && (synth.speaking || synth.pending)) synth.cancel();
+  }
+
+  function updateVoiceBtn() {
+    voiceBtn.hidden = !synth || look !== "arcade";
+    voiceSelect.hidden = voiceBtn.hidden || !voiceSelect.options.length;
+    voiceHint.hidden = voiceBtn.hidden || !needsVoiceHint;
+    voiceBtn.setAttribute("aria-pressed", String(voiceOn));
+    document.getElementById("voiceLabel").textContent = voiceOn ? "Voice on" : "Voice off";
+    document.getElementById("voiceWaves").style.display = voiceOn ? "" : "none";
+  }
+  voiceBtn.addEventListener("click", () => {
+    voiceOn = !voiceOn;
+    try { localStorage.setItem("birdseye.voice", voiceOn ? "on" : "off"); } catch (e) { /* ignore */ }
+    if (!voiceOn) hushCommentary();
+    updateVoiceBtn();
+  });
+  if (synth) {
+    synth.onvoiceschanged = refreshVoices;
+    refreshVoices();
+  }
+  updateVoiceBtn();
+
+  // ---------- Stadium crowd (epic looks) ----------
+  // Crowd sound needs the recordings (sound/recordings.js); without them there's no crowd button
+  const crowd = window.BirdseyeCrowd && window.BirdseyeCrowdAudio ? window.BirdseyeCrowd.createLive() : null;
+  const crowdBtn = document.getElementById("crowdBtn");
+  let crowdOn = true;
+  try { crowdOn = localStorage.getItem("birdseye.crowd") !== "off"; } catch (e) { /* default on */ }
+
+  function crowdTick() {
+    if (!crowd || !current) return;
+    if (!crowdOn || look === "classic") crowd.stop();
+    else {
+      // Quieter bed whenever the commentary voice is in use, so the voice sits on top
+      crowd.setBed(synth && voiceOn && look === "arcade" ? 0.5 : 0.9);
+      crowd.update(current, t, playing);
+    }
+  }
+  function updateCrowdBtn() {
+    crowdBtn.hidden = !crowd || look === "classic";
+    crowdBtn.setAttribute("aria-pressed", String(crowdOn));
+    document.getElementById("crowdLabel").textContent = crowdOn ? "Crowd on" : "Crowd off";
+  }
+  // Browsers only allow sound after the viewer interacts, so start it on the first click or key
+  const wakeCrowd = () => { if (crowd && crowdOn && look !== "classic") { crowd.resume(); crowdTick(); } };
+  document.addEventListener("pointerdown", wakeCrowd, true);
+  document.addEventListener("keydown", wakeCrowd, true);
+  crowdBtn.addEventListener("click", () => {
+    crowdOn = !crowdOn;
+    try { localStorage.setItem("birdseye.crowd", crowdOn ? "on" : "off"); } catch (e) { /* ignore */ }
+    if (crowdOn) crowd.resume();
+    crowdTick();
+    updateCrowdBtn();
+  });
+  updateCrowdBtn();
+
+  // ---------- Real footage (website only) ----------
+  // A YouTube clip of the real moment beside the animation, embedded from YouTube (never copied),
+  // chosen by the viewer and remembered on this device. Play, pause, scrubbing and speed are mirrored
+  // to the video (video time = start + animation time), with a gentle nudge back when it drifts.
+  const footageOn = !!window.BIRDSEYE_STANDALONE;
+  const media = $("media"), footageBox = $("footage"), footageFrame = $("footageFrame"), footageForm = $("footageForm");
+  const footageMemory = new Map();
+  let footageInfo = null, videoTime = null, footageTimer = null;
+  const footageKey = play => "birdseye.footage." + play.title;
+  const clockText = sec => `${Math.floor(sec / 60)}:${String(Math.floor(sec % 60)).padStart(2, "0")}`;
+
+  function parseYouTube(text) {
+    const value = text.trim();
+    const m = value.match(/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([A-Za-z0-9_-]{11})/)
+      || value.match(/^([A-Za-z0-9_-]{11})$/);
+    if (!m) return null;
+    const tm = value.match(/[?&](?:t|start)=(\d+h)?(\d+m)?(\d+)s?/);
+    const start = tm ? parseInt(tm[1] || "0", 10) * 3600 + parseInt(tm[2] || "0", 10) * 60 + parseInt(tm[3], 10) : 0;
+    return { id: m[1], start };
+  }
+
+  function parseClock(text) {
+    const parts = text.trim().split(":").map(Number);
+    if (!parts.length || parts.length > 3 || parts.some(n => !Number.isFinite(n) || n < 0)) return null;
+    return parts.reduce((acc, n) => acc * 60 + n, 0);
+  }
+
+  function ytCommand(func, args = []) {
+    if (footageInfo && footageFrame.contentWindow) {
+      footageFrame.contentWindow.postMessage(JSON.stringify({ event: "command", func, args }), "*");
+    }
+  }
+
+  function footageSync() {
+    clearInterval(footageTimer);
+    if (!footageOn || !footageInfo || !current) return;
+    ytCommand("seekTo", [footageInfo.start + t, true]);
+    ytCommand("setPlaybackRate", [speed]);
+    ytCommand(playing ? "playVideo" : "pauseVideo");
+    if (playing) {
+      footageTimer = setInterval(() => {
+        // Slow-motion goals run slower than the footage, so leave the video alone there
+        if (videoTime != null && lookRate(current.play, t) === 1 && Math.abs(videoTime - (footageInfo.start + t)) > 0.6) {
+          ytCommand("seekTo", [footageInfo.start + t, true]);
+        }
+      }, 1000);
+    }
+  }
+
+  function renderFootage(play) {
+    if (!footageOn) return;
+    let saved = footageMemory.get(footageKey(play)) || null;
+    try { saved = JSON.parse(localStorage.getItem(footageKey(play)) || "null") || saved; } catch (e) { /* use memory */ }
+    // A clip the viewer chose wins; "Remove" hides the play's own official clip too
+    footageInfo = saved && saved.hidden ? null : saved && saved.id ? saved : play.footage;
+    videoTime = null;
+    media.classList.toggle("has-footage", !!footageInfo);
+    $("footageSource").textContent = footageInfo && footageInfo.channel ? `Official footage: ${footageInfo.channel}, via YouTube` : "Real footage via YouTube";
+    footageBox.hidden = !footageInfo;
+    $("footageAdd").hidden = !!footageInfo;
+    footageForm.hidden = true;
+    $("footageBlocked").hidden = true;
+    const src = footageInfo
+      ? `https://www.youtube-nocookie.com/embed/${footageInfo.id}?enablejsapi=1&mute=1&playsinline=1&rel=0&start=${Math.floor(footageInfo.start)}&origin=${encodeURIComponent(location.origin)}`
+      : "about:blank";
+    if (footageFrame.getAttribute("src") !== src) footageFrame.setAttribute("src", src);
+  }
+
+  // Some owners (FIFA, UEFA...) don't let their clips play on other websites: say so and link out
+  function footageBlocked() {
+    if (!footageInfo) return;
+    const id = footageInfo.id;
+    clearInterval(footageTimer);
+    footageInfo = null;
+    media.classList.remove("has-footage");
+    footageBox.hidden = true;
+    footageFrame.setAttribute("src", "about:blank");
+    $("footageAdd").hidden = false;
+    const note = $("footageBlocked");
+    const link = document.createElement("a");
+    link.href = `https://www.youtube.com/watch?v=${id}`;
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.textContent = "Watch it on YouTube";
+    note.replaceChildren("This clip's owner doesn't allow it to play on other websites. ", link, ", or add a different link.");
+    note.hidden = false;
+  }
+
+  function openFootageForm() {
+    footageForm.hidden = false;
+    $("footageAdd").hidden = true;
+    $("footageUrl").value = footageInfo ? `https://www.youtube.com/watch?v=${footageInfo.id}` : "";
+    $("footageStart").value = footageInfo ? clockText(footageInfo.start) : "";
+    $("footageNote").textContent = "Paste a clip of this moment. \"Starts at\" is where the video lines up with the start of the animation; a time in the link (t=95) works too.";
+    $("footageUrl").focus();
+  }
+
+  if (footageOn) {
+    $("footageTools").hidden = false;
+    $("footageAdd").addEventListener("click", openFootageForm);
+    $("footageEdit").addEventListener("click", openFootageForm);
+    $("footageCancel").addEventListener("click", () => renderFootage(current.play));
+    $("footageRemove").addEventListener("click", () => {
+      footageMemory.set(footageKey(current.play), { hidden: true });
+      try { localStorage.setItem(footageKey(current.play), JSON.stringify({ hidden: true })); } catch (e) { /* kept in memory */ }
+      renderFootage(current.play);
+    });
+    footageForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const parsed = parseYouTube($("footageUrl").value);
+      if (!parsed) {
+        $("footageNote").textContent = "That isn't a YouTube video link. Paste an address from youtube.com or youtu.be.";
+        return;
+      }
+      const startText = $("footageStart").value.trim();
+      const start = startText ? parseClock(startText) : parsed.start;
+      if (start == null) {
+        $("footageNote").textContent = "Enter the start as minutes:seconds, for example 1:35.";
+        return;
+      }
+      const info = { id: parsed.id, start, channel: "" };
+      footageMemory.set(footageKey(current.play), info);
+      try { localStorage.setItem(footageKey(current.play), JSON.stringify(info)); } catch (e) { /* kept in memory */ }
+      renderFootage(current.play);
+    });
+    scrubber.addEventListener("change", footageSync);
+    footageFrame.addEventListener("load", () => {
+      if (!footageInfo) return;
+      // Ask the player to report its current time, then line it up
+      footageFrame.contentWindow.postMessage(JSON.stringify({ event: "listening", id: 1, channel: "widget" }), "*");
+      setTimeout(footageSync, 800);
+    });
+    window.addEventListener("message", e => {
+      let host = "";
+      try { host = new URL(e.origin).hostname; } catch (err) { return; }
+      if (!/(^|\.)youtube(-nocookie)?\.com$/.test(host)) return;
+      let data;
+      try { data = typeof e.data === "string" ? JSON.parse(e.data) : e.data; } catch (err) { return; }
+      if (data && data.event === "infoDelivery" && data.info && typeof data.info.currentTime === "number") videoTime = data.info.currentTime;
+      if (data && data.event === "onReady") footageSync();
+      if (data && data.event === "onError" && [2, 5, 100, 101, 150].includes(Number(data.info))) footageBlocked();
+    });
+  }
+
+  // ---------- Library ----------
+  const library = [];
+  function addToLibrary(group, raw) {
+    try {
+      const play = normalizePlay(raw);
+      library.push({ group, play });
+      return play;
+    } catch (e) {
+      console.error(`Built-in play "${raw.title}" failed validation:`, e.message);
+      return null;
+    }
+  }
+  addToLibrary("Clips", MESSI_2011);
+  addToLibrary("Moves", GIVE_AND_GO);
+  addToLibrary("Moves", OVERLAP);
+  // Iconic clips bundled from library/plays/*.json
+  for (const clip of window.BirdseyeClips || []) addToLibrary("Clips", clip);
+
+  const yearOf = play => {
+    // The match date comes last in the subtitle ("Premier League 2001–02 · … · 2 Mar 2002")
+    const years = play.subtitle.match(/\b(?:18|19|20)\d{2}\b/g);
+    return years ? +years[years.length - 1] : null;
+  };
+
+  function renderLibrary() {
+    const root = $("library");
+    root.replaceChildren();
+    let lastGroup = null;
+    const order = ["Yours", "Clips", "Moves"];
+    const items = library.slice().sort((a, b) =>
+      order.indexOf(a.group) - order.indexOf(b.group) || (yearOf(a.play) || 9999) - (yearOf(b.play) || 9999));
+    const counts = {};
+    for (const item of items) counts[item.group] = (counts[item.group] || 0) + 1;
+    for (const item of items) {
+      if (item.group !== lastGroup) {
+        const lbl = document.createElement("p");
+        lbl.className = "group-label";
+        lbl.textContent = `${item.group === "Yours" ? "Yours this session" : item.group} · ${counts[item.group]}`;
+        root.append(lbl);
+        lastGroup = item.group;
+      }
+      const { play } = item;
+      const btn = document.createElement("button");
+      btn.className = "play-item";
+      if (current && current.play === play) btn.setAttribute("aria-current", "true");
+      const title = document.createElement("span");
+      title.className = "pi-title";
+      title.textContent = play.title;
+      const meta = document.createElement("span");
+      meta.className = "pi-meta";
+      const first = (play.subtitle.split("·")[0] || "").trim();
+      const year = yearOf(play);
+      meta.textContent = year
+        ? `${play.teams.A.short} v ${play.teams.B.short} · ${year} · ${Math.round(play.duration)}s`
+        : `${first ? first + " · " : ""}${Math.round(play.duration)}s`;
+      const kits = document.createElement("span");
+      kits.className = "pi-kits";
+      for (const side of ["A", "B"]) {
+        const i = document.createElement("i");
+        i.style.background = play.teams[side].color;
+        i.style.borderColor = play.teams[side].color2;
+        kits.append(i);
+      }
+      btn.append(title, kits, meta);
+      btn.addEventListener("click", () => loadPlay(play, { autoplay: true }));
+      root.append(btn);
+    }
+  }
+
+  // ---------- Animate a play (Claude via `sample`) ----------
+  const promptEl = $("prompt"), animateBtn = $("animateBtn"), stopBtn = $("stopBtn"), genStatus = $("genStatus");
+  let sample = null, genCtl = null;
+
+  function setStatus(text, working = false) {
+    genStatus.textContent = text;
+    genStatus.classList.toggle("working", working);
+  }
+
+  function buildPrompt(request) {
+    return `You are choreographing a short overhead 2D soccer animation. Reply with ONLY one JSON object.
+
+PITCH: 105 m x 68 m. x runs from 0 (left goal line) to 105 (right goal line); y from 0 (top touchline) to 68 (bottom touchline). Centre spot (52.5, 34). Goals at x=0 and x=105, posts at y=30.34 and y=37.66. Penalty areas: x<=16.5 or x>=88.5, y 13.84-54.16. Penalty spots at x=11 and x=94.
+Team "A" is the team the play is about and ALWAYS attacks the right goal (x=105). Team "B" defends it. Team A's right flank is y>34 (bottom of the pitch).
+
+FORMAT:
+{
+  "title": short name, max 40 chars,
+  "subtitle": "competition · venue · date" for a real match, or a one-line description for a generic move, max 80 chars,
+  "clock": match minute like "87'", or "",
+  "duration": seconds, 6 to 30,
+  "teams": {"A": {"name", "short" (3 letters), "color" (#hex kit), "color2" (#hex trim), "text" (#hex shirt number), "pattern" ("plain" | "stripes" | "hoops" | "halves" | "sash"), "shorts" (#hex), "socks" (#hex), "gkColor" (#hex goalkeeper shirt)}, "B": {same}},
+  "score": [team A goals, team B goals] before the play starts,
+  "players": [{"id": unique slug, "team": "A" or "B", "num": shirt number or null, "name": surname or null, "star": true only for the one player the play is about, "gk": true for goalkeepers, "look": {"skin": "light" | "fair" | "olive" | "tan" | "brown" | "dark", "hair": "short" | "buzz" | "bald" | "long" | "ponytail" | "curly" | "afro", "hairColor": "black" | "dark-brown" | "brown" | "light-brown" | "blond" | "red" | "grey", "beard": "none" | "stubble" | "beard", "height": cm} for named players only, "path": [[t, x, y], ...] keyframes every 0.7-2.5 s starting at t=0}],
+  "ball": [{"t": s, "with": player id} = ball at that player's feet, or {"t": s, "x": m, "y": m} = ball at a free point; add "lofted": true on the keyframe where an aerial pass or cross arrives],
+  "captions": [{"t": s, "text": max 70 chars}], 3 to 8 of them, telling the story,
+  "commentary": [{"t": s, "text": max 80 chars}], 4 to 9 lines of live TV-style commentary, calm in the build-up and excited at the key moment,
+  "events": [{"t": s, "type": "pass" | "shot" | "goal" | "save" | "tackle", "team": "A" | "B"}],
+  "note": one sentence on how accurate this reconstruction is,
+  "venue": {"time": "day" | "dusk" | "night", "roof": "open" | "partial" | "closed", "stands": "#hex main seat colour", "accent": "#hex second stand colour", "track": true if an athletics track surrounds the pitch, "grass": "#hex", "mowing": "stripes" | "checks" | "plain"},
+  "actions": [{"t": s, "id": player id, "type": "volley" | "bicycle" | "header" | "divingHeader" | "chest" | "slide" | "dive" | "jump", "side": 1 or -1 (dives only: towards +y or -y)}] only for special moments; ordinary kicks, lunges, keeper dives and goal celebrations are added automatically,
+  "analysis": [{"label": short heading such as "Build-up", "Key moment", "The finish", "Why it worked" (max 24 chars), "text": 1-3 sentences (max 300 chars)}], 3 or 4 of them, a brief tactical breakdown of the play
+}
+
+RULES:
+- Consecutive ball keyframes "with" the same player are a dribble (the ball follows them). A change of player, or a free point, is a pass or shot moving in a straight line between the two keyframes, so time it realistically: passes 12-25 m/s, shots 20-32 m/s.
+- Running speed: jog 3-4 m/s, sprint 7-9 m/s. Keep players at least 2.5 m apart unless one is tackling the other. A shot's straight line must not pass through the goalkeeper if it scores.
+- For a goal, end the ball just inside the net (x between 105 and 106, y between the posts), add a "goal" event at that moment, and hold 2-4 s before the end.
+- Include every player involved plus enough teammates and opponents to show the shape (usually 10-22 players). Give names and numbers only to players involved in the action; the rest get null for both.
+- Real, named moments: reconstruct as faithfully as you know them, including kit colours, the minute and the score. If you are unsure of details, keep it plausible and say so in "note". If you don't recognise the moment, build a plausible version and say so in "note".
+- Generic moves or tactics: use teams named "Attack" and "Defence" with clear, contrasting colours.
+- "look" is a simple, respectful description of how a named player looked at the time of the match. If you are unsure, leave "look" out.
+- "commentary" must be your own original words in the style of a live commentator. Never quote or closely paraphrase real broadcast commentary.
+- In captions, commentary and analysis, refer to players by name or role rather than he/she pronouns.
+- If the request is not about a soccer play, reply {"error": "one short sentence saying what to ask for instead"}.
+
+EXAMPLE (a give-and-go):
+${JSON.stringify(normalizePlay(GIVE_AND_GO))}
+
+REQUEST: ${request}`;
+  }
+
+  function copyFor(e) {
+    if (e && e.userMsg) return e.userMsg;
+    switch (e && e.code) {
+      case "cancelled": return "Stopped.";
+      case "not_granted": return "Animating new plays needs permission to use your Claude account. Reload the page to be asked again.";
+      case "rate_limited":
+      case "queue_overflow": return "Too many requests at once. Wait a minute, then try again.";
+      case "prompt_too_large": return "That description is too long. Cut it to a sentence or two.";
+      case "invalid_json": return "Claude's answer couldn't be read as a play. Try again, or describe the play more simply.";
+      case "refused": return "Claude declined that one. Try describing a different play.";
+      case "session_expired": return "Your session expired. Reload the page and try again.";
+      case "sampling_disabled":
+      case "capability_disabled":
+      case "capability_removed":
+      case "not_declared": return "Animating new plays isn't available on this page right now. The library still works.";
+      default: return "Couldn't reach Claude. Try again in a moment.";
+    }
+  }
+
+  async function animateFromText() {
+    if (!sample) return;
+    const raw = promptEl.value.trim();
+    const hadLink = /https?:\/\/|www\.|youtu\.?be/i.test(raw);
+    const text = raw.replace(/https?:\/\/\S+|www\.\S+|\S*youtu\.?be\S*/gi, " ").replace(/\s+/g, " ").trim();
+    if (text.split(" ").filter(Boolean).length < 3) {
+      setStatus(hadLink
+        ? "Links can't be opened here, so the video can't be watched. Add a line about the play: who, which match, what happened."
+        : "Add a little more: who, which match, what happened.");
+      promptEl.focus();
+      return;
+    }
+
+    genCtl = new AbortController();
+    animateBtn.disabled = true;
+    stopBtn.hidden = false;
+    setStatus("Thinking…", true);
+    try {
+      const out = await sample.json(buildPrompt(text), {
+        signal: genCtl.signal,
+        cache: false,
+        onText: ({ text: so }) => {
+          const n = (so.match(/"path"/g) || []).length;
+          setStatus(n ? `Placing players… ${n}` : "Sketching the play…", true);
+        }
+      });
+      const play = normalizePlay(out);
+      library.push({ group: "Yours", play });
+      loadPlay(play, { autoplay: true });
+      setStatus(`Ready: ${play.title}.`);
+    } catch (e) {
+      setStatus(copyFor(e));
+    } finally {
+      animateBtn.disabled = false;
+      stopBtn.hidden = true;
+      genCtl = null;
+    }
+  }
+
+  animateBtn.addEventListener("click", animateFromText);
+  stopBtn.addEventListener("click", () => genCtl && genCtl.abort());
+  promptEl.addEventListener("keydown", e => {
+    if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); animateFromText(); }
+  });
+
+  // ---------- Feedback (stored in the artifact's db) ----------
+  const fbTab = $("fbTab"), fbPanel = $("fbPanel"), fbText = $("fbText"), fbSend = $("fbSend"), fbStatus = $("fbStatus");
+  let db = null;
+  function toggleFeedback(open) {
+    fbPanel.hidden = !open;
+    fbTab.setAttribute("aria-expanded", String(open));
+    if (open) fbText.focus();
+  }
+  fbTab.addEventListener("click", () => toggleFeedback(fbPanel.hidden));
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !fbPanel.hidden) { toggleFeedback(false); fbTab.focus(); } });
+  fbSend.addEventListener("click", async () => {
+    const v = fbText.value.trim();
+    if (!v) { fbStatus.textContent = "Write something first."; return; }
+    if (!db) { fbStatus.textContent = "Feedback can only be sent from the published page."; return; }
+    fbSend.disabled = true;
+    fbStatus.textContent = "Sending…";
+    try {
+      await db.collection("feedback").add({
+        text: v.slice(0, 2000),
+        play: current ? current.play.title : "",
+        at: new Date().toISOString()
+      });
+      fbText.value = "";
+      fbStatus.textContent = "Sent. Thank you.";
+    } catch (e) {
+      fbStatus.textContent = e && (e.code === "quota_exceeded" || e.code === "resource_exhausted")
+        ? "Feedback storage is full."
+        : "Couldn't send. Try again in a moment.";
+    } finally {
+      fbSend.disabled = false;
+    }
+  });
+
+  // ---------- Video download ----------
+  // Frames are drawn offline (faster than real time) and encoded to H.264 MP4 with WebCodecs +
+  // mp4-muxer; browsers without that fall back to a real-time MediaRecorder capture.
+  // Layouts are in logical units (K device px each). The vertical format turns the pitch so play
+  // runs up the screen, and keeps the header and caption clear of app overlays top and bottom.
+  const VIDEO_FORMATS = {
+    landscape: { label: "Landscape 16:9 · YouTube, X", w: 1920, h: 1080, safeTop: 0, safeBottom: 0 },
+    square: { label: "Square 1:1 · Instagram feed", w: 1080, h: 1080, safeTop: 0, safeBottom: 0 },
+    portrait: { label: "Portrait 4:5 · Instagram feed", w: 1080, h: 1350, safeTop: 0, safeBottom: 0 },
+    vertical: { label: "Vertical 9:16 · Reels, TikTok, Shorts", w: 1080, h: 1920, safeTop: 100, safeBottom: 110, tall: true }
+  };
+  const FPS = 30, K = 1.6;
+  const FONT_MONO = '"DM Mono", ui-monospace, monospace';
+  const videoBtn = $("videoBtn"), videoStatus = $("videoStatus"), formatSelect = $("videoFormat");
+  const inViewer = !!(window.claude && typeof window.claude.use === "function");
+  const downloadsReady = inViewer ? window.claude.use("downloads").catch(() => null) : Promise.resolve(null);
+  downloadsReady.then(d => { if (inViewer && !d) $("videoControls").hidden = true; });
+
+  for (const [key, f] of Object.entries(VIDEO_FORMATS)) {
+    const o = document.createElement("option");
+    o.value = key;
+    o.textContent = f.label;
+    formatSelect.append(o);
+  }
+  try {
+    const saved = localStorage.getItem("birdseye.videoFormat");
+    if (saved && VIDEO_FORMATS[saved]) formatSelect.value = saved;
+  } catch (e) { /* storage unavailable: keep the default */ }
+  formatSelect.addEventListener("change", () => {
+    try { localStorage.setItem("birdseye.videoFormat", formatSelect.value); } catch (e) { /* ignore */ }
+  });
+
+  function videoLayout(format) {
+    const LW = format.w / K, LH = format.h / K;
+    const narrow = LW < 800, rotated = !!format.tall && look === "classic";
+    const headerH = narrow ? 150 : 96, footerH = narrow ? 112 : 87;
+    const side = narrow ? 30 : 40, pad = narrow ? 16 : 0, gap = narrow ? 12 : 0;
+    const availW = LW - 2 * side;
+    const availH = LH - format.safeTop - format.safeBottom - 2 * pad - headerH - footerH - gap;
+    const aspect = rotated ? (H + 2 * M) / (W + 2 * M) : (W + 2 * M) / (H + 2 * M);
+    let pw = availW, ph = pw / aspect;
+    if (look !== "classic") ph = Math.min(availH, pw * 1.6); // camera-framed looks fill the box
+    else if (ph > availH) { ph = availH; pw = ph * aspect; }
+    const top = format.safeTop + pad + (LH - format.safeTop - format.safeBottom - 2 * pad - (headerH + footerH + gap + ph)) / 2;
+    const px = (LW - pw) / 2;
+    return rotated
+      ? { LW, LH, narrow, rotated, px, pw, ph, headerTop: top, footerTop: top + headerH, py: top + headerH + footerH + gap }
+      : { LW, LH, narrow, rotated, px, pw, ph, headerTop: top, py: top + headerH, footerTop: top + headerH + ph + gap };
+  }
+
+  function withView(view, fn) {
+    const saved = [canvas, ctx, pitchLayer, cssW, cssH, scale, dpr, rotated];
+    [canvas, ctx, pitchLayer, cssW, cssH, scale, dpr, rotated] =
+      [view.canvas, view.ctx, view.layer, view.w, view.h, view.scale, view.dpr, !!view.rotated];
+    try { fn(); } finally { [canvas, ctx, pitchLayer, cssW, cssH, scale, dpr, rotated] = saved; }
+  }
+
+  function makeExportView(L) {
+    const c = document.createElement("canvas");
+    c.width = Math.round(L.pw * K);
+    c.height = Math.round(L.ph * K);
+    // The renderer always works in landscape pitch units; a rotated view swaps width and height
+    const w = L.rotated ? L.ph : L.pw, h = L.rotated ? L.pw : L.ph;
+    const view = {
+      canvas: c, ctx: c.getContext("2d"), layer: document.createElement("canvas"),
+      w, h, scale: w / (W + 2 * M), dpr: K, rotated: L.rotated
+    };
+    withView(view, drawPitchLayer);
+    return view;
+  }
+
+  function fitText(g, str, maxW, weight, size, family, min) {
+    let s = size;
+    g.font = `${weight} ${s}px ${family}`;
+    while (g.measureText(str).width > maxW && s > min) { s -= 1; g.font = `${weight} ${s}px ${family}`; }
+    if (g.measureText(str).width <= maxW) return str;
+    let out = str;
+    while (out.length > 1 && g.measureText(out + "…").width > maxW) out = out.slice(0, -1);
+    return out.trimEnd() + "…";
+  }
+
+  function wrapText(g, text, maxW, maxLines, weight, size, family, min) {
+    const words = text.split(/\s+/);
+    for (let s = size; ; s--) {
+      g.font = `${weight} ${s}px ${family}`;
+      const lines = [];
+      let line = "";
+      for (const word of words) {
+        const next = line ? line + " " + word : word;
+        if (line && g.measureText(next).width > maxW) { lines.push(line); line = word; } else line = next;
+      }
+      if (line) lines.push(line);
+      const fits = lines.length <= maxLines && lines.every(l => g.measureText(l).width <= maxW);
+      if (fits || s <= min) {
+        const out = lines.slice(0, maxLines);
+        if (!fits) out[out.length - 1] = fitText(g, lines.slice(maxLines - 1).join(" "), maxW, weight, s, family, s);
+        return { lines: out, font: `${weight} ${s}px ${family}`, lineHeight: Math.round(s * 1.25) };
+      }
+    }
+  }
+
+  function scoreboard(g, play, time, cy) {
+    const sc = scoreAt(play, time);
+    const gap = w => ({ w, draw() {} });
+    const textPart = (str, font, color) => {
+      g.font = font;
+      return { w: g.measureText(str).width, draw: x => { g.font = font; g.fillStyle = color; g.fillText(str, x, cy + 1); } };
+    };
+    const kitPart = side => ({
+      w: 14,
+      draw: x => {
+        const tm = play.teams[side];
+        g.beginPath();
+        g.arc(x + 7, cy, 6, 0, Math.PI * 2);
+        g.fillStyle = tm.color;
+        g.fill();
+        g.lineWidth = 2.5;
+        g.strokeStyle = tm.color2;
+        g.stroke();
+      }
+    });
+    const parts = [];
+    if (play.clock) {
+      const font = `500 13px ${FONT_MONO}`;
+      g.font = font;
+      const w = g.measureText(play.clock).width + 16;
+      parts.push({
+        w,
+        draw: x => {
+          g.strokeStyle = colors.rule;
+          g.lineWidth = 1;
+          roundRect(g, x + 0.5, cy - 12, w - 1, 24, 6);
+          g.stroke();
+          g.font = font;
+          g.fillStyle = colors.muted;
+          g.fillText(play.clock, x + 8, cy + 1);
+        }
+      }, gap(14));
+    }
+    const scoreFont = `800 38px ${FONT_DISPLAY}`, scoreStr = `${sc[0]}–${sc[1]}`;
+    g.font = scoreFont;
+    const scoreW = g.measureText(scoreStr).width + 26;
+    parts.push(
+      kitPart("A"), gap(7), textPart(play.teams.A.short, `800 22px ${FONT_DISPLAY}`, colors.ink), gap(12),
+      {
+        w: scoreW,
+        draw: x => {
+          g.fillStyle = colors.ink;
+          roundRect(g, x, cy - 23, scoreW, 46, 6);
+          g.fill();
+          g.font = scoreFont;
+          g.fillStyle = colors.ground;
+          g.textAlign = "center";
+          g.fillText(scoreStr, x + scoreW / 2, cy + 2);
+          g.textAlign = "left";
+        }
+      },
+      gap(12), textPart(play.teams.B.short, `800 22px ${FONT_DISPLAY}`, colors.ink), gap(7), kitPart("B")
+    );
+    return {
+      w: parts.reduce((s, p) => s + p.w, 0),
+      draw: x => {
+        g.textAlign = "left";
+        g.textBaseline = "middle";
+        for (const p of parts) { p.draw(x); x += p.w; }
+      }
+    };
+  }
+
+  function drawVideoFrame(R, view, L, g, time) {
+    const { play } = R;
+    const { px, py, pw, ph, narrow } = L;
+    withView(view, () => draw(R, time));
+    g.setTransform(K, 0, 0, K, 0, 0);
+    g.globalAlpha = 1;
+    g.fillStyle = colors.ground;
+    g.fillRect(0, 0, L.LW, L.LH);
+    g.save();
+    roundRect(g, px, py, pw, ph, 10);
+    g.clip();
+    g.drawImage(view.canvas, px, py, pw, ph);
+    g.restore();
+
+    const spaced = "letterSpacing" in g, right = px + pw, ht = L.headerTop;
+
+    // Header: subtitle, title, scoreline (beside the title when wide, below it when narrow)
+    const board = scoreboard(g, play, time, narrow ? ht + 112 : ht + 62);
+    board.draw(narrow ? px : right - board.w);
+    g.textAlign = "left";
+    g.textBaseline = "alphabetic";
+    g.fillStyle = colors.ink;
+    g.fillText(fitText(g, play.title.toUpperCase(), narrow ? pw : pw - board.w - 28, 800, 44, FONT_DISPLAY, 26), px, ht + (narrow ? 70 : 78));
+    if (play.subtitle) {
+      if (spaced) g.letterSpacing = "1.2px";
+      g.fillStyle = colors.muted;
+      g.fillText(fitText(g, play.subtitle.toUpperCase(), pw, 600, 12, FONT_BODY, 10), px, ht + (narrow ? 24 : 32));
+      if (spaced) g.letterSpacing = "0px";
+    }
+
+    // Caption, accuracy note and wordmark
+    const ft = L.footerTop;
+    let ci = -1;
+    play.captions.forEach((c, i) => { if (c.t <= time + 1e-6) ci = i; });
+    if (ci >= 0) {
+      const c = play.captions[ci];
+      const wrapped = wrapText(g, c.text, pw - 50, narrow ? 2 : 1, 600, 23, FONT_BODY, 16);
+      g.globalAlpha = Math.min(1, 0.15 + (time - c.t) / 0.3);
+      g.fillStyle = colors.muted;
+      g.font = `500 13px ${FONT_MONO}`;
+      g.fillText(fmt(c.t).replace(/\.\d$/, ""), px, ft + 36);
+      g.fillStyle = colors.ink;
+      g.font = wrapped.font;
+      wrapped.lines.forEach((line, i) => g.fillText(line, px + 50, ft + 37 + i * wrapped.lineHeight));
+      g.globalAlpha = 1;
+    }
+    const noteY = ft + (narrow ? 100 : 68);
+    if (spaced) g.letterSpacing = "1px";
+    g.font = `900 15px ${FONT_DISPLAY}`;
+    const brandW = g.measureText("BIRDSEYE FC").width;
+    g.fillStyle = colors.muted;
+    g.textAlign = "right";
+    g.fillText("BIRDSEYE FC", right, noteY);
+    g.textAlign = "left";
+    if (spaced) g.letterSpacing = "0px";
+    if (play.note) g.fillText(fitText(g, play.note, pw - brandW - 24, 400, 12.5, FONT_BODY, 10), px, noteY);
+  }
+
+  async function pickVideoConfig(format) {
+    if (!window.VideoEncoder || !window.VideoFrame || !window.Mp4Muxer) return null;
+    for (const codec of ["avc1.640028", "avc1.4d0028", "avc1.420028"]) {
+      const config = { codec, width: format.w, height: format.h, bitrate: 8_000_000, framerate: FPS };
+      try {
+        if ((await VideoEncoder.isConfigSupported(config)).supported) return config;
+      } catch (e) { /* try the next profile */ }
+    }
+    return null;
+  }
+
+  async function encodeAudio(muxer, buffer, audioConfig) {
+    let failure = null;
+    const encoder = new AudioEncoder({ output: (chunk, meta) => muxer.addAudioChunk(chunk, meta), error: e => { failure = e; } });
+    encoder.configure(audioConfig);
+    const ch = buffer.numberOfChannels, sr = buffer.sampleRate, block = 4096;
+    const planes = Array.from({ length: ch }, (_, c) => buffer.getChannelData(c));
+    for (let i = 0; i < buffer.length; i += block) {
+      if (failure) throw failure;
+      const n = Math.min(block, buffer.length - i);
+      const data = new Float32Array(n * ch);
+      for (let c = 0; c < ch; c++) data.set(planes[c].subarray(i, i + n), c * n);
+      const frame = new AudioData({ format: "f32-planar", sampleRate: sr, numberOfFrames: n, numberOfChannels: ch, timestamp: Math.round((i / sr) * 1e6), data });
+      encoder.encode(frame);
+      frame.close();
+    }
+    await encoder.flush();
+    if (failure) throw failure;
+    encoder.close();
+  }
+
+  async function encodeMp4(config, format, times, frameCanvas, renderFrame, audio) {
+    const frames = times.length;
+    const muxer = new Mp4Muxer.Muxer({
+      target: new Mp4Muxer.ArrayBufferTarget(),
+      video: { codec: "avc", width: format.w, height: format.h },
+      ...(audio ? { audio: { codec: "aac", numberOfChannels: 2, sampleRate: audio.buffer.sampleRate }, firstTimestampBehavior: "offset" } : {}),
+      fastStart: "in-memory"
+    });
+    let failure = null;
+    const encoder = new VideoEncoder({
+      output: (chunk, meta) => muxer.addVideoChunk(chunk, meta),
+      error: e => { failure = e; }
+    });
+    encoder.configure(config);
+    for (let i = 0; i < frames; i++) {
+      if (failure) throw failure;
+      renderFrame(times[i]);
+      const vf = new VideoFrame(frameCanvas, { timestamp: Math.round((i * 1e6) / FPS), duration: Math.round(1e6 / FPS) });
+      encoder.encode(vf, { keyFrame: i % (FPS * 2) === 0 });
+      vf.close();
+      while (encoder.encodeQueueSize > 6) await new Promise(r => setTimeout(r, 4));
+      if (i % 8 === 0) {
+        videoStatus.textContent = `Rendering ${Math.round((i / frames) * 100)}%`;
+        await new Promise(r => setTimeout(r, 0));
+      }
+    }
+    await encoder.flush();
+    if (failure) throw failure;
+    encoder.close();
+    if (audio) {
+      videoStatus.textContent = "Adding crowd sound…";
+      await encodeAudio(muxer, audio.buffer, audio.config);
+    }
+    muxer.finalize();
+    return { blob: new Blob([muxer.target.buffer], { type: "video/mp4" }), ext: "mp4" };
+  }
+
+  async function recordRealtime(total, frameCanvas, renderFrame) {
+    const mime = ["video/mp4;codecs=avc1", "video/mp4", "video/webm;codecs=vp9", "video/webm"]
+      .find(m => window.MediaRecorder && MediaRecorder.isTypeSupported(m));
+    if (!mime || !frameCanvas.captureStream) throw playError("This browser can't make videos. Try Chrome, Edge or Safari.");
+    const stream = frameCanvas.captureStream(FPS);
+    const recorder = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 8_000_000 });
+    const chunks = [];
+    recorder.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+    const stopped = new Promise((resolve, reject) => {
+      recorder.onstop = resolve;
+      recorder.onerror = e => reject(e.error || e);
+    });
+    renderFrame(0);
+    recorder.start(250);
+    const start = performance.now();
+    await new Promise(resolve => {
+      const step = () => {
+        const el = (performance.now() - start) / 1000;
+        renderFrame(el);
+        videoStatus.textContent = `Recording ${Math.min(Math.floor(el), Math.ceil(total))}s of ${Math.ceil(total)}s`;
+        if (el >= total) resolve();
+        else requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+    recorder.stop();
+    await stopped;
+    stream.getTracks().forEach(tr => tr.stop());
+    return { blob: new Blob(chunks, { type: mime.split(";")[0] }), ext: mime.startsWith("video/mp4") ? "mp4" : "webm" };
+  }
+
+  function videoCopy(e) {
+    if (e && e.userMsg) return e.userMsg;
+    switch (e && e.code) {
+      case "declined": return "Save cancelled.";
+      case "rate_limited": return "A save prompt is already open.";
+      case "too_large": return "The video is too large to save here.";
+      case "bad_request":
+      case "transform_error": return "Couldn't save the video. Try again.";
+      case "unavailable":
+      case "not_granted":
+      case "capability_disabled":
+      case "capability_removed": return "Saving files isn't available in this view.";
+      default: return "Couldn't render the video in this browser.";
+    }
+  }
+
+  const slug = s => s.toLowerCase().normalize("NFKD").replace(/\p{M}/gu, "").replace(/[^\p{L}\p{N}\s-]/gu, "")
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60) || "birdseye-play";
+
+  async function downloadVideo() {
+    if (!current || exporting) return;
+    const R = current;
+    const downloads = await downloadsReady;
+    if (inViewer && !downloads) {
+      videoStatus.textContent = "Saving files isn't available in this view.";
+      return;
+    }
+    const key = VIDEO_FORMATS[formatSelect.value] ? formatSelect.value : "landscape";
+    const format = VIDEO_FORMATS[key];
+    exporting = true;
+    setPlaying(false);
+    videoBtn.disabled = formatSelect.disabled = true;
+    lookButtons.forEach(b => { b.disabled = true; });
+    videoStatus.textContent = "Rendering 0%";
+    try {
+      if (document.fonts) await document.fonts.ready;
+      readColors();
+      const L = videoLayout(format);
+      const view = makeExportView(L);
+      const frameCanvas = document.createElement("canvas");
+      frameCanvas.width = format.w;
+      frameCanvas.height = format.h;
+      const g = frameCanvas.getContext("2d");
+      const total = R.play.duration + 0.6;
+      const renderFrame = time => drawVideoFrame(R, view, L, g, Math.min(time, R.play.duration));
+      const times = [];
+      for (let tt = 0; tt < total; tt += lookRate(R.play, tt) / FPS) times.push(tt);
+      const config = await pickVideoConfig(format);
+      let audio = null;
+      if (config && look !== "classic" && crowdOn && window.BirdseyeCrowd && window.AudioEncoder && window.AudioData) {
+        const audioConfig = { codec: "mp4a.40.2", sampleRate: 48000, numberOfChannels: 2, bitrate: 128000 };
+        try {
+          if ((await AudioEncoder.isConfigSupported(audioConfig)).supported) {
+            videoStatus.textContent = "Mixing crowd sound…";
+            const buffer = await window.BirdseyeCrowd.renderOffline(R, times, FPS, 48000);
+            if (buffer) audio = { buffer, config: audioConfig };
+          }
+        } catch (e) {
+          console.warn("Crowd sound left out of the video:", e);
+        }
+      }
+      const { blob, ext } = config
+        ? await encodeMp4(config, format, times, frameCanvas, renderFrame, audio)
+        : await recordRealtime(total, frameCanvas, renderFrame);
+      const filename = `${slug(R.play.title)}${look === "classic" ? "" : "-" + look}-${key}.${ext}`;
+      if (downloads) {
+        videoStatus.textContent = "Confirm the save…";
+        await downloads.save({ filename, data: blob });
+        videoStatus.textContent = `Saved ${filename}`;
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.append(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 10000);
+        videoStatus.textContent = `Downloaded ${filename}`;
+      }
+    } catch (e) {
+      if (!e || !e.code) console.error("Video export failed:", e);
+      videoStatus.textContent = videoCopy(e);
+    } finally {
+      exporting = false;
+      videoBtn.disabled = formatSelect.disabled = false;
+      lookButtons.forEach(b => { b.disabled = false; });
+      render();
+    }
+  }
+  videoBtn.addEventListener("click", downloadVideo);
+
+  // ---------- Capabilities ----------
+  function genUnavailable() {
+    if (window.BIRDSEYE_STANDALONE) {
+      // The standalone website has no Claude connection: hide AI plays and feedback entirely
+      document.querySelector(".gen").hidden = true;
+      fbTab.hidden = true;
+      return;
+    }
+    animateBtn.disabled = true;
+    promptEl.disabled = true;
+    $("genFine").textContent = "Animating new plays works on the published page on claude.ai. The library works everywhere.";
+  }
+  if (window.claude && typeof window.claude.use === "function") {
+    window.claude.use("sample").then(s => { sample = s; if (!s) genUnavailable(); }, genUnavailable);
+    window.claude.use("db").then(d => { db = d; }, () => {});
+  } else {
+    genUnavailable();
+  }
+
+  // ---------- Theme + size ----------
+  new ResizeObserver(resize).observe($("pitchWrap"));
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", resize);
+  new MutationObserver(resize).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+  loadPlay(library[0].play, { autoplay: false });
+  try {
+    const savedLook = localStorage.getItem("birdseye.look");
+    if (savedLook && savedLook !== "classic") setLook(savedLook);
+  } catch (e) { /* storage unavailable: stay on Classic */ }
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+    resize();
+    if (!reduceMotion) setTimeout(() => { if (!playing && t === 0) setPlaying(true); }, 700);
+  });
+})();
+</script>

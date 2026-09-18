@@ -1,0 +1,1333 @@
+{
+  "title": "Giggs's wonder goal v Arsenal",
+  "subtitle": "FA Cup, semi-final replay · Villa Park · 14 Apr 1999",
+  "clock": "109'",
+  "duration": 14,
+  "teams": {
+    "A": {
+      "name": "Manchester United",
+      "short": "MUN",
+      "color": "#D7141A",
+      "color2": "#FFFFFF",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#FFFFFF",
+      "socks": "#111111",
+      "gkColor": "#2E8B57"
+    },
+    "B": {
+      "name": "Arsenal",
+      "short": "ARS",
+      "color": "#F2C230",
+      "color2": "#1C2A5A",
+      "text": "#1C2A5A",
+      "pattern": "plain",
+      "shorts": "#1C2A5A",
+      "socks": "#F2C230",
+      "gkColor": "#3B6FB6"
+    }
+  },
+  "score": [
+    1,
+    1
+  ],
+  "players": [
+    {
+      "id": "giggs",
+      "team": "A",
+      "num": 11,
+      "name": "Giggs",
+      "star": true,
+      "look": {
+        "skin": "light",
+        "hair": "long",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 179
+      },
+      "path": [
+        [
+          0,
+          41,
+          20
+        ],
+        [
+          0.9,
+          43,
+          21.5
+        ],
+        [
+          1.7,
+          44.5,
+          23
+        ],
+        [
+          2.7,
+          50,
+          24.5
+        ],
+        [
+          3.7,
+          56.5,
+          25.5
+        ],
+        [
+          4.7,
+          63,
+          26
+        ],
+        [
+          5.7,
+          69,
+          27.3
+        ],
+        [
+          6.7,
+          75,
+          26.5
+        ],
+        [
+          7.7,
+          80.5,
+          25
+        ],
+        [
+          8.7,
+          86,
+          23.5
+        ],
+        [
+          9.7,
+          91,
+          22.5
+        ],
+        [
+          10.5,
+          94.5,
+          23.5
+        ],
+        [
+          11.5,
+          96.5,
+          25
+        ],
+        [
+          12.6,
+          97,
+          26
+        ],
+        [
+          14,
+          96.5,
+          26
+        ]
+      ]
+    },
+    {
+      "id": "schmeichel",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "gk": true,
+      "path": [
+        [
+          0,
+          12,
+          34
+        ],
+        [
+          1.75,
+          12.75,
+          34
+        ],
+        [
+          3.5,
+          13.5,
+          34
+        ],
+        [
+          5.25,
+          14.25,
+          34
+        ],
+        [
+          7,
+          15,
+          34
+        ],
+        [
+          8.75,
+          15.75,
+          34
+        ],
+        [
+          10.5,
+          16.5,
+          34
+        ],
+        [
+          12.25,
+          17.25,
+          34
+        ],
+        [
+          14,
+          18,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "mun-d1",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          28,
+          26
+        ],
+        [
+          2,
+          29.71,
+          26
+        ],
+        [
+          4,
+          31.43,
+          26
+        ],
+        [
+          6,
+          33.14,
+          26
+        ],
+        [
+          8,
+          34.86,
+          26
+        ],
+        [
+          10,
+          36.57,
+          26
+        ],
+        [
+          12,
+          38.29,
+          26
+        ],
+        [
+          14,
+          40,
+          26
+        ]
+      ]
+    },
+    {
+      "id": "mun-d2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          29,
+          40
+        ],
+        [
+          2,
+          30.86,
+          40
+        ],
+        [
+          4,
+          32.71,
+          40
+        ],
+        [
+          6,
+          34.57,
+          40
+        ],
+        [
+          8,
+          36.43,
+          40
+        ],
+        [
+          10,
+          38.29,
+          40
+        ],
+        [
+          12,
+          40.14,
+          40
+        ],
+        [
+          14,
+          42,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "mun-d3",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          30,
+          55
+        ],
+        [
+          2,
+          32,
+          54.86
+        ],
+        [
+          4,
+          34,
+          54.71
+        ],
+        [
+          6,
+          36,
+          54.57
+        ],
+        [
+          8,
+          38,
+          54.43
+        ],
+        [
+          10,
+          40,
+          54.29
+        ],
+        [
+          12,
+          42,
+          54.14
+        ],
+        [
+          14,
+          44,
+          54
+        ]
+      ]
+    },
+    {
+      "id": "mun-m1",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          50,
+          40
+        ],
+        [
+          2,
+          54.29,
+          40
+        ],
+        [
+          4,
+          58.57,
+          40
+        ],
+        [
+          6,
+          62.86,
+          40
+        ],
+        [
+          8,
+          67.14,
+          40
+        ],
+        [
+          10,
+          71.43,
+          40
+        ],
+        [
+          12,
+          75.71,
+          40
+        ],
+        [
+          14,
+          80,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "mun-m2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          46,
+          29
+        ],
+        [
+          2,
+          48.29,
+          29.43
+        ],
+        [
+          4,
+          50.57,
+          29.86
+        ],
+        [
+          6,
+          52.86,
+          30.29
+        ],
+        [
+          8,
+          55.14,
+          30.71
+        ],
+        [
+          10,
+          57.43,
+          31.14
+        ],
+        [
+          12,
+          59.71,
+          31.57
+        ],
+        [
+          14,
+          62,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "mun-f1",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          62,
+          36
+        ],
+        [
+          2.2,
+          67.2,
+          36
+        ],
+        [
+          4.4,
+          72.4,
+          36
+        ],
+        [
+          6.6,
+          77.6,
+          36
+        ],
+        [
+          8.8,
+          82.8,
+          36
+        ],
+        [
+          11,
+          88,
+          36
+        ],
+        [
+          12.5,
+          89,
+          36
+        ],
+        [
+          14,
+          90,
+          36
+        ]
+      ]
+    },
+    {
+      "id": "mun-f2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          58,
+          55
+        ],
+        [
+          2,
+          61.86,
+          54
+        ],
+        [
+          4,
+          65.71,
+          53
+        ],
+        [
+          6,
+          69.57,
+          52
+        ],
+        [
+          8,
+          73.43,
+          51
+        ],
+        [
+          10,
+          77.29,
+          50
+        ],
+        [
+          12,
+          81.14,
+          49
+        ],
+        [
+          14,
+          85,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "seaman",
+      "team": "B",
+      "num": 1,
+      "name": "Seaman",
+      "gk": true,
+      "look": {
+        "skin": "light",
+        "hair": "ponytail",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 193
+      },
+      "path": [
+        [
+          0,
+          98,
+          34
+        ],
+        [
+          1.25,
+          98.75,
+          33.9
+        ],
+        [
+          2.5,
+          99.5,
+          33.8
+        ],
+        [
+          3.75,
+          100,
+          33.75
+        ],
+        [
+          5,
+          100.5,
+          33.7
+        ],
+        [
+          6.25,
+          101,
+          33.65
+        ],
+        [
+          7.5,
+          101.5,
+          33.6
+        ],
+        [
+          9.7,
+          102.5,
+          33.5
+        ],
+        [
+          10.5,
+          103,
+          33.5
+        ],
+        [
+          11.3,
+          103.4,
+          32.5
+        ],
+        [
+          12.6,
+          103.5,
+          32
+        ],
+        [
+          14,
+          103.3,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "vieira",
+      "team": "B",
+      "num": 4,
+      "name": "Vieira",
+      "look": {
+        "skin": "dark",
+        "hair": "buzz",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 192
+      },
+      "path": [
+        [
+          0,
+          53,
+          30
+        ],
+        [
+          1,
+          51.5,
+          29.5
+        ],
+        [
+          1.7,
+          50.5,
+          28.5
+        ],
+        [
+          2.7,
+          51.5,
+          27
+        ],
+        [
+          3.7,
+          54,
+          27.5
+        ],
+        [
+          4.7,
+          58.5,
+          28
+        ],
+        [
+          5.7,
+          63,
+          29
+        ],
+        [
+          6.7,
+          67,
+          29.5
+        ],
+        [
+          8.2,
+          72,
+          30
+        ],
+        [
+          10,
+          76,
+          30.5
+        ],
+        [
+          12,
+          79,
+          31
+        ],
+        [
+          14,
+          80,
+          31
+        ]
+      ]
+    },
+    {
+      "id": "dixon",
+      "team": "B",
+      "num": 2,
+      "name": "Dixon",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 173
+      },
+      "path": [
+        [
+          0,
+          66,
+          14
+        ],
+        [
+          1.4,
+          66,
+          16.5
+        ],
+        [
+          2.7,
+          66,
+          19
+        ],
+        [
+          3.7,
+          66.5,
+          21.5
+        ],
+        [
+          4.7,
+          67,
+          23.5
+        ],
+        [
+          5.7,
+          68.5,
+          24.5
+        ],
+        [
+          6.7,
+          72,
+          24
+        ],
+        [
+          7.7,
+          77,
+          22.5
+        ],
+        [
+          8.7,
+          82,
+          21.3
+        ],
+        [
+          9.7,
+          86.5,
+          20.5
+        ],
+        [
+          10.5,
+          89.5,
+          20.5
+        ],
+        [
+          12,
+          92,
+          21.5
+        ],
+        [
+          14,
+          93,
+          22
+        ]
+      ]
+    },
+    {
+      "id": "keown",
+      "team": "B",
+      "num": 5,
+      "name": "Keown",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 185
+      },
+      "path": [
+        [
+          0,
+          70,
+          28
+        ],
+        [
+          1.35,
+          71,
+          28.25
+        ],
+        [
+          2.7,
+          72,
+          28.5
+        ],
+        [
+          4.7,
+          73.5,
+          28.5
+        ],
+        [
+          5.7,
+          75,
+          29
+        ],
+        [
+          6.7,
+          77.5,
+          29
+        ],
+        [
+          7.7,
+          79.5,
+          28
+        ],
+        [
+          8.7,
+          82.5,
+          27
+        ],
+        [
+          9.7,
+          86,
+          27
+        ],
+        [
+          10.5,
+          88.5,
+          27.5
+        ],
+        [
+          12,
+          90.5,
+          28
+        ],
+        [
+          14,
+          91,
+          27.5
+        ]
+      ]
+    },
+    {
+      "id": "adams",
+      "team": "B",
+      "num": 6,
+      "name": "Adams",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "brown",
+        "beard": "none",
+        "height": 190
+      },
+      "path": [
+        [
+          0,
+          72,
+          40
+        ],
+        [
+          1.35,
+          73,
+          38.5
+        ],
+        [
+          2.7,
+          74,
+          37
+        ],
+        [
+          4.7,
+          78,
+          33.5
+        ],
+        [
+          6.7,
+          83,
+          30.5
+        ],
+        [
+          8.7,
+          88,
+          28
+        ],
+        [
+          9.7,
+          91,
+          26.5
+        ],
+        [
+          10.5,
+          92.7,
+          26
+        ],
+        [
+          11.5,
+          94,
+          28
+        ],
+        [
+          12.6,
+          94,
+          29
+        ],
+        [
+          14,
+          94,
+          29.5
+        ]
+      ]
+    },
+    {
+      "id": "ars-lb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          64,
+          52
+        ],
+        [
+          2,
+          66,
+          50.86
+        ],
+        [
+          4,
+          68,
+          49.71
+        ],
+        [
+          6,
+          70,
+          48.57
+        ],
+        [
+          8,
+          72,
+          47.43
+        ],
+        [
+          10,
+          74,
+          46.29
+        ],
+        [
+          12,
+          76,
+          45.14
+        ],
+        [
+          14,
+          78,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "ars-m1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          45,
+          40
+        ],
+        [
+          2,
+          47.14,
+          39.71
+        ],
+        [
+          4,
+          49.29,
+          39.43
+        ],
+        [
+          6,
+          51.43,
+          39.14
+        ],
+        [
+          8,
+          53.57,
+          38.86
+        ],
+        [
+          10,
+          55.71,
+          38.57
+        ],
+        [
+          12,
+          57.86,
+          38.29
+        ],
+        [
+          14,
+          60,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "ars-m2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          40,
+          52
+        ],
+        [
+          2,
+          42.14,
+          51.71
+        ],
+        [
+          4,
+          44.29,
+          51.43
+        ],
+        [
+          6,
+          46.43,
+          51.14
+        ],
+        [
+          8,
+          48.57,
+          50.86
+        ],
+        [
+          10,
+          50.71,
+          50.57
+        ],
+        [
+          12,
+          52.86,
+          50.29
+        ],
+        [
+          14,
+          55,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "ars-m3",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          55,
+          45
+        ],
+        [
+          2,
+          56.57,
+          44.29
+        ],
+        [
+          4,
+          58.14,
+          43.57
+        ],
+        [
+          6,
+          59.71,
+          42.86
+        ],
+        [
+          8,
+          61.29,
+          42.14
+        ],
+        [
+          10,
+          62.86,
+          41.43
+        ],
+        [
+          12,
+          64.43,
+          40.71
+        ],
+        [
+          14,
+          66,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "ars-f1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          36,
+          16
+        ],
+        [
+          2,
+          37.71,
+          16.57
+        ],
+        [
+          4,
+          39.43,
+          17.14
+        ],
+        [
+          6,
+          41.14,
+          17.71
+        ],
+        [
+          8,
+          42.86,
+          18.29
+        ],
+        [
+          10,
+          44.57,
+          18.86
+        ],
+        [
+          12,
+          46.29,
+          19.43
+        ],
+        [
+          14,
+          48,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "ars-f2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          33,
+          34
+        ],
+        [
+          2,
+          34.71,
+          34
+        ],
+        [
+          4,
+          36.43,
+          34
+        ],
+        [
+          6,
+          38.14,
+          34
+        ],
+        [
+          8,
+          39.86,
+          34
+        ],
+        [
+          10,
+          41.57,
+          34
+        ],
+        [
+          12,
+          43.29,
+          34
+        ],
+        [
+          14,
+          45,
+          34
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0,
+      "with": "vieira"
+    },
+    {
+      "t": 1,
+      "with": "vieira"
+    },
+    {
+      "t": 1.7,
+      "with": "giggs"
+    },
+    {
+      "t": 10.5,
+      "with": "giggs"
+    },
+    {
+      "t": 10.95,
+      "x": 105.4,
+      "y": 30.9
+    }
+  ],
+  "venue": {
+    "time": "night",
+    "roof": "partial",
+    "stands": "#7A1F3D",
+    "accent": "#95BFE5",
+    "track": false,
+    "grass": "#3D8A36",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "Extra time in an FA Cup semi-final replay at 1–1, with United down to ten men after Roy Keane's sending-off. Arsenal had the extra player and most of the ball."
+    },
+    {
+      "label": "The turnover",
+      "text": "Vieira's loose pass landed at Giggs's feet in United's half. With Arsenal players ahead of the ball, the winger had room to run at a back line that had to turn and defend while retreating."
+    },
+    {
+      "label": "The dribble",
+      "text": "Giggs ran straight at defenders rather than around them, using close control and sudden changes of pace to go past Vieira, Dixon and Keown in turn. Each had to commit, and none got a clean tackle in."
+    },
+    {
+      "label": "The finish",
+      "text": "With Adams sliding across and Seaman closing the angle, Giggs chose power over placement, lashing a left-foot shot high into the roof of the net, the one area a keeper spread low cannot cover."
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "Extra time, 1–1, and United are down to ten men."
+    },
+    {
+      "t": 1,
+      "text": "Vieira's pass is loose; Giggs picks it up in United's half."
+    },
+    {
+      "t": 2.7,
+      "text": "Giggs carries it past Vieira…"
+    },
+    {
+      "t": 5.2,
+      "text": "…goes by Dixon…"
+    },
+    {
+      "t": 7.2,
+      "text": "…and skips away from Keown."
+    },
+    {
+      "t": 9.7,
+      "text": "Adams slides across, but Giggs is into the box."
+    },
+    {
+      "t": 10.5,
+      "text": "Left foot, from a tight angle, high over Seaman."
+    },
+    {
+      "t": 11.95,
+      "text": "Manchester United 2–1 Arsenal."
+    }
+  ],
+  "events": [
+    {
+      "t": 1,
+      "type": "pass",
+      "team": "B"
+    },
+    {
+      "t": 10.5,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 10.95,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "Deep into extra time at Villa Park, and Arsenal have the ball…"
+    },
+    {
+      "t": 1,
+      "text": "Vieira looks for a team-mate — and gives it straight to Giggs."
+    },
+    {
+      "t": 2.7,
+      "text": "Giggs away from Vieira, driving forward…"
+    },
+    {
+      "t": 5.2,
+      "text": "Past Dixon! Giggs is still going!"
+    },
+    {
+      "t": 7.2,
+      "text": "Keown can't stop Giggs either!"
+    },
+    {
+      "t": 9.4,
+      "text": "Into the area, Adams across to cover…"
+    },
+    {
+      "t": 10.5,
+      "text": "Giggs—"
+    },
+    {
+      "t": 10.95,
+      "text": "IN THE ROOF OF THE NET! An astonishing solo goal!"
+    },
+    {
+      "t": 12.25,
+      "text": "Half the pitch, all alone. Shirt off, and who could blame Giggs!"
+    }
+  ],
+  "note": "Reconstructed from memory of the footage; the order and exact spots where Giggs beat each defender, supporting players, Arsenal's kit that night and goalkeeper colours are approximate. Commentary is original, not the broadcast.",
+  "actions": [
+    {
+      "t": 10.2,
+      "id": "adams",
+      "type": "slide"
+    }
+  ],
+  "footage": {
+    "youtube": "XgPJ8g05qOw",
+    "start": 0,
+    "channel": "The Emirates FA Cup"
+  }
+}

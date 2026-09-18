@@ -1,0 +1,1367 @@
+{
+  "title": "Iniesta wins the World Cup",
+  "subtitle": "World Cup, final (extra time) · Soccer City, Johannesburg · 11 Jul 2010",
+  "clock": "116'",
+  "duration": 12.2,
+  "teams": {
+    "A": {
+      "name": "Spain",
+      "short": "ESP",
+      "color": "#14254A",
+      "color2": "#C8102E",
+      "text": "#F2C94C",
+      "pattern": "plain",
+      "shorts": "#14254A",
+      "socks": "#14254A",
+      "gkColor": "#D4E34A"
+    },
+    "B": {
+      "name": "Netherlands",
+      "short": "NED",
+      "color": "#F36C21",
+      "color2": "#FFFFFF",
+      "text": "#000000",
+      "pattern": "plain",
+      "shorts": "#F36C21",
+      "socks": "#F36C21",
+      "gkColor": "#2E2E33"
+    }
+  },
+  "score": [
+    0,
+    0
+  ],
+  "players": [
+    {
+      "id": "iniesta",
+      "team": "A",
+      "num": 6,
+      "name": "Iniesta",
+      "star": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 171
+      },
+      "path": [
+        [
+          0,
+          70,
+          40
+        ],
+        [
+          1.5,
+          75,
+          40
+        ],
+        [
+          3,
+          80,
+          41
+        ],
+        [
+          4.5,
+          84,
+          42
+        ],
+        [
+          6,
+          87,
+          43
+        ],
+        [
+          7.2,
+          90,
+          42.5
+        ],
+        [
+          8.2,
+          92.5,
+          41.5
+        ],
+        [
+          9,
+          94.3,
+          41
+        ],
+        [
+          10.2,
+          95.5,
+          40
+        ],
+        [
+          12.2,
+          96,
+          39
+        ]
+      ]
+    },
+    {
+      "id": "fabregas",
+      "team": "A",
+      "num": 18,
+      "name": "Fàbregas",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 175
+      },
+      "path": [
+        [
+          0,
+          58,
+          36
+        ],
+        [
+          1.5,
+          63,
+          35
+        ],
+        [
+          3,
+          68,
+          34
+        ],
+        [
+          4.5,
+          73,
+          33
+        ],
+        [
+          5.8,
+          77,
+          32
+        ],
+        [
+          6.9,
+          80,
+          31
+        ],
+        [
+          7.6,
+          81.5,
+          31.5
+        ],
+        [
+          8.8,
+          83,
+          32.5
+        ],
+        [
+          10.5,
+          85,
+          33
+        ],
+        [
+          12.2,
+          86,
+          33
+        ]
+      ]
+    },
+    {
+      "id": "navas",
+      "team": "A",
+      "num": 22,
+      "name": "Navas",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 170
+      },
+      "path": [
+        [
+          0,
+          46,
+          50
+        ],
+        [
+          1,
+          52,
+          48.5
+        ],
+        [
+          2,
+          58,
+          47
+        ],
+        [
+          2.8,
+          62.5,
+          46
+        ],
+        [
+          3.8,
+          66,
+          46
+        ],
+        [
+          5.5,
+          70,
+          45
+        ],
+        [
+          7.5,
+          74,
+          44
+        ],
+        [
+          10,
+          76,
+          43
+        ],
+        [
+          12.2,
+          77,
+          43
+        ]
+      ]
+    },
+    {
+      "id": "torres",
+      "team": "A",
+      "num": 9,
+      "name": "Torres",
+      "look": {
+        "skin": "fair",
+        "hair": "short",
+        "hairColor": "blond",
+        "beard": "none",
+        "height": 186
+      },
+      "path": [
+        [
+          0,
+          64,
+          22
+        ],
+        [
+          1.2,
+          66,
+          20
+        ],
+        [
+          2.4,
+          69,
+          18
+        ],
+        [
+          3.4,
+          71.5,
+          16.5
+        ],
+        [
+          4.2,
+          73,
+          16
+        ],
+        [
+          5,
+          76,
+          15
+        ],
+        [
+          5.8,
+          79,
+          14.5
+        ],
+        [
+          6.8,
+          82,
+          17
+        ],
+        [
+          8,
+          85,
+          22
+        ],
+        [
+          9.5,
+          88,
+          26
+        ],
+        [
+          10.85,
+          89,
+          27
+        ],
+        [
+          12.2,
+          90,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "casillas",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "gk": true,
+      "path": [
+        [
+          0,
+          8,
+          34
+        ],
+        [
+          1.74,
+          8.6,
+          34
+        ],
+        [
+          3.49,
+          9.1,
+          34
+        ],
+        [
+          5.23,
+          9.7,
+          34
+        ],
+        [
+          6.97,
+          10.3,
+          34
+        ],
+        [
+          8.71,
+          10.9,
+          34
+        ],
+        [
+          10.46,
+          11.4,
+          34
+        ],
+        [
+          12.2,
+          12,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "esp-cb1",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          42,
+          28
+        ],
+        [
+          1.74,
+          43.1,
+          28
+        ],
+        [
+          3.49,
+          44.3,
+          28
+        ],
+        [
+          5.23,
+          45.4,
+          28
+        ],
+        [
+          6.97,
+          46.6,
+          28
+        ],
+        [
+          8.71,
+          47.7,
+          28
+        ],
+        [
+          10.46,
+          48.9,
+          28
+        ],
+        [
+          12.2,
+          50,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "esp-cb2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          40,
+          40
+        ],
+        [
+          1.74,
+          41.1,
+          40
+        ],
+        [
+          3.49,
+          42.3,
+          40
+        ],
+        [
+          5.23,
+          43.4,
+          40
+        ],
+        [
+          6.97,
+          44.6,
+          40
+        ],
+        [
+          8.71,
+          45.7,
+          40
+        ],
+        [
+          10.46,
+          46.9,
+          40
+        ],
+        [
+          12.2,
+          48,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "esp-lb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          58,
+          8
+        ],
+        [
+          1.74,
+          59.4,
+          8.1
+        ],
+        [
+          3.49,
+          60.9,
+          8.3
+        ],
+        [
+          5.23,
+          62.3,
+          8.4
+        ],
+        [
+          6.97,
+          63.7,
+          8.6
+        ],
+        [
+          8.71,
+          65.1,
+          8.7
+        ],
+        [
+          10.46,
+          66.6,
+          8.9
+        ],
+        [
+          12.2,
+          68,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "esp-rb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          54,
+          62
+        ],
+        [
+          1.74,
+          55.7,
+          61.7
+        ],
+        [
+          3.49,
+          57.4,
+          61.4
+        ],
+        [
+          5.23,
+          59.1,
+          61.1
+        ],
+        [
+          6.97,
+          60.9,
+          60.9
+        ],
+        [
+          8.71,
+          62.6,
+          60.6
+        ],
+        [
+          10.46,
+          64.3,
+          60.3
+        ],
+        [
+          12.2,
+          66,
+          60
+        ]
+      ]
+    },
+    {
+      "id": "esp-dm",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          48,
+          34
+        ],
+        [
+          1.74,
+          49.4,
+          34
+        ],
+        [
+          3.49,
+          50.9,
+          34
+        ],
+        [
+          5.23,
+          52.3,
+          34
+        ],
+        [
+          6.97,
+          53.7,
+          34
+        ],
+        [
+          8.71,
+          55.1,
+          34
+        ],
+        [
+          10.46,
+          56.6,
+          34
+        ],
+        [
+          12.2,
+          58,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "esp-cm",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          60,
+          56
+        ],
+        [
+          2,
+          63.3,
+          55.3
+        ],
+        [
+          4,
+          66.7,
+          54.7
+        ],
+        [
+          6,
+          70,
+          54
+        ],
+        [
+          7.55,
+          72,
+          53.5
+        ],
+        [
+          9.1,
+          74,
+          53
+        ],
+        [
+          10.65,
+          76,
+          52.5
+        ],
+        [
+          12.2,
+          78,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "stekelenburg",
+      "team": "B",
+      "num": 1,
+      "name": "Stekelenburg",
+      "gk": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "none",
+        "height": 197
+      },
+      "path": [
+        [
+          0,
+          101.5,
+          31
+        ],
+        [
+          1.5,
+          101.8,
+          32
+        ],
+        [
+          3,
+          102.2,
+          31.5
+        ],
+        [
+          4.5,
+          102.5,
+          30
+        ],
+        [
+          6,
+          102.2,
+          32
+        ],
+        [
+          7.2,
+          102.2,
+          35
+        ],
+        [
+          8.2,
+          102.4,
+          37
+        ],
+        [
+          8.9,
+          102.6,
+          37.2
+        ],
+        [
+          9.6,
+          103.2,
+          35.8
+        ],
+        [
+          10.6,
+          103.2,
+          34.5
+        ],
+        [
+          12.2,
+          103,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "vdvaart",
+      "team": "B",
+      "num": 23,
+      "name": "van der Vaart",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "blond",
+        "beard": "none",
+        "height": 176
+      },
+      "path": [
+        [
+          0,
+          76,
+          28
+        ],
+        [
+          1.5,
+          77,
+          27
+        ],
+        [
+          3,
+          79,
+          25
+        ],
+        [
+          4.5,
+          82,
+          23
+        ],
+        [
+          5.5,
+          84,
+          22
+        ],
+        [
+          6.3,
+          85,
+          21.2
+        ],
+        [
+          7.2,
+          86,
+          24
+        ],
+        [
+          8.5,
+          88,
+          28
+        ],
+        [
+          10,
+          90,
+          30
+        ],
+        [
+          12.2,
+          91,
+          31
+        ]
+      ]
+    },
+    {
+      "id": "ned-cb1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          90,
+          30
+        ],
+        [
+          1.5,
+          90.5,
+          29.5
+        ],
+        [
+          3,
+          91,
+          29
+        ],
+        [
+          4.4,
+          91.3,
+          28
+        ],
+        [
+          5.8,
+          91.5,
+          27
+        ],
+        [
+          7.5,
+          92,
+          30
+        ],
+        [
+          9,
+          94,
+          33
+        ],
+        [
+          10.6,
+          94.5,
+          33.5
+        ],
+        [
+          12.2,
+          95,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "ned-cb2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          88,
+          47
+        ],
+        [
+          1.5,
+          89,
+          47
+        ],
+        [
+          3,
+          90,
+          47
+        ],
+        [
+          4.5,
+          91,
+          46.8
+        ],
+        [
+          6,
+          92,
+          46.5
+        ],
+        [
+          8.2,
+          95,
+          45
+        ],
+        [
+          9.5,
+          97,
+          43
+        ],
+        [
+          10.85,
+          97.5,
+          42.5
+        ],
+        [
+          12.2,
+          98,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "ned-rb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          84,
+          12
+        ],
+        [
+          1.5,
+          84,
+          12
+        ],
+        [
+          3,
+          84,
+          12
+        ],
+        [
+          4.2,
+          82,
+          12.5
+        ],
+        [
+          5.8,
+          83,
+          11.5
+        ],
+        [
+          6.8,
+          85,
+          14
+        ],
+        [
+          8,
+          87,
+          17
+        ],
+        [
+          9.5,
+          89,
+          20
+        ],
+        [
+          10.85,
+          89.5,
+          21
+        ],
+        [
+          12.2,
+          90,
+          22
+        ]
+      ]
+    },
+    {
+      "id": "ned-lb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          80,
+          56
+        ],
+        [
+          2,
+          81.3,
+          55.3
+        ],
+        [
+          4,
+          82.7,
+          54.7
+        ],
+        [
+          6,
+          84,
+          54
+        ],
+        [
+          7.55,
+          85,
+          53.5
+        ],
+        [
+          9.1,
+          86,
+          53
+        ],
+        [
+          10.65,
+          87,
+          52.5
+        ],
+        [
+          12.2,
+          88,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "ned-dm1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          66,
+          30
+        ],
+        [
+          1.5,
+          68,
+          29.5
+        ],
+        [
+          3,
+          70,
+          29
+        ],
+        [
+          4.5,
+          73,
+          28
+        ],
+        [
+          6,
+          76,
+          27
+        ],
+        [
+          7.5,
+          78,
+          28
+        ],
+        [
+          9,
+          80,
+          29
+        ],
+        [
+          10.6,
+          81,
+          28.5
+        ],
+        [
+          12.2,
+          82,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "ned-dm2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          54,
+          42
+        ],
+        [
+          1.2,
+          55,
+          43.5
+        ],
+        [
+          2.4,
+          58,
+          43.5
+        ],
+        [
+          3.6,
+          62,
+          43
+        ],
+        [
+          5,
+          66,
+          42
+        ],
+        [
+          7,
+          70,
+          41
+        ],
+        [
+          9.5,
+          73,
+          40
+        ],
+        [
+          10.85,
+          73.5,
+          39.5
+        ],
+        [
+          12.2,
+          74,
+          39
+        ]
+      ]
+    },
+    {
+      "id": "ned-am",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          61,
+          27
+        ],
+        [
+          1.5,
+          63.5,
+          25.5
+        ],
+        [
+          3,
+          66,
+          24
+        ],
+        [
+          4.5,
+          68,
+          24
+        ],
+        [
+          6,
+          70,
+          24
+        ],
+        [
+          7.5,
+          72,
+          24.5
+        ],
+        [
+          9,
+          74,
+          25
+        ],
+        [
+          10.6,
+          75,
+          25
+        ],
+        [
+          12.2,
+          76,
+          25
+        ]
+      ]
+    },
+    {
+      "id": "ned-fw",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          52,
+          26
+        ],
+        [
+          1.74,
+          52.4,
+          26.1
+        ],
+        [
+          3.49,
+          52.9,
+          26.3
+        ],
+        [
+          5.23,
+          53.3,
+          26.4
+        ],
+        [
+          6.97,
+          53.7,
+          26.6
+        ],
+        [
+          8.71,
+          54.1,
+          26.7
+        ],
+        [
+          10.46,
+          54.6,
+          26.9
+        ],
+        [
+          12.2,
+          55,
+          27
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0,
+      "with": "navas"
+    },
+    {
+      "t": 2.8,
+      "with": "navas"
+    },
+    {
+      "t": 4.2,
+      "with": "torres",
+      "lofted": true
+    },
+    {
+      "t": 5.8,
+      "with": "torres"
+    },
+    {
+      "t": 6.3,
+      "with": "vdvaart"
+    },
+    {
+      "t": 6.9,
+      "with": "fabregas"
+    },
+    {
+      "t": 7.5,
+      "with": "fabregas"
+    },
+    {
+      "t": 8.2,
+      "with": "iniesta"
+    },
+    {
+      "t": 8.7,
+      "with": "iniesta"
+    },
+    {
+      "t": 9.25,
+      "x": 105.4,
+      "y": 31.4
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "116' of the final. 0–0, and the Netherlands are down to ten."
+    },
+    {
+      "t": 1.2,
+      "text": "Navas carries Spain forward at speed."
+    },
+    {
+      "t": 4.2,
+      "text": "The ball is worked out to Torres on the left."
+    },
+    {
+      "t": 5.8,
+      "text": "Torres's cross is cut out by van der Vaart…"
+    },
+    {
+      "t": 6.9,
+      "text": "…but only as far as Fàbregas."
+    },
+    {
+      "t": 7.5,
+      "text": "Fàbregas slips it into Iniesta on the right of the box."
+    },
+    {
+      "t": 8.7,
+      "text": "A touch to set it, then a right-foot shot."
+    },
+    {
+      "t": 9.25,
+      "text": "Past Stekelenburg. Spain lead 1–0 in the final."
+    }
+  ],
+  "events": [
+    {
+      "t": 2.8,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 5.8,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 6.3,
+      "type": "tackle",
+      "team": "B"
+    },
+    {
+      "t": 7.5,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 8.7,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 9.25,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "actions": [],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "Four minutes of extra time left, and penalties are looming…"
+    },
+    {
+      "t": 1.2,
+      "text": "Navas surges forward for Spain."
+    },
+    {
+      "t": 4.2,
+      "text": "Torres on the left, looking to deliver…"
+    },
+    {
+      "t": 6.3,
+      "text": "Blocked by van der Vaart! It falls to Fàbregas…"
+    },
+    {
+      "t": 7.5,
+      "text": "Fàbregas finds Iniesta—"
+    },
+    {
+      "t": 8.7,
+      "text": "Iniesta!"
+    },
+    {
+      "t": 9.25,
+      "text": "IT'S IN! Iniesta, with four minutes left! Spain are almost there!"
+    },
+    {
+      "t": 10.8,
+      "text": "A whole country on its feet. Can they hold on now?"
+    }
+  ],
+  "note": "Fàbregas's pass and Iniesta's right-foot finish are as reported; the build-up is simplified (Navas carry, Torres cross blocked by van der Vaart), and positions, the shot's exact line and goalkeeper kits are approximate. Commentary is original, not the broadcast.",
+  "venue": {
+    "time": "night",
+    "roof": "partial",
+    "stands": "#B4532E",
+    "accent": "#6E4632",
+    "track": false,
+    "grass": "#3F7A3A",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "A tight, bruising final was 0–0 deep into extra time, and the Netherlands were down to ten men after Heitinga's second yellow. Penalties were four minutes away."
+    },
+    {
+      "label": "Build-up",
+      "text": "Navas's run stretched a tiring Dutch side and pushed them back towards their own box. Torres's delivery from the left was cut out by van der Vaart, but the clearance only went as far as Fàbregas."
+    },
+    {
+      "label": "Key moment",
+      "text": "With the Dutch shape broken by the block and the loose ball, Fàbregas found Iniesta on the right of the box before the defence could reset."
+    },
+    {
+      "label": "The finish",
+      "text": "Iniesta took one touch to set the ball, then hit it with the right foot before a defender could close. Struck quickly after the set-up touch, it left Stekelenburg little time to react."
+    }
+  ]
+}

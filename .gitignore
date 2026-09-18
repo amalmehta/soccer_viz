@@ -1,0 +1,7 @@
+.DS_Store
+__pycache__/
+# Crowd source recordings: large audio, downloaded locally. build_sounds.py turns them into
+# sound/recordings.js, which is committed.
+sound/recordings/*
+!sound/recordings/README.md
+.claude/

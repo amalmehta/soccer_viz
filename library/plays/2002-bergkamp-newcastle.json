@@ -1,0 +1,1109 @@
+{
+  "title": "Bergkamp's flick and turn",
+  "subtitle": "Premier League 2001–02 · St James' Park, Newcastle · 2 Mar 2002",
+  "clock": "11'",
+  "duration": 10.7,
+  "teams": {
+    "A": {
+      "name": "Arsenal",
+      "short": "ARS",
+      "color": "#DB0007",
+      "color2": "#FFFFFF",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#FFFFFF",
+      "socks": "#FFFFFF",
+      "gkColor": "#2E2E33"
+    },
+    "B": {
+      "name": "Newcastle United",
+      "short": "NEW",
+      "color": "#141414",
+      "color2": "#FFFFFF",
+      "text": "#FFFFFF",
+      "pattern": "stripes",
+      "shorts": "#141414",
+      "socks": "#141414",
+      "gkColor": "#2E8B57"
+    }
+  },
+  "score": [
+    0,
+    0
+  ],
+  "players": [
+    {
+      "id": "bergkamp",
+      "team": "A",
+      "num": 10,
+      "name": "Bergkamp",
+      "star": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "none",
+        "height": 188
+      },
+      "path": [
+        [
+          0,
+          80,
+          36
+        ],
+        [
+          1.3,
+          82,
+          34.5
+        ],
+        [
+          2.6,
+          84,
+          33
+        ],
+        [
+          4,
+          85.8,
+          31.5
+        ],
+        [
+          4.8,
+          86.3,
+          31
+        ],
+        [
+          5.5,
+          88.2,
+          27.6
+        ],
+        [
+          6.2,
+          91.7,
+          29.6
+        ],
+        [
+          6.9,
+          92.6,
+          33.4
+        ],
+        [
+          7.6,
+          94,
+          34.2
+        ],
+        [
+          8.6,
+          95.5,
+          34
+        ],
+        [
+          10.7,
+          96,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "pires",
+      "team": "A",
+      "num": 7,
+      "name": "Pires",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 186
+      },
+      "path": [
+        [
+          0,
+          56,
+          13
+        ],
+        [
+          1.3,
+          62,
+          13.5
+        ],
+        [
+          2.6,
+          68.5,
+          14
+        ],
+        [
+          4,
+          76,
+          15
+        ],
+        [
+          5,
+          80,
+          16.5
+        ],
+        [
+          6.5,
+          84.5,
+          19
+        ],
+        [
+          8,
+          87.5,
+          20.5
+        ],
+        [
+          9.35,
+          88,
+          21
+        ],
+        [
+          10.7,
+          88.5,
+          21.5
+        ]
+      ]
+    },
+    {
+      "id": "ars-fw",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          84,
+          45
+        ],
+        [
+          1.67,
+          86,
+          44.5
+        ],
+        [
+          3.33,
+          88,
+          44
+        ],
+        [
+          5,
+          90,
+          43.5
+        ],
+        [
+          6.9,
+          91.67,
+          43
+        ],
+        [
+          8.8,
+          93.33,
+          42.5
+        ],
+        [
+          10.7,
+          95,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "ars-rw",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          74,
+          53
+        ],
+        [
+          1.67,
+          76,
+          52.33
+        ],
+        [
+          3.33,
+          78,
+          51.67
+        ],
+        [
+          5,
+          80,
+          51
+        ],
+        [
+          6.9,
+          82.67,
+          50
+        ],
+        [
+          8.8,
+          85.33,
+          49
+        ],
+        [
+          10.7,
+          88,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "ars-cm1",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          58,
+          28
+        ],
+        [
+          2.14,
+          60.8,
+          28.4
+        ],
+        [
+          4.28,
+          63.6,
+          28.8
+        ],
+        [
+          6.42,
+          66.4,
+          29.2
+        ],
+        [
+          8.56,
+          69.2,
+          29.6
+        ],
+        [
+          10.7,
+          72,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "ars-cm2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          52,
+          40
+        ],
+        [
+          2.14,
+          54.8,
+          40
+        ],
+        [
+          4.28,
+          57.6,
+          40
+        ],
+        [
+          6.42,
+          60.4,
+          40
+        ],
+        [
+          8.56,
+          63.2,
+          40
+        ],
+        [
+          10.7,
+          66,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "ars-cb1",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          38,
+          25
+        ],
+        [
+          2.14,
+          40,
+          25.4
+        ],
+        [
+          4.28,
+          42,
+          25.8
+        ],
+        [
+          6.42,
+          44,
+          26.2
+        ],
+        [
+          8.56,
+          46,
+          26.6
+        ],
+        [
+          10.7,
+          48,
+          27
+        ]
+      ]
+    },
+    {
+      "id": "ars-cb2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          38,
+          44
+        ],
+        [
+          2.14,
+          40,
+          43.6
+        ],
+        [
+          4.28,
+          42,
+          43.2
+        ],
+        [
+          6.42,
+          44,
+          42.8
+        ],
+        [
+          8.56,
+          46,
+          42.4
+        ],
+        [
+          10.7,
+          48,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "ars-gk",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "gk": true,
+      "path": [
+        [
+          0,
+          10,
+          34
+        ],
+        [
+          2.14,
+          11.2,
+          34
+        ],
+        [
+          4.28,
+          12.4,
+          34
+        ],
+        [
+          6.42,
+          13.6,
+          34
+        ],
+        [
+          8.56,
+          14.8,
+          34
+        ],
+        [
+          10.7,
+          16,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "given",
+      "team": "B",
+      "num": 1,
+      "name": "Given",
+      "gk": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 185
+      },
+      "path": [
+        [
+          0,
+          102,
+          34
+        ],
+        [
+          1.3,
+          102,
+          33.2
+        ],
+        [
+          2.6,
+          101.6,
+          32.6
+        ],
+        [
+          4,
+          101.3,
+          33
+        ],
+        [
+          4.8,
+          101,
+          33.6
+        ],
+        [
+          5.5,
+          100.7,
+          34.2
+        ],
+        [
+          6.2,
+          100.4,
+          34.9
+        ],
+        [
+          6.9,
+          100.5,
+          35.5
+        ],
+        [
+          7.6,
+          101,
+          34.3
+        ],
+        [
+          8.6,
+          101.4,
+          33.4
+        ],
+        [
+          10.7,
+          101.5,
+          33.2
+        ]
+      ]
+    },
+    {
+      "id": "dabizas",
+      "team": "B",
+      "num": null,
+      "name": "Dabizas",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 187
+      },
+      "path": [
+        [
+          0,
+          90,
+          34.5
+        ],
+        [
+          1.3,
+          90,
+          33.5
+        ],
+        [
+          2.6,
+          89.5,
+          32.5
+        ],
+        [
+          4,
+          89,
+          31.2
+        ],
+        [
+          4.8,
+          88.8,
+          30.4
+        ],
+        [
+          5.5,
+          89.1,
+          31.4
+        ],
+        [
+          6.2,
+          89.8,
+          33.2
+        ],
+        [
+          6.9,
+          90.6,
+          35.2
+        ],
+        [
+          7.6,
+          91.4,
+          36.2
+        ],
+        [
+          8.6,
+          92,
+          36.5
+        ],
+        [
+          10.7,
+          92,
+          36.8
+        ]
+      ]
+    },
+    {
+      "id": "new-cb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          94,
+          23.5
+        ],
+        [
+          1.67,
+          94.17,
+          23.83
+        ],
+        [
+          3.33,
+          94.33,
+          24.17
+        ],
+        [
+          5,
+          94.5,
+          24.5
+        ],
+        [
+          6.9,
+          94.83,
+          25
+        ],
+        [
+          8.8,
+          95.17,
+          25.5
+        ],
+        [
+          10.7,
+          95.5,
+          26
+        ]
+      ]
+    },
+    {
+      "id": "new-rb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          72,
+          9
+        ],
+        [
+          1.3,
+          74,
+          9.75
+        ],
+        [
+          2.6,
+          76,
+          10.5
+        ],
+        [
+          3.8,
+          79.25,
+          12
+        ],
+        [
+          5,
+          82.5,
+          13.5
+        ],
+        [
+          6.5,
+          85.8,
+          16
+        ],
+        [
+          8,
+          88.5,
+          17.5
+        ],
+        [
+          9.35,
+          89.5,
+          18
+        ],
+        [
+          10.7,
+          90.5,
+          18.5
+        ]
+      ]
+    },
+    {
+      "id": "new-cb2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          94,
+          40
+        ],
+        [
+          1.67,
+          94.33,
+          39.67
+        ],
+        [
+          3.33,
+          94.67,
+          39.33
+        ],
+        [
+          5,
+          95,
+          39
+        ],
+        [
+          6.9,
+          95.33,
+          38.83
+        ],
+        [
+          8.8,
+          95.67,
+          38.67
+        ],
+        [
+          10.7,
+          96,
+          38.5
+        ]
+      ]
+    },
+    {
+      "id": "new-lb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          87,
+          55
+        ],
+        [
+          1.67,
+          88,
+          54
+        ],
+        [
+          3.33,
+          89,
+          53
+        ],
+        [
+          5,
+          90,
+          52
+        ],
+        [
+          6.9,
+          90.83,
+          51.33
+        ],
+        [
+          8.8,
+          91.67,
+          50.67
+        ],
+        [
+          10.7,
+          92.5,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "new-m1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          68,
+          24
+        ],
+        [
+          2.14,
+          70.4,
+          24.4
+        ],
+        [
+          4.28,
+          72.8,
+          24.8
+        ],
+        [
+          6.42,
+          75.2,
+          25.2
+        ],
+        [
+          8.56,
+          77.6,
+          25.6
+        ],
+        [
+          10.7,
+          80,
+          26
+        ]
+      ]
+    },
+    {
+      "id": "new-m2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          66,
+          38
+        ],
+        [
+          2.14,
+          68.4,
+          38.2
+        ],
+        [
+          4.28,
+          70.8,
+          38.4
+        ],
+        [
+          6.42,
+          73.2,
+          38.6
+        ],
+        [
+          8.56,
+          75.6,
+          38.8
+        ],
+        [
+          10.7,
+          78,
+          39
+        ]
+      ]
+    },
+    {
+      "id": "new-m3",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          62,
+          50
+        ],
+        [
+          2.14,
+          64,
+          49.6
+        ],
+        [
+          4.28,
+          66,
+          49.2
+        ],
+        [
+          6.42,
+          68,
+          48.8
+        ],
+        [
+          8.56,
+          70,
+          48.4
+        ],
+        [
+          10.7,
+          72,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "new-f1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          51,
+          31
+        ],
+        [
+          2.14,
+          52.2,
+          31
+        ],
+        [
+          4.28,
+          53.4,
+          31
+        ],
+        [
+          6.42,
+          54.6,
+          31
+        ],
+        [
+          8.56,
+          55.8,
+          31
+        ],
+        [
+          10.7,
+          57,
+          31
+        ]
+      ]
+    },
+    {
+      "id": "new-f2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          55,
+          45
+        ],
+        [
+          2.14,
+          56,
+          44.6
+        ],
+        [
+          4.28,
+          57,
+          44.2
+        ],
+        [
+          6.42,
+          58,
+          43.8
+        ],
+        [
+          8.56,
+          59,
+          43.4
+        ],
+        [
+          10.7,
+          60,
+          43
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0,
+      "with": "pires"
+    },
+    {
+      "t": 4,
+      "with": "pires"
+    },
+    {
+      "t": 4.8,
+      "with": "bergkamp"
+    },
+    {
+      "t": 5.4,
+      "x": 91.3,
+      "y": 35
+    },
+    {
+      "t": 6.4,
+      "x": 92.4,
+      "y": 35.3
+    },
+    {
+      "t": 6.9,
+      "with": "bergkamp"
+    },
+    {
+      "t": 7.2,
+      "with": "bergkamp"
+    },
+    {
+      "t": 7.7,
+      "x": 105.4,
+      "y": 30.9
+    }
+  ],
+  "venue": {
+    "time": "day",
+    "roof": "partial",
+    "stands": "#1C1C1C",
+    "accent": "#E6E6E6",
+    "track": false,
+    "grass": "#3E8C3A",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "The set-up",
+      "text": "Pires carried the ball down the left while Bergkamp drifted to the edge of the box with Dabizas marking tight from behind. A marker that close usually stops a striker from turning."
+    },
+    {
+      "label": "Key moment",
+      "text": "As Pires's low pass arrived, Bergkamp flicked the ball around one side of Dabizas with a single touch and spun round the other side. The first touch was also the turn, so no second touch was needed."
+    },
+    {
+      "label": "Why it worked",
+      "text": "Dabizas was committed to staying tight, so the defender's weight was pointed the wrong way when ball and striker split. By the time Dabizas recovered, Bergkamp was clean through."
+    },
+    {
+      "label": "The finish",
+      "text": "Alone against Given, Bergkamp stayed composed and placed the shot past the keeper rather than striking for power."
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "Early on at St James' Park, Pires carries it down the left."
+    },
+    {
+      "t": 2.6,
+      "text": "Bergkamp drifts to the edge of the box, Dabizas right behind."
+    },
+    {
+      "t": 4,
+      "text": "Pires drives a low pass in to Bergkamp."
+    },
+    {
+      "t": 4.8,
+      "text": "One touch flicks the ball around one side of Dabizas…"
+    },
+    {
+      "t": 5.5,
+      "text": "…while Bergkamp spins round the other side."
+    },
+    {
+      "t": 6.9,
+      "text": "Bergkamp's through, with only Given to beat."
+    },
+    {
+      "t": 7.7,
+      "text": "Calmly placed past Given. Newcastle 0–1 Arsenal."
+    }
+  ],
+  "events": [
+    {
+      "t": 4,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 7.2,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 7.7,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "Arsenal on the move early here, Pires with the ball on the left."
+    },
+    {
+      "t": 2.6,
+      "text": "Bergkamp showing for it, Dabizas tight up behind."
+    },
+    {
+      "t": 4,
+      "text": "Pires plays it in, firm and low…"
+    },
+    {
+      "t": 4.8,
+      "text": "Bergkamp — oh, the flick!"
+    },
+    {
+      "t": 5.6,
+      "text": "Bergkamp's gone one way, the ball's gone the other!"
+    },
+    {
+      "t": 6.9,
+      "text": "Clean through on Given…"
+    },
+    {
+      "t": 7.7,
+      "text": "AND IT'S IN! That is pure genius from Bergkamp!"
+    },
+    {
+      "t": 9.1,
+      "text": "Dabizas still trying to work out where Bergkamp went. Sensational."
+    }
+  ],
+  "note": "Reconstructed from memory of the footage; how Pires got the ball, which side the flick and turn went, the finish placement, supporting players, Arsenal's kit that day and Dabizas's shirt number are uncertain or approximate. Commentary is original, not the broadcast.",
+  "actions": [],
+  "footage": {
+    "youtube": "w7fZJf0eYq8",
+    "start": 0,
+    "channel": "Premier League"
+  }
+}

@@ -1,0 +1,1163 @@
+{
+  "title": "Ronaldinho's toe-poke at the Bridge",
+  "subtitle": "Champions League, round of 16, 2nd leg · Stamford Bridge · 8 Mar 2005",
+  "clock": "38'",
+  "duration": 11,
+  "teams": {
+    "A": {
+      "name": "Barcelona",
+      "short": "BAR",
+      "color": "#A50044",
+      "color2": "#004D98",
+      "text": "#FFFFFF",
+      "pattern": "stripes",
+      "shorts": "#004D98",
+      "socks": "#004D98",
+      "gkColor": "#2E8B57"
+    },
+    "B": {
+      "name": "Chelsea",
+      "short": "CHE",
+      "color": "#034694",
+      "color2": "#FFFFFF",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#034694",
+      "socks": "#FFFFFF",
+      "gkColor": "#9AA0A6"
+    }
+  },
+  "score": [
+    1,
+    3
+  ],
+  "players": [
+    {
+      "id": "ronaldinho",
+      "team": "A",
+      "num": 10,
+      "name": "Ronaldinho",
+      "star": true,
+      "look": {
+        "skin": "brown",
+        "hair": "long",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 181
+      },
+      "path": [
+        [
+          0,
+          80,
+          31
+        ],
+        [
+          1.2,
+          81.8,
+          31.8
+        ],
+        [
+          2.4,
+          83.6,
+          32.6
+        ],
+        [
+          3.5,
+          85.3,
+          33.3
+        ],
+        [
+          4.4,
+          86,
+          33.5
+        ],
+        [
+          5.3,
+          86.3,
+          32.8
+        ],
+        [
+          6.1,
+          86.1,
+          34.2
+        ],
+        [
+          6.9,
+          86.5,
+          33.4
+        ],
+        [
+          7.7,
+          87,
+          33.6
+        ],
+        [
+          8.8,
+          88.5,
+          34.5
+        ],
+        [
+          10,
+          90,
+          35.5
+        ],
+        [
+          11,
+          90.5,
+          36
+        ]
+      ]
+    },
+    {
+      "id": "iniesta",
+      "team": "A",
+      "num": 24,
+      "name": "Iniesta",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 171
+      },
+      "path": [
+        [
+          0,
+          70,
+          45
+        ],
+        [
+          1.2,
+          72.5,
+          44
+        ],
+        [
+          2.4,
+          75,
+          43
+        ],
+        [
+          3.6,
+          78,
+          41.5
+        ],
+        [
+          4.8,
+          80,
+          41
+        ],
+        [
+          6.2,
+          82.5,
+          40.5
+        ],
+        [
+          7.6,
+          84.5,
+          40
+        ],
+        [
+          9,
+          86,
+          40.5
+        ],
+        [
+          11,
+          87,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "valdes",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "gk": true,
+      "path": [
+        [
+          0,
+          10,
+          34
+        ],
+        [
+          1.83,
+          10.7,
+          34
+        ],
+        [
+          3.67,
+          11.3,
+          34
+        ],
+        [
+          5.5,
+          12,
+          34
+        ],
+        [
+          7.33,
+          12.7,
+          34
+        ],
+        [
+          9.17,
+          13.3,
+          34
+        ],
+        [
+          11,
+          14,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "bar-cb1",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          40,
+          24
+        ],
+        [
+          1.83,
+          41,
+          24.2
+        ],
+        [
+          3.67,
+          42,
+          24.3
+        ],
+        [
+          5.5,
+          43,
+          24.5
+        ],
+        [
+          7.33,
+          44,
+          24.7
+        ],
+        [
+          9.17,
+          45,
+          24.8
+        ],
+        [
+          11,
+          46,
+          25
+        ]
+      ]
+    },
+    {
+      "id": "bar-cb2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          40,
+          43
+        ],
+        [
+          1.83,
+          41,
+          43
+        ],
+        [
+          3.67,
+          42,
+          43
+        ],
+        [
+          5.5,
+          43,
+          43
+        ],
+        [
+          7.33,
+          44,
+          43
+        ],
+        [
+          9.17,
+          45,
+          43
+        ],
+        [
+          11,
+          46,
+          43
+        ]
+      ]
+    },
+    {
+      "id": "bar-lb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          58,
+          13
+        ],
+        [
+          1.83,
+          59.2,
+          13.3
+        ],
+        [
+          3.67,
+          60.3,
+          13.7
+        ],
+        [
+          5.5,
+          61.5,
+          14
+        ],
+        [
+          7.33,
+          62.7,
+          14.3
+        ],
+        [
+          9.17,
+          63.8,
+          14.7
+        ],
+        [
+          11,
+          65,
+          15
+        ]
+      ]
+    },
+    {
+      "id": "bar-rb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          58,
+          59
+        ],
+        [
+          1.83,
+          59.3,
+          58.8
+        ],
+        [
+          3.67,
+          60.7,
+          58.7
+        ],
+        [
+          5.5,
+          62,
+          58.5
+        ],
+        [
+          7.33,
+          63.3,
+          58.3
+        ],
+        [
+          9.17,
+          64.7,
+          58.2
+        ],
+        [
+          11,
+          66,
+          58
+        ]
+      ]
+    },
+    {
+      "id": "bar-cm1",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          63,
+          36
+        ],
+        [
+          1.83,
+          64.3,
+          36
+        ],
+        [
+          3.67,
+          65.7,
+          36
+        ],
+        [
+          5.5,
+          67,
+          36
+        ],
+        [
+          7.33,
+          68.3,
+          36
+        ],
+        [
+          9.17,
+          69.7,
+          36
+        ],
+        [
+          11,
+          71,
+          36
+        ]
+      ]
+    },
+    {
+      "id": "bar-cm2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          68,
+          20
+        ],
+        [
+          1.83,
+          69.3,
+          20.3
+        ],
+        [
+          3.67,
+          70.7,
+          20.7
+        ],
+        [
+          5.5,
+          72,
+          21
+        ],
+        [
+          7.33,
+          73.3,
+          21.3
+        ],
+        [
+          9.17,
+          74.7,
+          21.7
+        ],
+        [
+          11,
+          76,
+          22
+        ]
+      ]
+    },
+    {
+      "id": "bar-fw",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          92,
+          23
+        ],
+        [
+          1.83,
+          92.5,
+          23.2
+        ],
+        [
+          3.67,
+          93,
+          23.3
+        ],
+        [
+          5.5,
+          93.5,
+          23.5
+        ],
+        [
+          7.33,
+          94,
+          23.7
+        ],
+        [
+          9.17,
+          94.5,
+          23.8
+        ],
+        [
+          11,
+          95,
+          24
+        ]
+      ]
+    },
+    {
+      "id": "bar-rw",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          88,
+          55
+        ],
+        [
+          1.83,
+          88.5,
+          54.7
+        ],
+        [
+          3.67,
+          89,
+          54.3
+        ],
+        [
+          5.5,
+          89.5,
+          54
+        ],
+        [
+          7.33,
+          90,
+          53.7
+        ],
+        [
+          9.17,
+          90.5,
+          53.3
+        ],
+        [
+          11,
+          91,
+          53
+        ]
+      ]
+    },
+    {
+      "id": "cech",
+      "team": "B",
+      "num": 1,
+      "name": "Čech",
+      "gk": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 196
+      },
+      "path": [
+        [
+          0,
+          102.8,
+          34
+        ],
+        [
+          2,
+          102.6,
+          33.6
+        ],
+        [
+          4,
+          102.4,
+          33.4
+        ],
+        [
+          5.5,
+          102.5,
+          33.3
+        ],
+        [
+          7.2,
+          102.6,
+          33.2
+        ],
+        [
+          8,
+          103.2,
+          34.2
+        ],
+        [
+          9,
+          103.5,
+          34.8
+        ],
+        [
+          11,
+          103.4,
+          35
+        ]
+      ]
+    },
+    {
+      "id": "carvalho",
+      "team": "B",
+      "num": 6,
+      "name": "Carvalho",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 183
+      },
+      "path": [
+        [
+          0,
+          92,
+          36
+        ],
+        [
+          1.5,
+          91.5,
+          35.2
+        ],
+        [
+          3,
+          90.5,
+          34.6
+        ],
+        [
+          4.4,
+          89.8,
+          34.2
+        ],
+        [
+          5.3,
+          89.6,
+          33.4
+        ],
+        [
+          6.1,
+          89.5,
+          34.6
+        ],
+        [
+          6.9,
+          89.4,
+          32.4
+        ],
+        [
+          7.8,
+          89.8,
+          32.4
+        ],
+        [
+          9.2,
+          91.5,
+          32.5
+        ],
+        [
+          11,
+          93,
+          33
+        ]
+      ]
+    },
+    {
+      "id": "che-cb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          95,
+          29
+        ],
+        [
+          2,
+          94.8,
+          29.3
+        ],
+        [
+          4,
+          94.5,
+          29.5
+        ],
+        [
+          6,
+          94.8,
+          29.8
+        ],
+        [
+          8,
+          95,
+          30
+        ],
+        [
+          9.5,
+          95.5,
+          30.5
+        ],
+        [
+          11,
+          96,
+          31
+        ]
+      ]
+    },
+    {
+      "id": "che-fb1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          92,
+          47
+        ],
+        [
+          2,
+          91.8,
+          46.5
+        ],
+        [
+          4,
+          91.5,
+          46
+        ],
+        [
+          6,
+          91.8,
+          45.5
+        ],
+        [
+          8,
+          92,
+          45
+        ],
+        [
+          9.5,
+          92.5,
+          45
+        ],
+        [
+          11,
+          93,
+          45
+        ]
+      ]
+    },
+    {
+      "id": "che-fb2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          94,
+          17
+        ],
+        [
+          1.83,
+          94.2,
+          17.3
+        ],
+        [
+          3.67,
+          94.3,
+          17.7
+        ],
+        [
+          5.5,
+          94.5,
+          18
+        ],
+        [
+          7.33,
+          94.7,
+          18.3
+        ],
+        [
+          9.17,
+          94.8,
+          18.7
+        ],
+        [
+          11,
+          95,
+          19
+        ]
+      ]
+    },
+    {
+      "id": "che-dm",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          77,
+          27
+        ],
+        [
+          2,
+          80,
+          28.5
+        ],
+        [
+          4,
+          82.5,
+          30
+        ],
+        [
+          5.5,
+          83.5,
+          30.5
+        ],
+        [
+          7,
+          84,
+          31
+        ],
+        [
+          8.5,
+          85,
+          30.5
+        ],
+        [
+          11,
+          87,
+          31
+        ]
+      ]
+    },
+    {
+      "id": "che-cm",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          74,
+          49
+        ],
+        [
+          1.8,
+          76.5,
+          47.8
+        ],
+        [
+          3.6,
+          79,
+          46.5
+        ],
+        [
+          4.9,
+          80.8,
+          46
+        ],
+        [
+          6.2,
+          82.5,
+          45.5
+        ],
+        [
+          7.6,
+          83.8,
+          45.5
+        ],
+        [
+          9,
+          85,
+          45.5
+        ],
+        [
+          11,
+          86,
+          45
+        ]
+      ]
+    },
+    {
+      "id": "che-w1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          70,
+          17
+        ],
+        [
+          1.83,
+          71.2,
+          17.3
+        ],
+        [
+          3.67,
+          72.3,
+          17.7
+        ],
+        [
+          5.5,
+          73.5,
+          18
+        ],
+        [
+          7.33,
+          74.7,
+          18.3
+        ],
+        [
+          9.17,
+          75.8,
+          18.7
+        ],
+        [
+          11,
+          77,
+          19
+        ]
+      ]
+    },
+    {
+      "id": "che-w2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          66,
+          57
+        ],
+        [
+          1.83,
+          67.2,
+          56.7
+        ],
+        [
+          3.67,
+          68.3,
+          56.3
+        ],
+        [
+          5.5,
+          69.5,
+          56
+        ],
+        [
+          7.33,
+          70.7,
+          55.7
+        ],
+        [
+          9.17,
+          71.8,
+          55.3
+        ],
+        [
+          11,
+          73,
+          55
+        ]
+      ]
+    },
+    {
+      "id": "che-fw",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          58,
+          35
+        ],
+        [
+          1.83,
+          58.8,
+          35.2
+        ],
+        [
+          3.67,
+          59.7,
+          35.3
+        ],
+        [
+          5.5,
+          60.5,
+          35.5
+        ],
+        [
+          7.33,
+          61.3,
+          35.7
+        ],
+        [
+          9.17,
+          62.2,
+          35.8
+        ],
+        [
+          11,
+          63,
+          36
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0,
+      "with": "iniesta"
+    },
+    {
+      "t": 3.6,
+      "with": "iniesta"
+    },
+    {
+      "t": 4.4,
+      "with": "ronaldinho"
+    },
+    {
+      "t": 7.2,
+      "with": "ronaldinho"
+    },
+    {
+      "t": 8.1,
+      "x": 105.4,
+      "y": 37
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "38' at Stamford Bridge. Chelsea lead 3–1 on the night."
+    },
+    {
+      "t": 1.5,
+      "text": "Iniesta carries it forward through midfield."
+    },
+    {
+      "t": 3.6,
+      "text": "Ronaldinho takes it on the edge of the box, barely moving."
+    },
+    {
+      "t": 5,
+      "text": "Carvalho stands square in front. A sway of the hips…"
+    },
+    {
+      "t": 6.6,
+      "text": "…and Carvalho leans the wrong way."
+    },
+    {
+      "t": 7.2,
+      "text": "No backlift: a toe-poke, low towards the corner."
+    },
+    {
+      "t": 8.1,
+      "text": "Čech hardly moves. Chelsea 3–2 Barcelona."
+    }
+  ],
+  "events": [
+    {
+      "t": 3.6,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 7.2,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 8.1,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "actions": [],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "Barcelona still searching for a way back into this tie…"
+    },
+    {
+      "t": 1.5,
+      "text": "Iniesta, patient, looking for the opening."
+    },
+    {
+      "t": 3.8,
+      "text": "Ronaldinho has it on the edge of the area, Carvalho right in front."
+    },
+    {
+      "t": 5.2,
+      "text": "Ronaldinho's hardly moving… just swaying, teasing the defender…"
+    },
+    {
+      "t": 7.2,
+      "text": "Oh, Ronaldinho's poked it—"
+    },
+    {
+      "t": 8.1,
+      "text": "IT'S IN! Out of absolutely nothing! Čech didn't even move!"
+    },
+    {
+      "t": 9.2,
+      "text": "No run-up, no backswing. Pure invention from Ronaldinho!"
+    },
+    {
+      "t": 10.2,
+      "text": "And that makes it four-all on aggregate."
+    }
+  ],
+  "note": "Reconstructed from memory of match reports: Ronaldinho's shimmy and toe-poke past Carvalho and Čech are as described, but the build-up is simplified to an Iniesta pass, and positions, other players and goalkeeper kit colours are approximate. Commentary is original, not the broadcast.",
+  "venue": {
+    "time": "night",
+    "roof": "partial",
+    "stands": "#1F3F8F",
+    "accent": "#C9CDD2",
+    "track": false,
+    "grass": "#3E7F3A",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "Chelsea had raced into a 3–0 lead early on and led 3–1 on the night, 4–3 on aggregate. Barcelona needed one more goal, which would have put them through on away goals."
+    },
+    {
+      "label": "Build-up",
+      "text": "Iniesta carried the ball up through midfield and fed Ronaldinho on the edge of the box. With Carvalho set in front, there was no run in behind to aim for, so the space had to be made from a standing start."
+    },
+    {
+      "label": "Key moment",
+      "text": "Carvalho held a tight, square stance in front of Ronaldinho. A sway of the hips, with the ball barely moving, got the defender to shift weight the wrong way, which opened just enough of a shooting lane."
+    },
+    {
+      "label": "The finish",
+      "text": "The toe-poke needed no backlift, so there was no cue to read. Čech was set for a wind-up that never came and hardly moved as the ball went low towards the corner."
+    }
+  ]
+}

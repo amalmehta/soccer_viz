@@ -1,0 +1,1149 @@
+{
+  "title": "Zidane's volley at Hampden",
+  "subtitle": "Champions League, final · Hampden Park, Glasgow · 15 May 2002",
+  "clock": "45'",
+  "duration": 11,
+  "teams": {
+    "A": {
+      "name": "Real Madrid",
+      "short": "RMA",
+      "color": "#F4F4EF",
+      "color2": "#2B2F6B",
+      "text": "#2B2F6B",
+      "pattern": "plain",
+      "shorts": "#F4F4EF",
+      "socks": "#F4F4EF",
+      "gkColor": "#3A3A40"
+    },
+    "B": {
+      "name": "Bayer Leverkusen",
+      "short": "LEV",
+      "color": "#E32219",
+      "color2": "#111111",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#111111",
+      "socks": "#E32219",
+      "gkColor": "#F2C94C"
+    }
+  },
+  "score": [
+    1,
+    1
+  ],
+  "players": [
+    {
+      "id": "zidane",
+      "team": "A",
+      "num": 5,
+      "name": "Zidane",
+      "star": true,
+      "look": {
+        "skin": "fair",
+        "hair": "bald",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 185
+      },
+      "path": [
+        [
+          0,
+          70,
+          30
+        ],
+        [
+          1.4,
+          73.5,
+          29.5
+        ],
+        [
+          2.7,
+          77,
+          28.8
+        ],
+        [
+          4,
+          80.5,
+          28
+        ],
+        [
+          5.4,
+          84.3,
+          27
+        ],
+        [
+          6.4,
+          86.8,
+          26.2
+        ],
+        [
+          7.3,
+          88.2,
+          25.3
+        ],
+        [
+          8.2,
+          90,
+          26.3
+        ],
+        [
+          9.6,
+          92,
+          28
+        ],
+        [
+          11,
+          92.5,
+          28.5
+        ]
+      ]
+    },
+    {
+      "id": "carlos",
+      "team": "A",
+      "num": 3,
+      "name": "Roberto Carlos",
+      "look": {
+        "skin": "brown",
+        "hair": "bald",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 168
+      },
+      "path": [
+        [
+          0,
+          64,
+          10
+        ],
+        [
+          1.5,
+          68,
+          9
+        ],
+        [
+          3,
+          73,
+          8
+        ],
+        [
+          4.3,
+          79.5,
+          7
+        ],
+        [
+          5.3,
+          85.5,
+          6.3
+        ],
+        [
+          6.3,
+          87.5,
+          6.3
+        ],
+        [
+          7.5,
+          88.5,
+          7.5
+        ],
+        [
+          9.2,
+          89.5,
+          9.5
+        ],
+        [
+          11,
+          90.3,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "solari",
+      "team": "A",
+      "num": null,
+      "name": "Solari",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 180
+      },
+      "path": [
+        [
+          0,
+          46,
+          26
+        ],
+        [
+          1.4,
+          51.5,
+          23.5
+        ],
+        [
+          2.7,
+          57,
+          20.5
+        ],
+        [
+          4,
+          62,
+          18
+        ],
+        [
+          5.2,
+          65,
+          18.5
+        ],
+        [
+          6.8,
+          70,
+          20
+        ],
+        [
+          8.5,
+          74.5,
+          21
+        ],
+        [
+          9.75,
+          75.75,
+          21
+        ],
+        [
+          11,
+          77,
+          21
+        ]
+      ]
+    },
+    {
+      "id": "rma-f1",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          72,
+          37
+        ],
+        [
+          1.85,
+          77.5,
+          36.25
+        ],
+        [
+          3.7,
+          83,
+          35.5
+        ],
+        [
+          5.5,
+          88,
+          34.75
+        ],
+        [
+          7.3,
+          93,
+          34
+        ],
+        [
+          9,
+          94,
+          33.8
+        ],
+        [
+          11,
+          94.3,
+          33.5
+        ]
+      ]
+    },
+    {
+      "id": "rma-rw",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          70,
+          53
+        ],
+        [
+          1.83,
+          73.33,
+          52
+        ],
+        [
+          3.67,
+          76.67,
+          51
+        ],
+        [
+          5.5,
+          80,
+          50
+        ],
+        [
+          7.33,
+          82.67,
+          49
+        ],
+        [
+          9.17,
+          85.33,
+          48
+        ],
+        [
+          11,
+          88,
+          47
+        ]
+      ]
+    },
+    {
+      "id": "rma-dm",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          48,
+          34
+        ],
+        [
+          2.2,
+          50.4,
+          33.8
+        ],
+        [
+          4.4,
+          52.8,
+          33.6
+        ],
+        [
+          6.6,
+          55.2,
+          33.4
+        ],
+        [
+          8.8,
+          57.6,
+          33.2
+        ],
+        [
+          11,
+          60,
+          33
+        ]
+      ]
+    },
+    {
+      "id": "rma-cb1",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          35,
+          25
+        ],
+        [
+          2.2,
+          37,
+          25.4
+        ],
+        [
+          4.4,
+          39,
+          25.8
+        ],
+        [
+          6.6,
+          41,
+          26.2
+        ],
+        [
+          8.8,
+          43,
+          26.6
+        ],
+        [
+          11,
+          45,
+          27
+        ]
+      ]
+    },
+    {
+      "id": "rma-cb2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          35,
+          42
+        ],
+        [
+          2.2,
+          37,
+          41.6
+        ],
+        [
+          4.4,
+          39,
+          41.2
+        ],
+        [
+          6.6,
+          41,
+          40.8
+        ],
+        [
+          8.8,
+          43,
+          40.4
+        ],
+        [
+          11,
+          45,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "rma-rb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          50,
+          56
+        ],
+        [
+          2.2,
+          52.4,
+          55.6
+        ],
+        [
+          4.4,
+          54.8,
+          55.2
+        ],
+        [
+          6.6,
+          57.2,
+          54.8
+        ],
+        [
+          8.8,
+          59.6,
+          54.4
+        ],
+        [
+          11,
+          62,
+          54
+        ]
+      ]
+    },
+    {
+      "id": "rma-gk",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "gk": true,
+      "path": [
+        [
+          0,
+          10,
+          34
+        ],
+        [
+          2.2,
+          10.8,
+          34
+        ],
+        [
+          4.4,
+          11.6,
+          34
+        ],
+        [
+          6.6,
+          12.4,
+          34
+        ],
+        [
+          8.8,
+          13.2,
+          34
+        ],
+        [
+          11,
+          14,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "butt",
+      "team": "B",
+      "num": 1,
+      "name": "Butt",
+      "gk": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "none",
+        "height": 191
+      },
+      "path": [
+        [
+          0,
+          101,
+          33.5
+        ],
+        [
+          1.25,
+          101.25,
+          33.25
+        ],
+        [
+          2.5,
+          101.5,
+          33
+        ],
+        [
+          3.75,
+          101.75,
+          32.75
+        ],
+        [
+          5,
+          102,
+          32.5
+        ],
+        [
+          6.5,
+          102.2,
+          33.2
+        ],
+        [
+          7.3,
+          102.3,
+          33.8
+        ],
+        [
+          8.2,
+          102.8,
+          32.8
+        ],
+        [
+          9.6,
+          103,
+          32
+        ],
+        [
+          11,
+          102.8,
+          32.2
+        ]
+      ]
+    },
+    {
+      "id": "lev-rb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          72,
+          15
+        ],
+        [
+          2,
+          75,
+          13
+        ],
+        [
+          4,
+          80,
+          10.5
+        ],
+        [
+          5.4,
+          83.5,
+          9.3
+        ],
+        [
+          6.8,
+          86,
+          9.8
+        ],
+        [
+          8.5,
+          88,
+          12
+        ],
+        [
+          9.75,
+          88.25,
+          13.25
+        ],
+        [
+          11,
+          88.5,
+          14.5
+        ]
+      ]
+    },
+    {
+      "id": "lev-cb1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          86,
+          28
+        ],
+        [
+          1.25,
+          88,
+          28.25
+        ],
+        [
+          2.5,
+          90,
+          28.5
+        ],
+        [
+          3.75,
+          91.75,
+          28.75
+        ],
+        [
+          5,
+          93.5,
+          29
+        ],
+        [
+          6.15,
+          94.25,
+          29
+        ],
+        [
+          7.3,
+          95,
+          29
+        ],
+        [
+          9,
+          95.5,
+          30.5
+        ],
+        [
+          11,
+          96,
+          31
+        ]
+      ]
+    },
+    {
+      "id": "lev-cb2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          87,
+          39
+        ],
+        [
+          1.75,
+          89.5,
+          38.5
+        ],
+        [
+          3.5,
+          92,
+          38
+        ],
+        [
+          5.25,
+          94,
+          37.75
+        ],
+        [
+          7,
+          96,
+          37.5
+        ],
+        [
+          9,
+          96.25,
+          37.25
+        ],
+        [
+          11,
+          96.5,
+          37
+        ]
+      ]
+    },
+    {
+      "id": "lev-lb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          84,
+          52
+        ],
+        [
+          1.83,
+          86,
+          51
+        ],
+        [
+          3.67,
+          88,
+          50
+        ],
+        [
+          5.5,
+          90,
+          49
+        ],
+        [
+          7.33,
+          91.33,
+          48
+        ],
+        [
+          9.17,
+          92.67,
+          47
+        ],
+        [
+          11,
+          94,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "lev-dm1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          60,
+          30
+        ],
+        [
+          2,
+          62,
+          27.25
+        ],
+        [
+          4,
+          64,
+          24.5
+        ],
+        [
+          5.5,
+          67,
+          24.5
+        ],
+        [
+          7,
+          70,
+          24.5
+        ],
+        [
+          9,
+          72.5,
+          24.75
+        ],
+        [
+          11,
+          75,
+          25
+        ]
+      ]
+    },
+    {
+      "id": "lev-dm2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          64,
+          41
+        ],
+        [
+          1.85,
+          68,
+          39
+        ],
+        [
+          3.7,
+          72,
+          37
+        ],
+        [
+          5.5,
+          76,
+          35
+        ],
+        [
+          7.3,
+          80,
+          33
+        ],
+        [
+          9.15,
+          82,
+          32.5
+        ],
+        [
+          11,
+          84,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "lev-m3",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          58,
+          49
+        ],
+        [
+          2.2,
+          61.6,
+          47.8
+        ],
+        [
+          4.4,
+          65.2,
+          46.6
+        ],
+        [
+          6.6,
+          68.8,
+          45.4
+        ],
+        [
+          8.8,
+          72.4,
+          44.2
+        ],
+        [
+          11,
+          76,
+          43
+        ]
+      ]
+    },
+    {
+      "id": "lev-f1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          40,
+          30
+        ],
+        [
+          2.2,
+          42.4,
+          30.4
+        ],
+        [
+          4.4,
+          44.8,
+          30.8
+        ],
+        [
+          6.6,
+          47.2,
+          31.2
+        ],
+        [
+          8.8,
+          49.6,
+          31.6
+        ],
+        [
+          11,
+          52,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "lev-f2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          42,
+          47
+        ],
+        [
+          2.2,
+          44,
+          46.6
+        ],
+        [
+          4.4,
+          46,
+          46.2
+        ],
+        [
+          6.6,
+          48,
+          45.8
+        ],
+        [
+          8.8,
+          50,
+          45.4
+        ],
+        [
+          11,
+          52,
+          45
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0,
+      "with": "solari"
+    },
+    {
+      "t": 4,
+      "with": "solari"
+    },
+    {
+      "t": 5.3,
+      "with": "carlos"
+    },
+    {
+      "t": 5.7,
+      "with": "carlos"
+    },
+    {
+      "t": 5.89,
+      "x": 86.98,
+      "y": 9.21
+    },
+    {
+      "t": 6.08,
+      "x": 87.26,
+      "y": 11.74
+    },
+    {
+      "t": 6.26,
+      "x": 87.58,
+      "y": 14.19
+    },
+    {
+      "t": 6.45,
+      "x": 87.92,
+      "y": 16.58
+    },
+    {
+      "t": 6.64,
+      "x": 88.25,
+      "y": 18.88
+    },
+    {
+      "t": 6.83,
+      "x": 88.55,
+      "y": 21.12
+    },
+    {
+      "t": 7.01,
+      "x": 88.8,
+      "y": 23.3
+    },
+    {
+      "t": 7.2,
+      "with": "zidane",
+      "lofted": true
+    },
+    {
+      "t": 7.8,
+      "x": 105.4,
+      "y": 31.2
+    }
+  ],
+  "venue": {
+    "time": "dusk",
+    "roof": "partial",
+    "stands": "#1F4F9E",
+    "accent": "#C9CDD2",
+    "track": false,
+    "grass": "#3F8E3B",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "Level at 1–1 just before half-time in the Champions League final. Solari carried the ball down the left and released Roberto Carlos towards the touchline."
+    },
+    {
+      "label": "The delivery",
+      "text": "Roberto Carlos reached it near the touchline and hooked a high, looping ball towards the edge of the box. It was a hopeful delivery, dropping steeply rather than arriving at pace."
+    },
+    {
+      "label": "The technique",
+      "text": "Zidane stepped away from the marker, watched the ball drop over the left shoulder and met it first time with the weaker left foot, staying over the ball so the volley stayed down and on target."
+    },
+    {
+      "label": "The finish",
+      "text": "Struck on the drop with no set-up touch, the volley flew into the top corner before Butt could move across. A steeply falling ball is very hard to hit cleanly, which is what made the contact so remarkable."
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "Level at 1–1 just before half-time."
+    },
+    {
+      "t": 1.4,
+      "text": "Solari carries it forward down the left side."
+    },
+    {
+      "t": 4,
+      "text": "Roberto Carlos races onto the ball near the touchline."
+    },
+    {
+      "t": 5.7,
+      "text": "Carlos hooks a high, looping ball towards the edge of the box."
+    },
+    {
+      "t": 6.6,
+      "text": "Zidane waits for it to drop over the left shoulder."
+    },
+    {
+      "t": 7.2,
+      "text": "Left-foot volley, first time."
+    },
+    {
+      "t": 7.8,
+      "text": "Into the top corner. Butt has no chance."
+    },
+    {
+      "t": 8.9,
+      "text": "Real Madrid 2–1 Bayer Leverkusen."
+    }
+  ],
+  "events": [
+    {
+      "t": 4,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 5.7,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 7.2,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 7.8,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "Almost half-time at Hampden, and it's still all square."
+    },
+    {
+      "t": 1.4,
+      "text": "Solari looking to spring Roberto Carlos down the left…"
+    },
+    {
+      "t": 4,
+      "text": "Carlos will get there first…"
+    },
+    {
+      "t": 5.7,
+      "text": "Carlos just helps it up into the air — it's a hopeful one…"
+    },
+    {
+      "t": 6.6,
+      "text": "Zidane has stepped away from the marker, waiting for it…"
+    },
+    {
+      "t": 7.2,
+      "text": "ZIDANE!"
+    },
+    {
+      "t": 7.8,
+      "text": "OH, WHAT A GOAL! Straight into the top corner!"
+    },
+    {
+      "t": 9.1,
+      "text": "The ball fell out of the sky and Zidane struck it perfectly!"
+    },
+    {
+      "t": 10.2,
+      "text": "A final worthy of that finish."
+    }
+  ],
+  "note": "Reconstructed from memory of the footage; the build-up before Roberto Carlos, the exact spots of the cross and volley, which top corner it went in, supporting players and Leverkusen's kit are approximate, and Solari's shirt number is left out as unconfirmed. Commentary is original, not the broadcast.",
+  "actions": [
+    {
+      "t": 7.2,
+      "id": "zidane",
+      "type": "volley"
+    }
+  ],
+  "footage": {
+    "youtube": "rFfomw-Z4uE",
+    "start": 0,
+    "channel": "Real Madrid"
+  }
+}

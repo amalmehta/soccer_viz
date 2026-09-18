@@ -1,0 +1,1061 @@
+{
+  "title": "Bale's overhead kick in Kyiv",
+  "subtitle": "Champions League, final · NSC Olimpiyskiy, Kyiv · 26 May 2018",
+  "clock": "64'",
+  "duration": 11.5,
+  "teams": {
+    "A": {
+      "name": "Real Madrid",
+      "short": "RMA",
+      "color": "#F5F5F2",
+      "color2": "#1E2D5A",
+      "text": "#1E2D5A",
+      "pattern": "plain",
+      "shorts": "#F5F5F2",
+      "socks": "#F5F5F2",
+      "gkColor": "#2E2E33"
+    },
+    "B": {
+      "name": "Liverpool",
+      "short": "LIV",
+      "color": "#C8102E",
+      "color2": "#F5F5F2",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#C8102E",
+      "socks": "#C8102E",
+      "gkColor": "#3A3D45"
+    }
+  },
+  "score": [
+    1,
+    1
+  ],
+  "players": [
+    {
+      "id": "bale",
+      "team": "A",
+      "num": 11,
+      "name": "Bale",
+      "star": true,
+      "look": {
+        "skin": "light",
+        "hair": "ponytail",
+        "hairColor": "dark-brown",
+        "beard": "beard",
+        "height": 185
+      },
+      "path": [
+        [
+          0,
+          80,
+          40
+        ],
+        [
+          1.2,
+          81,
+          39
+        ],
+        [
+          2.4,
+          83,
+          38
+        ],
+        [
+          3.6,
+          85,
+          37
+        ],
+        [
+          4.8,
+          87,
+          35.5
+        ],
+        [
+          6,
+          89,
+          34
+        ],
+        [
+          7,
+          91,
+          33
+        ],
+        [
+          8.2,
+          93.5,
+          31.5
+        ],
+        [
+          9,
+          93.6,
+          31.8
+        ],
+        [
+          10.2,
+          94,
+          36
+        ],
+        [
+          11.5,
+          93,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "marcelo",
+      "team": "A",
+      "num": 12,
+      "name": "Marcelo",
+      "look": {
+        "skin": "brown",
+        "hair": "afro",
+        "hairColor": "black",
+        "beard": "stubble",
+        "height": 174
+      },
+      "path": [
+        [
+          0,
+          66,
+          10
+        ],
+        [
+          1.2,
+          68,
+          10.5
+        ],
+        [
+          2.4,
+          70,
+          11
+        ],
+        [
+          3.6,
+          72,
+          11.5
+        ],
+        [
+          4.6,
+          74,
+          12
+        ],
+        [
+          5.4,
+          76,
+          12
+        ],
+        [
+          6.2,
+          79,
+          11.5
+        ],
+        [
+          7,
+          82,
+          11
+        ],
+        [
+          8,
+          83,
+          12
+        ],
+        [
+          9.2,
+          84,
+          14
+        ],
+        [
+          10.4,
+          86,
+          18
+        ],
+        [
+          11.5,
+          88,
+          22
+        ]
+      ]
+    },
+    {
+      "id": "rma-gk",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "gk": true,
+      "path": [
+        [
+          0,
+          10,
+          34
+        ],
+        [
+          2.3,
+          10.8,
+          34
+        ],
+        [
+          4.6,
+          11.6,
+          34
+        ],
+        [
+          6.9,
+          12.4,
+          34
+        ],
+        [
+          9.2,
+          13.2,
+          34
+        ],
+        [
+          11.5,
+          14,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "rma-cb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          44,
+          44
+        ],
+        [
+          1.2,
+          44.5,
+          43.5
+        ],
+        [
+          2.4,
+          45,
+          43.5
+        ],
+        [
+          3.7,
+          46.5,
+          43.25
+        ],
+        [
+          5,
+          48,
+          43
+        ],
+        [
+          6.5,
+          49,
+          42.75
+        ],
+        [
+          8,
+          50,
+          42.5
+        ],
+        [
+          9.75,
+          51,
+          42.25
+        ],
+        [
+          11.5,
+          52,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "rma-cb2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          42,
+          24
+        ],
+        [
+          2.3,
+          43.6,
+          24
+        ],
+        [
+          4.6,
+          45.2,
+          24
+        ],
+        [
+          6.9,
+          46.8,
+          24
+        ],
+        [
+          9.2,
+          48.4,
+          24
+        ],
+        [
+          11.5,
+          50,
+          24
+        ]
+      ]
+    },
+    {
+      "id": "rma-rb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          60,
+          56
+        ],
+        [
+          2.3,
+          62.8,
+          55.6
+        ],
+        [
+          4.6,
+          65.6,
+          55.2
+        ],
+        [
+          6.9,
+          68.4,
+          54.8
+        ],
+        [
+          9.2,
+          71.2,
+          54.4
+        ],
+        [
+          11.5,
+          74,
+          54
+        ]
+      ]
+    },
+    {
+      "id": "rma-cm",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          58,
+          34
+        ],
+        [
+          1.2,
+          60,
+          33
+        ],
+        [
+          2.2,
+          62,
+          31
+        ],
+        [
+          3.2,
+          64,
+          29.5
+        ],
+        [
+          4.2,
+          66,
+          28
+        ],
+        [
+          6,
+          70,
+          28
+        ],
+        [
+          8.2,
+          74,
+          29
+        ],
+        [
+          10,
+          76,
+          29.5
+        ],
+        [
+          11.5,
+          78,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "rma-cm2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          66,
+          44
+        ],
+        [
+          2.3,
+          68.8,
+          44.4
+        ],
+        [
+          4.6,
+          71.6,
+          44.8
+        ],
+        [
+          6.9,
+          74.4,
+          45.2
+        ],
+        [
+          9.2,
+          77.2,
+          45.6
+        ],
+        [
+          11.5,
+          80,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "rma-fw",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          86,
+          22
+        ],
+        [
+          2.3,
+          87.8,
+          22.4
+        ],
+        [
+          4.6,
+          89.6,
+          22.8
+        ],
+        [
+          6.9,
+          91.4,
+          23.2
+        ],
+        [
+          9.2,
+          93.2,
+          23.6
+        ],
+        [
+          11.5,
+          95,
+          24
+        ]
+      ]
+    },
+    {
+      "id": "rma-fw2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          78,
+          50
+        ],
+        [
+          2.3,
+          80.4,
+          50
+        ],
+        [
+          4.6,
+          82.8,
+          50
+        ],
+        [
+          6.9,
+          85.2,
+          50
+        ],
+        [
+          9.2,
+          87.6,
+          50
+        ],
+        [
+          11.5,
+          90,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "karius",
+      "team": "B",
+      "num": 1,
+      "name": "Karius",
+      "gk": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "stubble",
+        "height": 189
+      },
+      "path": [
+        [
+          0,
+          102.5,
+          34
+        ],
+        [
+          2.2,
+          102.5,
+          34
+        ],
+        [
+          4.2,
+          102.3,
+          33.5
+        ],
+        [
+          5.4,
+          102.2,
+          33
+        ],
+        [
+          7,
+          102.4,
+          32.8
+        ],
+        [
+          8.2,
+          102.5,
+          32.8
+        ],
+        [
+          9,
+          102.7,
+          33.6
+        ],
+        [
+          10.2,
+          102.7,
+          33.8
+        ],
+        [
+          11.5,
+          102.5,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "liv-rb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          80,
+          16
+        ],
+        [
+          2.4,
+          80.5,
+          15.5
+        ],
+        [
+          4.4,
+          81.5,
+          14.5
+        ],
+        [
+          5.4,
+          82,
+          14
+        ],
+        [
+          7,
+          84.5,
+          13.5
+        ],
+        [
+          8.2,
+          85.5,
+          14
+        ],
+        [
+          9.8,
+          87.5,
+          13
+        ],
+        [
+          11.5,
+          89,
+          14.5
+        ]
+      ]
+    },
+    {
+      "id": "liv-cb1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          86,
+          34
+        ],
+        [
+          1.8,
+          87.5,
+          34
+        ],
+        [
+          3.6,
+          89,
+          34
+        ],
+        [
+          6,
+          92,
+          35
+        ],
+        [
+          7,
+          94,
+          35.5
+        ],
+        [
+          8.2,
+          95.5,
+          35.5
+        ],
+        [
+          9.5,
+          97,
+          35.5
+        ],
+        [
+          11.5,
+          98,
+          36
+        ]
+      ]
+    },
+    {
+      "id": "liv-cb2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          88,
+          26
+        ],
+        [
+          2,
+          89,
+          26
+        ],
+        [
+          4,
+          90,
+          26
+        ],
+        [
+          6.2,
+          91,
+          26.5
+        ],
+        [
+          8.2,
+          92,
+          27
+        ],
+        [
+          10,
+          92.5,
+          27.5
+        ],
+        [
+          11.5,
+          93,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "liv-lb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          84,
+          50
+        ],
+        [
+          2.3,
+          85.6,
+          48.8
+        ],
+        [
+          4.6,
+          87.2,
+          47.6
+        ],
+        [
+          6.9,
+          88.8,
+          46.4
+        ],
+        [
+          9.2,
+          90.4,
+          45.2
+        ],
+        [
+          11.5,
+          92,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "liv-cm1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          74,
+          30
+        ],
+        [
+          2.3,
+          76,
+          29.6
+        ],
+        [
+          4.6,
+          78,
+          29.2
+        ],
+        [
+          6.9,
+          80,
+          28.8
+        ],
+        [
+          9.2,
+          82,
+          28.4
+        ],
+        [
+          11.5,
+          84,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "liv-cm2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          74,
+          42
+        ],
+        [
+          2.3,
+          76,
+          41.6
+        ],
+        [
+          4.6,
+          78,
+          41.2
+        ],
+        [
+          6.9,
+          80,
+          40.8
+        ],
+        [
+          9.2,
+          82,
+          40.4
+        ],
+        [
+          11.5,
+          84,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "liv-cm3",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          68,
+          20
+        ],
+        [
+          2.3,
+          70,
+          19.6
+        ],
+        [
+          4.6,
+          72,
+          19.2
+        ],
+        [
+          6.9,
+          74,
+          18.8
+        ],
+        [
+          9.2,
+          76,
+          18.4
+        ],
+        [
+          11.5,
+          78,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "liv-fw",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          52,
+          40
+        ],
+        [
+          2.3,
+          54,
+          39.6
+        ],
+        [
+          4.6,
+          56,
+          39.2
+        ],
+        [
+          6.9,
+          58,
+          38.8
+        ],
+        [
+          9.2,
+          60,
+          38.4
+        ],
+        [
+          11.5,
+          62,
+          38
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0,
+      "with": "rma-cb"
+    },
+    {
+      "t": 1.2,
+      "with": "rma-cb"
+    },
+    {
+      "t": 2.2,
+      "with": "rma-cm"
+    },
+    {
+      "t": 4.2,
+      "with": "rma-cm"
+    },
+    {
+      "t": 5.4,
+      "with": "marcelo"
+    },
+    {
+      "t": 7,
+      "with": "marcelo"
+    },
+    {
+      "t": 8.2,
+      "with": "bale",
+      "lofted": true
+    },
+    {
+      "t": 8.75,
+      "x": 105.4,
+      "y": 36.8
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "64' — 1–1 in Kyiv. Bale has only just come on."
+    },
+    {
+      "t": 2.2,
+      "text": "Real Madrid build patiently through midfield."
+    },
+    {
+      "t": 5.4,
+      "text": "Out to Marcelo on the left."
+    },
+    {
+      "t": 7,
+      "text": "Marcelo sends a cross into the box…"
+    },
+    {
+      "t": 8.2,
+      "text": "It's slightly behind Bale, who goes overhead."
+    },
+    {
+      "t": 8.75,
+      "text": "Top corner, Karius can't reach it. Real Madrid 2–1."
+    }
+  ],
+  "events": [
+    {
+      "t": 1.2,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 4.2,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 7,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 8.2,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 8.75,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "actions": [
+    {
+      "t": 8.2,
+      "id": "bale",
+      "type": "bicycle"
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "All square in the final, and Zidane has just sent on Gareth Bale."
+    },
+    {
+      "t": 2.2,
+      "text": "Madrid keeping the ball, moving Liverpool around."
+    },
+    {
+      "t": 5.4,
+      "text": "Marcelo in space on the left…"
+    },
+    {
+      "t": 7,
+      "text": "Here's the cross, looking for Bale…"
+    },
+    {
+      "t": 8.2,
+      "text": "Bale's gone for the spectacular!"
+    },
+    {
+      "t": 8.75,
+      "text": "WHAT A GOAL! An overhead kick in a Champions League final!"
+    },
+    {
+      "t": 10,
+      "text": "A couple of minutes off the bench, and Bale produces a masterpiece."
+    }
+  ],
+  "venue": {
+    "time": "night",
+    "roof": "partial",
+    "stands": "#e2b227",
+    "accent": "#1f56a5",
+    "track": true,
+    "grass": "#2e7a39",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "The final was level at 1–1 after goals from Benzema and Mané. Zidane sent on Bale in place of Isco, and within a few minutes Real Madrid were back in front."
+    },
+    {
+      "label": "Build-up",
+      "text": "Madrid moved the ball patiently through midfield before finding Marcelo in space on the left. With Liverpool's defenders drawn towards the middle, Marcelo had time to pick out a cross into the box."
+    },
+    {
+      "label": "The technique",
+      "text": "The cross arrived slightly behind Bale, too awkward for a header or a normal volley. Bale leapt, turned away from goal and struck a left-footed overhead kick, keeping the ball down enough to hit the target."
+    },
+    {
+      "label": "The finish",
+      "text": "The shot flew into the top corner beyond Karius, who had no time to react from that range. Bale later added Madrid's third from long range as Madrid won 3–1."
+    }
+  ],
+  "note": "Reconstructed from memory of the footage: Marcelo's cross from the left and Bale's overhead kick into the top corner past Karius are as they happened, but the passes before Marcelo, the Liverpool defenders' positions, which top corner, and kit trim and goalkeeper colours are approximate. Commentary is original, not the broadcast."
+}

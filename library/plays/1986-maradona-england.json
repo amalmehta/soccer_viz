@@ -1,0 +1,1510 @@
+{
+  "title": "Maradona's Goal of the Century",
+  "subtitle": "FIFA World Cup, quarter-final · Estadio Azteca · 22 Jun 1986",
+  "clock": "55'",
+  "duration": 16.2,
+  "teams": {
+    "A": {
+      "name": "Argentina",
+      "short": "ARG",
+      "color": "#24479A",
+      "color2": "#F4F4EF",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#1A1A1E",
+      "socks": "#24479A",
+      "gkColor": "#8E959C"
+    },
+    "B": {
+      "name": "England",
+      "short": "ENG",
+      "color": "#F5F5F2",
+      "color2": "#1C2A5A",
+      "text": "#1C2A5A",
+      "pattern": "plain",
+      "shorts": "#1C2A5A",
+      "socks": "#F5F5F2",
+      "gkColor": "#C9C23F"
+    }
+  },
+  "score": [
+    1,
+    0
+  ],
+  "players": [
+    {
+      "id": "maradona",
+      "team": "A",
+      "num": 10,
+      "name": "Maradona",
+      "star": true,
+      "look": {
+        "skin": "olive",
+        "hair": "curly",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 165
+      },
+      "path": [
+        [
+          0,
+          47,
+          53
+        ],
+        [
+          1.2,
+          47.5,
+          51
+        ],
+        [
+          1.9,
+          48,
+          50
+        ],
+        [
+          3.2,
+          53,
+          51
+        ],
+        [
+          4.5,
+          60,
+          50
+        ],
+        [
+          5.8,
+          67,
+          48.5
+        ],
+        [
+          7,
+          74,
+          46
+        ],
+        [
+          8.2,
+          80,
+          44
+        ],
+        [
+          9.2,
+          85,
+          42.5
+        ],
+        [
+          10.2,
+          90,
+          41.5
+        ],
+        [
+          11.2,
+          95,
+          41
+        ],
+        [
+          12.1,
+          99,
+          42.5
+        ],
+        [
+          12.9,
+          101.5,
+          40
+        ],
+        [
+          14.2,
+          103,
+          38.5
+        ],
+        [
+          16.2,
+          103.5,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "enrique",
+      "team": "A",
+      "num": 12,
+      "name": "Enrique",
+      "path": [
+        [
+          0,
+          38,
+          43
+        ],
+        [
+          1.2,
+          40.5,
+          44
+        ],
+        [
+          3,
+          43,
+          45
+        ],
+        [
+          4.67,
+          45.33,
+          44.67
+        ],
+        [
+          6.33,
+          47.67,
+          44.33
+        ],
+        [
+          8,
+          50,
+          44
+        ],
+        [
+          10.05,
+          51.5,
+          44
+        ],
+        [
+          12.1,
+          53,
+          44
+        ],
+        [
+          14.15,
+          54.5,
+          44
+        ],
+        [
+          16.2,
+          56,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "valdano",
+      "team": "A",
+      "num": 11,
+      "name": "Valdano",
+      "look": {
+        "skin": "light",
+        "hair": "long",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 188
+      },
+      "path": [
+        [
+          0,
+          68,
+          30
+        ],
+        [
+          1.5,
+          70.5,
+          30.5
+        ],
+        [
+          3,
+          73,
+          31
+        ],
+        [
+          4.4,
+          76.5,
+          31.5
+        ],
+        [
+          5.8,
+          80,
+          32
+        ],
+        [
+          7,
+          83.5,
+          31.5
+        ],
+        [
+          8.2,
+          87,
+          31
+        ],
+        [
+          10.2,
+          92,
+          30
+        ],
+        [
+          12.1,
+          95,
+          29.5
+        ],
+        [
+          13.15,
+          96,
+          29.5
+        ],
+        [
+          14.68,
+          96.5,
+          29.75
+        ],
+        [
+          16.2,
+          97,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "arg-gk",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "gk": true,
+      "path": [
+        [
+          0,
+          8,
+          34
+        ],
+        [
+          2.03,
+          8.75,
+          34
+        ],
+        [
+          4.05,
+          9.5,
+          34
+        ],
+        [
+          6.07,
+          10.25,
+          34
+        ],
+        [
+          8.1,
+          11,
+          34
+        ],
+        [
+          10.13,
+          11.75,
+          34
+        ],
+        [
+          12.15,
+          12.5,
+          34
+        ],
+        [
+          14.18,
+          13.25,
+          34
+        ],
+        [
+          16.2,
+          14,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "arg-cb1",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          30,
+          28
+        ],
+        [
+          2.03,
+          31.25,
+          28.25
+        ],
+        [
+          4.05,
+          32.5,
+          28.5
+        ],
+        [
+          6.07,
+          33.75,
+          28.75
+        ],
+        [
+          8.1,
+          35,
+          29
+        ],
+        [
+          10.13,
+          36.25,
+          29.25
+        ],
+        [
+          12.15,
+          37.5,
+          29.5
+        ],
+        [
+          14.18,
+          38.75,
+          29.75
+        ],
+        [
+          16.2,
+          40,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "arg-cb2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          32,
+          40
+        ],
+        [
+          2.03,
+          33.25,
+          40
+        ],
+        [
+          4.05,
+          34.5,
+          40
+        ],
+        [
+          6.07,
+          35.75,
+          40
+        ],
+        [
+          8.1,
+          37,
+          40
+        ],
+        [
+          10.13,
+          38.25,
+          40
+        ],
+        [
+          12.15,
+          39.5,
+          40
+        ],
+        [
+          14.18,
+          40.75,
+          40
+        ],
+        [
+          16.2,
+          42,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "arg-lb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          40,
+          18
+        ],
+        [
+          2.03,
+          41.88,
+          18
+        ],
+        [
+          4.05,
+          43.75,
+          18
+        ],
+        [
+          6.07,
+          45.63,
+          18
+        ],
+        [
+          8.1,
+          47.5,
+          18
+        ],
+        [
+          10.13,
+          49.38,
+          18
+        ],
+        [
+          12.15,
+          51.25,
+          18
+        ],
+        [
+          14.18,
+          53.13,
+          18
+        ],
+        [
+          16.2,
+          55,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "arg-rb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          38,
+          56
+        ],
+        [
+          2.03,
+          39.5,
+          56
+        ],
+        [
+          4.05,
+          41,
+          56
+        ],
+        [
+          6.07,
+          42.5,
+          56
+        ],
+        [
+          8.1,
+          44,
+          56
+        ],
+        [
+          10.13,
+          45.5,
+          56
+        ],
+        [
+          12.15,
+          47,
+          56
+        ],
+        [
+          14.18,
+          48.5,
+          56
+        ],
+        [
+          16.2,
+          50,
+          56
+        ]
+      ]
+    },
+    {
+      "id": "arg-dm",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          46,
+          36
+        ],
+        [
+          2.03,
+          47.75,
+          36
+        ],
+        [
+          4.05,
+          49.5,
+          36
+        ],
+        [
+          6.07,
+          51.25,
+          36
+        ],
+        [
+          8.1,
+          53,
+          36
+        ],
+        [
+          10.13,
+          54.75,
+          36
+        ],
+        [
+          12.15,
+          56.5,
+          36
+        ],
+        [
+          14.18,
+          58.25,
+          36
+        ],
+        [
+          16.2,
+          60,
+          36
+        ]
+      ]
+    },
+    {
+      "id": "arg-cm",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          58,
+          24
+        ],
+        [
+          1.67,
+          60.67,
+          24.67
+        ],
+        [
+          3.33,
+          63.33,
+          25.33
+        ],
+        [
+          5,
+          66,
+          26
+        ],
+        [
+          6.67,
+          70,
+          26.67
+        ],
+        [
+          8.33,
+          74,
+          27.33
+        ],
+        [
+          10,
+          78,
+          28
+        ],
+        [
+          12.07,
+          80,
+          28.67
+        ],
+        [
+          14.13,
+          82,
+          29.33
+        ],
+        [
+          16.2,
+          84,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "shilton",
+      "team": "B",
+      "num": 1,
+      "name": "Shilton",
+      "gk": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 183
+      },
+      "path": [
+        [
+          0,
+          102,
+          34
+        ],
+        [
+          1.93,
+          101.83,
+          34.33
+        ],
+        [
+          3.87,
+          101.67,
+          34.67
+        ],
+        [
+          5.8,
+          101.5,
+          35
+        ],
+        [
+          7,
+          101,
+          35.75
+        ],
+        [
+          8.2,
+          100.5,
+          36.5
+        ],
+        [
+          10.2,
+          99.5,
+          37.5
+        ],
+        [
+          11.2,
+          98.5,
+          38.5
+        ],
+        [
+          12.1,
+          99,
+          39.5
+        ],
+        [
+          12.9,
+          99,
+          38
+        ],
+        [
+          14.2,
+          99.5,
+          38
+        ],
+        [
+          16.2,
+          100,
+          37.5
+        ]
+      ]
+    },
+    {
+      "id": "butcher",
+      "team": "B",
+      "num": 6,
+      "name": "Butcher",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "none",
+        "height": 193
+      },
+      "path": [
+        [
+          0,
+          84,
+          36
+        ],
+        [
+          1.25,
+          83,
+          37
+        ],
+        [
+          2.5,
+          82,
+          38
+        ],
+        [
+          3.75,
+          80,
+          39.25
+        ],
+        [
+          5,
+          78,
+          40.5
+        ],
+        [
+          7,
+          76.5,
+          42
+        ],
+        [
+          8.2,
+          78.5,
+          41.5
+        ],
+        [
+          9.2,
+          81.5,
+          43
+        ],
+        [
+          10.2,
+          86,
+          44
+        ],
+        [
+          11.2,
+          91,
+          44.5
+        ],
+        [
+          12.1,
+          95.5,
+          45
+        ],
+        [
+          12.9,
+          99,
+          43.5
+        ],
+        [
+          14.2,
+          101,
+          42
+        ],
+        [
+          16.2,
+          101.5,
+          41.5
+        ]
+      ]
+    },
+    {
+      "id": "fenwick",
+      "team": "B",
+      "num": 14,
+      "name": "Fenwick",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown"
+      },
+      "path": [
+        [
+          0,
+          86,
+          30
+        ],
+        [
+          1.67,
+          86,
+          31
+        ],
+        [
+          3.33,
+          86,
+          32
+        ],
+        [
+          5,
+          86,
+          33
+        ],
+        [
+          7,
+          86,
+          36
+        ],
+        [
+          8.2,
+          86,
+          38
+        ],
+        [
+          9.2,
+          86.5,
+          39
+        ],
+        [
+          10.2,
+          88.5,
+          38.5
+        ],
+        [
+          11.2,
+          91.5,
+          37.5
+        ],
+        [
+          12.1,
+          94,
+          37
+        ],
+        [
+          13.15,
+          96,
+          36.5
+        ],
+        [
+          14.68,
+          96.5,
+          36.25
+        ],
+        [
+          16.2,
+          97,
+          36
+        ]
+      ]
+    },
+    {
+      "id": "beardsley",
+      "team": "B",
+      "num": 20,
+      "name": "Beardsley",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none"
+      },
+      "path": [
+        [
+          0,
+          54,
+          47
+        ],
+        [
+          1.2,
+          52,
+          48
+        ],
+        [
+          1.9,
+          51,
+          48
+        ],
+        [
+          3.2,
+          52.5,
+          47.3
+        ],
+        [
+          4.5,
+          53,
+          49
+        ],
+        [
+          6,
+          55,
+          48
+        ],
+        [
+          8.04,
+          56,
+          47.6
+        ],
+        [
+          10.08,
+          57,
+          47.2
+        ],
+        [
+          12.12,
+          58,
+          46.8
+        ],
+        [
+          14.16,
+          59,
+          46.4
+        ],
+        [
+          16.2,
+          60,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "reid",
+      "team": "B",
+      "num": 16,
+      "name": "Reid",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none"
+      },
+      "path": [
+        [
+          0,
+          52,
+          55
+        ],
+        [
+          1.9,
+          51,
+          53.5
+        ],
+        [
+          3.2,
+          52.5,
+          54
+        ],
+        [
+          4.5,
+          56,
+          53.5
+        ],
+        [
+          5.8,
+          60,
+          52.5
+        ],
+        [
+          7,
+          63.5,
+          51.5
+        ],
+        [
+          8.2,
+          67,
+          51
+        ],
+        [
+          10.2,
+          72,
+          50
+        ],
+        [
+          12.2,
+          74.67,
+          49.33
+        ],
+        [
+          14.2,
+          77.33,
+          48.67
+        ],
+        [
+          16.2,
+          80,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "eng-rb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          88,
+          22
+        ],
+        [
+          2.03,
+          88.5,
+          22.5
+        ],
+        [
+          4.05,
+          89,
+          23
+        ],
+        [
+          6.07,
+          89.5,
+          23.5
+        ],
+        [
+          8.1,
+          90,
+          24
+        ],
+        [
+          10.13,
+          90.5,
+          24.5
+        ],
+        [
+          12.15,
+          91,
+          25
+        ],
+        [
+          14.18,
+          91.5,
+          25.5
+        ],
+        [
+          16.2,
+          92,
+          26
+        ]
+      ]
+    },
+    {
+      "id": "eng-lb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          86,
+          50
+        ],
+        [
+          1.67,
+          85.33,
+          50
+        ],
+        [
+          3.33,
+          84.67,
+          50
+        ],
+        [
+          5,
+          84,
+          50
+        ],
+        [
+          6.6,
+          84,
+          49
+        ],
+        [
+          8.2,
+          84,
+          48
+        ],
+        [
+          9.2,
+          85.5,
+          47
+        ],
+        [
+          10.2,
+          88,
+          47
+        ],
+        [
+          11.2,
+          91,
+          47.5
+        ],
+        [
+          12.1,
+          94,
+          48
+        ],
+        [
+          13.15,
+          96,
+          48
+        ],
+        [
+          14.68,
+          96.5,
+          47.5
+        ],
+        [
+          16.2,
+          97,
+          47
+        ]
+      ]
+    },
+    {
+      "id": "eng-cm1",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          60,
+          38
+        ],
+        [
+          1.5,
+          59,
+          39
+        ],
+        [
+          3,
+          58,
+          40
+        ],
+        [
+          4.5,
+          60,
+          41
+        ],
+        [
+          6,
+          62,
+          42
+        ],
+        [
+          8,
+          66,
+          42.5
+        ],
+        [
+          10,
+          70,
+          43
+        ],
+        [
+          12.07,
+          72.67,
+          42.67
+        ],
+        [
+          14.13,
+          75.33,
+          42.33
+        ],
+        [
+          16.2,
+          78,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "eng-cm2",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          62,
+          32
+        ],
+        [
+          2.03,
+          63.25,
+          32.25
+        ],
+        [
+          4.05,
+          64.5,
+          32.5
+        ],
+        [
+          6.07,
+          65.75,
+          32.75
+        ],
+        [
+          8.1,
+          67,
+          33
+        ],
+        [
+          10.13,
+          68.25,
+          33.25
+        ],
+        [
+          12.15,
+          69.5,
+          33.5
+        ],
+        [
+          14.18,
+          70.75,
+          33.75
+        ],
+        [
+          16.2,
+          72,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "eng-fw",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          45,
+          30
+        ],
+        [
+          2.03,
+          45.88,
+          30.25
+        ],
+        [
+          4.05,
+          46.75,
+          30.5
+        ],
+        [
+          6.07,
+          47.63,
+          30.75
+        ],
+        [
+          8.1,
+          48.5,
+          31
+        ],
+        [
+          10.13,
+          49.38,
+          31.25
+        ],
+        [
+          12.15,
+          50.25,
+          31.5
+        ],
+        [
+          14.18,
+          51.13,
+          31.75
+        ],
+        [
+          16.2,
+          52,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "eng-rw",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          55,
+          14
+        ],
+        [
+          2.03,
+          55.88,
+          14.25
+        ],
+        [
+          4.05,
+          56.75,
+          14.5
+        ],
+        [
+          6.07,
+          57.63,
+          14.75
+        ],
+        [
+          8.1,
+          58.5,
+          15
+        ],
+        [
+          10.13,
+          59.38,
+          15.25
+        ],
+        [
+          12.15,
+          60.25,
+          15.5
+        ],
+        [
+          14.18,
+          61.13,
+          15.75
+        ],
+        [
+          16.2,
+          62,
+          16
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0,
+      "with": "enrique"
+    },
+    {
+      "t": 1.2,
+      "with": "enrique"
+    },
+    {
+      "t": 1.9,
+      "with": "maradona"
+    },
+    {
+      "t": 12.9,
+      "with": "maradona"
+    },
+    {
+      "t": 13.15,
+      "x": 105.5,
+      "y": 35
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "55' — Argentina lead England 1–0 in the quarter-final."
+    },
+    {
+      "t": 1.9,
+      "text": "Maradona takes Enrique's pass in the Argentina half and spins away."
+    },
+    {
+      "t": 4.5,
+      "text": "Beardsley and Reid are left behind; off down the right."
+    },
+    {
+      "t": 7,
+      "text": "Butcher steps across, and is beaten."
+    },
+    {
+      "t": 9.2,
+      "text": "Fenwick can't stop Maradona either."
+    },
+    {
+      "t": 11.2,
+      "text": "Shilton comes out; Maradona goes round the keeper."
+    },
+    {
+      "t": 12.9,
+      "text": "Butcher lunges too late as Maradona rolls it into the net."
+    },
+    {
+      "t": 13.8,
+      "text": "Argentina 2–0 England."
+    }
+  ],
+  "events": [
+    {
+      "t": 1.2,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 12.9,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 13.15,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "Enrique, just inside the Argentina half, looking for Maradona."
+    },
+    {
+      "t": 1.9,
+      "text": "Maradona takes it, and turns away from two white shirts at once…"
+    },
+    {
+      "t": 4.5,
+      "text": "Beardsley and Reid can't keep up, and Maradona's off!"
+    },
+    {
+      "t": 7,
+      "text": "Butcher comes across to meet the run — and Maradona's past!"
+    },
+    {
+      "t": 9.2,
+      "text": "Fenwick next… straight past that challenge as well!"
+    },
+    {
+      "t": 11.2,
+      "text": "Only Shilton to beat now…"
+    },
+    {
+      "t": 12.2,
+      "text": "Around the goalkeeper!"
+    },
+    {
+      "t": 13.15,
+      "text": "IT'S IN! Unbelievable! Half the England team left behind!"
+    },
+    {
+      "t": 14.5,
+      "text": "From inside the Argentina half, all alone. Simply breathtaking."
+    }
+  ],
+  "venue": {
+    "time": "day",
+    "roof": "partial",
+    "stands": "#8f8a80",
+    "accent": "#bdb6a6",
+    "track": false,
+    "grass": "#5e8c38",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "Argentina had gone 1–0 up only minutes earlier, and England were chasing the game. The quick turn in the Argentina half came against a side still set up to press forward."
+    },
+    {
+      "label": "Key moment",
+      "text": "The spin away from Beardsley and Reid beat the first line immediately. With both midfielders turned the wrong way, Maradona ran at a back line that had to step out without cover."
+    },
+    {
+      "label": "Defenders' choices",
+      "text": "Butcher and Fenwick each came across alone rather than together, so each could be beaten one at a time. Valdano's run ahead of the ball also gave the defence another threat to watch."
+    },
+    {
+      "label": "The finish",
+      "text": "Close control at full speed let Maradona wait for Shilton to commit, go round the keeper and roll the ball in just before Butcher's late lunge arrived."
+    }
+  ],
+  "note": "Reconstructed from memory of the footage: the order of defenders beaten follows the well-known sequence, but exact positions, the other players' roles, some shirt numbers, the away kit details and player looks are approximate. Commentary is original, not the broadcast.",
+  "actions": [
+    {
+      "t": 12.1,
+      "id": "shilton",
+      "type": "dive",
+      "side": 1
+    },
+    {
+      "t": 12.9,
+      "id": "butcher",
+      "type": "slide"
+    }
+  ]
+}
