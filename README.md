@@ -6,7 +6,7 @@ Birdseye FC replays iconic football moments as stylised animations: every player
 lunges and dives on a scale pitch, with original commentary read aloud over the top. Seventeen
 clips ship with it, from Carlos Alberto in 1970 to Bale in Kyiv, plus two coaching moves.
 
-**Live:** https://amalmehta.github.io/birdseye-fc/
+**Live:** https://amalmehta.github.io/soccer_viz/
 
 ![The Arcade look, mid-goal](screenshots/arcade.png)
 

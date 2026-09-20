@@ -104,8 +104,8 @@ DELIVERABLES:
 - tools/build_library.py — bundles library/plays/*.json into library/clips.js
 - docs/ — the built website / installable app (GitHub Pages serves this folder)
 - README.md + screenshots/ — repository front page with screenshots of the UI
-- https://amalmehta.github.io/birdseye-fc/ — the live site
-- https://github.com/amalmehta/birdseye-fc — public repository
+- https://amalmehta.github.io/soccer_viz/ — the live site
+- https://github.com/amalmehta/soccer_viz — public repository
 - Published Artifact URL — private link to the same page
 - soccer_viz.md — this spec, filled in
 
@@ -237,8 +237,8 @@ CHANGELOG:
   (≤2.2 m/s, facing the ball); they may close right in on the dribbler. Now 1.9%, facing the ball
   96%. Note: plays are reconstructions, not traced from footage (footage can't be analysed)
 - 2026-09-18 — published (user: "lets add this to the site ... in the github make sure to add a
-  screenshot of the ui"): public repo github.com/amalmehta/birdseye-fc, live on GitHub Pages at
-  amalmehta.github.io/birdseye-fc. The build output moved from site/ to docs/ because Pages serves
+  screenshot of the ui"): public repo github.com/amalmehta/soccer_viz, live on GitHub Pages at
+  amalmehta.github.io/soccer_viz. The build output moved from site/ to docs/ because Pages serves
   a branch folder, so a push now deploys. README covers what it does, the layout, how to add a clip
   and the rights position, with three UI screenshots (Arcade mid-goal, Broadcast, analysis and
   controls) captured from the running app with headless Chrome over the DevTools protocol.
