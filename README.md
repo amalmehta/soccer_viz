@@ -20,6 +20,8 @@ clips ship with it, from Carlos Alberto in 1970 to Bale in Kyiv, plus two coachi
   best voice the browser offers, over a stadium crowd bed.
 - **Period detail.** Kits, ball colour and stadium change with the year and the venue: floodlights,
   athletics track, roof, mowing pattern, crowd colours.
+- **Live play-by-play.** A timestamped feed that fills in as the clip runs, with goals, saves, tackles
+  and special skills badged and marked on the timeline. Click any line to jump to that moment.
 - **Analysis.** A short written breakdown under each clip: context, the move itself, why it worked.
 - **Things to learn from this play.** Three or four coaching points per clip — what to copy and why it works.
 - **Video download.** Export any clip as an MP4 in four aspect ratios (16:9, 9:16, 1:1, 4:5).
@@ -29,6 +31,8 @@ clips ship with it, from Carlos Alberto in 1970 to Bale in Kyiv, plus two coachi
   phone home screen or a dock and still run with no network.
 
 ![The Broadcast look](screenshots/broadcast.png)
+
+![The live play-by-play feed, with the volley and the goal badged](screenshots/play-by-play.png)
 
 ![The written analysis and the coaching points under a clip](screenshots/analysis.png)
 

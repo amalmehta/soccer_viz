@@ -246,4 +246,11 @@ CHANGELOG:
   3-4 short coaching points shown in a card under the analysis. Added to all 19 plays, to the
   AI play schema so generated plays include them, and to the checker (3-4 entries, label ≤24,
   text ≤220, same no-he/she wording rule, nothing silently dropped).
+- 2026-09-28 — live play-by-play (user request): a timestamped feed under the controls fills in as the
+  clip runs, current line highlighted and kept in view, every line clickable to seek, with a Live dot
+  while playing. Key moments (goal, save, tackle, and the special actions: volley, bicycle kick,
+  header, chest, sliding tackle, keeper dive) carry a badge and an accent tick on the timeline; a goal
+  landing on the same moment as the strike badges that line instead of adding one. Built from the
+  play's own captions, events and actions, so every clip and any AI play gets one with no new data.
+  Claude version republished as Version 20.
 
