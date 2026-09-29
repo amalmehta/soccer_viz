@@ -21,6 +21,7 @@ clips ship with it, from Carlos Alberto in 1970 to Bale in Kyiv, plus two coachi
 - **Period detail.** Kits, ball colour and stadium change with the year and the venue: floodlights,
   athletics track, roof, mowing pattern, crowd colours.
 - **Analysis.** A short written breakdown under each clip: context, the move itself, why it worked.
+- **Things to learn from this play.** Three or four coaching points per clip — what to copy and why it works.
 - **Video download.** Export any clip as an MP4 in four aspect ratios (16:9, 9:16, 1:1, 4:5).
 - **Real footage side by side.** Where the rights holder allows embedding, the original clip plays
   next to the animation, scrubbed in sync. Any YouTube link can be added by hand.
@@ -29,7 +30,7 @@ clips ship with it, from Carlos Alberto in 1970 to Bale in Kyiv, plus two coachi
 
 ![The Broadcast look](screenshots/broadcast.png)
 
-![Playback controls, video download and the written analysis](screenshots/analysis.png)
+![The written analysis and the coaching points under a clip](screenshots/analysis.png)
 
 ## Running it locally
 

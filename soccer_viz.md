@@ -242,3 +242,8 @@ CHANGELOG:
   a branch folder, so a push now deploys. README covers what it does, the layout, how to add a clip
   and the rights position, with three UI screenshots (Arcade mid-goal, Broadcast, analysis and
   controls) captured from the running app with headless Chrome over the DevTools protocol.
+- 2026-09-28 — "things to learn from this play" (user request): each play now carries "lessons",
+  3-4 short coaching points shown in a card under the analysis. Added to all 19 plays, to the
+  AI play schema so generated plays include them, and to the checker (3-4 entries, label ≤24,
+  text ≤220, same no-he/she wording rule, nothing silently dropped).
+

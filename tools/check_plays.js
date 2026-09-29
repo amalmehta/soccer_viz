@@ -35,7 +35,7 @@ function check(raw) {
   // Nothing silently dropped
   if (len(raw.players) !== p.players.length) errors.push(`players dropped by the page validator: ${len(raw.players)} -> ${p.players.length}`);
   if (len(raw.ball) !== p.ball.length) errors.push(`ball keyframes dropped: ${len(raw.ball)} -> ${p.ball.length}`);
-  for (const k of ["captions", "commentary", "events", "actions"]) {
+  for (const k of ["captions", "commentary", "events", "actions", "lessons"]) {
     if (len(raw[k]) !== p[k].length) errors.push(`${k} dropped: ${len(raw[k])} -> ${p[k].length}`);
   }
   for (const rp of Array.isArray(raw.players) ? raw.players : []) {
@@ -77,8 +77,16 @@ function check(raw) {
     if (!a.text || a.text.length > 300) errors.push(`analysis "${a.label}" text must be 1-300 characters`);
   }
 
+  // Things to learn from this play: short coaching points, not a retelling
+  const ls = Array.isArray(raw.lessons) ? raw.lessons : [];
+  if (ls.length < 3 || ls.length > 4) errors.push(`lessons needs 3-4 entries (has ${ls.length})`);
+  for (const l of ls) {
+    if (!l.label || l.label.length > 24) errors.push(`lesson label "${l.label}" must be 1-24 characters`);
+    if (!l.text || l.text.length > 220) errors.push(`lesson "${l.label}" text must be 1-220 characters`);
+  }
+
   // Wording: names or roles, not he/she
-  for (const [k, list] of [["captions", raw.captions], ["commentary", raw.commentary], ["analysis", an]]) {
+  for (const [k, list] of [["captions", raw.captions], ["commentary", raw.commentary], ["analysis", an], ["lessons", ls]]) {
     for (const e of list || []) if (PRONOUN.test(e.text || "")) errors.push(`${k}: "${e.text}" uses he/she; use the player's name or role`);
   }
   if (PRONOUN.test(raw.note || "")) errors.push("note uses he/she; use names or roles");
