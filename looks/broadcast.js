@@ -22,6 +22,26 @@
 
   let noiseTile = null, noisePattern = null, grainLayer = null, grainKey = "";
   let vignette = null, vignetteKey = "";
+  let crowdCanvas = null, crowdKey = "";
+  function crowdStrip(colours, time) {
+    const key = colours.join(",") + time;
+    if (crowdKey === key) return crowdCanvas;
+    crowdKey = key;
+    crowdCanvas = document.createElement("canvas");
+    crowdCanvas.width = 480;
+    crowdCanvas.height = 300;
+    const g = crowdCanvas.getContext("2d");
+    for (let y = 0; y < 300; y += 5) {
+      for (let x = 0; x < 480; x += 4) {
+        if (ih(x, y) < 0.12) continue;
+        g.fillStyle = colours[Math.floor(ih(x, y + 61) * colours.length)];
+        g.globalAlpha = 0.5 + ih(y, x) * 0.5;
+        g.fillRect(x + (y % 10 ? 0 : 2), y, 2.6, 3.4);
+      }
+    }
+    g.globalAlpha = 1;
+    return crowdCanvas;
+  }
   function noise() {
     if (noiseTile) return noiseTile;
     noiseTile = document.createElement("canvas");
@@ -119,41 +139,54 @@
     ctx.fillStyle = sky;
     ctx.fillRect(0, 0, w, h);
 
-    // The stand is drawn as bands of tone, not as thousands of little seats: a crowd reads as a
-    // texture from this distance, and painting each seat every frame cost more than it was worth.
-    const band = (y0, z0, y1, z1, fill) => {
-      ctx.fillStyle = fill;
-      pathOf(ctx, cam, [[-45, y0, z0], [150, y0, z0], [150, y1, z1], [-45, y1, z1]], true);
-      ctx.fill();
-    };
-    const dim = venue.time === "day" ? 0.82 : 0.46;
-    band(-7, 0, -30, 19, shadeHex(venue.stands, dim * 0.8));
-    band(-9, 1.6, -22, 13, shadeHex(venue.stands, dim));
-    band(-16, 8, -26, 16, shadeHex(venue.accent, dim * 0.9));
-    // A breath of movement along the front rows when the crowd is up
-    if (cheer > 0.02) {
-      ctx.globalAlpha = 0.16 * cheer;
-      ctx.fillStyle = shadeHex(venue.accent, 1.15);
-      const sway = Math.sin(t * 2.2) * 0.5;
-      pathOf(ctx, cam, [[-45, -8 + sway, 1.2], [150, -8 + sway, 1.2], [150, -13, 6], [-45, -13, 6]], true);
-      ctx.fill();
-      ctx.globalAlpha = 1;
+    // The stand: rows of people, painted once into a strip and then stamped into place. Same
+    // stadium feel as painting every seat each frame, at a fraction of the cost.
+    const dim = venue.time === "day" ? 0.82 : 0.5;
+    ctx.fillStyle = shadeHex(venue.stands, dim * 0.75);
+    pathOf(ctx, cam, [[-45, -7, 0], [150, -7, 0], [150, -30, 19], [-45, -30, 19]], true);
+    ctx.fill();
+
+    const strip = crowdStrip(crowdColors, venue.time);
+    const rows = 7;
+    for (let r = 0; r < rows; r++) {
+      const s0 = r / rows, s1 = (r + 1) / rows;
+      const y0 = -7.6 - 22 * s0, z0 = 0.8 + 18 * s0;
+      const y1 = -7.6 - 22 * s1, z1 = 0.8 + 18 * s1;
+      const jump = cheer > 0 ? Math.sin(t * 6 + r) * 0.25 * cheer : 0;
+      const a = cam.p(-45, y0 + jump, z0), b = cam.p(150, y0 + jump, z0);
+      const c = cam.p(150, y1 + jump, z1), d = cam.p(-45, y1 + jump, z1);
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.lineTo(c.x, c.y);
+      ctx.lineTo(d.x, d.y);
+      ctx.closePath();
+      ctx.clip();
+      ctx.globalAlpha = (venue.time === "day" ? 0.85 : 0.6) * (1 - 0.06 * r);
+      const top = Math.min(a.y, b.y, c.y, d.y), bot = Math.max(a.y, b.y, c.y, d.y);
+      ctx.drawImage(strip, 0, (r * 37) % (strip.height - 40), strip.width, 40,
+                    Math.min(a.x, d.x), top, Math.max(b.x, c.x) - Math.min(a.x, d.x), Math.max(2, bot - top));
+      ctx.restore();
     }
+    ctx.globalAlpha = 1;
+
     if (venue.roof !== "open") {
       ctx.fillStyle = shadeHex(venue.accent, 0.3);
       pathOf(ctx, cam, [[-45, -30, 19], [150, -30, 19], [150, -22, 23.5], [-45, -22, 23.5]], true);
       ctx.fill();
     }
     if (venue.time === "day") return;
-    const lamp = venue.time === "dusk" ? 0.45 : 0.7;
+    const lamp = venue.time === "dusk" ? 0.6 : 1;
     ctx.globalCompositeOperation = "lighter";
-    for (let x = -18; x <= 124; x += 34) {
+    for (let x = -18; x <= 124; x += 22) {
       const p = cam.p(x, -22, 23.6);
       if (p.x < -200 || p.x > w + 200) continue;
-      const r = (cam.F * 8) / p.d;
+      const r = (cam.F * 9) / p.d;
       const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
-      glow.addColorStop(0, `rgba(255,248,232,${0.5 * lamp})`);
-      glow.addColorStop(1, "rgba(255,248,232,0)");
+      glow.addColorStop(0, `rgba(255,250,235,${0.7 * lamp})`);
+      glow.addColorStop(0.08, `rgba(255,248,225,${0.28 * lamp})`);
+      glow.addColorStop(1, "rgba(255,248,225,0)");
       ctx.fillStyle = glow;
       ctx.fillRect(p.x - r, p.y - r, 2 * r, 2 * r);
     }
@@ -162,12 +195,12 @@
 
   function drawPitch(ctx, cam, w, h, venue) {
     const night = venue.time === "night";
-    ctx.fillStyle = shadeHex(quiet(venue.grass, night ? 0.3 : 0.45), 0.62);
+    ctx.fillStyle = shadeHex(quiet(venue.grass, night ? 0.1 : 0.16), 0.62);
     pathOf(ctx, cam, rectPts(-14, -7, 119, 80), true);
     ctx.fill();
     if (venue.track) {
       // Athletics track between the pitch and the stands
-      ctx.fillStyle = quiet("#9c4a36", 0.35);
+      ctx.fillStyle = quiet("#9c4a36", 0.15);
       pathOf(ctx, cam, rectPts(-12, -6.8, 117, 79), true);
       ctx.fill();
       ctx.strokeStyle = "rgba(255,255,255,0.3)";
@@ -176,17 +209,17 @@
         pathOf(ctx, cam, rectPts(-11 + lane * 1.5, -6.4 + lane * 0.5, 116 - lane * 1.5, 78.5 - lane * 1.5), true);
         ctx.stroke();
       }
-      ctx.fillStyle = shadeHex(quiet(venue.grass, night ? 0.3 : 0.45), 0.8);
+      ctx.fillStyle = shadeHex(quiet(venue.grass, night ? 0.1 : 0.16), 0.8);
       pathOf(ctx, cam, rectPts(-5.5, -4.5, 110.5, 72.5), true);
       ctx.fill();
     }
-    ctx.fillStyle = quiet(venue.grass, night ? 0.3 : 0.45);
+    ctx.fillStyle = quiet(venue.grass, night ? 0.1 : 0.16);
     pathOf(ctx, cam, rectPts(-4, -4, 109, 72), true);
     ctx.fill();
     // One long band of light across the pitch instead of mown stripes
     if (venue.mowing !== "plain") {
       for (let i = 0; i < 20; i += 2) {
-        ctx.fillStyle = "rgba(255,255,255,0.022)";
+        ctx.fillStyle = "rgba(255,255,255,0.04)";
         pathOf(ctx, cam, rectPts(-4 + (i * 113) / 20, -4, -4 + ((i + 1) * 113) / 20, 72), true);
         ctx.fill();
       }
@@ -483,8 +516,23 @@
       bx += b.x / 15;
       by += b.y / 15;
     }
+    // Frame the action rather than the acreage: hold the ball and the players around it, widening
+    // when the move is spread out and tightening when it is packed into one corner.
+    let spread = 26, sumX = 0, sumY = 0, near = 0;
+    for (const pl of play.players) {
+      const p = api.pathPos(R.byId[pl.id].path, t);
+      if (Math.hypot(p.x - bx, p.y - by) > 28) continue;
+      near++;
+      sumX += p.x;
+      sumY += p.y;
+      spread = Math.max(spread, Math.abs(p.x - bx) * 2 + 18);
+    }
+    if (near) {                       // sit between the ball and the players around it
+      bx = bx * 0.65 + (sumX / near) * 0.35;
+      by = by * 0.7 + (sumY / near) * 0.3;
+    }
     const zoom = goal && motion ? 1 + 0.5 * bump(goal.since, -1.3, 0.1, 2.6) : 1;
-    const viewW = (48 * clamp(w / h / 1.49, 0.5, 1.25)) / zoom;
+    const viewW = (clamp(spread * 0.8, 24, 38) * clamp(w / h / 1.49, 0.75, 1.15)) / zoom;
     let cx = clamp(bx, viewW / 2 - 10, 115 - viewW / 2);
     let ty = 34 + (by - 34) * 0.6;
     if (goal && motion && goal.since > 0 && goal.since < 0.5) {
@@ -509,12 +557,20 @@
     const idx = Math.min(R.track.length - 1, Math.floor(t / 0.05));
     if (idx > 0) {
       ctx.save();
-      ctx.shadowColor = "rgba(255,197,61,0.9)";
-      ctx.shadowBlur = 8 * u;
-      ctx.strokeStyle = "rgba(255,214,102,0.85)";
-      ctx.lineWidth = 2.4 * u;
       ctx.lineCap = "round";
-      pathOf(ctx, cam, [...R.track.slice(0, idx + 1).map(p => [p.x, p.y, 0]), [ball.x, ball.y, 0]]);
+      const tail = Math.max(0, idx - 80);                 // four seconds of memory
+      for (let i = tail; i < idx; i++) {
+        const a = R.track[i], b = R.track[i + 1];
+        const k = (i - tail) / Math.max(1, idx - tail);
+        ctx.strokeStyle = `rgba(246,214,150,${(0.05 + 0.5 * k * k).toFixed(3)})`;
+        ctx.lineWidth = (0.6 + 1.7 * k) * u;
+        pathOf(ctx, cam, [[a.x, a.y, 0], [b.x, b.y, 0]]);
+        ctx.stroke();
+      }
+      const last = R.track[idx];
+      ctx.strokeStyle = "rgba(248,226,178,0.7)";
+      ctx.lineWidth = 2.2 * u;
+      pathOf(ctx, cam, [[last.x, last.y, 0], [ball.x, ball.y, 0]]);
       ctx.stroke();
       ctx.restore();
     }
@@ -555,7 +611,7 @@
         continue;
       }
       const { pl, foot } = it;
-      const H = Math.max(10, (cam.F * 1.85 * 1.35) / foot.d);
+      const H = Math.max(14, (cam.F * 1.85 * 1.55) / foot.d);
       if (pl.star) {
         const pulse = motion ? 0.5 + 0.5 * Math.sin(t * 6) : 0.5;
         ctx.strokeStyle = `rgba(255,197,61,${0.55 + pulse * 0.35})`;
@@ -567,7 +623,7 @@
       drawFigure(ctx, play.teams[pl.team], pl, foot, H, it.body, R.lookOf(pl), R.era.kit, R.bootColor(pl));
       if (pl.name || pl.num != null) {
         const ballNow = R.ballAt(t);
-        if (!pl.star && Math.hypot(it.p.x - ballNow.x, it.p.y - ballNow.y) > 22) continue;
+        if (!pl.star && Math.hypot(it.body.x - ballNow.x, it.body.y - ballNow.y) > 22) continue;
         const label = pl.name || (pl.num != null ? String(pl.num) : "");
         caption(ctx, api, label, foot.x, foot.y - H * 1.08 - 9 * u, 9.5 * u,
           pl.star ? api.colors.accent : "rgba(248,245,238,0.92)");

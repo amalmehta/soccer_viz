@@ -367,4 +367,13 @@ CHANGELOG:
   times in a real browser — both looks hold 60 fps (16.6-16.8 ms). The Broadcast look was still
   rebuilding its paper grain, film grain and vignette every frame; those are now built once, which
   cut its headless frame time from 112 ms to 69 ms. Nothing needed cutting for performance.
+- 2026-09-29 — the Broadcast look, corrected. The user saw an almost empty pitch with players facing
+  nowhere: the new "only name players near the ball" test read a property the item never had, so the
+  renderer threw halfway through every frame and left a half-drawn scene. Fixed. Also from that
+  round: stationary players no longer take their facing from path wobble (under 0.9 m/s they watch
+  the ball), the stadium is back after the wash-out went too far (crowd rows painted once into a
+  strip and stamped in, floodlights and grass colour restored), the camera frames the action rather
+  than the acreage — it sits between the ball and the players around it and holds 24-38 m across, so
+  players read at a human size — and the route on the grass is the same fading stroke as the drawn
+  look instead of a glowing wire. The Classic pitch is held to a 760 px column so the page breathes.
 

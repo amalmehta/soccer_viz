@@ -86,12 +86,15 @@
   .tag { margin: 0; color: var(--muted); font-size: 14px; }
 
   .layout {
-    display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 44px; align-items: start;
+    display: grid; grid-template-columns: minmax(0, 760px) 280px; gap: 56px;
+    align-items: start; justify-content: center;
   }
   @media (max-width: 920px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 36px; } }
 
   /* Stage */
-  .stage { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  /* The drawing is an illustration on a page, not a screen filled with pitch: hold it to a
+     comfortable reading width and let the paper breathe around it. */
+  .stage { display: flex; flex-direction: column; gap: 14px; min-width: 0; max-width: 760px; }
   .stage-head {
     display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px 24px;
   }
@@ -1601,6 +1604,7 @@
         const moving = moveHeading(src, t);
         const g = gait(pl, t);
         let want = moving ?? toBall;
+        if (g.speed < 0.9) want = toBall;
         if (pl.team === "B" || pl.gk) {
           const away = moving == null ? 0 : Math.abs(wrap(moving - toBall));
           if (pl.gk || g.speed < 3.2 || away < 1.9) want = toBall;
