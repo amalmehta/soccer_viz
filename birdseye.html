@@ -1959,14 +1959,23 @@
     // Which way each body faces, sampled through the play. A player wants to look where they are
     // running, defenders and keepers want to watch the ball, and a kick or a lunge points the body
     // at its target — but a body can only turn so fast, so the want is followed at a human rate.
-    const HEAD_DT = 0.05, TURN = 7.5;                 // radians per second
+    const HEAD_DT = 0.05;
+    // Shoulders come round fast when you are stood up and slowly when your legs are carrying you at
+    // seven metres a second — a sprinter cannot pivot. The old flat limit let a body swing through a
+    // half circle in a quarter of a second at full pelt, which is where the mechanical look came from.
+    const turnRate = speed => 5.0 - 2.7 * Math.min(1, speed / 7);          // radians per second
+    // 0 below `lo`, 1 above `hi`, easing between: thresholds with no edge to catch on
+    const ramp = (v, lo, hi) => {
+      const u = Math.min(1, Math.max(0, (v - lo) / (hi - lo)));
+      return u * u * (3 - 2 * u);
+    };
     const wrap = a => Math.atan2(Math.sin(a), Math.cos(a));
     const headings = new Map();
     for (const pl of play.players) {
       const src = byId[pl.id];
       const n = Math.ceil(play.duration / HEAD_DT) + 2;
       const arr = new Float64Array(n);
-      let h = null;
+      const wants = new Float64Array(n), speeds = new Float64Array(n);
       for (let i = 0; i < n; i++) {
         const t = i * HEAD_DT;
         const p = pathPos(src.path, t);
@@ -1975,21 +1984,56 @@
         const moving = moveHeading(src, t);
         const g = gait(pl, t);
         let want = moving ?? toBall;
-        if (g.speed < 0.9) want = toBall;
-        if (pl.team === "B" || pl.gk) {
-          const away = moving == null ? 0 : Math.abs(wrap(moving - toBall));
+        if (moving == null || g.speed < 0.9) want = toBall;
+        else if (pl.team === "B" || pl.gk) {
+          // How far round towards the ball the body is carried, rather than which of the two it
+          // faces. Picking one or the other on a threshold means a defender whose speed wanders
+          // across it flicks their shoulders round and straight back, over and over; a defender
+          // watching a ball while they run is somewhere between the two, and moves between the two
+          // the way a person does — head first, then the body.
+          const away = Math.abs(wrap(moving - toBall));
           const gap = Math.hypot(ball.x - p.x, ball.y - p.y);
-          // Turning your back is only ever right when the ball is a long way off and you are
-          // sprinting for goal. Anywhere near it, a defender watches the ball.
-          // Watch the ball while there is any chance of playing it — but nobody sprints backwards,
-          // so past a brisk backpedal the body turns and runs
-          if (pl.gk || away < 1.9 || g.speed < (gap < 10 ? 4.4 : 3.2)) want = toBall;
+          const slow = 1 - ramp(g.speed, 3.0, 5.2);      // 1 at a jog, 0 at a sprint
+          const near = 1 - ramp(gap, 6, 16);             // 1 on top of the ball, 0 across the pitch
+          const ahead = 1 - ramp(away, 1.0, 2.2);        // 1 when the ball is roughly where you face
+          // A keeper never takes their eyes off it. Nobody else sprints with their back turned:
+          // at pace the body follows the legs, and only a jog leaves you free to watch the ball.
+          const watch = pl.gk ? 1 : Math.min(1, Math.max(ahead * 0.9, slow * (0.4 + 0.6 * near)));
+          want = moving + wrap(toBall - moving) * watch;
         }
         for (const a of actionsBy.get(pl.id) || []) {
           if (a.dir != null && t >= a.t0 && t <= a.t1) want = a.dir;
         }
-        if (h == null) h = want;
-        else h += Math.max(-TURN * HEAD_DT, Math.min(TURN * HEAD_DT, wrap(want - h)));
+        wants[i] = want;
+        speeds[i] = g.speed;
+      }
+      // Nobody reacts to every twentieth of a second. The bearing to a ball passing close by sweeps
+      // round far faster than any body could follow, and chasing it exactly is what made defenders
+      // snap one way and then straight back. So the intention is smoothed first — unwrapped so the
+      // seam at half a turn cannot throw it — and only then do the shoulders follow, at the rate
+      // legs moving that fast allow.
+      let run = wants[0];
+      const open = new Float64Array(n);
+      open[0] = run;
+      for (let i = 1; i < n; i++) { run += wrap(wants[i] - run); open[i] = run; }
+      const reach = Math.round(0.25 / HEAD_DT);
+      const smoothed = new Float64Array(n);
+      for (let i = 0; i < n; i++) {
+        let sum = 0, weight = 0;
+        for (let k = -reach; k <= reach; k++) {
+          const j = Math.min(n - 1, Math.max(0, i + k));
+          const w = Math.exp(-0.5 * Math.pow(k / (reach / 2.5), 2));
+          sum += open[j] * w; weight += w;
+        }
+        smoothed[i] = sum / weight;
+      }
+      let h = null;
+      for (let i = 0; i < n; i++) {
+        if (h == null) h = smoothed[i];
+        else {
+          const most = turnRate(speeds[i]) * HEAD_DT;
+          h += Math.max(-most, Math.min(most, wrap(smoothed[i] - h)));
+        }
         arr[i] = h;
       }
       headings.set(pl.id, arr);
@@ -2292,62 +2336,141 @@
     }
 
     const states = play.players.map(pl => {
-      const src = R.byId[pl.id];
-      const p = pathPos(src.path, t);
-      let h = moveHeading(src, t);
-      if (h == null) h = Math.atan2(ball.y - p.y, ball.x - p.x);
-      return { pl, x: X(p.x), y: Y(p.y), h, key: !!(pl.num != null || pl.name || pl.star) };
+      const b = R.bodyAt(pl, t);
+      return { pl, body: b, x: X(b.x), y: Y(b.y), h: b.heading, key: !!(pl.num != null || pl.name || pl.star) };
     });
 
-    // Shadows: a soft print, not a drop shadow
-    ctx.fillStyle = hexA(colors.ink, 0.1);
+    // A player seen from straight above is not a counter on a board: you see the shoulders, the head,
+    // the arms swinging and the legs reaching past the body, and it is the reach of the limbs that
+    // tells you someone is running rather than standing. The pose engine already works all of that
+    // out for the Broadcast camera; here it is drawn flat — ink lines over the kit colour, at close
+    // to life size rather than as a disc three metres across.
+    const FIG = 3.0;                                  // a shade larger than life, to stay legible
+    const u = scale * FIG;                             // pixels per metre of body
+    const ink = (a, w) => { ctx.strokeStyle = hexA(colors.ink, a); ctx.lineWidth = Math.max(1.1, w * u); };
+
+    const frame = s => {
+      const ax = Math.cos(s.h), ay = Math.sin(s.h);    // along the way they face
+      const px = -ay, py = ax;                         // across the shoulders
+      // Leaning forward shows more of the back from above; a bank tips the shoulders across
+      const lean = 1 + 0.3 * Math.max(0, s.body.pitch || 0);
+      return (fwd, side) => [
+        s.x + ax * fwd * lean * u + px * side * u,
+        s.y + ay * fwd * lean * u + py * side * u
+      ];
+    };
+
+    // Shadows: a soft print under each body, opening up as they leave the ground
     for (const s of states) {
-      const rr = s.key ? r : r * 0.8;
+      const at = frame(s);
+      const lift = Math.max(0, s.body.lift || 0);
+      const [cx, cy] = at(-0.05, 0);
+      ctx.fillStyle = hexA(colors.ink, 0.07 - lift * 0.03);
       ctx.beginPath();
-      ctx.ellipse(s.x + 1, s.y + 1.8, rr * 1.02, rr * 0.82, 0, 0, Math.PI * 2);
+      ctx.ellipse(cx + 1 + lift * 3 * scale * 0.1, cy + 1.6 + lift * 4 * scale * 0.1,
+        0.3 * u * (1 + lift), 0.2 * u * (1 + lift), s.h, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    // Tokens: supporting players first, key players on top
+    // Supporting players first, the ones the clip is about on top
     const ordered = states.slice().sort((a, b) => a.key - b.key || (a.pl.star ? 1 : 0) - (b.pl.star ? 1 : 0));
     for (const s of ordered) {
       const tm = play.teams[s.pl.team];
-      const rr = s.key ? r : r * 0.8;
-      ctx.globalAlpha = s.key ? 1 : 0.88;
+      const kit = s.pl.gk ? tm.gkColor : tm.color;
+      const at = frame(s);
+      const solid = s.key ? 1 : 0.82;
+      ctx.globalAlpha = solid;
+      ctx.lineCap = "round";
 
       // The player the clip is about carries a fine ring, held steady — no pulsing
       if (s.pl.star) {
-        ctx.strokeStyle = hexA(colors.accent, 0.85);
-        ctx.lineWidth = Math.max(1, 0.1 * scale);
+        ctx.strokeStyle = hexA(colors.accent, 0.8);
+        ctx.lineWidth = Math.max(1, 0.09 * scale);
         ctx.beginPath();
-        ctx.arc(s.x, s.y, rr + 3.5, 0, Math.PI * 2);
+        ctx.arc(s.x, s.y, 0.95 * u, 0, Math.PI * 2);
         ctx.stroke();
       }
 
-      // Which way they are facing: a short stroke out of the disc, not an arrowhead
-      ctx.strokeStyle = hexA(colors.ink, s.key ? 0.5 : 0.32);
-      ctx.lineWidth = Math.max(1, 0.08 * scale);
-      ctx.beginPath();
-      ctx.moveTo(s.x + Math.cos(s.h) * rr * 0.55, s.y + Math.sin(s.h) * rr * 0.55);
-      ctx.lineTo(s.x + Math.cos(s.h) * (rr + 4), s.y + Math.sin(s.h) * (rr + 4));
-      ctx.stroke();
+      // Legs: a stride reaches well past the body, one leg forward and one trailing. It is the reach
+      // of the legs, not the body, that says someone is running rather than standing still.
+      ink(s.key ? 0.72 : 0.52, 0.085);
+      s.body.legs.forEach((leg, i) => {
+        const side = i === 0 ? 0.09 : -0.09;
+        const fold = 1 - 0.3 * Math.min(1.4, Math.max(0, leg.knee));
+        const reach = 0.72 * Math.sin(leg.hip) * fold;
+        const [hx, hy] = at(-0.09, side);
+        const [kx, ky] = at(-0.09 + reach * 0.5, side * 1.3);
+        const [fx, fy] = at(-0.09 + reach, side * 1.15);
+        ctx.beginPath();
+        ctx.moveTo(hx, hy);
+        ctx.quadraticCurveTo(kx, ky, fx, fy);
+        ctx.stroke();
+      });
 
-      ctx.fillStyle = s.pl.gk ? tm.gkColor : tm.color;
-      ctx.strokeStyle = hexA(colors.ink, 0.55);
-      ctx.lineWidth = Math.max(0.8, 0.07 * scale);
+      // Arms: they swing opposite the legs, and carry wide when a body is turning or reaching
+      ink(s.key ? 0.58 : 0.42, 0.062);
+      s.body.arms.forEach((arm, i) => {
+        const side = i === 0 ? 0.19 : -0.19;
+        const reach = 0.46 * Math.sin(arm.shoulder);
+        const out = side * (1.25 + 0.5 * Math.min(1.2, Math.max(0, arm.elbow)));
+        const [sx, sy] = at(0.01, side);
+        const [ex, ey] = at(reach * 0.55, out * 1.1);
+        const [wx, wy] = at(reach, out);
+        ctx.beginPath();
+        ctx.moveTo(sx, sy);
+        ctx.quadraticCurveTo(ex, ey, wx, wy);
+        ctx.stroke();
+      });
+
+      // The body. Seen from overhead a person is wide across the shoulders and shallow front to
+      // back — the opposite way round from the shape you would draw from the touchline — and that
+      // one proportion is most of what makes the figure read as a person rather than a beetle.
+      const [tx, ty] = at(-0.02, 0);
+      ctx.save();
+      ctx.translate(tx, ty);
+      ctx.rotate(s.h);
       ctx.beginPath();
-      ctx.arc(s.x, s.y, rr, 0, Math.PI * 2);
+      ctx.ellipse(0, 0, 0.13 * u, 0.22 * u, 0, 0, Math.PI * 2);
+      ctx.fillStyle = kit;
       ctx.fill();
+      ctx.strokeStyle = hexA(colors.ink, 0.62);
+      ctx.lineWidth = Math.max(0.9, 0.045 * u);
       ctx.stroke();
+      ctx.restore();
 
-      if (s.pl.num != null && rr >= 7) {
-        ctx.fillStyle = s.pl.gk ? (luminance(tm.gkColor) > 0.4 ? "#1C1A16" : "#F6F3EC") : tm.text;
-        ctx.font = `500 ${Math.round(rr * 1.05)}px ${FONT_DISPLAY}`;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        upright(s.x, s.y, () => ctx.fillText(String(s.pl.num), 0, rr * 0.06));
+      // The head sits on the shoulders, not out in front of them: a small crown of hair over skin,
+      // shifted a little the way the body is leaning.
+      const look = R.lookOf(s.pl) || {};
+      const [hx, hy] = at(0.115 + 0.05 * Math.max(0, s.body.pitch || 0), (s.body.roll || 0) * 0.1);
+      ctx.beginPath();
+      ctx.arc(hx, hy, 0.09 * u, 0, Math.PI * 2);
+      ctx.fillStyle = look.skin || "#c68e5c";
+      ctx.fill();
+      ctx.strokeStyle = hexA(colors.ink, 0.55);
+      ctx.lineWidth = Math.max(0.7, 0.035 * u);
+      ctx.stroke();
+      if (look.hair !== "bald") {
+        // Hair covers the back of the crown from above, which also shows which way they are facing
+        ctx.beginPath();
+        ctx.arc(hx, hy, 0.09 * u, s.h + 1.9, s.h - 1.9, false);
+        ctx.fillStyle = look.hairColor || "#2e2016";
+        ctx.fill();
       }
+
       ctx.globalAlpha = 1;
+    }
+
+    // Numbers, set beside the body rather than on it — a figure this size has no room for one, and
+    // an annotated drawing is truer to the look than a shirt read from above.
+    for (const s of ordered) {
+      if (s.pl.num == null || !s.key || scale < 7) continue;
+      const at = frame(s);
+      const [nx, ny] = at(-0.62, 0.52);
+      ctx.fillStyle = hexA(colors.ink, 0.55);
+      ctx.font = `500 ${Math.round(Math.max(8, 0.9 * scale))}px ${FONT_DISPLAY}`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      upright(nx, ny, () => ctx.fillText(String(s.pl.num), 0, 0));
     }
 
     // Ball (nudged to the edge of a token so it never covers a shirt number)
@@ -2379,20 +2502,37 @@
     ctx.textBaseline = "middle";
     ctx.lineJoin = "round";
     const ballNow = R.ballAt(t);
-    for (const s of states) {
-      if (!s.pl.name) continue;
-      const src = R.byId[s.pl.id];
-      const here = pathPos(src.path, t);
-      // Names crowd the page: keep the star, and anyone near the ball
-      if (!s.pl.star && Math.hypot(here.x - ballNow.x, here.y - ballNow.y) > 22) continue;
-      const ly = s.pl.star ? -r - 11 : r + 11;
-      upright(s.x, s.y, () => {
-        ctx.strokeStyle = hexA(colors.ground, 0.85);
-        ctx.lineWidth = 3;
-        ctx.strokeText(s.pl.name, 0, ly);
-        ctx.fillStyle = s.pl.star ? colors.accent : hexA(colors.ink, 0.82);
-        ctx.fillText(s.pl.name, 0, ly);
-      });
+    // Seven names stacked on top of each other in a crowded box is the messiest thing on the page,
+    // and it is what a drawing would never do. Names are placed in turn — the player the clip is
+    // about first, then whoever is nearest the ball — and one that would land on top of a name
+    // already written is tried on the other side of its body, then dropped. A name missing from a
+    // ruck is no loss; an illegible pile of them is.
+    const named = states
+      .filter(s => s.pl.name)
+      .map(s => ({ s, gap: Math.hypot(pathPos(R.byId[s.pl.id].path, t).x - ballNow.x,
+                                      pathPos(R.byId[s.pl.id].path, t).y - ballNow.y) }))
+      .filter(n => n.s.pl.star || n.gap <= 22)
+      .sort((a, b) => (b.s.pl.star ? 1 : 0) - (a.s.pl.star ? 1 : 0) || a.gap - b.gap);
+    const placed = [];
+    const lineH = cssW < 520 ? 12 : 14;
+    for (const { s } of named) {
+      const w = ctx.measureText(s.pl.name).width;
+      const drop = 0.62 * u + lineH * 0.6;
+      for (const ly of s.pl.star ? [-drop, drop] : [drop, -drop]) {
+        const box = { x: s.x - w / 2 - 2, y: s.y + ly - lineH / 2, w: w + 4, h: lineH };
+        const clash = placed.some(q => box.x < q.x + q.w && box.x + box.w > q.x &&
+                                       box.y < q.y + q.h && box.y + box.h > q.y);
+        if (clash) continue;
+        placed.push(box);
+        upright(s.x, s.y, () => {
+          ctx.strokeStyle = hexA(colors.ground, 0.85);
+          ctx.lineWidth = 3;
+          ctx.strokeText(s.pl.name, 0, ly);
+          ctx.fillStyle = s.pl.star ? colors.accent : hexA(colors.ink, 0.82);
+          ctx.fillText(s.pl.name, 0, ly);
+        });
+        break;
+      }
     }
 
   }
