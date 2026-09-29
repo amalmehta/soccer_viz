@@ -346,4 +346,25 @@ CHANGELOG:
   crosses, corners and the finishes that bent carry their own swerve. The play-by-play shows what
   each strike did (21 m/s · curled left), and a live reading under the pitch tracks the flight.
   The checker validates curve and power and measures the bent path, not the straight line.
+- 2026-09-29 — art direction (user: "feels very gimmicky ... like smooth art, not a video game").
+  The 3D look is gone ("looks like FIFA") and so is Arcade, the most game-like of them; Classic and
+  Broadcast remain, and the commentary voice and crowd, which used to belong to Arcade, now work in
+  both. Everything is redrawn as editorial ink on paper: warm paper ground, a pale pitch panel with
+  hairline markings and no mown stripes, players as quiet discs with an ink edge, names set in a
+  serif with a breath of paper behind them instead of black pills, the scoreline set rather than
+  boxed, and a single muted accent. The ball's route is a brush stroke that thickens and darkens
+  towards the ball and fades behind it; the star's trail is the same stroke in the team's colour.
+  The pulsing ring around the star is gone. Names now show only for the star and players within
+  22 m of the ball. The heat map is one colour soaked into the page rather than a traffic-light
+  gradient. Broadcast lost its pixel crowd (bands of tone instead), its advertising hoardings and
+  most of its colour saturation.
+- 2026-09-29 — fidelity and speed (user: "increase the fidelity of the simulation, trim features if
+  it improves render speed"). Gait rebuilt: the stride is skewed so the foot stays down and swings
+  through quickly, the body bounces twice a stride, leans into a change of pace, banks into a turn,
+  and a standing player breathes. Defenders within a few metres of the ball now jockey — knees bent,
+  weight low, short steps — which is the posture that reads as defending. Off-ball players carry
+  momentum (5.5 m/s² limit), so nobody snaps from one direction to another. On speed: measured frame
+  times in a real browser — both looks hold 60 fps (16.6-16.8 ms). The Broadcast look was still
+  rebuilding its paper grain, film grain and vignette every frame; those are now built once, which
+  cut its headless frame time from 112 ms to 69 ms. Nothing needed cutting for performance.
 

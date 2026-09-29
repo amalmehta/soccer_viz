@@ -18,61 +18,61 @@
 <!-- Fonts load without holding up the page: a stylesheet still pending blocks every script,
      so an unreachable CDN would otherwise leave the app sitting on a blank pitch -->
 <link rel="stylesheet" media="print" onload="this.media='all'"
-  href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700&display=swap">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700&display=swap"></noscript>
+  href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600&display=swap"></noscript>
 <style>
   :root {
-    --ground: #EBF0EA;
-    --surface: #FFFFFF;
-    --ink: #11241A;
-    --muted: #566B5E;
-    --rule: #D2DCD3;
-    --chip: #E0E8E1;
-    --accent: #FFC53D;
-    --accent-ink: #2A1E00;
-    --focus: #1E6B3E;
-    --grass-a: #3E9A5A;
-    --grass-b: #46A462;
-    --grass-edge: #378F50;
-    --chalk: rgba(255, 255, 255, 0.88);
-    --shadow: rgba(17, 36, 26, 0.16);
-    --display: "Big Shoulders Display", "Arial Narrow", "Roboto Condensed", sans-serif;
+    --ground: #F2EFE7;
+    --surface: #FBF9F3;
+    --ink: #23201B;
+    --muted: #6F6A5E;
+    --rule: #DFD9CB;
+    --chip: #E8E3D7;
+    --accent: #B4623A;
+    --accent-ink: #FBF9F3;
+    --focus: #8A6A2F;
+    --grass-a: #E4E5D9;
+    --grass-b: #E8E9DE;
+    --grass-edge: #D8DACB;
+    --chalk: rgba(35, 32, 27, 0.30);
+    --shadow: rgba(45, 40, 32, 0.14);
+    --display: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
     --body: "Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --ground: #0D1611;
-      --surface: #142019;
-      --ink: #E2ECE4;
-      --muted: #91A698;
-      --rule: #26362C;
-      --chip: #1C2A21;
-      --accent: #FFC53D;
-      --accent-ink: #2A1E00;
-      --focus: #8FD6A8;
-      --grass-a: #2C6F43;
-      --grass-b: #32794A;
-      --grass-edge: #28663D;
-      --chalk: rgba(236, 246, 238, 0.78);
-      --shadow: rgba(0, 0, 0, 0.45);
+      --ground: #14161A;
+      --surface: #1B1E23;
+      --ink: #E9E5DC;
+      --muted: #9A958A;
+      --rule: #2C3037;
+      --chip: #232730;
+      --accent: #D08A5E;
+      --accent-ink: #14161A;
+      --focus: #D0B27A;
+      --grass-a: #1E2329;
+      --grass-b: #222831;
+      --grass-edge: #171B20;
+      --chalk: rgba(233, 229, 220, 0.32);
+      --shadow: rgba(0, 0, 0, 0.5);
     }
   }
   :root[data-theme="dark"] {
-    --ground: #0D1611;
-    --surface: #142019;
-    --ink: #E2ECE4;
-    --muted: #91A698;
-    --rule: #26362C;
-    --chip: #1C2A21;
-    --accent: #FFC53D;
-    --accent-ink: #2A1E00;
-    --focus: #8FD6A8;
-    --grass-a: #2C6F43;
-    --grass-b: #32794A;
-    --grass-edge: #28663D;
-    --chalk: rgba(236, 246, 238, 0.78);
-    --shadow: rgba(0, 0, 0, 0.45);
+    --ground: #14161A;
+    --surface: #1B1E23;
+    --ink: #E9E5DC;
+    --muted: #9A958A;
+    --rule: #2C3037;
+    --chip: #232730;
+    --accent: #D08A5E;
+    --accent-ink: #14161A;
+    --focus: #D0B27A;
+    --grass-a: #1E2329;
+    --grass-b: #222831;
+    --grass-edge: #171B20;
+    --chalk: rgba(233, 229, 220, 0.32);
+    --shadow: rgba(0, 0, 0, 0.5);
   }
 
   * { box-sizing: border-box; }
@@ -94,7 +94,7 @@
   }
   .brand {
     display: inline-flex; align-items: center; gap: 9px;
-    font: 900 24px/1 var(--display); letter-spacing: 0.02em; text-transform: uppercase;
+    font: 500 23px/1 var(--display); letter-spacing: 0.01em;
   }
   .brand svg { width: 26px; height: 18px; flex: none; transform: translateY(1px); }
   .tag { margin: 0; color: var(--muted); font-size: 14px; }
@@ -115,8 +115,8 @@
     font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
   }
   h1 {
-    margin: 0; font: 800 clamp(32px, 4.4vw, 50px)/0.92 var(--display);
-    text-transform: uppercase; letter-spacing: 0.005em; text-wrap: balance;
+    margin: 0; font: 500 clamp(30px, 4vw, 46px)/1.06 var(--display);
+    letter-spacing: -0.01em; text-wrap: balance;
   }
   .board { display: flex; align-items: center; gap: 12px; }
   .clock {
@@ -124,16 +124,17 @@
     padding: 6px 8px; border: 1px solid var(--rule); border-radius: 6px;
   }
   .clock:empty { display: none; }
-  .team { display: inline-flex; align-items: center; gap: 7px; font: 800 20px/1 var(--display); letter-spacing: 0.04em; }
+  .team { display: inline-flex; align-items: center; gap: 7px; font: 500 19px/1 var(--display); letter-spacing: 0.02em; }
   .kit { width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid transparent; display: inline-block; }
   .score {
-    display: inline-flex; align-items: center; gap: 6px;
-    font: 800 36px/1 var(--display); font-variant-numeric: tabular-nums;
-    padding: 4px 12px 2px; background: var(--ink); color: var(--ground); border-radius: 6px;
+    display: inline-flex; align-items: baseline; gap: 8px;
+    font: 500 38px/1 var(--display); font-variant-numeric: tabular-nums;
+    padding: 2px 14px; color: var(--ink);
+    border-left: 1px solid var(--rule); border-right: 1px solid var(--rule);
   }
-  .score .dash { opacity: 0.55; font-weight: 700; }
+  .score .dash { opacity: 0.35; }
   .score.pop { animation: pop 0.6s ease-out; }
-  @keyframes pop { 0% { background: var(--accent); color: var(--accent-ink); transform: scale(1.12); } 100% { transform: scale(1); } }
+  @keyframes pop { 0% { color: var(--accent); } 100% { color: var(--ink); } }
 
   .pitch-wrap {
     position: relative; border-radius: 10px; overflow: hidden;
@@ -221,13 +222,13 @@
   .footage-form #footageUrl { flex: 1 1 260px; min-width: 0; }
   .footage-note { flex-basis: 100%; margin: 0; font-size: 12.5px; color: var(--muted); }
   .analysis { max-width: 68ch; border-top: 1px solid var(--rule); padding-top: 18px; margin-top: 4px; }
-  .analysis h2 { margin: 0 0 10px; font: 800 22px/1 var(--display); text-transform: uppercase; letter-spacing: 0.02em; }
+  .analysis h2 { margin: 0 0 12px; font: 500 21px/1.2 var(--display); letter-spacing: -0.005em; }
   .analysis p { margin: 0 0 10px; line-height: 1.6; text-wrap: pretty; }
   .analysis strong { font-weight: 700; }
   .feed { margin: 16px 0 4px; }
   .feed h3 {
-    display: flex; align-items: center; gap: 8px; margin: 0 0 8px;
-    font: 800 13px/1.2 var(--display); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+    display: flex; align-items: center; gap: 8px; margin: 0 0 10px;
+    font: 500 15px/1.2 var(--display); letter-spacing: 0; color: var(--muted);
   }
   .feed h3 .live { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); }
   .feed h3 .live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--rule); }
@@ -247,14 +248,15 @@
     flex: none; align-self: center; font: 500 11.5px/1.6 var(--mono); color: var(--muted); white-space: nowrap;
   }
   .feed .tag {
-    flex: none; align-self: center; padding: 1px 7px; border-radius: 999px; background: var(--accent); color: var(--accent-ink);
-    font: 800 10px/1.7 var(--display); text-transform: uppercase; letter-spacing: 0.06em;
+    flex: none; align-self: center; padding: 1px 8px; border-radius: 999px;
+    border: 1px solid var(--rule); color: var(--muted); background: transparent;
+    font: 500 11px/1.6 var(--body); letter-spacing: 0.02em;
   }
   .feed li.ahead { opacity: 0.38; }
   .feed li.now { background: var(--surface); border-left-color: var(--accent); }
   .feed li.key .what { font-weight: 650; }
   .lessons { margin-top: 18px; padding: 14px 16px 4px; border-radius: 12px; background: var(--surface); border: 1px solid var(--rule); }
-  .lessons h3 { margin: 0 0 8px; font: 800 14px/1.2 var(--display); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .lessons h3 { margin: 0 0 10px; font: 500 16px/1.2 var(--display); color: var(--muted); }
   .lessons ul { margin: 0; padding: 0; list-style: none; }
   .lessons li { position: relative; margin: 0 0 10px; padding-left: 22px; line-height: 1.55; text-wrap: pretty; }
   .lessons li::before {
@@ -267,7 +269,8 @@
     font-size: 13px; font-weight: 600; color: var(--muted);
   }
   .voice-btn svg { width: 15px; height: 15px; fill: currentColor; }
-  .voice-btn[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+  .voice-btn[aria-pressed="true"] { color: var(--ink); border-color: var(--ink); }
+  .voice-btn[aria-pressed="true"] svg { fill: var(--accent); }
   .voice-select {
     font: inherit; font-size: 13px; color: var(--ink); background: var(--surface);
     border: 1px solid var(--rule); border-radius: 8px; padding: 6px 8px; max-width: 240px;
@@ -284,7 +287,7 @@
 
   /* Sidebar */
   .side { display: flex; flex-direction: column; gap: 30px; }
-  .side h2 { margin: 0 0 10px; font: 800 22px/1 var(--display); text-transform: uppercase; letter-spacing: 0.02em; }
+  .side h2 { margin: 0 0 12px; font: 500 21px/1.2 var(--display); letter-spacing: -0.005em; }
   .gen label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
   textarea {
     width: 100%; resize: vertical; min-height: 84px; padding: 10px 12px;
@@ -378,8 +381,6 @@
       <div class="looks-seg" role="group" aria-labelledby="looksLabel">
         <button data-look="classic" aria-pressed="true">Classic</button>
         <button data-look="broadcast" aria-pressed="false">Broadcast</button>
-        <button data-look="arcade" aria-pressed="false">Arcade</button>
-        <button data-look="stadium3d" aria-pressed="false">3D</button>
       </div>
       <button class="voice-btn" id="heatBtn" aria-pressed="false"
         title="Shade the pitch by where the players spent the clip. It's also drawn into downloaded videos.">
@@ -506,12 +507,10 @@
 
 <!-- Video export only: deferred so a slow CDN can never hold up the page -->
 <script defer src="https://cdn.jsdelivr.net/npm/mp4-muxer@5.1.3/build/mp4-muxer.js"></script>
-<script src="looks/broadcast.js?v=4733c2605c"></script>
-<script src="looks/arcade.js?v=4733c2605c"></script>
-<script src="looks/stadium3d.js?v=4733c2605c"></script>
-<script src="sound/recordings.js?v=4733c2605c"></script>
-<script src="sound/crowd.js?v=4733c2605c"></script>
-<script src="library/clips.js?v=4733c2605c"></script>
+<script src="looks/broadcast.js?v=33ecbf3f2e"></script>
+<script src="sound/recordings.js?v=33ecbf3f2e"></script>
+<script src="sound/crowd.js?v=33ecbf3f2e"></script>
+<script src="library/clips.js?v=33ecbf3f2e"></script>
 <script>
 (() => {
   "use strict";
@@ -982,7 +981,8 @@
     const paths = new Map(movers.map(pl => [pl.id, []]));
     if (!movers.length) return paths;
     const lim = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
-    const step = 0.2, lag = 0.8;
+    const step = 0.2, lag = 0.8, ACCEL = 5.5;     // metres per second per second, about a person's best
+    const vel = new Map(movers.map(pl => [pl.id, { x: 0, y: 0 }]));
     const lagged = t => {
       let x = 0, y = 0, n = 0;
       for (let s = t - lag; s <= t + 1e-6; s += 0.2) { const b = ballAt(Math.max(0, s)); x += b.x; y += b.y; n++; }
@@ -1099,6 +1099,16 @@
         const moved = Math.hypot(x - prev.x, y - prev.y), cap = 9 * step;
         if (moved > cap) { x = prev.x + ((x - prev.x) / moved) * cap; y = prev.y + ((y - prev.y) / moved) * cap; }
         jockey();
+        // Momentum: the wanted velocity is reached through an acceleration a body could produce,
+        // which rounds off the corners rather than snapping from one direction to another
+        const was = vel.get(pl.id);
+        let vx = (x - prev.x) / step, vy = (y - prev.y) / step;
+        const dvx = vx - was.x, dvy = vy - was.y, dv = Math.hypot(dvx, dvy);
+        const most = ACCEL * step * (pl.gk ? 0.8 : 1);
+        if (dv > most) { vx = was.x + (dvx / dv) * most; vy = was.y + (dvy / dv) * most; }
+        vel.set(pl.id, { x: vx, y: vy });
+        x = prev.x + vx * step;
+        y = prev.y + vy * step;
         x = lim(x, -2, 107);
         y = lim(y, -2, 70);
         if (pl.gk) x = pl.team === "B" ? lim(x, 97, 105) : lim(x, 0, 8);
@@ -1295,15 +1305,42 @@
     return P;
   }
 
-  function gaitPose(g) {
+  // How a body carries itself. A running stride is not a sine wave: the foot stays down while the
+  // body passes over it, then swings through quickly, so the phase is skewed. The trunk rises over
+  // the standing leg and dips as the next foot lands, leans into a change of pace, and banks into a
+  // turn. A defender closing someone down does none of this: knees bent, feet quick, weight low.
+  function gaitPose(g, opts = {}) {
+    const jockey = Math.max(0, Math.min(1, opts.jockey || 0));
+    const back = opts.mode === "backpedal", side = opts.mode === "shuffle";
+    const run = g.run * (jockey ? 1 - 0.35 * jockey : 1);
+    const sprint = g.sprint * (1 - jockey);
+    // Skewed phase: quick swing, longer stance
+    const warp = th => th + 0.28 * Math.sin(th);
+    const swingAmp = (0.13 + 0.46 * run + 0.2 * sprint) * (back ? 0.78 : side ? 0.72 : 1) * (1 - 0.4 * jockey);
+    const idle = Math.max(0, 1 - g.speed / 1.2);
+    const breath = idle * 0.02 * Math.sin((opts.t || 0) * 1.6 + (opts.seed || 0));
+    const turn = Math.max(-3.2, Math.min(3.2, opts.turn || 0));
     return {
-      lift: -Math.abs(Math.sin(g.phase)) * 0.025 * g.run,
-      pitch: 0.04 + 0.14 * g.run + 0.1 * g.sprint,
-      legs: [0, Math.PI].map(off => ({
-        hip: (0.12 + 0.45 * g.run + 0.15 * g.sprint) * Math.sin(g.phase + off),
-        knee: 0.08 + g.run * (0.2 + 1.35 * Math.max(0, Math.cos(g.phase + off)))
-      })),
-      arms: [0, Math.PI].map(off => ({ shoulder: -(0.15 + 0.65 * g.run) * Math.sin(g.phase + off), elbow: 0.35 + 1.05 * g.run }))
+      // two bounces a stride, and a low centre of gravity when jockeying
+      lift: run * (0.032 * Math.sin(2 * g.phase) - 0.012) - 0.055 * jockey,
+      pitch: 0.04 + 0.16 * run + 0.12 * sprint
+        + Math.max(-0.12, Math.min(0.16, (g.accel || 0) * 0.028))   // lean into a burst, sit back to stop
+        + 0.14 * jockey - (back ? 0.07 : 0),
+      bank: -turn * 0.035 * Math.min(1, 0.3 + run),                 // lean into the turn
+      legs: [0, Math.PI].map(off => {
+        const th = warp(g.phase + off);
+        const swing = Math.max(0, Math.cos(th));                    // leg coming through
+        const stance = Math.max(0, -Math.cos(th));                  // leg carrying the weight
+        return {
+          hip: swingAmp * Math.sin(th) + breath,
+          knee: 0.07 + 0.42 * jockey + (back ? 0.12 : 0)
+            + run * (0.16 + 1.35 * Math.pow(swing, 1.25) + 0.22 * stance)
+        };
+      }),
+      arms: [0, Math.PI].map(off => ({
+        shoulder: -(0.14 + 0.62 * run) * Math.sin(warp(g.phase + off)) - 0.1 * jockey,
+        elbow: 0.32 + 1.05 * run + 0.5 * jockey
+      }))
     };
   }
 
@@ -1366,7 +1403,7 @@
   }
   function gaitTable(pl, duration) {
     const n = Math.ceil((duration + 1) / GAIT_DT) + 2;
-    const phase = new Float32Array(n), speed = new Float32Array(n);
+    const phase = new Float32Array(n), speed = new Float32Array(n), accel = new Float32Array(n);
     let prev = pathPos(pl.path, 0), ph = 0;
     for (let i = 1; i < n; i++) {
       const p = pathPos(pl.path, i * GAIT_DT);
@@ -1378,7 +1415,13 @@
       prev = p;
     }
     speed[0] = speed[1];
-    return { phase, speed };
+    // Smoothed change of pace: a body leans into a sprint and sits back to stop
+    for (let i = 1; i < n; i++) {
+      const back = speed[Math.max(0, i - 3)], fwd = speed[Math.min(n - 1, i + 3)];
+      accel[i] = (fwd - back) / (6 * GAIT_DT);
+    }
+    accel[0] = accel[1];
+    return { phase, speed, accel };
   }
 
   // ---------- Play-by-play ----------
@@ -1486,6 +1529,7 @@
       return {
         phase: tb.phase[i] + (tb.phase[i + 1] - tb.phase[i]) * u,
         speed: v,
+        accel: tb.accel[i] + (tb.accel[i + 1] - tb.accel[i]) * u,
         run: Math.min(1, v / 5.5),
         sprint: Math.max(0, Math.min(1, (v - 5) / 3))
       };
@@ -1602,24 +1646,37 @@
       // (short steps, reversed swing) and running across the body is a shuffle, not a full stride.
       let g = gait(pl, t);
       const travel = moveHeading(src, t);
+      let mode = "run";
       if (travel != null && g.speed > 0.6) {
         const off = Math.abs(wrap(travel - heading));
-        if (off > 1.9) g = { ...g, phase: -g.phase, run: g.run * 0.6, sprint: g.sprint * 0.25 };
-        else if (off > 1.0) g = { ...g, run: g.run * 0.78, sprint: g.sprint * 0.5 };
+        if (off > 1.9) { mode = "backpedal"; g = { ...g, phase: -g.phase, run: g.run * 0.6, sprint: g.sprint * 0.25 }; }
+        else if (off > 1.0) { mode = "shuffle"; g = { ...g, run: g.run * 0.78, sprint: g.sprint * 0.5 }; }
       }
-      const base = gaitPose(g);
+      // A defender within a few metres of the ball, facing it and not sprinting, is jockeying:
+      // knees bent, weight low, short steps. It is the stance that reads as defending.
+      let jockey = 0;
+      if ((pl.team === "B" || pl.gk) && !pl.gk) {
+        const ball = ballAt(t);
+        const gap = Math.hypot(ball.x - p.x, ball.y - p.y);
+        const facing = Math.abs(wrap(Math.atan2(ball.y - p.y, ball.x - p.x) - heading));
+        if (gap < 9 && facing < 1.1 && g.speed < 4.2) {
+          jockey = Math.min(1, (9 - gap) / 5) * Math.min(1, (4.2 - g.speed) / 2.4) * Math.min(1, (1.1 - facing) / 0.5);
+        }
+      }
+      const turnRate = wrap(headingAt(pl, t + 0.08) - headingAt(pl, t - 0.08)) / 0.16;
+      const base = gaitPose(g, { mode, jockey, turn: turnRate, t, seed: idHash(pl.id) % 7 });
       let active = null;
       for (const a of actionsBy.get(pl.id) || []) {
         if (t >= a.t0 && t <= a.t1 && (!active || a.rank > active.rank || (a.rank === active.rank && a.t0 > active.t0))) active = a;
       }
-      if (!active) return { gait: g, action: null, heading, x: p.x, y: p.y, roll: 0, ...base };
+      if (!active) return { gait: g, action: null, heading, x: p.x, y: p.y, ...base, roll: base.bank || 0 };
       const span = active.t1 - active.t0;
       const w = easeIn((t - active.t0) / Math.min(0.2, span * 0.25)) * (active.hold ? 1 : easeIn((active.t1 - t) / Math.min(0.2, span * 0.25)));
       const P = actionPose(active, (t - active.t0) / span, t);
       const mix = (x, y, k) => x + (y - x) * k;
       const lw = w * P.legW;
       // A dive tips the keeper toward the ball's side of the body
-      const roll = P.roll * w * (Math.sign(Math.cos(heading) * (active.side || 1)) || 1);
+      const roll = P.roll * w * (Math.sign(Math.cos(heading) * (active.side || 1)) || 1) + (base.bank || 0) * (1 - w);
       return {
         gait: g,
         action: active.type,
@@ -1709,14 +1766,16 @@
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
     g.fillStyle = colors.edge;
     g.fillRect(0, 0, cssW, cssH);
-    const stripes = 14;
-    for (let i = 0; i < stripes; i++) {
-      g.fillStyle = i % 2 ? colors.a : colors.b;
-      g.fillRect(X((i * W) / stripes), Y(0), (W / stripes) * scale + 0.5, H * scale);
-    }
+    // The pitch is a panel of paper, a shade lighter than the page, with the faintest warmth
+    // across it. No mown stripes: they read as a video game more than a drawing.
+    const wash = g.createLinearGradient(X(0), Y(0), X(W), Y(H));
+    wash.addColorStop(0, colors.b);
+    wash.addColorStop(1, colors.a);
+    g.fillStyle = wash;
+    g.fillRect(X(-M), Y(-M), (W + 2 * M) * scale, (H + 2 * M) * scale);
     g.strokeStyle = colors.chalk;
     g.fillStyle = colors.chalk;
-    g.lineWidth = Math.max(1.2, 0.13 * scale);
+    g.lineWidth = Math.max(0.9, 0.09 * scale);
     const box = (x0, y0, x1, y1) => g.strokeRect(X(Math.min(x0, x1)), Y(y0), Math.abs(x1 - x0) * scale, (y1 - y0) * scale);
     const arc = (x, y, r, a0, a1) => { g.beginPath(); g.arc(X(x), Y(y), r * scale, a0, a1); g.stroke(); };
     const spot = (x, y) => { g.beginPath(); g.arc(X(x), Y(y), Math.max(1.6, 0.22 * scale), 0, Math.PI * 2); g.fill(); };
@@ -1735,7 +1794,7 @@
       else arc(11, 34, 9.15, -arcA, arcA);
       const gx = side ? W : -2;
       g.save();
-      g.fillStyle = "rgba(255,255,255,0.16)";
+      g.fillStyle = hexA(colors.ink, 0.05);
       g.fillRect(X(gx), Y(GOAL_Y0), 2 * scale, (GOAL_Y1 - GOAL_Y0) * scale);
       g.restore();
       g.strokeRect(X(gx), Y(GOAL_Y0), 2 * scale, (GOAL_Y1 - GOAL_Y0) * scale);
@@ -1812,24 +1871,34 @@
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
 
-    // Ball route: whole route faint, travelled part highlighted
+    // The ball's route, drawn like a brush stroke: the line the ball will take is barely there, and
+    // the line it has taken thickens and darkens towards the ball, fading out well behind it.
     const idx = Math.min(R.track.length - 1, Math.floor(t / 0.05));
-    ctx.setLineDash([2, 5]);
-    ctx.strokeStyle = "rgba(255,255,255,0.42)";
-    ctx.lineWidth = 1.6;
+    ctx.lineWidth = Math.max(0.8, 0.07 * scale);
+    ctx.strokeStyle = hexA(colors.ink, 0.13);
     ctx.beginPath();
-    R.track.forEach((p, i) => (i ? ctx.lineTo(X(p.x), Y(p.y)) : ctx.moveTo(X(p.x), Y(p.y))));
+    for (let i = idx; i < R.track.length; i++) {
+      const p = R.track[i];
+      i === idx ? ctx.moveTo(X(p.x), Y(p.y)) : ctx.lineTo(X(p.x), Y(p.y));
+    }
     ctx.stroke();
-    ctx.setLineDash([]);
     if (idx > 0) {
-      ctx.strokeStyle = colors.accent;
-      ctx.lineWidth = Math.max(2, 0.34 * scale);
-      ctx.beginPath();
-      for (let i = 0; i <= idx; i++) {
-        const p = R.track[i];
-        i ? ctx.lineTo(X(p.x), Y(p.y)) : ctx.moveTo(X(p.x), Y(p.y));
+      const tail = Math.max(0, idx - 90);                       // about four and a half seconds
+      for (let i = tail; i < idx; i++) {
+        const a = R.track[i], b = R.track[i + 1];
+        const u = (i - tail) / Math.max(1, idx - tail);
+        ctx.strokeStyle = hexA(colors.accent, 0.08 + 0.72 * u * u);
+        ctx.lineWidth = Math.max(0.9, (0.08 + 0.3 * u) * scale);
+        ctx.beginPath();
+        ctx.moveTo(X(a.x), Y(a.y));
+        ctx.lineTo(X(b.x), Y(b.y));
+        ctx.stroke();
       }
-      const b = R.ballAt(t);
+      const b = R.ballAt(t), last = R.track[idx];
+      ctx.strokeStyle = hexA(colors.accent, 0.8);
+      ctx.lineWidth = Math.max(0.9, 0.38 * scale);
+      ctx.beginPath();
+      ctx.moveTo(X(last.x), Y(last.y));
       ctx.lineTo(X(b.x), Y(b.y));
       ctx.stroke();
     }
@@ -1839,15 +1908,16 @@
 
     // Star player's fading trail
     if (R.star) {
-      const steps = 40, span = 2.2;
-      ctx.lineWidth = Math.max(2.5, 0.42 * scale);
+      const steps = 48, span = 2.6;
       let prev = null;
       for (let i = 0; i <= steps; i++) {
         const tt = t - span + (span * i) / steps;
         if (tt < 0) continue;
         const p = pathPos(R.star.path, tt);
         if (prev) {
-          ctx.strokeStyle = hexA(play.teams[R.star.team].color, (i / steps) * 0.75);
+          const u = i / steps;
+          ctx.strokeStyle = hexA(play.teams[R.star.team].color, 0.06 + 0.5 * u * u);
+          ctx.lineWidth = Math.max(1, (0.1 + 0.28 * u) * scale);
           ctx.beginPath();
           ctx.moveTo(X(prev.x), Y(prev.y));
           ctx.lineTo(X(p.x), Y(p.y));
@@ -1865,12 +1935,12 @@
       return { pl, x: X(p.x), y: Y(p.y), h, key: !!(pl.num != null || pl.name || pl.star) };
     });
 
-    // Shadows
-    ctx.fillStyle = "rgba(10, 30, 18, 0.28)";
+    // Shadows: a soft print, not a drop shadow
+    ctx.fillStyle = hexA(colors.ink, 0.1);
     for (const s of states) {
       const rr = s.key ? r : r * 0.8;
       ctx.beginPath();
-      ctx.ellipse(s.x + 1.5, s.y + 2.5, rr, rr * 0.8, 0, 0, Math.PI * 2);
+      ctx.ellipse(s.x + 1, s.y + 1.8, rr * 1.02, rr * 0.82, 0, 0, Math.PI * 2);
       ctx.fill();
     }
 
@@ -1881,40 +1951,37 @@
       const rr = s.key ? r : r * 0.8;
       ctx.globalAlpha = s.key ? 1 : 0.88;
 
+      // The player the clip is about carries a fine ring, held steady — no pulsing
       if (s.pl.star) {
-        const pulse = reduceMotion || (!playing && !exporting)
-          ? 0.5
-          : 0.5 + 0.5 * Math.sin((exporting ? t * 1000 : performance.now()) / 260);
-        ctx.strokeStyle = colors.accent;
-        ctx.lineWidth = 2.5;
+        ctx.strokeStyle = hexA(colors.accent, 0.85);
+        ctx.lineWidth = Math.max(1, 0.1 * scale);
         ctx.beginPath();
-        ctx.arc(s.x, s.y, rr + 4 + pulse * 1.5, 0, Math.PI * 2);
+        ctx.arc(s.x, s.y, rr + 3.5, 0, Math.PI * 2);
         ctx.stroke();
       }
 
-      // Facing notch
-      ctx.fillStyle = "rgba(255,255,255,0.92)";
+      // Which way they are facing: a short stroke out of the disc, not an arrowhead
+      ctx.strokeStyle = hexA(colors.ink, s.key ? 0.5 : 0.32);
+      ctx.lineWidth = Math.max(1, 0.08 * scale);
       ctx.beginPath();
-      ctx.moveTo(s.x + Math.cos(s.h) * (rr + 4.5), s.y + Math.sin(s.h) * (rr + 4.5));
-      ctx.lineTo(s.x + Math.cos(s.h + 0.5) * (rr + 0.5), s.y + Math.sin(s.h + 0.5) * (rr + 0.5));
-      ctx.lineTo(s.x + Math.cos(s.h - 0.5) * (rr + 0.5), s.y + Math.sin(s.h - 0.5) * (rr + 0.5));
-      ctx.closePath();
-      ctx.fill();
+      ctx.moveTo(s.x + Math.cos(s.h) * rr * 0.55, s.y + Math.sin(s.h) * rr * 0.55);
+      ctx.lineTo(s.x + Math.cos(s.h) * (rr + 4), s.y + Math.sin(s.h) * (rr + 4));
+      ctx.stroke();
 
       ctx.fillStyle = s.pl.gk ? tm.gkColor : tm.color;
-      ctx.strokeStyle = tm.color2;
-      ctx.lineWidth = s.key ? 2.2 : 1.8;
+      ctx.strokeStyle = hexA(colors.ink, 0.55);
+      ctx.lineWidth = Math.max(0.8, 0.07 * scale);
       ctx.beginPath();
       ctx.arc(s.x, s.y, rr, 0, Math.PI * 2);
       ctx.fill();
       ctx.stroke();
 
       if (s.pl.num != null && rr >= 7) {
-        ctx.fillStyle = s.pl.gk ? (luminance(tm.gkColor) > 0.4 ? "#12201A" : "#FFFFFF") : tm.text;
-        ctx.font = `800 ${Math.round(rr * 1.25)}px ${FONT_DISPLAY}`;
+        ctx.fillStyle = s.pl.gk ? (luminance(tm.gkColor) > 0.4 ? "#1C1A16" : "#F6F3EC") : tm.text;
+        ctx.font = `500 ${Math.round(rr * 1.05)}px ${FONT_DISPLAY}`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        upright(s.x, s.y, () => ctx.fillText(String(s.pl.num), 0, rr * 0.08));
+        upright(s.x, s.y, () => ctx.fillText(String(s.pl.num), 0, rr * 0.06));
       }
       ctx.globalAlpha = 1;
     }
@@ -1941,20 +2008,26 @@
     drawBall(ctx, rotated ? bx + lift : bx, rotated ? by : by - lift, br, R.era.ball, turn * 0.08);
 
     // Name labels
-    ctx.font = `600 ${cssW < 520 ? 10 : 11.5}px ${FONT_BODY}`;
+    // Names are set in the same serif as the page, in ink, with a breath of paper behind them so
+    // they stay legible over the pitch without a box around each one.
+    ctx.font = `${cssW < 520 ? 10.5 : 12}px ${FONT_DISPLAY}`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
+    ctx.lineJoin = "round";
+    const ballNow = R.ballAt(t);
     for (const s of states) {
       if (!s.pl.name) continue;
-      const w = ctx.measureText(s.pl.name).width + 10;
-      const lh = cssW < 520 ? 15 : 17;
-      const ly = s.pl.star ? -r - 7 - lh / 2 : r + 5 + lh / 2;
+      const src = R.byId[s.pl.id];
+      const here = pathPos(src.path, t);
+      // Names crowd the page: keep the star, and anyone near the ball
+      if (!s.pl.star && Math.hypot(here.x - ballNow.x, here.y - ballNow.y) > 22) continue;
+      const ly = s.pl.star ? -r - 11 : r + 11;
       upright(s.x, s.y, () => {
-        ctx.fillStyle = s.pl.star ? colors.accent : "rgba(12, 28, 19, 0.74)";
-        roundRect(ctx, -w / 2, ly - lh / 2, w, lh, lh / 2);
-        ctx.fill();
-        ctx.fillStyle = s.pl.star ? "#2A1E00" : "#FFFFFF";
-        ctx.fillText(s.pl.name, 0, ly + 0.5);
+        ctx.strokeStyle = hexA(colors.ground, 0.85);
+        ctx.lineWidth = 3;
+        ctx.strokeText(s.pl.name, 0, ly);
+        ctx.fillStyle = s.pl.star ? colors.accent : hexA(colors.ink, 0.82);
+        ctx.fillText(s.pl.name, 0, ly);
       });
     }
 
@@ -1975,27 +2048,24 @@
       const g = heatLayer.getContext("2d");
       const img = g.createImageData(heat.w, heat.h);
       for (let i = 0; i < heat.grid.length; i++) {
-        const v = Math.min(1, Math.pow(heat.grid[i] / heat.peak, 0.55));
-        // cool green through yellow to red, fading out where nobody went
-        const r = v < 0.5 ? 40 + v * 2 * 215 : 255;
-        const gr = v < 0.5 ? 120 + v * 2 * 135 : 255 - (v - 0.5) * 2 * 210;
-        const b = v < 0.5 ? 90 * (1 - v * 2) : 40 * (1 - (v - 0.5) * 2);
-        img.data[i * 4] = r;
-        img.data[i * 4 + 1] = gr;
-        img.data[i * 4 + 2] = b;
-        img.data[i * 4 + 3] = Math.round(235 * Math.min(1, v * 1.35));
+        const v = Math.min(1, Math.pow(heat.grid[i] / heat.peak, 0.6));
+        // one colour soaked into the paper: pale where players passed, deep where they lived
+        img.data[i * 4] = 150 + 50 * v;
+        img.data[i * 4 + 1] = 96 + 20 * v;
+        img.data[i * 4 + 2] = 62 + 10 * v;
+        img.data[i * 4 + 3] = Math.round(200 * Math.min(1, v * 1.2));
       }
       g.putImageData(img, 0, 0);
     }
     ctx.save();
-    ctx.globalAlpha = 0.62;
-    ctx.globalCompositeOperation = "screen";
+    ctx.globalAlpha = 0.5;
+    ctx.globalCompositeOperation = "multiply";
     ctx.imageSmoothingEnabled = true;
     ctx.drawImage(heatLayer, X(-1.5), Y(-1.5), heat.w * scale, heat.h * scale);
     ctx.restore();
   }
 
-  const FONT_DISPLAY = '"Big Shoulders Display", "Arial Narrow", sans-serif';
+  const FONT_DISPLAY = '"Newsreader", "Iowan Old Style", Georgia, serif';
   const FONT_BODY = '"Figtree", system-ui, sans-serif';
 
   // Period ball: its era's panel design, lit from the top left. `flat` skips light and outline
@@ -2372,6 +2442,7 @@
   }
 
   async function setLook(name) {
+    if (name === "stadium3d" || name === "arcade") name = "classic";   // retired looks fall back
     const mod = name === "classic" ? null : (window.BirdseyeLooks || {})[name];
     if (name !== "classic" && !mod) {
       lookStatus.textContent = "That look didn't load. Reload the page to try again.";
@@ -2612,7 +2683,7 @@
   }
 
   function speakCommentary() {
-    if (!synth || !voiceOn || look !== "arcade" || !playing || !current) return;
+    if (!synth || !voiceOn || !playing || !current) return;
     const lines = current.play.commentary.length ? current.play.commentary : current.play.captions;
     let idx = -1;
     lines.forEach((c, i) => { if (c.t <= t + 1e-6) idx = i; });
@@ -2630,7 +2701,7 @@
   }
 
   function updateVoiceBtn() {
-    voiceBtn.hidden = !synth || look !== "arcade";
+    voiceBtn.hidden = !synth;
     voiceSelect.hidden = voiceBtn.hidden || !voiceSelect.options.length;
     voiceHint.hidden = voiceBtn.hidden || !needsVoiceHint;
     voiceBtn.setAttribute("aria-pressed", String(voiceOn));
@@ -2658,20 +2729,20 @@
 
   function crowdTick() {
     if (!crowd || !current) return;
-    if (!crowdOn || look === "classic") crowd.stop();
+    if (!crowdOn) crowd.stop();
     else {
       // Quieter bed whenever the commentary voice is in use, so the voice sits on top
-      crowd.setBed(synth && voiceOn && look === "arcade" ? 0.5 : 0.9);
+      crowd.setBed(synth && voiceOn ? 0.5 : 0.9);
       crowd.update(current, t, playing);
     }
   }
   function updateCrowdBtn() {
-    crowdBtn.hidden = !crowd || look === "classic";
+    crowdBtn.hidden = !crowd;
     crowdBtn.setAttribute("aria-pressed", String(crowdOn));
     document.getElementById("crowdLabel").textContent = crowdOn ? "Crowd on" : "Crowd off";
   }
   // Browsers only allow sound after the viewer interacts, so start it on the first click or key
-  const wakeCrowd = () => { if (crowd && crowdOn && look !== "classic") { crowd.resume(); crowdTick(); } };
+  const wakeCrowd = () => { if (crowd && crowdOn) { crowd.resume(); crowdTick(); } };
   document.addEventListener("pointerdown", wakeCrowd, true);
   document.addEventListener("keydown", wakeCrowd, true);
   crowdBtn.addEventListener("click", () => {
@@ -3422,7 +3493,7 @@ REQUEST: ${request}`;
       for (let tt = 0; tt < total; tt += lookRate(R.play, tt) / FPS) times.push(tt);
       const config = await pickVideoConfig(format);
       let audio = null;
-      if (config && look !== "classic" && crowdOn && window.BirdseyeCrowd && window.AudioEncoder && window.AudioData) {
+      if (config && crowdOn && window.BirdseyeCrowd && window.AudioEncoder && window.AudioData) {
         const audioConfig = { codec: "mp4a.40.2", sampleRate: 48000, numberOfChannels: 2, bitrate: 128000 };
         try {
           if ((await AudioEncoder.isConfigSupported(audioConfig)).supported) {

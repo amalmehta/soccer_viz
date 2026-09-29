@@ -20,7 +20,8 @@
     return ((n ^ (n >>> 16)) >>> 0) / 4294967296;
   }
 
-  let noiseTile = null;
+  let noiseTile = null, noisePattern = null, grainLayer = null, grainKey = "";
+  let vignette = null, vignetteKey = "";
   function noise() {
     if (noiseTile) return noiseTile;
     noiseTile = document.createElement("canvas");
@@ -34,6 +35,25 @@
     }
     g.putImageData(img, 0, 0);
     return noiseTile;
+  }
+
+  // The paper grain, rendered once at the size it is used and then simply stamped on
+  function grain(ctx, w, h, alpha) {
+    const key = `${Math.round(w)}x${Math.round(h)}`;
+    if (grainKey !== key) {
+      grainKey = key;
+      grainLayer = document.createElement("canvas");
+      grainLayer.width = Math.max(1, Math.round(w));
+      grainLayer.height = Math.max(1, Math.round(h));
+      const g = grainLayer.getContext("2d");
+      if (!noisePattern) noisePattern = g.createPattern(noise(), "repeat");
+      g.fillStyle = noisePattern;
+      g.fillRect(0, 0, grainLayer.width, grainLayer.height);
+    }
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(grainLayer, 0, 0, w, h);
+    ctx.restore();
   }
 
   function goalMoment(play, t) {
@@ -77,6 +97,13 @@
     if (close) ctx.closePath();
   }
 
+  // Mix a colour towards a neutral: 0 keeps it, 1 washes it out entirely
+  function quiet(hex, amount, toward = [232, 228, 216]) {
+    const c = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16));
+    const mixed = c.map((v, i) => Math.round(v + (toward[i] - v) * amount));
+    return "#" + mixed.map(v => Math.max(0, Math.min(255, v)).toString(16).padStart(2, "0")).join("");
+  }
+
   const SKIES = {
     day: ["#5d9bd6", "#bcd9ef"],
     dusk: ["#1e2140", "#e58b54"],
@@ -92,48 +119,41 @@
     ctx.fillStyle = sky;
     ctx.fillRect(0, 0, w, h);
 
-    // Far stand, roof and floodlights
-    ctx.fillStyle = shadeHex(venue.stands, venue.time === "day" ? 0.7 : 0.42);
-    pathOf(ctx, cam, [[-45, -7, 0], [150, -7, 0], [150, -30, 19], [-45, -30, 19]], true);
-    ctx.fill();
-    const buckets = crowdColors.map(() => []);
-    for (let r = 0; r < 30; r++) {
-      const s = (r + 0.5) / 30, y = -7.6 - 22 * s, z0 = 0.8 + 18 * s;
-      const d = cam.p(cx, y, z0).d;
-      const half = ((w / 2 + 30) * d) / cam.F;
-      const size = (cam.F * 0.46) / d;
-      for (let c = Math.floor((cx - half) / 0.7); c <= Math.ceil((cx + half) / 0.7); c++) {
-        const x = c * 0.7;
-        if (x < -44 || x > 149 || ih(r, c) < 0.08) continue;
-        const jump = cheer > 0 ? Math.max(0, Math.sin(t * 17 + ih(c, r) * 6)) * 0.35 * cheer : 0;
-        const p = cam.p(x, y, z0 + jump);
-        buckets[Math.floor(ih(c, r + 99) * crowdColors.length)].push(p.x - size / 2, p.y - size, size);
-      }
-    }
-    buckets.forEach((b, k) => {
-      ctx.fillStyle = crowdColors[k];
-      ctx.globalAlpha = venue.time === "day" ? 0.78 : 0.55;
-      ctx.beginPath();
-      for (let i = 0; i < b.length; i += 3) ctx.rect(b[i], b[i + 1], b[i + 2], b[i + 2] * 1.1);
+    // The stand is drawn as bands of tone, not as thousands of little seats: a crowd reads as a
+    // texture from this distance, and painting each seat every frame cost more than it was worth.
+    const band = (y0, z0, y1, z1, fill) => {
+      ctx.fillStyle = fill;
+      pathOf(ctx, cam, [[-45, y0, z0], [150, y0, z0], [150, y1, z1], [-45, y1, z1]], true);
       ctx.fill();
-    });
-    ctx.globalAlpha = 1;
+    };
+    const dim = venue.time === "day" ? 0.82 : 0.46;
+    band(-7, 0, -30, 19, shadeHex(venue.stands, dim * 0.8));
+    band(-9, 1.6, -22, 13, shadeHex(venue.stands, dim));
+    band(-16, 8, -26, 16, shadeHex(venue.accent, dim * 0.9));
+    // A breath of movement along the front rows when the crowd is up
+    if (cheer > 0.02) {
+      ctx.globalAlpha = 0.16 * cheer;
+      ctx.fillStyle = shadeHex(venue.accent, 1.15);
+      const sway = Math.sin(t * 2.2) * 0.5;
+      pathOf(ctx, cam, [[-45, -8 + sway, 1.2], [150, -8 + sway, 1.2], [150, -13, 6], [-45, -13, 6]], true);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
     if (venue.roof !== "open") {
       ctx.fillStyle = shadeHex(venue.accent, 0.3);
       pathOf(ctx, cam, [[-45, -30, 19], [150, -30, 19], [150, -22, 23.5], [-45, -22, 23.5]], true);
       ctx.fill();
     }
     if (venue.time === "day") return;
-    const lamp = venue.time === "dusk" ? 0.6 : 1;
+    const lamp = venue.time === "dusk" ? 0.45 : 0.7;
     ctx.globalCompositeOperation = "lighter";
-    for (let x = -18; x <= 124; x += 22) {
+    for (let x = -18; x <= 124; x += 34) {
       const p = cam.p(x, -22, 23.6);
       if (p.x < -200 || p.x > w + 200) continue;
-      const r = (cam.F * 9) / p.d;
+      const r = (cam.F * 8) / p.d;
       const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
-      glow.addColorStop(0, `rgba(255,250,235,${0.85 * lamp})`);
-      glow.addColorStop(0.08, `rgba(255,248,225,${0.35 * lamp})`);
-      glow.addColorStop(1, "rgba(255,248,225,0)");
+      glow.addColorStop(0, `rgba(255,248,232,${0.5 * lamp})`);
+      glow.addColorStop(1, "rgba(255,248,232,0)");
       ctx.fillStyle = glow;
       ctx.fillRect(p.x - r, p.y - r, 2 * r, 2 * r);
     }
@@ -141,12 +161,13 @@
   }
 
   function drawPitch(ctx, cam, w, h, venue) {
-    ctx.fillStyle = shadeHex(venue.grass, 0.62);
+    const night = venue.time === "night";
+    ctx.fillStyle = shadeHex(quiet(venue.grass, night ? 0.3 : 0.45), 0.62);
     pathOf(ctx, cam, rectPts(-14, -7, 119, 80), true);
     ctx.fill();
     if (venue.track) {
       // Athletics track between the pitch and the stands
-      ctx.fillStyle = "#9c4a36";
+      ctx.fillStyle = quiet("#9c4a36", 0.35);
       pathOf(ctx, cam, rectPts(-12, -6.8, 117, 79), true);
       ctx.fill();
       ctx.strokeStyle = "rgba(255,255,255,0.3)";
@@ -155,34 +176,25 @@
         pathOf(ctx, cam, rectPts(-11 + lane * 1.5, -6.4 + lane * 0.5, 116 - lane * 1.5, 78.5 - lane * 1.5), true);
         ctx.stroke();
       }
-      ctx.fillStyle = shadeHex(venue.grass, 0.8);
+      ctx.fillStyle = shadeHex(quiet(venue.grass, night ? 0.3 : 0.45), 0.8);
       pathOf(ctx, cam, rectPts(-5.5, -4.5, 110.5, 72.5), true);
       ctx.fill();
     }
-    ctx.fillStyle = venue.grass;
+    ctx.fillStyle = quiet(venue.grass, night ? 0.3 : 0.45);
     pathOf(ctx, cam, rectPts(-4, -4, 109, 72), true);
     ctx.fill();
+    // One long band of light across the pitch instead of mown stripes
     if (venue.mowing !== "plain") {
       for (let i = 0; i < 20; i += 2) {
-        ctx.fillStyle = "rgba(255,255,255,0.055)";
+        ctx.fillStyle = "rgba(255,255,255,0.022)";
         pathOf(ctx, cam, rectPts(-4 + (i * 113) / 20, -4, -4 + ((i + 1) * 113) / 20, 72), true);
-        ctx.fill();
-      }
-    }
-    if (venue.mowing === "checks") {
-      for (let j = 0; j < 12; j += 2) {
-        ctx.fillStyle = "rgba(0,0,0,0.06)";
-        pathOf(ctx, cam, rectPts(-4, -4 + (j * 76) / 12, 109, -4 + ((j + 1) * 76) / 12), true);
         ctx.fill();
       }
     }
     ctx.save();
     pathOf(ctx, cam, rectPts(-4, -4, 109, 72), true);
     ctx.clip();
-    ctx.globalAlpha = 0.06;
-    ctx.fillStyle = ctx.createPattern(noise(), "repeat");
-    ctx.fillRect(0, 0, w, h);
-    ctx.globalAlpha = 1;
+    grain(ctx, w, h, 0.05);
     const far = cam.p(52.5, -4), near = cam.p(52.5, 72);
     const shade = ctx.createLinearGradient(0, far.y, 0, Math.max(near.y, far.y + 1));
     shade.addColorStop(0, `rgba(0,12,24,${venue.time === "day" ? 0.15 : 0.38})`);
@@ -219,7 +231,6 @@
       ctx.save();
       ctx.transform((ax.x - o.x) / 10, (ax.y - o.y) / 10, -(ay.x - o.x) / 10, -(ay.y - o.y) / 10, o.x, o.y);
       ctx.font = `900 7px "Big Shoulders Display", "Arial Narrow", sans-serif`;
-      ctx.fillText("BIRDSEYE FC", 0, 0.4);
       ctx.restore();
     }
   }
@@ -444,22 +455,17 @@
     return "#" + c.map(v => v.toString(16).padStart(2, "0")).join("");
   }
 
-  function pill(ctx, api, text, x, y, size, bg, fg, dot) {
-    ctx.font = `700 ${size}px ${api.fonts.body}`;
-    const w = ctx.measureText(text).width + size * (dot ? 1.9 : 1.2), hh = size * 1.6;
-    ctx.fillStyle = bg;
-    api.roundRect(ctx, x - w / 2, y - hh / 2, w, hh, 3);
-    ctx.fill();
-    if (dot) {
-      ctx.fillStyle = dot;
-      ctx.beginPath();
-      ctx.arc(x - w / 2 + size * 0.75, y, size * 0.3, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.fillStyle = fg;
+  // A caption on the picture: the serif of the page, held off the grass by a soft halo
+  function caption(ctx, api, text, x, y, size, colour, halo) {
+    ctx.font = `500 ${size * 1.15}px ${api.fonts.display}`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(text, x + (dot ? size * 0.35 : 0), y + 0.5);
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = halo || "rgba(12,14,16,0.5)";
+    ctx.lineWidth = size * 0.42;
+    ctx.strokeText(text, x, y);
+    ctx.fillStyle = colour;
+    ctx.fillText(text, x, y);
   }
 
   function draw(env) {
@@ -560,32 +566,33 @@
       }
       drawFigure(ctx, play.teams[pl.team], pl, foot, H, it.body, R.lookOf(pl), R.era.kit, R.bootColor(pl));
       if (pl.name || pl.num != null) {
-        const label = pl.name ? (pl.num != null ? `${pl.num} ${pl.name.toUpperCase()}` : pl.name.toUpperCase()) : String(pl.num);
-        pill(ctx, api, label, foot.x, foot.y - H * 1.08 - 8 * u, 9.5 * u,
-          pl.star ? "rgba(255,197,61,0.95)" : "rgba(6,10,16,0.8)", pl.star ? "#2A1E00" : "#ffffff", pl.star ? null : play.teams[pl.team].color);
+        const ballNow = R.ballAt(t);
+        if (!pl.star && Math.hypot(it.p.x - ballNow.x, it.p.y - ballNow.y) > 22) continue;
+        const label = pl.name || (pl.num != null ? String(pl.num) : "");
+        caption(ctx, api, label, foot.x, foot.y - H * 1.08 - 9 * u, 9.5 * u,
+          pl.star ? api.colors.accent : "rgba(248,245,238,0.92)");
       }
     }
 
     // Grade: vignette and film grain
-    const vg = ctx.createRadialGradient(w / 2, h * 0.55, Math.min(w, h) * 0.3, w / 2, h / 2, Math.hypot(w, h) * 0.62);
-    vg.addColorStop(0, "rgba(0,0,0,0)");
-    vg.addColorStop(1, `rgba(0,0,0,${{ day: 0.3, dusk: 0.45, night: 0.55 }[play.venue.time]})`);
-    ctx.fillStyle = vg;
+    const vkey = `${Math.round(w)}x${Math.round(h)}|${play.venue.time}`;
+    if (vignetteKey !== vkey) {
+      vignetteKey = vkey;
+      vignette = ctx.createRadialGradient(w / 2, h * 0.55, Math.min(w, h) * 0.3, w / 2, h / 2, Math.hypot(w, h) * 0.62);
+      vignette.addColorStop(0, "rgba(0,0,0,0)");
+      vignette.addColorStop(1, `rgba(0,0,0,${{ day: 0.3, dusk: 0.45, night: 0.55 }[play.venue.time]})`);
+    }
+    ctx.fillStyle = vignette;
     ctx.fillRect(0, 0, w, h);
-    ctx.save();
-    ctx.globalAlpha = 0.05;
-    ctx.translate(-((t * 997) % 192), -((t * 613) % 192));
-    ctx.fillStyle = ctx.createPattern(noise(), "repeat");
-    ctx.fillRect(0, 0, w + 192, h + 192);
-    ctx.restore();
+    grain(ctx, w, h, 0.04);
 
     // Broadcast graphics
     if (live) {
       const sc = api.scoreAt(play, t);
-      const text = `${play.teams.A.short}  ${sc[0]}–${sc[1]}  ${play.teams.B.short}${play.clock ? "   " + play.clock : ""}`;
-      ctx.font = `700 ${11 * u}px ${api.fonts.body}`;
-      const tw = ctx.measureText(text).width + 12 * u * 1.2;
-      pill(ctx, api, text, 14 * u + tw / 2, 22 * u, 11 * u, "rgba(6,10,16,0.85)", "#ffffff", null);
+      const text = `${play.teams.A.short} ${sc[0]}–${sc[1]} ${play.teams.B.short}${play.clock ? "   " + play.clock : ""}`;
+      ctx.font = `500 ${13 * u}px ${api.fonts.display}`;
+      const tw = ctx.measureText(text).width;
+      caption(ctx, api, text, 18 * u + tw / 2, 24 * u, 11 * u, "rgba(248,245,238,0.9)");
     }
   }
 

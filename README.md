@@ -2,8 +2,8 @@
 
 Famous goals and classic moves, drawn from above.
 
-Birdseye FC replays iconic football moments as stylised animations: every player runs, turns,
-lunges and dives on a scale pitch, with original commentary read aloud over the top. Twenty-five
+Birdseye FC replays iconic football moments as drawn animations: every player runs, turns, lunges
+and dives on a scale pitch, with original commentary read aloud over the top. Twenty-five
 clips ship with it, from Carlos Alberto in 1970 to the Lusail final, plus two coaching moves.
 Eleven are built from StatsBomb's own match data rather than from memory.
 
@@ -13,8 +13,8 @@ Eleven are built from StatsBomb's own match data rather than from memory.
 
 ## What it does
 
-- **Four looks, same play.** Classic (clean top-down), Broadcast (TV camera in the stands),
-  Arcade (game-style chase camera) and 3D, switchable while a clip runs.
+- **Two looks, same play.** Classic, drawn from straight above, and Broadcast, a camera in the
+  stands. Switch while a clip runs.
 - **Real movement.** Players hold shape, mark, press, jockey and tackle; defenders track the ball
   and lunge for it rather than drifting. Speeds stay inside human limits.
 - **Spoken commentary.** Written for this project — never the broadcast audio — read aloud by the
@@ -50,14 +50,14 @@ python3 -m http.server 8777 --directory docs
 ```
 
 Then open http://localhost:8777. No build step, no dependencies — it is plain HTML, CSS and
-JavaScript. The 3D look loads Three.js from a CDN; everything else is local.
+JavaScript, and nothing but the fonts comes from a CDN.
 
 ## Layout
 
 | Path | What it is |
 | --- | --- |
 | `birdseye.html` | The whole app in one file: pitch model, motion engine, rendering, UI, voice, video export |
-| `looks/` | The Broadcast, Arcade and 3D renderers (Classic lives in `birdseye.html`) |
+| `looks/` | The Broadcast renderer (Classic lives in `birdseye.html`) |
 | `library/plays/*.json` | One file per clip: players, paths, ball, actions, commentary, venue, analysis |
 | `library/clips.js` | The bundled library the app loads, built from `library/plays/` |
 | `sound/crowd.js` | Crowd bed and goal reaction, mixed live and into downloaded video |
