@@ -1005,20 +1005,20 @@
   // (stride, facing, where the ball sits at a player's feet) is read back off the smoothed path, so
   // nothing can drift out of step with anything else.
   const SMOOTH = 0.22, SAMPLE = 0.05;        // seconds: the width of the blur, and the step it works on
-  function humanPath(path) {
+  function humanPath(path, width = SMOOTH) {
     const t0 = path[0][0], t1 = path[path.length - 1][0];
-    if (t1 - t0 < SMOOTH * 3) return path;
+    if (t1 - t0 < width * 3) return path;
     const n = Math.round((t1 - t0) / SAMPLE) + 1;
     const xs = new Float64Array(n), ys = new Float64Array(n);
     for (let i = 0; i < n; i++) {
       const p = pathPos(path, t0 + i * SAMPLE);
       xs[i] = p.x; ys[i] = p.y;
     }
-    const reach = Math.ceil((SMOOTH * 3) / SAMPLE);
+    const reach = Math.ceil((width * 3) / SAMPLE);
     const w = [];
     let sum = 0;
     for (let k = -reach; k <= reach; k++) {
-      const g = Math.exp(-0.5 * Math.pow((k * SAMPLE) / SMOOTH, 2));
+      const g = Math.exp(-0.5 * Math.pow((k * SAMPLE) / width, 2));
       w.push(g); sum += g;
     }
     // Past either end of the clip the run is carried on in a straight line at the speed it had
@@ -1060,11 +1060,36 @@
   // the ball, stay goal-side of the nearest attacker, and the one nearest the ball carrier presses.
   // Keepers stay on the line between ball and goal. Attackers move up with play and keep making short
   // runs into space. Everyone reacts with a short delay and never outruns a sprint. Named players and
-  // anyone on the ball keep their exact choreographed paths. Returns new paths; the play is untouched.
+  // anyone on the ball keep their exact choreographed paths, for as long as those paths last: an
+  // imported player is only recorded while the camera cares about them, and a body left standing
+  // exactly where the data ran out — sometimes for twenty seconds — is the plainest possible tell
+  // that these are markers and not people. So every player is handed to the engine the moment their
+  // own keys run out, carrying the speed and direction they had, and goes on playing.
   function offBallPaths(play, ballAt) {
     const involved = new Set(play.ball.filter(k => k.with).map(k => k.with));
     for (const a of play.actions) involved.add(a.id);
-    const movers = play.players.filter(pl => !(involved.has(pl.id) || pl.star || pl.name));
+    // Not before the last moment the clip needs them exactly where it put them
+    const needed = new Map();
+    for (const k of play.ball) if (k.with) needed.set(k.with, Math.max(needed.get(k.with) || 0, k.t));
+    for (const a of play.actions) needed.set(a.id, Math.max(needed.get(a.id) || 0, a.t + 0.6));
+    // The record stops saying anything the moment the keys stop moving. An import that knows a
+    // player's position once writes it twice, at the start and at the end, and that reads on screen
+    // as a body standing in one spot for twenty seconds. Two identical keys are not a record of
+    // someone standing still; they are the absence of a record.
+    const toldUntil = pl => {
+      let last = pl.path[0][0];
+      for (let i = 1; i < pl.path.length; i++) {
+        const a = pl.path[i - 1], b = pl.path[i];
+        if (Math.hypot(b[1] - a[1], b[2] - a[2]) > 0.3) last = b[0];
+      }
+      return last;
+    };
+    const handover = pl => {
+      if (involved.has(pl.id) || pl.star || pl.name) return Math.max(toldUntil(pl), needed.get(pl.id) || 0);
+      return 0;                                            // never choreographed: the engine has them throughout
+    };
+    const from = new Map(play.players.map(pl => [pl.id, handover(pl)]));
+    const movers = play.players.filter(pl => from.get(pl.id) < play.duration - 0.4);
     const paths = new Map(movers.map(pl => [pl.id, []]));
     if (!movers.length) return paths;
     const lim = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
@@ -1104,19 +1129,36 @@
       const carrier = carrierAt(t);
       const carrierPos = carrier ? now.get(carrier) || ball : null;
 
-      // The defender nearest an attacking ball carrier presses
+      // The defender nearest an attacking ball carrier presses — and while the ball is in flight,
+      // with nobody carrying it, the defender nearest the ball goes to meet it. Somebody is always
+      // travelling towards the ball: a defence that all backs off at once, which is what happened
+      // through every pass, is the surest sign that nobody is really playing.
+      const focus = carrier ? (teamOf.get(carrier) === "A" ? carrierPos : null) : ball;
       let presser = null;
-      if (carrierPos && teamOf.get(carrier) === "A") {
+      if (focus) {
         let best = 12;
         for (const pl of play.players) {
-          if (pl.team !== "B" || pl.gk) continue;
+          // Only a player the engine moves can be sent anywhere; one the clip choreographs keeps
+          // its recorded path, so picking them as the presser would leave nobody actually pressing
+          if (pl.team !== "B" || pl.gk || !paths.has(pl.id)) continue;
           const q = paths.has(pl.id) ? lastOf(pl, t) : now.get(pl.id);
-          const d = Math.hypot(q.x - carrierPos.x, q.y - carrierPos.y);
+          const d = Math.hypot(q.x - focus.x, q.y - focus.y);
           if (d < best) { best = d; presser = pl.id; }
         }
       }
 
       for (const pl of order) {
+        // Still inside this player's own keyframes: the clip's record wins, and the engine only
+        // takes over once it runs out — with the speed the player already had, not from a standstill
+        const mine = from.get(pl.id);
+        if (t < mine) {
+          const here = pathPos(pl.path, t);
+          const back = pathPos(pl.path, Math.max(0, t - step));
+          vel.set(pl.id, { x: (here.x - back.x) / step, y: (here.y - back.y) / step });
+          paths.get(pl.id).push([t, here.x, here.y]);
+          now.set(pl.id, here);
+          continue;
+        }
         const prev = lastOf(pl, 0);
         // Defenders anchor to where they started (shifted with the ball); attackers follow their runs
         const anchor = pl.team === "B" ? pathPos(pl.path, 0) : pathPos(pl.path, t);
@@ -1125,9 +1167,20 @@
         if (pl.gk) {
           const d = Math.hypot(ball.x - ownGoal.x, ball.y - ownGoal.y);
           target = toward(ownGoal, ball, lim(d / 7, 1, 6));
+          target.y += 0.35 * Math.sin((2 * Math.PI * t) / 3.4 + (idHash(pl.id) % 628) / 100);
           vmax = 4.5;
         } else if (pl.team === "B") {
-          const zone = { x: anchor.x + 0.32 * (drift.x - start.x), y: anchor.y + 0.38 * (drift.y - start.y) };
+          // Defenders hold shape rather than roam, but nobody stands perfectly still for ten seconds
+          // of open play: they shuffle across, check their shoulder, adjust a step at a time.
+          const seed = idHash(pl.id), beat = (seed % 628) / 100, period = 4.2 + (seed % 23) / 10;
+          const fidget = {
+            x: 0.55 * Math.sin((2 * Math.PI * t) / period + beat),
+            y: 0.7 * Math.sin((2 * Math.PI * t) / (period * 1.37) + beat * 1.9)
+          };
+          const zone = {
+            x: anchor.x + 0.32 * (drift.x - start.x) + fidget.x,
+            y: anchor.y + 0.38 * (drift.y - start.y) + fidget.y
+          };
           target = zone;
           let mark = null, markDist = 16;
           for (const other of play.players) {
@@ -1148,8 +1201,10 @@
             target = { x: target.x + (goalSide.x - target.x) * w, y: target.y + (goalSide.y - target.y) * w };
           }
           if (pl.id === presser) {
-            target = toward(carrierPos, ownGoal, 2.4);
+            // Close to within touching distance of a carrier; go right to a ball nobody has
+            target = toward(focus, ownGoal, carrier ? 2.4 : 1.2);
             vmax = 8;
+            chasing = true;
           }
         } else {
           const seed = idHash(pl.id), phase = (seed % 628) / 100, period = 3.2 + (seed % 17) / 10;
@@ -1168,9 +1223,13 @@
         // While the ball is in front of them, defenders give ground at a jockeying backpedal
         // (2 m/s at most) instead of turning and running from it; once it's past them they sprint back
         const jockey = () => {
-          if (pl.team !== "B" || pl.gk || ball.x > prev.x + 1) return;
+          // Whoever is closest to the ball is held to a backpedal whichever way the ball lies:
+          // the nearest defender turning and running from it is the thing that looks worst
+          if (pl.team !== "B" || pl.gk) return;
+          const gap = Math.hypot(ball.x - prev.x, ball.y - prev.y);
+          if (pl.id !== presser && gap > 10 && ball.x > prev.x + 1) return;
           const mx = x - prev.x, my = y - prev.y, ml = Math.hypot(mx, my);
-          const bl = Math.hypot(ball.x - prev.x, ball.y - prev.y) || 1;
+          const bl = gap || 1;
           const facing = ml ? (mx * (ball.x - prev.x) + my * (ball.y - prev.y)) / (ml * bl) : 1;
           if (facing < -0.17 && ml > 2.2 * step) { x = prev.x + (mx / ml) * 2.2 * step; y = prev.y + (my / ml) * 2.2 * step; }
         };
@@ -1193,6 +1252,20 @@
         const dvx = vx - was.x, dvy = vy - was.y, dv = Math.hypot(dvx, dvy);
         const most = ACCEL * step * (pl.gk ? 0.8 : 1);
         if (dv > most) { vx = was.x + (dvx / dv) * most; vy = was.y + (dvy / dv) * most; }
+        // Near the ball a defender may slide across at any pace, but the part of the run heading
+        // straight away from it is held to a backpedal. Momentum would otherwise carry a body that
+        // was already running goal-side on away from a ball now at its feet, and a defence that
+        // sprints away from the ball is the plainest sign that nobody is playing. Only the outward
+        // part is taken off, so the run across stays as quick as it was.
+        if (pl.team === "B" && !pl.gk) {
+          const bx = ball.x - prev.x, by = ball.y - prev.y, bd = Math.hypot(bx, by);
+          const away = bd > 0.1 ? -(vx * bx + vy * by) / bd : 0;
+          if (bd < 12 && away > 2.2) {
+            const cut = away - 2.2;
+            vx += (bx / bd) * cut;
+            vy += (by / bd) * cut;
+          }
+        }
         vel.set(pl.id, { x: vx, y: vy });
         x = prev.x + vx * step;
         y = prev.y + vy * step;
@@ -1219,7 +1292,7 @@
   };
   const easeIn = u => (u <= 0 ? 0 : u >= 1 ? 1 : u * u * (3 - 2 * u));
 
-  function buildActions(play, byId, ballAt) {
+  function buildActions(play, byId, ballAt, nearMisses) {
     const list = [];
     const add = (id, type, at, extra = {}) => {
       const [lead, dur, rank, hold] = ACTION_TIMING[type];
@@ -1258,6 +1331,20 @@
         }
         if (best && !list.some(x => x.id === d.id && x.rank >= 3 && Math.abs(x.at - best.t) < 1.5)) add(d.id, "lunge", best.t, { dir: best.dir });
       }
+    }
+
+    // A ball going past just out of reach is not something you watch: you throw a leg at it. Each
+    // near miss the compiler had to open up becomes the stretch that explains it — a slide if the
+    // ball is travelling and the player is already moving, otherwise a lunge off the standing foot.
+    for (const [id, miss] of nearMisses || []) {
+      const pl = byId[id];
+      if (!pl || list.some(x => x.id === id && x.rank >= 3 && Math.abs(x.at - miss.t) < 1.2)) continue;
+      const here = pos(id, miss.t), before = pos(id, Math.max(0, miss.t - 0.2));
+      const own = Math.hypot(here.x - before.x, here.y - before.y) / 0.2;
+      const type = pl.gk ? "dive" : (miss.ball.speed > 11 && own > 2.6 ? "slide" : "lunge");
+      const dir = Math.atan2(miss.ball.y - here.y, miss.ball.x - here.x);
+      if (type === "dive") add(id, "dive", miss.t, { side: Math.sign(miss.ball.y - here.y) || 1, reach: 1 });
+      else add(id, type, miss.t, { dir });
     }
 
     // Keeper dives: a shot passes the goalkeeper within reach
@@ -1743,8 +1830,10 @@
     // between them — except whoever has the ball, who is left exactly where they are so the ball
     // stays on its line. The result is blurred in time again, so what shows is two players leaning
     // away from a collision rather than being shoved.
-    const APART = 1.15, GRID = 0.1;             // metres between two bodies, sampled every tenth of a second
-    {
+    const APART = 1.3, GRID = 0.1;            // metres between two bodies, sampled every tenth of a second
+    // Twice: easing the correction in over a quarter of a second necessarily gives some of it back,
+    // so the second round works on what the first actually left rather than on what it asked for.
+    for (let round = 0; round < 2; round++) {
       const ids = play.players.map(pl => pl.id);
       const steps = Math.ceil(play.duration / GRID) + 1;
       const xs = new Map(ids.map(id => [id, new Float64Array(steps)]));
@@ -1758,11 +1847,14 @@
         }
         return null;
       };
+      const ox = new Map(ids.map(id => [id, new Float64Array(steps)]));
+      const oy = new Map(ids.map(id => [id, new Float64Array(steps)]));
       for (let i = 0; i < steps; i++) {
         const t = i * GRID;
         const held = carrier(t);
         const now = ids.map(id => {
           const p = pathPos(byId[id].path, t);
+          ox.get(id)[i] = p.x; oy.get(id)[i] = p.y;
           return { id, x: p.x, y: p.y, fixed: id === held };
         });
         for (let pass = 0; pass < 4; pass++) {
@@ -1782,11 +1874,34 @@
         }
         now.forEach((q, j) => { xs.get(ids[j])[i] = q.x; ys.get(ids[j])[i] = q.y; });
       }
+      // What gets kept is not the corrected path but the correction: how far each body had to give
+      // way, blurred in time and then laid over the run it was already making. Smoothing the whole
+      // path a second time would round off every stride along with the correction, and the running
+      // goes soft — the difference between a player moving and a piece being slid about.
+      const EASE = 0.35;                       // seconds: how gradually a body gives way
+      const span = Math.ceil((EASE * 2.5) / GRID);
+      const kernel = [];
+      let weight = 0;
+      for (let k = -span; k <= span; k++) {
+        const g = Math.exp(-0.5 * Math.pow((k * GRID) / EASE, 2));
+        kernel.push(g); weight += g;
+      }
       for (const id of ids) {
-        const X = xs.get(id), Y = ys.get(id);
+        const X = xs.get(id), Y = oy.get(id) && ys.get(id), OX = ox.get(id), OY = oy.get(id);
         const path = [];
-        for (let i = 0; i < steps; i++) path.push([round2(i * GRID), round2(X[i]), round2(Y[i])]);
-        byId[id] = { ...byId[id], path: humanPath(path) };
+        for (let i = 0; i < steps; i++) {
+          let dx = 0, dy = 0;
+          for (let k = -span; k <= span; k++) {
+            const j = Math.min(steps - 1, Math.max(0, i + k));
+            dx += (X[j] - OX[j]) * kernel[k + span];
+            dy += (Y[j] - OY[j]) * kernel[k + span];
+          }
+          path.push([round2(i * GRID), round2(OX[i] + dx / weight), round2(OY[i] + dy / weight)]);
+        }
+        // A narrow pass over the joins only — where the engine takes a body over from the clip's
+        // own keys, and where a correction starts. Wide enough to keep those seams inside what legs
+        // can do, too narrow to touch the stride itself.
+        byId[id] = { ...byId[id], path: humanPath(path, 0.1) };
         tables.set(id, gaitTable(byId[id], play.duration));
       }
     }
@@ -1800,7 +1915,8 @@
     // it reads as a defender lunging and being beaten, which is what actually happened.
     const CLEAR = 0.95;                        // metres from the middle of a body to the ball
     const LUNGE = 0.85;                        // seconds either side of the moment it is closest
-    for (let pass = 0; pass < 3; pass++) {
+    const nearMisses = new Map();              // id -> the moment the ball went past just out of reach
+    for (let pass = 0; pass < 6; pass++) {
       const worst = new Map();
       for (let t = 0; t <= play.duration + 1e-9; t += 0.02) {
         const ball = ballAt(t);
@@ -1819,6 +1935,8 @@
       }
       if (!worst.size) break;
       for (const [id, hit] of worst) {
+        const had = nearMisses.get(id);
+        if (!had || hit.d < had.d) nearMisses.set(id, { t: hit.t, d: hit.d, ball: ballAt(hit.t) });
         const away = Math.hypot(hit.x, hit.y) || 1;
         const need = CLEAR - hit.d + 0.05;
         const ux = (hit.x / away) * need, uy = (hit.y / away) * need;
@@ -1828,12 +1946,15 @@
           const ease = Math.pow(1 - off * off, 2);         // full at the near miss, nothing by the edges
           return [k[0], round2(k[1] + ux * ease), round2(Math.min(67, Math.max(1, k[2] + uy * ease)))];
         });
-        byId[id] = { ...byId[id], path };
+        // A narrow pass over the joins only — where the engine takes a body over from the clip's
+        // own keys, and where a correction starts. Wide enough to keep those seams inside what legs
+        // can do, too narrow to touch the stride itself.
+        byId[id] = { ...byId[id], path: humanPath(path, 0.1) };
         tables.set(id, gaitTable(byId[id], play.duration));
       }
     }
 
-    actionsBy = buildActions(play, byId, ballAt);
+    actionsBy = buildActions(play, byId, ballAt, nearMisses);
 
     // Which way each body faces, sampled through the play. A player wants to look where they are
     // running, defenders and keepers want to watch the ball, and a kick or a lunge points the body

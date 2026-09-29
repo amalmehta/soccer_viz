@@ -611,7 +611,9 @@
         continue;
       }
       const { pl, foot } = it;
-      const H = Math.max(14, (cam.F * 1.85 * 1.55) / foot.d);
+      // 1.85 m is a footballer; the rest is the exaggeration that keeps them readable at this
+      // distance. Too much of it and bodies a clear stride apart on the grass overlap on screen.
+      const H = Math.max(14, (cam.F * 1.85 * 1.25) / foot.d);
       if (pl.star) {
         const pulse = motion ? 0.5 + 0.5 * Math.sin(t * 6) : 0.5;
         ctx.strokeStyle = `rgba(255,197,61,${0.55 + pulse * 0.35})`;
