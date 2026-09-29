@@ -1,9 +1,18 @@
 # Crowd recordings
 
-Drop two Creative Commons 0 files from Freesound here, then run `python3 build_sounds.py`:
+The crowd you hear is cut from one recording: **"Football game recorded on the neutral section
+inside the crowd"** (Austria v Sweden, European Championship qualifier) by Work With Sounds /
+Torsten Nilsson, [Creative Commons Attribution 4.0][src]. The steady murmur around 2:40 became the
+background loop, and the sustained roar around 1:17 became the goal reaction.
 
-- Stadium ambience — <https://freesound.org/s/494350/> ("Soccer Stadium 02" by Sandermotions)
-- Goal reaction — <https://freesound.org/s/528799/> ("Football Crowd - Reaction To Goal" by D.jones)
+[src]: https://commons.wikimedia.org/wiki/File:WWS_FootballAustriavs.Sweden.ogg
 
-The file names need to contain `stadium`/`ambience` and `goal`/`reaction` so the script can tell
-them apart. The audio files themselves are not committed; the generated `sound/recordings.js` is.
+The audio files themselves are not committed (they are large and re-downloadable); the generated
+`sound/recordings.js` is. To rebuild from scratch:
+
+1. Download the source file above into `source/`.
+2. Cut a steady stretch and a roar into `stadium-ambience-loop.wav` and `goal-reaction-cheer.wav`.
+3. Run `python3 build_sounds.py`, then `python3 build_site.py`.
+
+Any other recording works too: `build_sounds.py` picks the background from a file whose name contains
+stadium/ambience/ambient, and the reaction from one containing goal/reaction/cheer.

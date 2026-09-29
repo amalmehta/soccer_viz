@@ -18,7 +18,9 @@ Seven are built from StatsBomb's own match data rather than from memory.
 - **Real movement.** Players hold shape, mark, press, jockey and tackle; defenders track the ball
   and lunge for it rather than drifting. Speeds stay inside human limits.
 - **Spoken commentary.** Written for this project — never the broadcast audio — read aloud by the
-  best voice the browser offers, over a stadium crowd bed.
+  best voice the browser offers.
+- **Crowd sound.** A real stadium recording underneath: a murmur that lifts with the play and a roar
+  at the goal, mixed live and into downloaded videos.
 - **Period detail.** Kits, ball colour and stadium change with the year and the venue: floodlights,
   athletics track, roof, mowing pattern, crowd colours.
 - **Live play-by-play.** A timestamped feed that fills in as the clip runs, with goals, saves, tackles
@@ -55,6 +57,7 @@ JavaScript. The 3D look loads Three.js from a CDN; everything else is local.
 | `library/plays/*.json` | One file per clip: players, paths, ball, actions, commentary, venue, analysis |
 | `library/clips.js` | The bundled library the app loads, built from `library/plays/` |
 | `sound/crowd.js` | Crowd bed and goal reaction, mixed live and into downloaded video |
+| `sound/recordings.js` | The crowd audio itself, embedded so the page needs no network |
 | `docs/` | The built website — this is what GitHub Pages serves |
 | `tools/check_plays.js` | Validator: timing, speeds, spacing, kits, wording, goal geometry |
 | `tools/build_library.py` | Bundles `library/plays/*.json` into `library/clips.js` |
@@ -88,7 +91,8 @@ Every clip is a reconstruction from match reports and memory: positions, kits an
 appearances are approximate, not tracking data. Commentary is written for this project and
 is never a transcript of the original broadcast. No broadcast footage is copied or hosted —
 real clips appear only as YouTube embeds, from the rights holders' own channels. The crowd
-recordings are Creative Commons 0 from Freesound (credited in `build_sounds.py`).
+recording is "Football game recorded on the neutral section inside the crowd" by Work With Sounds /
+Torsten Nilsson, [CC BY 4.0](https://commons.wikimedia.org/wiki/File:WWS_FootballAustriavs.Sweden.ogg).
 
 Not affiliated with any club, league or broadcaster. Player names appear as factual reference
 to public sporting events.

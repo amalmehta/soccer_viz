@@ -298,4 +298,11 @@ CHANGELOG:
   clause left hanging keeps its pace up. Awkward names are respelled for the voice only (Schick →
   Shick, Riise → Ree-suh, Souček → Sow-chek, Kanté → Kon-tay and about forty more); captions and
   labels keep the real spelling. Verified by recording what the page asks the voice to say.
+- 2026-09-28 — crowd sound added (user request): Freesound needs an account, so the audio is one
+  Wikimedia Commons recording instead — "Football game recorded on the neutral section inside the
+  crowd" (Austria v Sweden qualifier) by Work With Sounds / Torsten Nilsson, CC BY 4.0, chosen by the
+  user. Its steady murmur at 2:40 is the background loop (24 s, tail crossfaded over the head so it
+  loops seamlessly) and the sustained roar at 1:17 is the goal reaction (10 s). Both are embedded as
+  AAC in sound/recordings.js (541 KB), which the page and the site build now load, so the Crowd
+  button appears. Credit is in build_sounds.py, sound/recordings/README.md and the README.
 
