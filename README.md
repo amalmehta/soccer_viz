@@ -21,6 +21,8 @@ Eleven are built from StatsBomb's own match data rather than from memory.
   best voice the browser offers.
 - **Crowd sound.** A real stadium recording underneath: a murmur that lifts with the play and a roar
   at the goal, mixed live and into downloaded videos.
+- **An orchestral score, if you want one.** Holst's Mars under the play, lifting as the ball nears
+  goal and swelling when one goes in. Off by default; it goes into downloaded videos too.
 - **Period detail.** Kits, ball colour and stadium change with the year and the venue: floodlights,
   athletics track, roof, mowing pattern, crowd colours.
 - **Movement heatmap.** Shade the pitch by where the players spent the clip — everyone, one team,
@@ -61,6 +63,7 @@ JavaScript, and nothing but the fonts comes from a CDN.
 | `library/plays/*.json` | One file per clip: players, paths, ball, actions, commentary, venue, analysis |
 | `library/clips.js` | The bundled library the app loads, built from `library/plays/` |
 | `sound/crowd.js` | Crowd bed and goal reaction, mixed live and into downloaded video |
+| `sound/score.js` | The optional orchestral score, level following the play |
 | `sound/recordings.js` | The crowd audio itself, embedded so the page needs no network |
 | `docs/` | The built website — this is what GitHub Pages serves |
 | `tools/check_plays.js` | Validator: timing, speeds, spacing, kits, wording, goal geometry |

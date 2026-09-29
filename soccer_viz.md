@@ -376,4 +376,22 @@ CHANGELOG:
   than the acreage — it sits between the ball and the players around it and holds 24-38 m across, so
   players read at a human size — and the route on the grass is the same fading stroke as the drawn
   look instead of a glowing wire. The Classic pitch is held to a 760 px column so the page breathes.
+- 2026-09-29 — an optional score (user request, user's choice of piece): Holst's "Mars, the Bringer
+  of War" played by the US Air Force Band, public domain, from Wikimedia Commons. A 34 s loop cut
+  from the ostinato as it builds, plus an 8.5 s brass swell for goals, embedded as AAC beside the
+  crowd in sound/recordings.js. sound/score.js keeps the level following the play — low while the
+  move is worked, rising as the ball nears goal, swelling as one goes in — ducks under the
+  commentary voice and mixes into downloaded videos alongside the crowd. Off by default.
+- 2026-09-29 — the celebration (user request): after a goal the scorer now wheels away and runs for
+  the corner flag, built with the same acceleration limits as everything else, so the run is slow
+  through the turn, flat out down the middle and eases as it arrives. Measured on the Messi clip:
+  2.0 m/s in the turn, 7.4 m/s across the middle, 6.0 m/s on arrival, with the celebrate pose
+  running throughout. Both checkers now stop judging at the goal, because running away from the ball
+  with your eyes on it is right for a celebration and wrong for play.
+- 2026-09-29 — facing, again (user: "there's a defender turned away from the ball"). A defender was
+  turning their back whenever they were quicker than a backpedal, even with the ball at their feet.
+  Now the ball is watched while there is any chance of playing it (within 10 m, up to 4.4 m/s;
+  3.2 m/s further out), and only a genuine sprint turns the body. Of the frames left where a
+  defender within 10 m faces away, 315 of 382 are sprints where turning is right and the rest are
+  bodies mid-turn, which the 7.5 rad/s limit makes unavoidable.
 
