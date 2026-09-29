@@ -315,4 +315,12 @@ CHANGELOG:
   across the body is a shuffle (78%). Defenders turn to run above 3.2 m/s rather than 4, and off-ball
   players ease off the mark instead of starting at a sprint. After: turn rate never exceeds the cap,
   sprinting backwards is under 0.4% of frames everywhere (was up to 36 m/s of it), 21 clips ok.
+- 2026-09-28 — defenders now chase (user sent a frame: "look where the defenders are"). Measured
+  how often a defender within 12 m behind a live attack was moving slower than 3.5 m/s: over half
+  the frames in most clips. Three fixes. The off-ball engine: a defender caught behind the ball now
+  runs for a point goal-side of it at up to 7.5 m/s instead of drifting 60% of the way back, and a
+  recovery run starts at once rather than easing in. The Messi clip: Lass, Albiol, Ramos and Marcelo
+  were authored jogging home at 2.5-3 m/s, now they chase at 4-5.5 and stay in the picture (55% to
+  16% dawdling). New tools/quicken_chases.py re-times any named defender still loitering, keeping
+  the position they end on, applied to 7 clips. All 20 clips and 3 built-ins still pass both checkers.
 

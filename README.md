@@ -61,6 +61,7 @@ JavaScript. The 3D look loads Three.js from a CDN; everything else is local.
 | `docs/` | The built website — this is what GitHub Pages serves |
 | `tools/check_plays.js` | Validator: timing, speeds, spacing, kits, wording, goal geometry |
 | `tools/check_motion.js` | Checks how bodies move: facing vs direction of travel, turn rate, run cycle |
+| `tools/quicken_chases.py` | Finds defenders loitering behind the play and re-times their route into a chase |
 | `tools/build_library.py` | Bundles `library/plays/*.json` into `library/clips.js` |
 | `tools/import_statsbomb.py` | Builds a play file from StatsBomb open data: the real ball path and player positions |
 | `library/imported/` | Drafts from the importer, before the words are written |
