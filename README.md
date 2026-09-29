@@ -57,13 +57,22 @@ JavaScript. The 3D look loads Three.js from a CDN; everything else is local.
 | `docs/` | The built website — this is what GitHub Pages serves |
 | `tools/check_plays.js` | Validator: timing, speeds, spacing, kits, wording, goal geometry |
 | `tools/build_library.py` | Bundles `library/plays/*.json` into `library/clips.js` |
+| `tools/import_statsbomb.py` | Builds a play file from StatsBomb open data: the real ball path and player positions |
+| `library/imported/` | Drafts from the importer, before the words are written |
 | `build_site.py` | Builds `docs/` from `birdseye.html` (icons, manifest, service worker) |
 | `build_sounds.py` | Embeds the crowd recordings from `sound/recordings/` into the page |
 | `soccer_viz.md` | The spec this was built from, with a changelog |
 
 ## Adding a clip
 
-1. Write `library/plays/<year>-<name>.json` — copy an existing one for the shape.
+1. Write `library/plays/<year>-<name>.json` — copy an existing one for the shape. For a match
+   StatsBomb have published, start from the real data instead:
+   ```bash
+   python3 tools/import_statsbomb.py --match 3750191 --goal 2 --check
+   ```
+   That writes a draft into `library/imported/` with the ball's real path, the order of events and
+   every player the data places. Write the title, captions, commentary, analysis, lessons, kit
+   colours, venue and score over the TODO placeholders, then move it into `library/plays/`.
 2. Check it: `node tools/check_plays.js library/plays/*.json`
 3. Bundle and rebuild: `python3 tools/build_library.py && python3 build_site.py`
 4. Commit `docs/` along with the source; pushing to `main` publishes the site.

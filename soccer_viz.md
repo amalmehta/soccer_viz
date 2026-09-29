@@ -102,6 +102,7 @@ DELIVERABLES:
 - build_sounds.py — turns the crowd recordings in sound/recordings/ into sound/recordings.js
 - tools/check_plays.js — checks play files (page validator + realism checks)
 - tools/build_library.py — bundles library/plays/*.json into library/clips.js
+- tools/import_statsbomb.py — builds a play file from StatsBomb open data (real ball path)
 - docs/ — the built website / installable app (GitHub Pages serves this folder)
 - README.md + screenshots/ — repository front page with screenshots of the UI
 - https://amalmehta.github.io/soccer_viz/ — the live site
@@ -253,4 +254,14 @@ CHANGELOG:
   landing on the same moment as the strike badges that line instead of adding one. Built from the
   play's own captions, events and actions, so every clip and any AI play gets one with no new data.
   Claude version republished as Version 20.
+- 2026-09-28 — StatsBomb importer (user request): tools/import_statsbomb.py turns a goal in the
+  StatsBomb open data into a play file — the ball's real path from the pass, carry and shot records,
+  every player the data places (including the shot's freeze frame), shirt numbers and playing names
+  from the lineups, and the special pose for a volley, overhead kick or diving header. Old matches
+  are timed to the nearest second, so the timeline is stretched until passes and shots travel at
+  believable speeds, player positions are pulled back to somewhere reachable, and long gaps are
+  broken into steps so the curve through the keyframes doesn't swing into a false sprint; ball
+  timing and player positions settle together over a few passes. Words (title, captions, commentary,
+  analysis, lessons) and kit colours come out as TODO placeholders. Three goals are covered by the
+  open data and import clean: Carlos Alberto 1970, Maradona 1986, Bale 2018.
 

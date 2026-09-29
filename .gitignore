@@ -5,3 +5,5 @@ __pycache__/
 sound/recordings/*
 !sound/recordings/README.md
 .claude/
+# Downloads from the StatsBomb open data, re-fetched on demand
+tools/.statsbomb-cache/

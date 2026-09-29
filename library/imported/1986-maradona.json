@@ -1,0 +1,506 @@
+{
+  "title": "TODO: name this goal (Maradona, 1986)",
+  "subtitle": "FIFA World Cup, quarter-finals · Estadio Azteca · 1986-06-22",
+  "clock": "55'",
+  "duration": 18.9,
+  "teams": {
+    "A": {
+      "name": "Argentina",
+      "short": "ARG",
+      "color": "#2C5BD6",
+      "color2": "#0F2B7A",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#FFFFFF",
+      "socks": "#2C5BD6",
+      "gkColor": "#F2C94C"
+    },
+    "B": {
+      "name": "England",
+      "short": "ENG",
+      "color": "#EE6A55",
+      "color2": "#8A2A1C",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#1E2430",
+      "socks": "#EE6A55",
+      "gkColor": "#34C77B"
+    }
+  },
+  "score": [
+    0,
+    0
+  ],
+  "players": [
+    {
+      "id": "cuciuffo",
+      "team": "A",
+      "num": 9,
+      "name": "Cuciuffo",
+      "path": [
+        [
+          0.0,
+          30.8,
+          42.84
+        ],
+        [
+          1.48,
+          31.32,
+          43.6
+        ]
+      ]
+    },
+    {
+      "id": "enrique",
+      "team": "A",
+      "num": 12,
+      "name": "Enrique",
+      "path": [
+        [
+          0.0,
+          40.95,
+          52.1
+        ],
+        [
+          2.37,
+          40.95,
+          52.1
+        ],
+        [
+          4.41,
+          40.43,
+          51.42
+        ]
+      ]
+    },
+    {
+      "id": "maradona",
+      "team": "A",
+      "num": 10,
+      "name": "Maradona",
+      "path": [
+        [
+          0.0,
+          48.3,
+          47.26
+        ],
+        [
+          2.63,
+          48.3,
+          47.26
+        ],
+        [
+          5.27,
+          48.3,
+          47.26
+        ],
+        [
+          5.8,
+          47.6,
+          47.94
+        ],
+        [
+          8.67,
+          61.91,
+          53.12
+        ],
+        [
+          11.54,
+          76.21,
+          58.31
+        ],
+        [
+          13.52,
+          84.96,
+          46.84
+        ],
+        [
+          15.65,
+          99.23,
+          42.07
+        ],
+        [
+          16.05,
+          99.23,
+          42.07
+        ]
+      ],
+      "star": true
+    },
+    {
+      "id": "beardsley",
+      "team": "B",
+      "num": 20,
+      "name": "Beardsley",
+      "path": [
+        [
+          0.0,
+          48.21,
+          50.23
+        ],
+        [
+          2.68,
+          48.21,
+          50.23
+        ],
+        [
+          5.36,
+          48.21,
+          50.23
+        ],
+        [
+          5.8,
+          47.51,
+          47.85
+        ]
+      ]
+    },
+    {
+      "id": "reid",
+      "team": "B",
+      "num": 16,
+      "name": "Reid",
+      "path": [
+        [
+          0.0,
+          45.85,
+          45.05
+        ],
+        [
+          2.96,
+          45.85,
+          45.05
+        ],
+        [
+          5.92,
+          45.85,
+          45.05
+        ]
+      ]
+    },
+    {
+      "id": "butcher",
+      "team": "B",
+      "num": 6,
+      "name": "Butcher",
+      "path": [
+        [
+          0.0,
+          76.12,
+          58.23
+        ],
+        [
+          3.85,
+          76.12,
+          58.23
+        ],
+        [
+          7.7,
+          76.12,
+          58.23
+        ],
+        [
+          11.55,
+          76.12,
+          58.23
+        ],
+        [
+          14.82,
+          88.37,
+          48.09
+        ],
+        [
+          15.7,
+          92.17,
+          46.12
+        ]
+      ]
+    },
+    {
+      "id": "fenwick",
+      "team": "B",
+      "num": 14,
+      "name": "Fenwick",
+      "path": [
+        [
+          0.0,
+          84.88,
+          46.75
+        ],
+        [
+          3.38,
+          84.88,
+          46.75
+        ],
+        [
+          6.76,
+          84.88,
+          46.75
+        ],
+        [
+          10.14,
+          84.88,
+          46.75
+        ],
+        [
+          13.52,
+          84.88,
+          46.75
+        ]
+      ]
+    },
+    {
+      "id": "shilton",
+      "team": "B",
+      "num": 1,
+      "name": "Shilton",
+      "path": [
+        [
+          0.0,
+          97.21,
+          41.31
+        ],
+        [
+          3.91,
+          97.21,
+          41.31
+        ],
+        [
+          7.83,
+          97.21,
+          41.31
+        ],
+        [
+          11.74,
+          97.21,
+          41.31
+        ],
+        [
+          15.65,
+          97.21,
+          41.31
+        ]
+      ],
+      "gk": true
+    },
+    {
+      "id": "valdano",
+      "team": "A",
+      "num": 11,
+      "name": "Valdano",
+      "path": [
+        [
+          0.0,
+          95.29,
+          26.95
+        ],
+        [
+          3.92,
+          95.29,
+          26.95
+        ],
+        [
+          7.85,
+          95.29,
+          26.95
+        ],
+        [
+          11.77,
+          95.29,
+          26.95
+        ],
+        [
+          15.7,
+          95.29,
+          26.95
+        ]
+      ]
+    },
+    {
+      "id": "stevens",
+      "team": "B",
+      "num": 2,
+      "name": "Stevens",
+      "path": [
+        [
+          0.0,
+          99.49,
+          37.82
+        ],
+        [
+          3.92,
+          99.49,
+          37.82
+        ],
+        [
+          7.85,
+          99.49,
+          37.82
+        ],
+        [
+          11.77,
+          99.49,
+          37.82
+        ],
+        [
+          15.7,
+          99.49,
+          37.82
+        ]
+      ]
+    },
+    {
+      "id": "burruchaga",
+      "team": "A",
+      "num": 7,
+      "name": "Burruchaga",
+      "path": [
+        [
+          0.0,
+          96.08,
+          33.75
+        ],
+        [
+          3.92,
+          96.08,
+          33.75
+        ],
+        [
+          7.85,
+          96.08,
+          33.75
+        ],
+        [
+          11.77,
+          96.08,
+          33.75
+        ],
+        [
+          15.7,
+          96.08,
+          33.75
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0.0,
+      "with": "cuciuffo"
+    },
+    {
+      "t": 1.48,
+      "with": "cuciuffo"
+    },
+    {
+      "t": 2.37,
+      "with": "enrique"
+    },
+    {
+      "t": 4.41,
+      "with": "enrique"
+    },
+    {
+      "t": 5.27,
+      "with": "maradona"
+    },
+    {
+      "t": 5.8,
+      "with": "maradona"
+    },
+    {
+      "t": 11.54,
+      "with": "maradona"
+    },
+    {
+      "t": 13.52,
+      "with": "maradona"
+    },
+    {
+      "t": 15.65,
+      "with": "maradona"
+    },
+    {
+      "t": 16.05,
+      "with": "maradona"
+    },
+    {
+      "t": 16.35,
+      "x": 105.4,
+      "y": 35.45
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "TODO: write the captions, 3 to 8 of them."
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "TODO: write original commentary, 4 to 9 lines."
+    }
+  ],
+  "events": [
+    {
+      "t": 1.48,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 4.41,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 15.7,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 16.35,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "actions": [],
+  "venue": {
+    "time": "day",
+    "roof": "open",
+    "stands": "#2a3550",
+    "accent": "#d9dde3",
+    "track": false,
+    "grass": "#2e7a3c",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "TODO: the state of the match and why the space was there."
+    },
+    {
+      "label": "Key moment",
+      "text": "TODO: the moment the goal turned on."
+    },
+    {
+      "label": "The finish",
+      "text": "TODO: how it was finished."
+    }
+  ],
+  "lessons": [
+    {
+      "label": "TODO lesson one",
+      "text": "TODO: a practical coaching point from this play."
+    },
+    {
+      "label": "TODO lesson two",
+      "text": "TODO: a practical coaching point from this play."
+    },
+    {
+      "label": "TODO lesson three",
+      "text": "TODO: a practical coaching point from this play."
+    }
+  ],
+  "note": "Ball path and player positions come from StatsBomb open data (match 3750191); players away from the ball are placed from the shot's freeze frame and moved by the app. Commentary is original, not the broadcast."
+}
