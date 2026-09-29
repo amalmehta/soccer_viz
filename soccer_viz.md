@@ -334,4 +334,16 @@ CHANGELOG:
   blocking (media="print" then swapped on load, with a noscript fallback) and the video-export muxer
   is deferred. Verified with the network down: the page renders and all 24 clips load in system
   fonts, and video export falls back to MediaRecorder if the muxer never arrives.
+- 2026-09-29 — movement heatmap (user request): a Heatmap button in the Classic look shades the pitch
+  by how long players stood on each patch of grass, with a picker for everyone, either team, or the
+  player the clip is about. Built from the same paths the animation uses (0.1 s samples, blurred into
+  a one-metre grid, drawn under the play), cached per clip and included in downloaded videos.
+- 2026-09-29 — ball physics (user: "curvature and dynamics for the ball", "pass power guile curve"):
+  ball keyframes take "curve" (-1 to 1) and "power" (0 to 1). A struck ball now slows as it travels
+  (drag easing over a real flight, linear across short hops so imported clips don't pulse), bends
+  along its flight — widest just past halfway, home at the end — and spins as it rolls. Roberto
+  Carlos's free kick is one curved keyframe instead of eight straight hops, and reads 35 m/s curling;
+  crosses, corners and the finishes that bent carry their own swerve. The play-by-play shows what
+  each strike did (21 m/s · curled left), and a live reading under the pitch tracks the flight.
+  The checker validates curve and power and measures the bent path, not the straight line.
 

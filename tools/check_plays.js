@@ -129,14 +129,28 @@ function check(raw) {
     if (p.duration - g.t < 1.5) warns.push(`only ${(p.duration - g.t).toFixed(1)} s after the goal`);
   }
 
-  // Ball speeds between keyframes that aren't dribbles
+  // How the ball was struck
+  for (const k of raw.ball || []) {
+    if (k.curve != null && !(typeof k.curve === "number" && Math.abs(k.curve) <= 1)) {
+      errors.push(`ball at ${k.t}s: "curve" must be between -1 and 1 (is ${k.curve})`);
+    }
+    if (k.power != null && !(typeof k.power === "number" && k.power >= 0 && k.power <= 1)) {
+      errors.push(`ball at ${k.t}s: "power" must be between 0 and 1 (is ${k.power})`);
+    }
+  }
+
+  // Ball speeds between keyframes that aren't dribbles. A bent flight is longer than the straight
+  // line between its ends, so the swerve is added back in before the speed is judged.
   const byId = Object.fromEntries(p.players.map(x => [x.id, x]));
   const at = (k, t) => (k.with ? api.pathPos(byId[k.with].path, t) : { x: k.x, y: k.y });
   for (let i = 0; i + 1 < p.ball.length; i++) {
     const a = p.ball[i], b = p.ball[i + 1];
     if (a.with && a.with === b.with) continue;
     const pa = at(a, a.t), pb = at(b, b.t);
-    const d = Math.hypot(pb.x - pa.x, pb.y - pa.y), v = d / (b.t - a.t);
+    const straight = Math.hypot(pb.x - pa.x, pb.y - pa.y);
+    const bend = Math.abs(b.curve || 0) * straight * 0.42;
+    const d = straight + (bend * bend * 2.6) / Math.max(straight, 1);
+    const v = d / (b.t - a.t);
     if (v > 38) errors.push(`ball ${a.t}->${b.t}s travels ${v.toFixed(0)} m/s over ${d.toFixed(0)} m (max ~35)`);
     else if (d > 4 && v < 6 && !b.lofted) warns.push(`ball ${a.t}->${b.t}s only ${v.toFixed(1)} m/s over ${d.toFixed(0)} m`);
   }

@@ -790,7 +790,8 @@
     {
       "t": 16.96,
       "with": "gerrard",
-      "lofted": true
+      "lofted": true,
+      "curve": 0.3
     },
     {
       "t": 17.9,

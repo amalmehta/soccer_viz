@@ -912,12 +912,16 @@
     },
     {
       "t": 13.63,
-      "with": "schick"
+      "with": "schick",
+      "lofted": true,
+      "power": 0.8
     },
     {
       "t": 16.2,
       "x": 105.4,
-      "y": 32.64
+      "y": 32.64,
+      "lofted": true,
+      "power": 0.85
     }
   ],
   "captions": [

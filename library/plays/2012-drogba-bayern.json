@@ -627,7 +627,8 @@
     },
     {
       "t": 1.45,
-      "with": "drogba"
+      "with": "drogba",
+      "curve": -0.35
     },
     {
       "t": 2.41,

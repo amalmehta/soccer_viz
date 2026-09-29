@@ -23,6 +23,10 @@ Eleven are built from StatsBomb's own match data rather than from memory.
   at the goal, mixed live and into downloaded videos.
 - **Period detail.** Kits, ball colour and stadium change with the year and the venue: floodlights,
   athletics track, roof, mowing pattern, crowd colours.
+- **Movement heatmap.** Shade the pitch by where the players spent the clip — everyone, one team,
+  or just the player the clip is about. It goes into downloaded videos too.
+- **Ball physics.** A struck ball slows as it travels, swerves with the spin on it and rolls as it
+  goes. The live reading under the pitch shows how fast it is moving and whether it is curling.
 - **Live play-by-play.** A timestamped feed that fills in as the clip runs, with goals, saves, tackles
   and special skills badged and marked on the timeline. Click any line to jump to that moment.
 - **Analysis.** A short written breakdown under each clip: context, the move itself, why it worked.
@@ -62,6 +66,7 @@ JavaScript. The 3D look loads Three.js from a CDN; everything else is local.
 | `tools/check_plays.js` | Validator: timing, speeds, spacing, kits, wording, goal geometry |
 | `tools/check_motion.js` | Checks how bodies move: facing vs direction of travel, turn rate, run cycle |
 | `tools/quicken_chases.py` | Finds defenders loitering behind the play and re-times their route into a chase |
+| `tools/shot.js` | Screenshots the running app with headless Chrome, for checking what it draws |
 | `tools/build_library.py` | Bundles `library/plays/*.json` into `library/clips.js` |
 | `tools/import_statsbomb.py` | Builds a play file from StatsBomb open data: the real ball path and player positions |
 | `library/imported/` | Drafts from the importer, before the words are written |
