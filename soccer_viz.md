@@ -264,4 +264,11 @@ CHANGELOG:
   timing and player positions settle together over a few passes. Words (title, captions, commentary,
   analysis, lessons) and kit colours come out as TODO placeholders. Three goals are covered by the
   open data and import clean: Carlos Alberto 1970, Maradona 1986, Bale 2018.
+- 2026-09-28 — Maradona 1986 rebuilt from the real data (user request): the ball's path, its timing
+  and the tracked players now come from StatsBomb match 3750191, so the run, the turn away from
+  Beardsley and Reid and the order of defenders beaten are the recorded ones rather than memory.
+  Players the data only sees in the shot's freeze frame (Butcher, Fenwick, Shilton, Stevens,
+  Valdano, Burruchaga) have hand-drawn routes that end exactly where the data puts them, and the
+  rest of both teams are unnamed so the off-ball engine moves them. Words, kits and venue are the
+  hand-written ones. 19.9 s instead of 16.2 s, because the real build-up starts two passes earlier.
 
