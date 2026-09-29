@@ -5,18 +5,24 @@
 ## What it does
 
 Birdseye FC replays iconic football moments as stylised animations: every player runs, turns,
-lunges and dives on a scale pitch, with original commentary read aloud over the top. Twenty-one
+lunges and dives on a scale pitch, with original commentary read aloud over the top. Twenty-five
 clips ship with it, from Carlos Alberto in 1970 to the Lusail final, plus two coaching moves.
-Seven are built from StatsBomb's own match data rather than from memory.
+Eleven are built from StatsBomb's own match data rather than from memory.
 
-- **Four looks, same play.** Classic (clean top-down), Broadcast (TV camera in the stands),
-  Arcade (game-style chase camera) and 3D, switchable while a clip runs.
+- **Two looks, same play.** Classic, drawn from straight above, and Broadcast, a camera in the
+  stands. Switch while a clip runs.
 - **Real movement.** Players hold shape, mark, press, jockey and tackle; defenders track the ball
   and lunge for it rather than drifting. Speeds stay inside human limits.
 - **Spoken commentary.** Written for this project — never the broadcast audio — read aloud by the
   best voice the browser offers.
 - **Crowd sound.** A real stadium recording underneath: a murmur that lifts with the play and a roar
   at the goal, mixed live and into downloaded videos.
+- **An orchestral score, if you want one.** Holst's Mars under the play, lifting as the ball nears
+  goal and swelling when one goes in. Off by default; it goes into downloaded videos too.
+- **Movement heatmap.** Shade the pitch by where the players spent the clip — everyone, one team,
+  or just the player the clip is about. It goes into downloaded videos too.
+- **Ball physics.** A struck ball slows as it travels, swerves with the spin on it and rolls as it
+  goes. The live reading under the pitch shows how fast it is moving and whether it is curling.
 - **Period detail.** Kits, ball colour and stadium change with the year and the venue: floodlights,
   athletics track, roof, mowing pattern, crowd colours.
 - **Live play-by-play.** A timestamped feed that fills in as the clip runs, with goals, saves, tackles
@@ -36,7 +42,7 @@ python3 -m http.server 8777 --directory docs
 ```
 
 Then open http://localhost:8777. No build step, no dependencies — it is plain HTML, CSS and
-JavaScript. The 3D look loads Three.js from a CDN; everything else is local.
+JavaScript, and nothing but the fonts comes from a CDN.
 
 ## Adding a clip
 
@@ -48,12 +54,15 @@ JavaScript. The 3D look loads Three.js from a CDN; everything else is local.
    That writes a draft into `library/imported/` with the ball's real path, the order of events and
    every player the data places. Write the title, captions, commentary, analysis, lessons, kit
    colours, venue and score over the TODO placeholders, then move it into `library/plays/`.
-2. Check it: `node tools/check_plays.js library/plays/*.json`
+2. Check it: `node tools/check_plays.js library/plays/*.json`, then the movement checks —
+   `check_motion.js` (facing and stride), `check_glide.js` (speed and acceleration limits),
+   `check_ball.js` (the ball against bodies) and `check_press.js` (defenders closing the ball).
 3. Bundle and rebuild: `python3 tools/build_library.py && python3 build_site.py`
 4. Commit `docs/` along with the source; pushing to `main` publishes the site.
 
-The checker rejects anything physically implausible (a 40 m/s pass, a 12 m/s sprint, players
-standing inside each other), any goal whose ball misses the net, and any wording that uses
+The checkers reject anything physically implausible — a 40 m/s pass, a 12 m/s sprint, a body
+changing pace faster than legs can push, a ball travelling through someone, players standing
+inside each other — along with any goal whose ball misses the net, and any wording that uses
 he/she instead of a name or a role.
 
 ## Accuracy and rights
@@ -64,6 +73,7 @@ is never a transcript of the original broadcast. No broadcast footage is copied 
 real clips appear only as YouTube embeds, from the rights holders' own channels. The crowd
 recording is "Football game recorded on the neutral section inside the crowd" by Work With Sounds /
 Torsten Nilsson, [CC BY 4.0](https://commons.wikimedia.org/wiki/File:WWS_FootballAustriavs.Sweden.ogg).
+The score is Holst's Mars, played by the United States Air Force Band, public domain.
 
 Not affiliated with any club, league or broadcaster. Player names appear as factual reference
 to public sporting events.

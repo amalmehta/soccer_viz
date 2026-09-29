@@ -24,13 +24,16 @@ const STEP = 0.05;
 
 function measure(play) {
   const R = api.compile(play);
+  // Once the ball is in the net the players are celebrating, not playing: running away from the
+  // ball with your eyes on it is exactly right there, so those frames are not judged.
+  const goal = Math.min(...play.events.filter(e => e.type === "goal").map(e => e.t), Infinity);
   const out = {
     frames: 0, gliding: 0, spinning: 0, worstSpin: 0, worstSpinAt: null,
     backpedalFast: 0, worstBackpedal: 0, examples: []
   };
   for (const pl of play.players) {
     let prev = null, prevHeading = null;
-    for (let t = 0; t <= play.duration + 1e-9; t += STEP) {
+    for (let t = 0; t <= Math.min(play.duration, goal + 0.2) + 1e-9; t += STEP) {
       const b = R.bodyAt(pl, t);
       const here = { x: b.x, y: b.y };
       const posing = !!b.action;   // a dive or a lunge is meant to throw the body about

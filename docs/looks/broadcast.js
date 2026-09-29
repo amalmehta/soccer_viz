@@ -20,7 +20,28 @@
     return ((n ^ (n >>> 16)) >>> 0) / 4294967296;
   }
 
-  let noiseTile = null;
+  let noiseTile = null, noisePattern = null, grainLayer = null, grainKey = "";
+  let vignette = null, vignetteKey = "";
+  let crowdCanvas = null, crowdKey = "";
+  function crowdStrip(colours, time) {
+    const key = colours.join(",") + time;
+    if (crowdKey === key) return crowdCanvas;
+    crowdKey = key;
+    crowdCanvas = document.createElement("canvas");
+    crowdCanvas.width = 480;
+    crowdCanvas.height = 300;
+    const g = crowdCanvas.getContext("2d");
+    for (let y = 0; y < 300; y += 5) {
+      for (let x = 0; x < 480; x += 4) {
+        if (ih(x, y) < 0.12) continue;
+        g.fillStyle = colours[Math.floor(ih(x, y + 61) * colours.length)];
+        g.globalAlpha = 0.5 + ih(y, x) * 0.5;
+        g.fillRect(x + (y % 10 ? 0 : 2), y, 2.6, 3.4);
+      }
+    }
+    g.globalAlpha = 1;
+    return crowdCanvas;
+  }
   function noise() {
     if (noiseTile) return noiseTile;
     noiseTile = document.createElement("canvas");
@@ -34,6 +55,25 @@
     }
     g.putImageData(img, 0, 0);
     return noiseTile;
+  }
+
+  // The paper grain, rendered once at the size it is used and then simply stamped on
+  function grain(ctx, w, h, alpha) {
+    const key = `${Math.round(w)}x${Math.round(h)}`;
+    if (grainKey !== key) {
+      grainKey = key;
+      grainLayer = document.createElement("canvas");
+      grainLayer.width = Math.max(1, Math.round(w));
+      grainLayer.height = Math.max(1, Math.round(h));
+      const g = grainLayer.getContext("2d");
+      if (!noisePattern) noisePattern = g.createPattern(noise(), "repeat");
+      g.fillStyle = noisePattern;
+      g.fillRect(0, 0, grainLayer.width, grainLayer.height);
+    }
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(grainLayer, 0, 0, w, h);
+    ctx.restore();
   }
 
   function goalMoment(play, t) {
@@ -77,6 +117,13 @@
     if (close) ctx.closePath();
   }
 
+  // Mix a colour towards a neutral: 0 keeps it, 1 washes it out entirely
+  function quiet(hex, amount, toward = [232, 228, 216]) {
+    const c = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16));
+    const mixed = c.map((v, i) => Math.round(v + (toward[i] - v) * amount));
+    return "#" + mixed.map(v => Math.max(0, Math.min(255, v)).toString(16).padStart(2, "0")).join("");
+  }
+
   const SKIES = {
     day: ["#5d9bd6", "#bcd9ef"],
     dusk: ["#1e2140", "#e58b54"],
@@ -92,32 +139,38 @@
     ctx.fillStyle = sky;
     ctx.fillRect(0, 0, w, h);
 
-    // Far stand, roof and floodlights
-    ctx.fillStyle = shadeHex(venue.stands, venue.time === "day" ? 0.7 : 0.42);
+    // The stand: rows of people, painted once into a strip and then stamped into place. Same
+    // stadium feel as painting every seat each frame, at a fraction of the cost.
+    const dim = venue.time === "day" ? 0.82 : 0.5;
+    ctx.fillStyle = shadeHex(venue.stands, dim * 0.75);
     pathOf(ctx, cam, [[-45, -7, 0], [150, -7, 0], [150, -30, 19], [-45, -30, 19]], true);
     ctx.fill();
-    const buckets = crowdColors.map(() => []);
-    for (let r = 0; r < 30; r++) {
-      const s = (r + 0.5) / 30, y = -7.6 - 22 * s, z0 = 0.8 + 18 * s;
-      const d = cam.p(cx, y, z0).d;
-      const half = ((w / 2 + 30) * d) / cam.F;
-      const size = (cam.F * 0.46) / d;
-      for (let c = Math.floor((cx - half) / 0.7); c <= Math.ceil((cx + half) / 0.7); c++) {
-        const x = c * 0.7;
-        if (x < -44 || x > 149 || ih(r, c) < 0.08) continue;
-        const jump = cheer > 0 ? Math.max(0, Math.sin(t * 17 + ih(c, r) * 6)) * 0.35 * cheer : 0;
-        const p = cam.p(x, y, z0 + jump);
-        buckets[Math.floor(ih(c, r + 99) * crowdColors.length)].push(p.x - size / 2, p.y - size, size);
-      }
-    }
-    buckets.forEach((b, k) => {
-      ctx.fillStyle = crowdColors[k];
-      ctx.globalAlpha = venue.time === "day" ? 0.78 : 0.55;
+
+    const strip = crowdStrip(crowdColors, venue.time);
+    const rows = 7;
+    for (let r = 0; r < rows; r++) {
+      const s0 = r / rows, s1 = (r + 1) / rows;
+      const y0 = -7.6 - 22 * s0, z0 = 0.8 + 18 * s0;
+      const y1 = -7.6 - 22 * s1, z1 = 0.8 + 18 * s1;
+      const jump = cheer > 0 ? Math.sin(t * 6 + r) * 0.25 * cheer : 0;
+      const a = cam.p(-45, y0 + jump, z0), b = cam.p(150, y0 + jump, z0);
+      const c = cam.p(150, y1 + jump, z1), d = cam.p(-45, y1 + jump, z1);
+      ctx.save();
       ctx.beginPath();
-      for (let i = 0; i < b.length; i += 3) ctx.rect(b[i], b[i + 1], b[i + 2], b[i + 2] * 1.1);
-      ctx.fill();
-    });
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.lineTo(c.x, c.y);
+      ctx.lineTo(d.x, d.y);
+      ctx.closePath();
+      ctx.clip();
+      ctx.globalAlpha = (venue.time === "day" ? 0.85 : 0.6) * (1 - 0.06 * r);
+      const top = Math.min(a.y, b.y, c.y, d.y), bot = Math.max(a.y, b.y, c.y, d.y);
+      ctx.drawImage(strip, 0, (r * 37) % (strip.height - 40), strip.width, 40,
+                    Math.min(a.x, d.x), top, Math.max(b.x, c.x) - Math.min(a.x, d.x), Math.max(2, bot - top));
+      ctx.restore();
+    }
     ctx.globalAlpha = 1;
+
     if (venue.roof !== "open") {
       ctx.fillStyle = shadeHex(venue.accent, 0.3);
       pathOf(ctx, cam, [[-45, -30, 19], [150, -30, 19], [150, -22, 23.5], [-45, -22, 23.5]], true);
@@ -131,8 +184,8 @@
       if (p.x < -200 || p.x > w + 200) continue;
       const r = (cam.F * 9) / p.d;
       const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
-      glow.addColorStop(0, `rgba(255,250,235,${0.85 * lamp})`);
-      glow.addColorStop(0.08, `rgba(255,248,225,${0.35 * lamp})`);
+      glow.addColorStop(0, `rgba(255,250,235,${0.7 * lamp})`);
+      glow.addColorStop(0.08, `rgba(255,248,225,${0.28 * lamp})`);
       glow.addColorStop(1, "rgba(255,248,225,0)");
       ctx.fillStyle = glow;
       ctx.fillRect(p.x - r, p.y - r, 2 * r, 2 * r);
@@ -141,12 +194,13 @@
   }
 
   function drawPitch(ctx, cam, w, h, venue) {
-    ctx.fillStyle = shadeHex(venue.grass, 0.62);
+    const night = venue.time === "night";
+    ctx.fillStyle = shadeHex(quiet(venue.grass, night ? 0.1 : 0.16), 0.62);
     pathOf(ctx, cam, rectPts(-14, -7, 119, 80), true);
     ctx.fill();
     if (venue.track) {
       // Athletics track between the pitch and the stands
-      ctx.fillStyle = "#9c4a36";
+      ctx.fillStyle = quiet("#9c4a36", 0.15);
       pathOf(ctx, cam, rectPts(-12, -6.8, 117, 79), true);
       ctx.fill();
       ctx.strokeStyle = "rgba(255,255,255,0.3)";
@@ -155,34 +209,25 @@
         pathOf(ctx, cam, rectPts(-11 + lane * 1.5, -6.4 + lane * 0.5, 116 - lane * 1.5, 78.5 - lane * 1.5), true);
         ctx.stroke();
       }
-      ctx.fillStyle = shadeHex(venue.grass, 0.8);
+      ctx.fillStyle = shadeHex(quiet(venue.grass, night ? 0.1 : 0.16), 0.8);
       pathOf(ctx, cam, rectPts(-5.5, -4.5, 110.5, 72.5), true);
       ctx.fill();
     }
-    ctx.fillStyle = venue.grass;
+    ctx.fillStyle = quiet(venue.grass, night ? 0.1 : 0.16);
     pathOf(ctx, cam, rectPts(-4, -4, 109, 72), true);
     ctx.fill();
+    // One long band of light across the pitch instead of mown stripes
     if (venue.mowing !== "plain") {
       for (let i = 0; i < 20; i += 2) {
-        ctx.fillStyle = "rgba(255,255,255,0.055)";
+        ctx.fillStyle = "rgba(255,255,255,0.04)";
         pathOf(ctx, cam, rectPts(-4 + (i * 113) / 20, -4, -4 + ((i + 1) * 113) / 20, 72), true);
-        ctx.fill();
-      }
-    }
-    if (venue.mowing === "checks") {
-      for (let j = 0; j < 12; j += 2) {
-        ctx.fillStyle = "rgba(0,0,0,0.06)";
-        pathOf(ctx, cam, rectPts(-4, -4 + (j * 76) / 12, 109, -4 + ((j + 1) * 76) / 12), true);
         ctx.fill();
       }
     }
     ctx.save();
     pathOf(ctx, cam, rectPts(-4, -4, 109, 72), true);
     ctx.clip();
-    ctx.globalAlpha = 0.06;
-    ctx.fillStyle = ctx.createPattern(noise(), "repeat");
-    ctx.fillRect(0, 0, w, h);
-    ctx.globalAlpha = 1;
+    grain(ctx, w, h, 0.05);
     const far = cam.p(52.5, -4), near = cam.p(52.5, 72);
     const shade = ctx.createLinearGradient(0, far.y, 0, Math.max(near.y, far.y + 1));
     shade.addColorStop(0, `rgba(0,12,24,${venue.time === "day" ? 0.15 : 0.38})`);
@@ -219,7 +264,6 @@
       ctx.save();
       ctx.transform((ax.x - o.x) / 10, (ax.y - o.y) / 10, -(ay.x - o.x) / 10, -(ay.y - o.y) / 10, o.x, o.y);
       ctx.font = `900 7px "Big Shoulders Display", "Arial Narrow", sans-serif`;
-      ctx.fillText("BIRDSEYE FC", 0, 0.4);
       ctx.restore();
     }
   }
@@ -444,22 +488,17 @@
     return "#" + c.map(v => v.toString(16).padStart(2, "0")).join("");
   }
 
-  function pill(ctx, api, text, x, y, size, bg, fg, dot) {
-    ctx.font = `700 ${size}px ${api.fonts.body}`;
-    const w = ctx.measureText(text).width + size * (dot ? 1.9 : 1.2), hh = size * 1.6;
-    ctx.fillStyle = bg;
-    api.roundRect(ctx, x - w / 2, y - hh / 2, w, hh, 3);
-    ctx.fill();
-    if (dot) {
-      ctx.fillStyle = dot;
-      ctx.beginPath();
-      ctx.arc(x - w / 2 + size * 0.75, y, size * 0.3, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.fillStyle = fg;
+  // A caption on the picture: the serif of the page, held off the grass by a soft halo
+  function caption(ctx, api, text, x, y, size, colour, halo) {
+    ctx.font = `500 ${size * 1.15}px ${api.fonts.display}`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(text, x + (dot ? size * 0.35 : 0), y + 0.5);
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = halo || "rgba(12,14,16,0.5)";
+    ctx.lineWidth = size * 0.42;
+    ctx.strokeText(text, x, y);
+    ctx.fillStyle = colour;
+    ctx.fillText(text, x, y);
   }
 
   function draw(env) {
@@ -477,8 +516,23 @@
       bx += b.x / 15;
       by += b.y / 15;
     }
+    // Frame the action rather than the acreage: hold the ball and the players around it, widening
+    // when the move is spread out and tightening when it is packed into one corner.
+    let spread = 26, sumX = 0, sumY = 0, near = 0;
+    for (const pl of play.players) {
+      const p = api.pathPos(R.byId[pl.id].path, t);
+      if (Math.hypot(p.x - bx, p.y - by) > 28) continue;
+      near++;
+      sumX += p.x;
+      sumY += p.y;
+      spread = Math.max(spread, Math.abs(p.x - bx) * 2 + 18);
+    }
+    if (near) {                       // sit between the ball and the players around it
+      bx = bx * 0.65 + (sumX / near) * 0.35;
+      by = by * 0.7 + (sumY / near) * 0.3;
+    }
     const zoom = goal && motion ? 1 + 0.5 * bump(goal.since, -1.3, 0.1, 2.6) : 1;
-    const viewW = (48 * clamp(w / h / 1.49, 0.5, 1.25)) / zoom;
+    const viewW = (clamp(spread * 0.8, 24, 38) * clamp(w / h / 1.49, 0.75, 1.15)) / zoom;
     let cx = clamp(bx, viewW / 2 - 10, 115 - viewW / 2);
     let ty = 34 + (by - 34) * 0.6;
     if (goal && motion && goal.since > 0 && goal.since < 0.5) {
@@ -503,12 +557,20 @@
     const idx = Math.min(R.track.length - 1, Math.floor(t / 0.05));
     if (idx > 0) {
       ctx.save();
-      ctx.shadowColor = "rgba(255,197,61,0.9)";
-      ctx.shadowBlur = 8 * u;
-      ctx.strokeStyle = "rgba(255,214,102,0.85)";
-      ctx.lineWidth = 2.4 * u;
       ctx.lineCap = "round";
-      pathOf(ctx, cam, [...R.track.slice(0, idx + 1).map(p => [p.x, p.y, 0]), [ball.x, ball.y, 0]]);
+      const tail = Math.max(0, idx - 80);                 // four seconds of memory
+      for (let i = tail; i < idx; i++) {
+        const a = R.track[i], b = R.track[i + 1];
+        const k = (i - tail) / Math.max(1, idx - tail);
+        ctx.strokeStyle = `rgba(246,214,150,${(0.05 + 0.5 * k * k).toFixed(3)})`;
+        ctx.lineWidth = (0.6 + 1.7 * k) * u;
+        pathOf(ctx, cam, [[a.x, a.y, 0], [b.x, b.y, 0]]);
+        ctx.stroke();
+      }
+      const last = R.track[idx];
+      ctx.strokeStyle = "rgba(248,226,178,0.7)";
+      ctx.lineWidth = 2.2 * u;
+      pathOf(ctx, cam, [[last.x, last.y, 0], [ball.x, ball.y, 0]]);
       ctx.stroke();
       ctx.restore();
     }
@@ -549,7 +611,9 @@
         continue;
       }
       const { pl, foot } = it;
-      const H = Math.max(10, (cam.F * 1.85 * 1.35) / foot.d);
+      // 1.85 m is a footballer; the rest is the exaggeration that keeps them readable at this
+      // distance. Too much of it and bodies a clear stride apart on the grass overlap on screen.
+      const H = Math.max(14, (cam.F * 1.85 * 1.25) / foot.d);
       if (pl.star) {
         const pulse = motion ? 0.5 + 0.5 * Math.sin(t * 6) : 0.5;
         ctx.strokeStyle = `rgba(255,197,61,${0.55 + pulse * 0.35})`;
@@ -560,32 +624,33 @@
       }
       drawFigure(ctx, play.teams[pl.team], pl, foot, H, it.body, R.lookOf(pl), R.era.kit, R.bootColor(pl));
       if (pl.name || pl.num != null) {
-        const label = pl.name ? (pl.num != null ? `${pl.num} ${pl.name.toUpperCase()}` : pl.name.toUpperCase()) : String(pl.num);
-        pill(ctx, api, label, foot.x, foot.y - H * 1.08 - 8 * u, 9.5 * u,
-          pl.star ? "rgba(255,197,61,0.95)" : "rgba(6,10,16,0.8)", pl.star ? "#2A1E00" : "#ffffff", pl.star ? null : play.teams[pl.team].color);
+        const ballNow = R.ballAt(t);
+        if (!pl.star && Math.hypot(it.body.x - ballNow.x, it.body.y - ballNow.y) > 22) continue;
+        const label = pl.name || (pl.num != null ? String(pl.num) : "");
+        caption(ctx, api, label, foot.x, foot.y - H * 1.08 - 9 * u, 9.5 * u,
+          pl.star ? api.colors.accent : "rgba(248,245,238,0.92)");
       }
     }
 
     // Grade: vignette and film grain
-    const vg = ctx.createRadialGradient(w / 2, h * 0.55, Math.min(w, h) * 0.3, w / 2, h / 2, Math.hypot(w, h) * 0.62);
-    vg.addColorStop(0, "rgba(0,0,0,0)");
-    vg.addColorStop(1, `rgba(0,0,0,${{ day: 0.3, dusk: 0.45, night: 0.55 }[play.venue.time]})`);
-    ctx.fillStyle = vg;
+    const vkey = `${Math.round(w)}x${Math.round(h)}|${play.venue.time}`;
+    if (vignetteKey !== vkey) {
+      vignetteKey = vkey;
+      vignette = ctx.createRadialGradient(w / 2, h * 0.55, Math.min(w, h) * 0.3, w / 2, h / 2, Math.hypot(w, h) * 0.62);
+      vignette.addColorStop(0, "rgba(0,0,0,0)");
+      vignette.addColorStop(1, `rgba(0,0,0,${{ day: 0.3, dusk: 0.45, night: 0.55 }[play.venue.time]})`);
+    }
+    ctx.fillStyle = vignette;
     ctx.fillRect(0, 0, w, h);
-    ctx.save();
-    ctx.globalAlpha = 0.05;
-    ctx.translate(-((t * 997) % 192), -((t * 613) % 192));
-    ctx.fillStyle = ctx.createPattern(noise(), "repeat");
-    ctx.fillRect(0, 0, w + 192, h + 192);
-    ctx.restore();
+    grain(ctx, w, h, 0.04);
 
     // Broadcast graphics
     if (live) {
       const sc = api.scoreAt(play, t);
-      const text = `${play.teams.A.short}  ${sc[0]}–${sc[1]}  ${play.teams.B.short}${play.clock ? "   " + play.clock : ""}`;
-      ctx.font = `700 ${11 * u}px ${api.fonts.body}`;
-      const tw = ctx.measureText(text).width + 12 * u * 1.2;
-      pill(ctx, api, text, 14 * u + tw / 2, 22 * u, 11 * u, "rgba(6,10,16,0.85)", "#ffffff", null);
+      const text = `${play.teams.A.short} ${sc[0]}–${sc[1]} ${play.teams.B.short}${play.clock ? "   " + play.clock : ""}`;
+      ctx.font = `500 ${13 * u}px ${api.fonts.display}`;
+      const tw = ctx.measureText(text).width;
+      caption(ctx, api, text, 18 * u + tw / 2, 24 * u, 11 * u, "rgba(248,245,238,0.9)");
     }
   }
 

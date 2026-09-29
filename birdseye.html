@@ -1,60 +1,64 @@
 <title>Birdseye FC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700&display=swap">
+<!-- Fonts load without holding up the page: a stylesheet still pending blocks every script,
+     so an unreachable CDN would otherwise leave the app sitting on a blank pitch -->
+<link rel="stylesheet" media="print" onload="this.media='all'"
+  href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600&display=swap"></noscript>
 <style>
   :root {
-    --ground: #EBF0EA;
-    --surface: #FFFFFF;
-    --ink: #11241A;
-    --muted: #566B5E;
-    --rule: #D2DCD3;
-    --chip: #E0E8E1;
-    --accent: #FFC53D;
-    --accent-ink: #2A1E00;
-    --focus: #1E6B3E;
-    --grass-a: #3E9A5A;
-    --grass-b: #46A462;
-    --grass-edge: #378F50;
-    --chalk: rgba(255, 255, 255, 0.88);
-    --shadow: rgba(17, 36, 26, 0.16);
-    --display: "Big Shoulders Display", "Arial Narrow", "Roboto Condensed", sans-serif;
+    --ground: #F2EFE7;
+    --surface: #FBF9F3;
+    --ink: #23201B;
+    --muted: #6F6A5E;
+    --rule: #DFD9CB;
+    --chip: #E8E3D7;
+    --accent: #B4623A;
+    --accent-ink: #FBF9F3;
+    --focus: #8A6A2F;
+    --grass-a: #E4E5D9;
+    --grass-b: #E8E9DE;
+    --grass-edge: #D8DACB;
+    --chalk: rgba(35, 32, 27, 0.30);
+    --shadow: rgba(45, 40, 32, 0.14);
+    --display: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
     --body: "Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --ground: #0D1611;
-      --surface: #142019;
-      --ink: #E2ECE4;
-      --muted: #91A698;
-      --rule: #26362C;
-      --chip: #1C2A21;
-      --accent: #FFC53D;
-      --accent-ink: #2A1E00;
-      --focus: #8FD6A8;
-      --grass-a: #2C6F43;
-      --grass-b: #32794A;
-      --grass-edge: #28663D;
-      --chalk: rgba(236, 246, 238, 0.78);
-      --shadow: rgba(0, 0, 0, 0.45);
+      --ground: #14161A;
+      --surface: #1B1E23;
+      --ink: #E9E5DC;
+      --muted: #9A958A;
+      --rule: #2C3037;
+      --chip: #232730;
+      --accent: #D08A5E;
+      --accent-ink: #14161A;
+      --focus: #D0B27A;
+      --grass-a: #1E2329;
+      --grass-b: #222831;
+      --grass-edge: #171B20;
+      --chalk: rgba(233, 229, 220, 0.32);
+      --shadow: rgba(0, 0, 0, 0.5);
     }
   }
   :root[data-theme="dark"] {
-    --ground: #0D1611;
-    --surface: #142019;
-    --ink: #E2ECE4;
-    --muted: #91A698;
-    --rule: #26362C;
-    --chip: #1C2A21;
-    --accent: #FFC53D;
-    --accent-ink: #2A1E00;
-    --focus: #8FD6A8;
-    --grass-a: #2C6F43;
-    --grass-b: #32794A;
-    --grass-edge: #28663D;
-    --chalk: rgba(236, 246, 238, 0.78);
-    --shadow: rgba(0, 0, 0, 0.45);
+    --ground: #14161A;
+    --surface: #1B1E23;
+    --ink: #E9E5DC;
+    --muted: #9A958A;
+    --rule: #2C3037;
+    --chip: #232730;
+    --accent: #D08A5E;
+    --accent-ink: #14161A;
+    --focus: #D0B27A;
+    --grass-a: #1E2329;
+    --grass-b: #222831;
+    --grass-edge: #171B20;
+    --chalk: rgba(233, 229, 220, 0.32);
+    --shadow: rgba(0, 0, 0, 0.5);
   }
 
   * { box-sizing: border-box; }
@@ -76,18 +80,21 @@
   }
   .brand {
     display: inline-flex; align-items: center; gap: 9px;
-    font: 900 24px/1 var(--display); letter-spacing: 0.02em; text-transform: uppercase;
+    font: 500 23px/1 var(--display); letter-spacing: 0.01em;
   }
   .brand svg { width: 26px; height: 18px; flex: none; transform: translateY(1px); }
   .tag { margin: 0; color: var(--muted); font-size: 14px; }
 
   .layout {
-    display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 44px; align-items: start;
+    display: grid; grid-template-columns: minmax(0, 760px) 280px; gap: 56px;
+    align-items: start; justify-content: center;
   }
   @media (max-width: 920px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 36px; } }
 
   /* Stage */
-  .stage { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  /* The drawing is an illustration on a page, not a screen filled with pitch: hold it to a
+     comfortable reading width and let the paper breathe around it. */
+  .stage { display: flex; flex-direction: column; gap: 14px; min-width: 0; max-width: 760px; }
   .stage-head {
     display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px 24px;
   }
@@ -97,8 +104,8 @@
     font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
   }
   h1 {
-    margin: 0; font: 800 clamp(32px, 4.4vw, 50px)/0.92 var(--display);
-    text-transform: uppercase; letter-spacing: 0.005em; text-wrap: balance;
+    margin: 0; font: 500 clamp(30px, 4vw, 46px)/1.06 var(--display);
+    letter-spacing: -0.01em; text-wrap: balance;
   }
   .board { display: flex; align-items: center; gap: 12px; }
   .clock {
@@ -106,16 +113,17 @@
     padding: 6px 8px; border: 1px solid var(--rule); border-radius: 6px;
   }
   .clock:empty { display: none; }
-  .team { display: inline-flex; align-items: center; gap: 7px; font: 800 20px/1 var(--display); letter-spacing: 0.04em; }
+  .team { display: inline-flex; align-items: center; gap: 7px; font: 500 19px/1 var(--display); letter-spacing: 0.02em; }
   .kit { width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid transparent; display: inline-block; }
   .score {
-    display: inline-flex; align-items: center; gap: 6px;
-    font: 800 36px/1 var(--display); font-variant-numeric: tabular-nums;
-    padding: 4px 12px 2px; background: var(--ink); color: var(--ground); border-radius: 6px;
+    display: inline-flex; align-items: baseline; gap: 8px;
+    font: 500 38px/1 var(--display); font-variant-numeric: tabular-nums;
+    padding: 2px 14px; color: var(--ink);
+    border-left: 1px solid var(--rule); border-right: 1px solid var(--rule);
   }
-  .score .dash { opacity: 0.55; font-weight: 700; }
+  .score .dash { opacity: 0.35; }
   .score.pop { animation: pop 0.6s ease-out; }
-  @keyframes pop { 0% { background: var(--accent); color: var(--accent-ink); transform: scale(1.12); } 100% { transform: scale(1); } }
+  @keyframes pop { 0% { color: var(--accent); } 100% { color: var(--ink); } }
 
   .pitch-wrap {
     position: relative; border-radius: 10px; overflow: hidden;
@@ -127,6 +135,11 @@
   .caption-time { font: 500 13px/1 var(--mono); color: var(--muted); flex: none; width: 3.2em; }
   .caption { margin: 0; font-weight: 600; line-height: 1.35; text-wrap: balance; transition: opacity 0.25s; }
   .caption.fade { opacity: 0.15; }
+  .ball-meter {
+    flex: none; margin-left: auto; align-self: center; padding: 3px 9px; border-radius: 999px;
+    font: 500 12px/1.5 var(--mono); color: var(--muted); background: var(--chip); white-space: nowrap;
+  }
+  .ball-meter:empty { display: none; }
 
   .controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .icon-btn {
@@ -198,13 +211,13 @@
   .footage-form #footageUrl { flex: 1 1 260px; min-width: 0; }
   .footage-note { flex-basis: 100%; margin: 0; font-size: 12.5px; color: var(--muted); }
   .analysis { max-width: 68ch; border-top: 1px solid var(--rule); padding-top: 18px; margin-top: 4px; }
-  .analysis h2 { margin: 0 0 10px; font: 800 22px/1 var(--display); text-transform: uppercase; letter-spacing: 0.02em; }
+  .analysis h2 { margin: 0 0 12px; font: 500 21px/1.2 var(--display); letter-spacing: -0.005em; }
   .analysis p { margin: 0 0 10px; line-height: 1.6; text-wrap: pretty; }
   .analysis strong { font-weight: 700; }
   .feed { margin: 16px 0 4px; }
   .feed h3 {
-    display: flex; align-items: center; gap: 8px; margin: 0 0 8px;
-    font: 800 13px/1.2 var(--display); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+    display: flex; align-items: center; gap: 8px; margin: 0 0 10px;
+    font: 500 15px/1.2 var(--display); letter-spacing: 0; color: var(--muted);
   }
   .feed h3 .live { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); }
   .feed h3 .live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--rule); }
@@ -220,15 +233,19 @@
   .feed li button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
   .feed .at { font: 500 12px/1.5 var(--mono); color: var(--muted); flex: none; width: 3.1em; }
   .feed .what { flex: 1; }
+  .feed .metric {
+    flex: none; align-self: center; font: 500 11.5px/1.6 var(--mono); color: var(--muted); white-space: nowrap;
+  }
   .feed .tag {
-    flex: none; align-self: center; padding: 1px 7px; border-radius: 999px; background: var(--accent); color: var(--accent-ink);
-    font: 800 10px/1.7 var(--display); text-transform: uppercase; letter-spacing: 0.06em;
+    flex: none; align-self: center; padding: 1px 8px; border-radius: 999px;
+    border: 1px solid var(--rule); color: var(--muted); background: transparent;
+    font: 500 11px/1.6 var(--body); letter-spacing: 0.02em;
   }
   .feed li.ahead { opacity: 0.38; }
   .feed li.now { background: var(--surface); border-left-color: var(--accent); }
   .feed li.key .what { font-weight: 650; }
   .lessons { margin-top: 18px; padding: 14px 16px 4px; border-radius: 12px; background: var(--surface); border: 1px solid var(--rule); }
-  .lessons h3 { margin: 0 0 8px; font: 800 14px/1.2 var(--display); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .lessons h3 { margin: 0 0 10px; font: 500 16px/1.2 var(--display); color: var(--muted); }
   .lessons ul { margin: 0; padding: 0; list-style: none; }
   .lessons li { position: relative; margin: 0 0 10px; padding-left: 22px; line-height: 1.55; text-wrap: pretty; }
   .lessons li::before {
@@ -241,7 +258,8 @@
     font-size: 13px; font-weight: 600; color: var(--muted);
   }
   .voice-btn svg { width: 15px; height: 15px; fill: currentColor; }
-  .voice-btn[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+  .voice-btn[aria-pressed="true"] { color: var(--ink); border-color: var(--ink); }
+  .voice-btn[aria-pressed="true"] svg { fill: var(--accent); }
   .voice-select {
     font: inherit; font-size: 13px; color: var(--ink); background: var(--surface);
     border: 1px solid var(--rule); border-radius: 8px; padding: 6px 8px; max-width: 240px;
@@ -258,7 +276,7 @@
 
   /* Sidebar */
   .side { display: flex; flex-direction: column; gap: 30px; }
-  .side h2 { margin: 0 0 10px; font: 800 22px/1 var(--display); text-transform: uppercase; letter-spacing: 0.02em; }
+  .side h2 { margin: 0 0 12px; font: 500 21px/1.2 var(--display); letter-spacing: -0.005em; }
   .gen label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
   textarea {
     width: 100%; resize: vertical; min-height: 84px; padding: 10px 12px;
@@ -350,9 +368,18 @@
       <div class="looks-seg" role="group" aria-labelledby="looksLabel">
         <button data-look="classic" aria-pressed="true">Classic</button>
         <button data-look="broadcast" aria-pressed="false">Broadcast</button>
-        <button data-look="arcade" aria-pressed="false">Arcade</button>
-        <button data-look="stadium3d" aria-pressed="false">3D</button>
       </div>
+      <button class="voice-btn" id="heatBtn" aria-pressed="false"
+        title="Shade the pitch by where the players spent the clip. It's also drawn into downloaded videos.">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5c2 2.4 3 4.1 3 5.4a3 3 0 1 1-6 0c0-1.3 1-3 3-5.4z"/><path d="M2 13.2c1.6-1 3.6-1.5 6-1.5s4.4.5 6 1.5v1.3H2z" opacity="0.55"/></svg>
+        <span id="heatLabel">Heatmap</span>
+      </button>
+      <select class="voice-select" id="heatWho" aria-label="Whose movement to shade" hidden></select>
+      <button class="voice-btn" id="scoreBtn" aria-pressed="false" hidden
+        title="An orchestral score under the play: it lifts as the ball nears goal and swells when one goes in.">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 2.2 13 1v8.2a2.2 2.2 0 1 1-1.4-2V3.6L7.4 4.3v7.5a2.2 2.2 0 1 1-1.4-2z"/></svg>
+        <span id="scoreLabel">Score</span>
+      </button>
       <button class="voice-btn" id="crowdBtn" aria-pressed="true" hidden
         title="Stadium crowd sound that follows the play. It's also added to downloaded videos.">
         <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="4" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="8" cy="4" r="2.3"/><path d="M0.5 13c0-3 1.6-4.8 3.5-4.8S7.5 10 7.5 13zM8.5 13c0-3 1.6-4.8 3.5-4.8s3.5 1.8 3.5 4.8zM4 13.5c0-3.4 1.8-5.6 4-5.6s4 2.2 4 5.6z"/></svg>
@@ -398,6 +425,7 @@
     <div class="caption-row">
       <span class="caption-time" id="captionTime"></span>
       <p class="caption" id="caption" aria-live="polite"></p>
+      <span class="ball-meter" id="ballMeter" title="How the ball is travelling right now"></span>
     </div>
 
     <div class="controls">
@@ -469,12 +497,12 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/mp4-muxer@5.1.3/build/mp4-muxer.js"></script>
+<!-- Video export only: deferred so a slow CDN can never hold up the page -->
+<script defer src="https://cdn.jsdelivr.net/npm/mp4-muxer@5.1.3/build/mp4-muxer.js"></script>
 <script src="looks/broadcast.js"></script>
-<script src="looks/arcade.js"></script>
-<script src="looks/stadium3d.js"></script>
 <script src="sound/recordings.js"></script>
 <script src="sound/crowd.js"></script>
+<script src="sound/score.js"></script>
 <script src="library/clips.js"></script>
 <script>
 (() => {
@@ -523,7 +551,7 @@
       { t: 2.2, with: "busquets" },
       { t: 2.9, with: "messi" },
       { t: 11.2, with: "messi" },
-      { t: 11.7, x: 105.4, y: 31 }
+      { t: 11.7, x: 105.4, y: 31, curve: -0.25, power: 0.9 }
     ],
     captions: [
       { t: 0, text: "87' — Barça lead 1–0. Madrid are down to ten." },
@@ -765,7 +793,12 @@
         .map(k => [clamp(num(k[0], NaN), 0, 30), clamp(num(k[1], NaN), -2, 107), clamp(num(k[2], NaN), -2, 70)])
         .filter(k => k.every(Number.isFinite))
         .sort((a, b) => a[0] - b[0]);
-      for (const k of keys) if (!path.length || k[0] > path[path.length - 1][0] + 0.01) path.push(k);
+      // Keys crowded into a fraction of a second (imported ones land on event times, which cluster)
+      // would ask a body to cover a metre in a blink; the latest reading of the pair wins.
+      for (const k of keys) {
+        if (path.length && k[0] - path[path.length - 1][0] < MIN_GAP) path[path.length - 1] = k;
+        else path.push(k);
+      }
       if (!path.length) continue;
       ids.add(id);
       const n = p.num == null ? NaN : Math.round(clamp(num(p.num, NaN), 0, 99));
@@ -796,6 +829,11 @@
           kf.y = clamp(y, -2, 70);
         }
         if (k.lofted === true) kf.lofted = true;
+        // How the ball was struck: sideways bend (- left, + right) and how hard it was hit
+        const curve = num(k.curve, 0);
+        if (Number.isFinite(curve) && Math.abs(curve) > 0.01) kf.curve = clamp(curve, -1, 1);
+        const power = num(k.power, NaN);
+        if (Number.isFinite(power)) kf.power = clamp(power, 0, 1);
         return kf;
       })
       .filter(Boolean)
@@ -909,8 +947,25 @@
   }
 
   // ---------- Motion ----------
-  function catmull(p0, p1, p2, p3, u) {
-    return 0.5 * (2 * p1 + (-p0 + p2) * u + (2 * p0 - 5 * p1 + 4 * p2 - p3) * u * u + (-p0 + 3 * p1 - 3 * p2 + p3) * u * u * u);
+  // A path is a handful of positions with times on them, and the curve drawn through them decides
+  // how a body moves between them. The textbook Catmull-Rom spline assumes the points are evenly
+  // spaced in time; ours are not — a keyframe every two seconds here, every fifth of a second there.
+  // Pretending otherwise puts a step in the speed at every keyframe, which is a body that jumps from
+  // a walk to a sprint and back between one frame and the next: the levitating look. So the speed at
+  // each keyframe is worked out from the real time to the keyframes either side, and the curve
+  // between two keyframes is the cubic that leaves the first at that speed and arrives at the second
+  // at its speed. Speed is then continuous the whole way along and nobody is flung anywhere.
+  const TOP_SPEED = 9.6;                     // metres per second: a fast footballer flat out
+  function keySpeed(path, i) {
+    const n = path.length;
+    const a = path[Math.max(i - 1, 0)], b = path[Math.min(i + 1, n - 1)];
+    const dt = b[0] - a[0];
+    if (dt <= 1e-9) return { x: 0, y: 0 };
+    let vx = (b[1] - a[1]) / dt, vy = (b[2] - a[2]) / dt;
+    // No spline overshoot may put a body above a sprint
+    const v = Math.hypot(vx, vy);
+    if (v > TOP_SPEED) { vx *= TOP_SPEED / v; vy *= TOP_SPEED / v; }
+    return { x: vx, y: vy };
   }
   function pathPos(path, t) {
     const n = path.length;
@@ -918,9 +973,81 @@
     if (t >= path[n - 1][0]) return { x: path[n - 1][1], y: path[n - 1][2] };
     let i = 0;
     while (i < n - 2 && t > path[i + 1][0]) i++;
-    const a = path[Math.max(i - 1, 0)], b = path[i], c = path[i + 1], d = path[Math.min(i + 2, n - 1)];
-    const u = (t - b[0]) / (c[0] - b[0]);
-    return { x: catmull(a[1], b[1], c[1], d[1], u), y: catmull(a[2], b[2], c[2], d[2], u) };
+    const b = path[i], c = path[i + 1];
+    const dt = c[0] - b[0];
+    const u = (t - b[0]) / dt, u2 = u * u, u3 = u2 * u;
+    const h00 = 2 * u3 - 3 * u2 + 1, h10 = u3 - 2 * u2 + u, h01 = -2 * u3 + 3 * u2, h11 = u3 - u2;
+    const mb = keySpeed(path, i), mc = keySpeed(path, i + 1);
+    return {
+      x: h00 * b[1] + h10 * dt * mb.x + h01 * c[1] + h11 * dt * mc.x,
+      y: h00 * b[2] + h10 * dt * mb.y + h01 * c[2] + h11 * dt * mc.y
+    };
+  }
+  // Two keyframes a hundredth of a second apart make a segment so short that a step of a few
+  // centimetres across it reads as a body teleporting. Paths are stitched together from several
+  // sources (the clip's own keys, the off-ball engine, a celebration run), so the seams are tidied
+  // before anything moves along them.
+  const MIN_GAP = 0.18;                      // seconds between keyframes
+  function cleanPath(path) {
+    const out = [path[0]];
+    for (let i = 1; i < path.length; i++) {
+      if (path[i][0] - out[out.length - 1][0] < MIN_GAP) out[out.length - 1] = path[i];
+      else out.push(path[i]);
+    }
+    return out;
+  }
+  // Keyframes are where a player was, not how they got there. Two positions a second apart can ask
+  // for a change of pace no one could make, and the body then appears to be slid across the grass by
+  // an unseen hand. Running the trajectory through a short blur in time is the honest correction: a
+  // real player leans into a turn early and drifts wide of the corner, which is exactly what the
+  // blur does, and it holds the change of pace down to something legs can produce. Positions barely
+  // move — a tenth of a metre where the path was already reasonable — and everything that follows
+  // (stride, facing, where the ball sits at a player's feet) is read back off the smoothed path, so
+  // nothing can drift out of step with anything else.
+  const SMOOTH = 0.22, SAMPLE = 0.05;        // seconds: the width of the blur, and the step it works on
+  function humanPath(path, width = SMOOTH) {
+    const t0 = path[0][0], t1 = path[path.length - 1][0];
+    if (t1 - t0 < width * 3) return path;
+    const n = Math.round((t1 - t0) / SAMPLE) + 1;
+    const xs = new Float64Array(n), ys = new Float64Array(n);
+    for (let i = 0; i < n; i++) {
+      const p = pathPos(path, t0 + i * SAMPLE);
+      xs[i] = p.x; ys[i] = p.y;
+    }
+    const reach = Math.ceil((width * 3) / SAMPLE);
+    const w = [];
+    let sum = 0;
+    for (let k = -reach; k <= reach; k++) {
+      const g = Math.exp(-0.5 * Math.pow((k * SAMPLE) / width, 2));
+      w.push(g); sum += g;
+    }
+    // Past either end of the clip the run is carried on in a straight line at the speed it had
+    // there. Holding the body still instead would have it ease out of a standstill into its opening
+    // stride, which is a burst of speed nobody asked for in the first tenth of a second.
+    const sample = (arr, j) => {
+      if (j < 0) return arr[0] + (arr[0] - arr[1]) * -j;
+      if (j > n - 1) return arr[n - 1] + (arr[n - 1] - arr[n - 2]) * (j - (n - 1));
+      return arr[j];
+    };
+    const blur = i => {
+      let x = 0, y = 0;
+      for (let k = -reach; k <= reach; k++) {
+        x += sample(xs, i + k) * w[k + reach]; y += sample(ys, i + k) * w[k + reach];
+      }
+      return [round2(t0 + i * SAMPLE), round2(x / sum), round2(y / sum)];
+    };
+    const out = [];
+    const every = Math.max(1, Math.round(0.1 / SAMPLE));
+    let last = 0;
+    for (let i = 0; i < n; i += every) { out.push(blur(i)); last = i; }
+    // The final key closes the path. Tacked on a twentieth of a second after the one before it, it
+    // would read as a last-instant lunge and a dead stop; so it replaces that key instead.
+    if (last !== n - 1) {
+      const end = blur(n - 1);
+      if (end[0] - out[out.length - 1][0] < MIN_GAP) out[out.length - 1] = end;
+      else out.push(end);
+    }
+    return out;
   }
   function moveHeading(pl, t) {
     const a = pathPos(pl.path, t - 0.08), b = pathPos(pl.path, t + 0.08);
@@ -933,15 +1060,41 @@
   // the ball, stay goal-side of the nearest attacker, and the one nearest the ball carrier presses.
   // Keepers stay on the line between ball and goal. Attackers move up with play and keep making short
   // runs into space. Everyone reacts with a short delay and never outruns a sprint. Named players and
-  // anyone on the ball keep their exact choreographed paths. Returns new paths; the play is untouched.
+  // anyone on the ball keep their exact choreographed paths, for as long as those paths last: an
+  // imported player is only recorded while the camera cares about them, and a body left standing
+  // exactly where the data ran out — sometimes for twenty seconds — is the plainest possible tell
+  // that these are markers and not people. So every player is handed to the engine the moment their
+  // own keys run out, carrying the speed and direction they had, and goes on playing.
   function offBallPaths(play, ballAt) {
     const involved = new Set(play.ball.filter(k => k.with).map(k => k.with));
     for (const a of play.actions) involved.add(a.id);
-    const movers = play.players.filter(pl => !(involved.has(pl.id) || pl.star || pl.name));
+    // Not before the last moment the clip needs them exactly where it put them
+    const needed = new Map();
+    for (const k of play.ball) if (k.with) needed.set(k.with, Math.max(needed.get(k.with) || 0, k.t));
+    for (const a of play.actions) needed.set(a.id, Math.max(needed.get(a.id) || 0, a.t + 0.6));
+    // The record stops saying anything the moment the keys stop moving. An import that knows a
+    // player's position once writes it twice, at the start and at the end, and that reads on screen
+    // as a body standing in one spot for twenty seconds. Two identical keys are not a record of
+    // someone standing still; they are the absence of a record.
+    const toldUntil = pl => {
+      let last = pl.path[0][0];
+      for (let i = 1; i < pl.path.length; i++) {
+        const a = pl.path[i - 1], b = pl.path[i];
+        if (Math.hypot(b[1] - a[1], b[2] - a[2]) > 0.3) last = b[0];
+      }
+      return last;
+    };
+    const handover = pl => {
+      if (involved.has(pl.id) || pl.star || pl.name) return Math.max(toldUntil(pl), needed.get(pl.id) || 0);
+      return 0;                                            // never choreographed: the engine has them throughout
+    };
+    const from = new Map(play.players.map(pl => [pl.id, handover(pl)]));
+    const movers = play.players.filter(pl => from.get(pl.id) < play.duration - 0.4);
     const paths = new Map(movers.map(pl => [pl.id, []]));
     if (!movers.length) return paths;
     const lim = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
-    const step = 0.2, lag = 0.8;
+    const step = 0.2, lag = 0.8, ACCEL = 5.5;     // metres per second per second, about a person's best
+    const vel = new Map(movers.map(pl => [pl.id, { x: 0, y: 0 }]));
     const lagged = t => {
       let x = 0, y = 0, n = 0;
       for (let s = t - lag; s <= t + 1e-6; s += 0.2) { const b = ballAt(Math.max(0, s)); x += b.x; y += b.y; n++; }
@@ -976,19 +1129,36 @@
       const carrier = carrierAt(t);
       const carrierPos = carrier ? now.get(carrier) || ball : null;
 
-      // The defender nearest an attacking ball carrier presses
+      // The defender nearest an attacking ball carrier presses — and while the ball is in flight,
+      // with nobody carrying it, the defender nearest the ball goes to meet it. Somebody is always
+      // travelling towards the ball: a defence that all backs off at once, which is what happened
+      // through every pass, is the surest sign that nobody is really playing.
+      const focus = carrier ? (teamOf.get(carrier) === "A" ? carrierPos : null) : ball;
       let presser = null;
-      if (carrierPos && teamOf.get(carrier) === "A") {
+      if (focus) {
         let best = 12;
         for (const pl of play.players) {
-          if (pl.team !== "B" || pl.gk) continue;
+          // Only a player the engine moves can be sent anywhere; one the clip choreographs keeps
+          // its recorded path, so picking them as the presser would leave nobody actually pressing
+          if (pl.team !== "B" || pl.gk || !paths.has(pl.id)) continue;
           const q = paths.has(pl.id) ? lastOf(pl, t) : now.get(pl.id);
-          const d = Math.hypot(q.x - carrierPos.x, q.y - carrierPos.y);
+          const d = Math.hypot(q.x - focus.x, q.y - focus.y);
           if (d < best) { best = d; presser = pl.id; }
         }
       }
 
       for (const pl of order) {
+        // Still inside this player's own keyframes: the clip's record wins, and the engine only
+        // takes over once it runs out — with the speed the player already had, not from a standstill
+        const mine = from.get(pl.id);
+        if (t < mine) {
+          const here = pathPos(pl.path, t);
+          const back = pathPos(pl.path, Math.max(0, t - step));
+          vel.set(pl.id, { x: (here.x - back.x) / step, y: (here.y - back.y) / step });
+          paths.get(pl.id).push([t, here.x, here.y]);
+          now.set(pl.id, here);
+          continue;
+        }
         const prev = lastOf(pl, 0);
         // Defenders anchor to where they started (shifted with the ball); attackers follow their runs
         const anchor = pl.team === "B" ? pathPos(pl.path, 0) : pathPos(pl.path, t);
@@ -997,9 +1167,20 @@
         if (pl.gk) {
           const d = Math.hypot(ball.x - ownGoal.x, ball.y - ownGoal.y);
           target = toward(ownGoal, ball, lim(d / 7, 1, 6));
+          target.y += 0.35 * Math.sin((2 * Math.PI * t) / 3.4 + (idHash(pl.id) % 628) / 100);
           vmax = 4.5;
         } else if (pl.team === "B") {
-          const zone = { x: anchor.x + 0.32 * (drift.x - start.x), y: anchor.y + 0.38 * (drift.y - start.y) };
+          // Defenders hold shape rather than roam, but nobody stands perfectly still for ten seconds
+          // of open play: they shuffle across, check their shoulder, adjust a step at a time.
+          const seed = idHash(pl.id), beat = (seed % 628) / 100, period = 4.2 + (seed % 23) / 10;
+          const fidget = {
+            x: 0.55 * Math.sin((2 * Math.PI * t) / period + beat),
+            y: 0.7 * Math.sin((2 * Math.PI * t) / (period * 1.37) + beat * 1.9)
+          };
+          const zone = {
+            x: anchor.x + 0.32 * (drift.x - start.x) + fidget.x,
+            y: anchor.y + 0.38 * (drift.y - start.y) + fidget.y
+          };
           target = zone;
           let mark = null, markDist = 16;
           for (const other of play.players) {
@@ -1020,8 +1201,10 @@
             target = { x: target.x + (goalSide.x - target.x) * w, y: target.y + (goalSide.y - target.y) * w };
           }
           if (pl.id === presser) {
-            target = toward(carrierPos, ownGoal, 2.4);
+            // Close to within touching distance of a carrier; go right to a ball nobody has
+            target = toward(focus, ownGoal, carrier ? 2.4 : 1.2);
             vmax = 8;
+            chasing = true;
           }
         } else {
           const seed = idHash(pl.id), phase = (seed % 628) / 100, period = 3.2 + (seed % 17) / 10;
@@ -1040,9 +1223,13 @@
         // While the ball is in front of them, defenders give ground at a jockeying backpedal
         // (2 m/s at most) instead of turning and running from it; once it's past them they sprint back
         const jockey = () => {
-          if (pl.team !== "B" || pl.gk || ball.x > prev.x + 1) return;
+          // Whoever is closest to the ball is held to a backpedal whichever way the ball lies:
+          // the nearest defender turning and running from it is the thing that looks worst
+          if (pl.team !== "B" || pl.gk) return;
+          const gap = Math.hypot(ball.x - prev.x, ball.y - prev.y);
+          if (pl.id !== presser && gap > 10 && ball.x > prev.x + 1) return;
           const mx = x - prev.x, my = y - prev.y, ml = Math.hypot(mx, my);
-          const bl = Math.hypot(ball.x - prev.x, ball.y - prev.y) || 1;
+          const bl = gap || 1;
           const facing = ml ? (mx * (ball.x - prev.x) + my * (ball.y - prev.y)) / (ml * bl) : 1;
           if (facing < -0.17 && ml > 2.2 * step) { x = prev.x + (mx / ml) * 2.2 * step; y = prev.y + (my / ml) * 2.2 * step; }
         };
@@ -1058,6 +1245,30 @@
         const moved = Math.hypot(x - prev.x, y - prev.y), cap = 9 * step;
         if (moved > cap) { x = prev.x + ((x - prev.x) / moved) * cap; y = prev.y + ((y - prev.y) / moved) * cap; }
         jockey();
+        // Momentum: the wanted velocity is reached through an acceleration a body could produce,
+        // which rounds off the corners rather than snapping from one direction to another
+        const was = vel.get(pl.id);
+        let vx = (x - prev.x) / step, vy = (y - prev.y) / step;
+        const dvx = vx - was.x, dvy = vy - was.y, dv = Math.hypot(dvx, dvy);
+        const most = ACCEL * step * (pl.gk ? 0.8 : 1);
+        if (dv > most) { vx = was.x + (dvx / dv) * most; vy = was.y + (dvy / dv) * most; }
+        // Near the ball a defender may slide across at any pace, but the part of the run heading
+        // straight away from it is held to a backpedal. Momentum would otherwise carry a body that
+        // was already running goal-side on away from a ball now at its feet, and a defence that
+        // sprints away from the ball is the plainest sign that nobody is playing. Only the outward
+        // part is taken off, so the run across stays as quick as it was.
+        if (pl.team === "B" && !pl.gk) {
+          const bx = ball.x - prev.x, by = ball.y - prev.y, bd = Math.hypot(bx, by);
+          const away = bd > 0.1 ? -(vx * bx + vy * by) / bd : 0;
+          if (bd < 12 && away > 2.2) {
+            const cut = away - 2.2;
+            vx += (bx / bd) * cut;
+            vy += (by / bd) * cut;
+          }
+        }
+        vel.set(pl.id, { x: vx, y: vy });
+        x = prev.x + vx * step;
+        y = prev.y + vy * step;
         x = lim(x, -2, 107);
         y = lim(y, -2, 70);
         if (pl.gk) x = pl.team === "B" ? lim(x, 97, 105) : lim(x, 0, 8);
@@ -1081,7 +1292,7 @@
   };
   const easeIn = u => (u <= 0 ? 0 : u >= 1 ? 1 : u * u * (3 - 2 * u));
 
-  function buildActions(play, byId, ballAt) {
+  function buildActions(play, byId, ballAt, nearMisses) {
     const list = [];
     const add = (id, type, at, extra = {}) => {
       const [lead, dur, rank, hold] = ACTION_TIMING[type];
@@ -1120,6 +1331,20 @@
         }
         if (best && !list.some(x => x.id === d.id && x.rank >= 3 && Math.abs(x.at - best.t) < 1.5)) add(d.id, "lunge", best.t, { dir: best.dir });
       }
+    }
+
+    // A ball going past just out of reach is not something you watch: you throw a leg at it. Each
+    // near miss the compiler had to open up becomes the stretch that explains it — a slide if the
+    // ball is travelling and the player is already moving, otherwise a lunge off the standing foot.
+    for (const [id, miss] of nearMisses || []) {
+      const pl = byId[id];
+      if (!pl || list.some(x => x.id === id && x.rank >= 3 && Math.abs(x.at - miss.t) < 1.2)) continue;
+      const here = pos(id, miss.t), before = pos(id, Math.max(0, miss.t - 0.2));
+      const own = Math.hypot(here.x - before.x, here.y - before.y) / 0.2;
+      const type = pl.gk ? "dive" : (miss.ball.speed > 11 && own > 2.6 ? "slide" : "lunge");
+      const dir = Math.atan2(miss.ball.y - here.y, miss.ball.x - here.x);
+      if (type === "dive") add(id, "dive", miss.t, { side: Math.sign(miss.ball.y - here.y) || 1, reach: 1 });
+      else add(id, type, miss.t, { dir });
     }
 
     // Keeper dives: a shot passes the goalkeeper within reach
@@ -1254,15 +1479,42 @@
     return P;
   }
 
-  function gaitPose(g) {
+  // How a body carries itself. A running stride is not a sine wave: the foot stays down while the
+  // body passes over it, then swings through quickly, so the phase is skewed. The trunk rises over
+  // the standing leg and dips as the next foot lands, leans into a change of pace, and banks into a
+  // turn. A defender closing someone down does none of this: knees bent, feet quick, weight low.
+  function gaitPose(g, opts = {}) {
+    const jockey = Math.max(0, Math.min(1, opts.jockey || 0));
+    const back = opts.mode === "backpedal", side = opts.mode === "shuffle";
+    const run = g.run * (jockey ? 1 - 0.35 * jockey : 1);
+    const sprint = g.sprint * (1 - jockey);
+    // Skewed phase: quick swing, longer stance
+    const warp = th => th + 0.28 * Math.sin(th);
+    const swingAmp = (0.13 + 0.46 * run + 0.2 * sprint) * (back ? 0.78 : side ? 0.72 : 1) * (1 - 0.4 * jockey);
+    const idle = Math.max(0, 1 - g.speed / 1.2);
+    const breath = idle * 0.02 * Math.sin((opts.t || 0) * 1.6 + (opts.seed || 0));
+    const turn = Math.max(-3.2, Math.min(3.2, opts.turn || 0));
     return {
-      lift: -Math.abs(Math.sin(g.phase)) * 0.025 * g.run,
-      pitch: 0.04 + 0.14 * g.run + 0.1 * g.sprint,
-      legs: [0, Math.PI].map(off => ({
-        hip: (0.12 + 0.45 * g.run + 0.15 * g.sprint) * Math.sin(g.phase + off),
-        knee: 0.08 + g.run * (0.2 + 1.35 * Math.max(0, Math.cos(g.phase + off)))
-      })),
-      arms: [0, Math.PI].map(off => ({ shoulder: -(0.15 + 0.65 * g.run) * Math.sin(g.phase + off), elbow: 0.35 + 1.05 * g.run }))
+      // two bounces a stride, and a low centre of gravity when jockeying
+      lift: run * (0.032 * Math.sin(2 * g.phase) - 0.012) - 0.055 * jockey,
+      pitch: 0.04 + 0.16 * run + 0.12 * sprint
+        + Math.max(-0.12, Math.min(0.16, (g.accel || 0) * 0.028))   // lean into a burst, sit back to stop
+        + 0.14 * jockey - (back ? 0.07 : 0),
+      bank: -turn * 0.035 * Math.min(1, 0.3 + run),                 // lean into the turn
+      legs: [0, Math.PI].map(off => {
+        const th = warp(g.phase + off);
+        const swing = Math.max(0, Math.cos(th));                    // leg coming through
+        const stance = Math.max(0, -Math.cos(th));                  // leg carrying the weight
+        return {
+          hip: swingAmp * Math.sin(th) + breath,
+          knee: 0.07 + 0.42 * jockey + (back ? 0.12 : 0)
+            + run * (0.16 + 1.35 * Math.pow(swing, 1.25) + 0.22 * stance)
+        };
+      }),
+      arms: [0, Math.PI].map(off => ({
+        shoulder: -(0.14 + 0.62 * run) * Math.sin(warp(g.phase + off)) - 0.1 * jockey,
+        elbow: 0.32 + 1.05 * run + 0.5 * jockey
+      }))
     };
   }
 
@@ -1325,7 +1577,7 @@
   }
   function gaitTable(pl, duration) {
     const n = Math.ceil((duration + 1) / GAIT_DT) + 2;
-    const phase = new Float32Array(n), speed = new Float32Array(n);
+    const phase = new Float32Array(n), speed = new Float32Array(n), accel = new Float32Array(n);
     let prev = pathPos(pl.path, 0), ph = 0;
     for (let i = 1; i < n; i++) {
       const p = pathPos(pl.path, i * GAIT_DT);
@@ -1337,7 +1589,13 @@
       prev = p;
     }
     speed[0] = speed[1];
-    return { phase, speed };
+    // Smoothed change of pace: a body leans into a sprint and sits back to stop
+    for (let i = 1; i < n; i++) {
+      const back = speed[Math.max(0, i - 3)], fwd = speed[Math.min(n - 1, i + 3)];
+      accel[i] = (fwd - back) / (6 * GAIT_DT);
+    }
+    accel[0] = accel[1];
+    return { phase, speed, accel };
   }
 
   // ---------- Play-by-play ----------
@@ -1353,6 +1611,34 @@
     dive: ["Dive", "dives across the goal"]
   };
 
+  // What the ball was doing when it left a foot at this moment: how hard, how bent, how high
+  function struckAt(play, byId, t) {
+    const k = play.ball;
+    // A moment can be the strike itself or the ball arriving (a goal is timed as it crosses the line)
+    for (let i = 0; i + 1 < k.length; i++) {
+      const a = k[i], b = k[i + 1];
+      if (a.with && a.with === b.with) continue;
+      if (Math.abs(a.t - t) > 0.45 && Math.abs(b.t - t) > 0.45) continue;
+      const at = kf => (kf.with && byId[kf.with] ? pathPos(byId[kf.with].path, kf.t) : { x: kf.x, y: kf.y });
+      const pa = at(a), pb = at(b);
+      const straight = Math.hypot(pb.x - pa.x, pb.y - pa.y);
+      const bend = Math.abs(b.curve || 0) * straight * 0.42;
+      const flown = straight + (bend * bend * 2.6) / Math.max(straight, 1);   // the bent path is longer
+      const span = Math.max(b.t - a.t, 0.08);
+      return { speed: flown / span, curve: b.curve || 0, lofted: !!b.lofted, from: a.with, distance: straight };
+    }
+    return null;
+  }
+
+  const strikeWords = hit => {
+    if (!hit) return "";
+    const bits = [`${Math.round(hit.speed)} m/s`];
+    if (Math.abs(hit.curve) >= 0.25) bits.push(hit.curve > 0 ? "curled right" : "curled left");
+    else if (hit.lofted) bits.push("lofted");
+    else if (hit.speed >= 26) bits.push("drilled");
+    return bits.join(" · ");
+  };
+
   function momentsOf(play, byId) {
     const nameOf = id => {
       const pl = byId[id];
@@ -1362,6 +1648,19 @@
       return pl.num != null ? `${short} ${pl.num}` : `The ${short} player`;
     };
     const rows = play.captions.map(c => ({ t: c.t, text: c.text, tag: "", key: false }));
+    const nameOfId = id => {
+      const pl = byId[id];
+      return pl ? (pl.name || (pl.num != null ? `${play.teams[pl.team].short} ${pl.num}` : "The player")) : "";
+    };
+    for (const ev of play.events) {
+      if (ev.type !== "pass") continue;
+      const hit = struckAt(play, byId, ev.t);
+      // Only the passes worth calling out: hit hard, bent, or floated a long way
+      if (!hit || !(hit.speed >= 18 || Math.abs(hit.curve) >= 0.25 || (hit.lofted && hit.distance > 25))) continue;
+      const who = hit.from ? nameOfId(hit.from) : "";
+      rows.push({ t: ev.t, text: `${who}${who ? ": " : ""}${hit.lofted ? "floated" : "struck"} it ${Math.round(hit.distance)} m.`,
+                  tag: "Pass", key: true, metric: strikeWords(hit) });
+    }
     for (const a of play.actions) {
       const label = KEY_ACTIONS[a.type];
       if (label) rows.push({ t: a.t, text: `${nameOf(a.id)} ${label[1]}.`, tag: label[0], key: true });
@@ -1371,8 +1670,13 @@
       if (ev.type === "goal") {
         // A goal usually lands on the same moment as the strike: badge that row instead of adding one
         const strike = rows.find(r => r.key && Math.abs(r.t - ev.t) < 0.4);
-        if (strike) { strike.tag = "Goal"; continue; }
-        rows.push({ t: ev.t, text: `Goal for ${team}.`, tag: "Goal", key: true });
+        if (strike) {
+          strike.tag = "Goal";
+          strike.metric = strike.metric || strikeWords(struckAt(play, byId, ev.t - 0.4));
+          continue;
+        }
+        rows.push({ t: ev.t, text: `Goal for ${team}.`, tag: "Goal", key: true,
+                    metric: strikeWords(struckAt(play, byId, ev.t) || struckAt(play, byId, ev.t - 0.6)) });
       } else if (ev.type === "save") {
         rows.push({ t: ev.t, text: `Saved by the ${team} goalkeeper.`, tag: "Save", key: true });
       } else if (ev.type === "tackle") {
@@ -1381,6 +1685,8 @@
     }
     return rows.sort((a, b) => a.t - b.t || (a.key ? 1 : 0) - (b.key ? 1 : 0));
   }
+
+  const round2 = v => Math.round(v * 100) / 100;
 
   function compile(play) {
     const byId = Object.fromEntries(play.players.map(p => [p.id, p]));
@@ -1399,6 +1705,7 @@
       return {
         phase: tb.phase[i] + (tb.phase[i + 1] - tb.phase[i]) * u,
         speed: v,
+        accel: tb.accel[i] + (tb.accel[i + 1] - tb.accel[i]) * u,
         run: Math.min(1, v / 5.5),
         sprint: Math.max(0, Math.min(1, (v - 5) / 3))
       };
@@ -1423,27 +1730,231 @@
       return { x: p.x + Math.cos(h) * reach, y: p.y + Math.sin(h) * reach };
     }
 
+    // A kicked ball leaves the foot fast and slows as it goes, so most of the distance is covered
+    // early; DRAG sets how much. Sidespin bends the flight: the ball starts out wide of the target
+    // and comes back, which is why a curled ball looks like it is missing until it isn't.
+    const DRAG = 1.35, BEND = 0.42;
+    const dragEase = u => (1 - Math.exp(-DRAG * u)) / (1 - Math.exp(-DRAG));
+    const bendAt = u => 2.4 * u * (1 - u) * (0.55 + 0.45 * u);   // widest just past halfway, home at the end
+
     function ballAt(t) {
       const k = play.ball, n = k.length;
       const at = (kf, tt) => (kf.with ? feet(byId[kf.with], tt) : { x: kf.x, y: kf.y });
-      if (t <= k[0].t) return { ...at(k[0], t), h: 0 };
-      if (t >= k[n - 1].t) return { ...at(k[n - 1], t), h: 0 };
+      if (t <= k[0].t) return { ...at(k[0], t), h: 0, speed: 0, curve: 0 };
+      if (t >= k[n - 1].t) return { ...at(k[n - 1], t), h: 0, speed: 0, curve: 0 };
       let i = 0;
       while (i < n - 2 && t > k[i + 1].t) i++;
       const a = k[i], b = k[i + 1];
-      if (a.with && a.with === b.with) return { ...feet(byId[a.with], t), h: 0 };
+      if (a.with && a.with === b.with) return { ...feet(byId[a.with], t), h: 0, speed: 0, curve: 0, carried: true };
       const pa = at(a, a.t), pb = at(b, b.t);
-      const u = (t - a.t) / Math.max(b.t - a.t, 1e-6);
-      const e = u * (1.3 - 0.3 * u);
-      return { x: pa.x + (pb.x - pa.x) * e, y: pa.y + (pb.y - pa.y) * e, h: b.lofted ? 4 * u * (1 - u) : 0 };
+      const span = Math.max(b.t - a.t, 1e-6);
+      const u = (t - a.t) / span;
+      const dx = pb.x - pa.x, dy = pb.y - pa.y;
+      const len = Math.hypot(dx, dy) || 1;
+      // Slowing only shows over a real flight. A clip cut into short hops (the imported ones are)
+      // would otherwise pulse: fast, slow, fast, slow, once per keyframe.
+      const flight = span > 0.55 && len > 7;
+      const e = !flight ? u : b.lofted ? u * (1.15 - 0.15 * u) : dragEase(u);
+      const bend = (b.curve || 0) * len * BEND * bendAt(u);
+      const x = pa.x + dx * e - (dy / len) * bend;
+      const y = pa.y + dy * e + (dx / len) * bend;
+      // Speed along the flight, from how much ground the ball covers per second right now
+      const step = 0.02, u2 = Math.min(1, u + step / span);
+      const e2 = !flight ? u2 : b.lofted ? u2 * (1.15 - 0.15 * u2) : dragEase(u2);
+      const bend2 = (b.curve || 0) * len * BEND * bendAt(u2);
+      const speed = Math.hypot(dx * (e2 - e) - (dy / len) * (bend2 - bend),
+                               dy * (e2 - e) + (dx / len) * (bend2 - bend)) / (u2 === u ? 1 : (u2 - u) * span);
+      return { x, y, h: b.lofted ? 4 * u * (1 - u) : 0, speed, curve: b.curve || 0, power: b.power };
     }
 
     // Supporting players get off-ball movement; everything below (actions, poses, looks) uses it
     for (const [id, path] of offBallPaths(play, ballAt)) {
-      byId[id] = { ...byId[id], path };
+      byId[id] = { ...byId[id], path: cleanPath(path) };
       tables.set(id, gaitTable(byId[id], play.duration));
     }
-    actionsBy = buildActions(play, byId, ballAt);
+
+    // The celebration: a scorer does not stand still. They wheel away and run for the corner flag,
+    // accelerating out of the turn, flat out down the middle of the run, and slowing as they arrive.
+    for (const ev of play.events) {
+      if (ev.type !== "goal" || play.duration - ev.t < 2.2) continue;
+      let scorer = null;
+      for (const k of play.ball) if (k.with && k.t <= ev.t) scorer = k.with;
+      if (!scorer || !byId[scorer]) continue;
+      const src = byId[scorer];
+      const from = ev.t + 0.25;
+      const here = pathPos(src.path, from);
+      const before = pathPos(src.path, from - 0.2);
+      // The near corner of the goal they scored at, a couple of metres inside the line
+      const flag = { x: 101.5, y: here.y < 34 ? 4.5 : 63.5 };
+      // The run has to grow out of the stride the scorer was already in. Without the last half second
+      // of the real path written out at the same cadence, the join has a keyframe two seconds behind
+      // it and one a fifth of a second ahead, and the body lurches as it crosses.
+      const STEP = 0.2;
+      const keys = [];
+      for (let t = from - 0.6; t < from - 1e-6; t += STEP) {
+        const q = pathPos(src.path, t);
+        keys.push([round2(t), round2(q.x), round2(q.y)]);
+      }
+      keys.push([round2(from), round2(here.x), round2(here.y)]);
+      let vx = (here.x - before.x) / 0.2, vy = (here.y - before.y) / 0.2;
+      let x = here.x, y = here.y;
+      const TOP = 7.4, ACC = 6;
+      for (let t = from + STEP; t <= play.duration + 1e-6; t += STEP) {
+        const dx = flag.x - x, dy = flag.y - y;
+        const away = Math.hypot(dx, dy) || 1;
+        // Ease off on the approach so the run lands on the flag rather than through it
+        const want = Math.min(TOP, Math.max(1.2, away * 1.1));
+        const wx = (dx / away) * want, wy = (dy / away) * want;
+        const ax = wx - vx, ay = wy - vy, mag = Math.hypot(ax, ay);
+        const most = ACC * STEP;
+        if (mag > most) { vx += (ax / mag) * most; vy += (ay / mag) * most; } else { vx = wx; vy = wy; }
+        x = Math.max(-1, Math.min(106, x + vx * STEP));
+        y = Math.max(1, Math.min(67, y + vy * STEP));
+        keys.push([round2(t), round2(x), round2(y)]);
+      }
+      const kept = src.path.filter(k => k[0] < from - 0.6 - STEP);
+      byId[scorer] = { ...src, path: cleanPath(kept.concat(keys)) };
+      tables.set(scorer, gaitTable(byId[scorer], play.duration));
+    }
+    // Every path is now final: the clip's own keys, the off-ball engine's and the celebration run's.
+    // Smoothing them together keeps the seams between the three from showing.
+    for (const pl of play.players) {
+      byId[pl.id] = { ...byId[pl.id], path: humanPath(byId[pl.id].path) };
+      tables.set(pl.id, gaitTable(byId[pl.id], play.duration));
+    }
+
+    // Two players cannot stand in the same place either, and they do: a clip's keyframes and the
+    // off-ball engine's paths are each written without reference to the other, so bodies drift
+    // through one another as though neither were there. Every body is stepped through the clip and
+    // any pair standing inside each other is eased apart, half the shortfall each, along the line
+    // between them — except whoever has the ball, who is left exactly where they are so the ball
+    // stays on its line. The result is blurred in time again, so what shows is two players leaning
+    // away from a collision rather than being shoved.
+    const APART = 1.3, GRID = 0.1;            // metres between two bodies, sampled every tenth of a second
+    // Twice: easing the correction in over a quarter of a second necessarily gives some of it back,
+    // so the second round works on what the first actually left rather than on what it asked for.
+    for (let round = 0; round < 2; round++) {
+      const ids = play.players.map(pl => pl.id);
+      const steps = Math.ceil(play.duration / GRID) + 1;
+      const xs = new Map(ids.map(id => [id, new Float64Array(steps)]));
+      const ys = new Map(ids.map(id => [id, new Float64Array(steps)]));
+      const carrier = t => {
+        const k = play.ball;
+        for (let i = 0; i < k.length; i++) {
+          if (!k[i].with) continue;
+          if (Math.abs(k[i].t - t) < 0.25) return k[i].with;
+          if (i + 1 < k.length && k[i + 1].with === k[i].with && t >= k[i].t && t <= k[i + 1].t) return k[i].with;
+        }
+        return null;
+      };
+      const ox = new Map(ids.map(id => [id, new Float64Array(steps)]));
+      const oy = new Map(ids.map(id => [id, new Float64Array(steps)]));
+      for (let i = 0; i < steps; i++) {
+        const t = i * GRID;
+        const held = carrier(t);
+        const now = ids.map(id => {
+          const p = pathPos(byId[id].path, t);
+          ox.get(id)[i] = p.x; oy.get(id)[i] = p.y;
+          return { id, x: p.x, y: p.y, fixed: id === held };
+        });
+        for (let pass = 0; pass < 4; pass++) {
+          for (let a = 0; a < now.length; a++) {
+            for (let b = a + 1; b < now.length; b++) {
+              const dx = now[b].x - now[a].x, dy = now[b].y - now[a].y;
+              const d = Math.hypot(dx, dy);
+              if (d >= APART) continue;
+              const ux = d > 1e-6 ? dx / d : 1, uy = d > 1e-6 ? dy / d : 0;
+              const room = APART - d;
+              // Whoever is on the ball holds their ground; the other gives way
+              const mine = now[a].fixed ? 0 : now[b].fixed ? 1 : 0.5;
+              now[a].x -= ux * room * mine; now[a].y -= uy * room * mine;
+              now[b].x += ux * room * (1 - mine); now[b].y += uy * room * (1 - mine);
+            }
+          }
+        }
+        now.forEach((q, j) => { xs.get(ids[j])[i] = q.x; ys.get(ids[j])[i] = q.y; });
+      }
+      // What gets kept is not the corrected path but the correction: how far each body had to give
+      // way, blurred in time and then laid over the run it was already making. Smoothing the whole
+      // path a second time would round off every stride along with the correction, and the running
+      // goes soft — the difference between a player moving and a piece being slid about.
+      const EASE = 0.35;                       // seconds: how gradually a body gives way
+      const span = Math.ceil((EASE * 2.5) / GRID);
+      const kernel = [];
+      let weight = 0;
+      for (let k = -span; k <= span; k++) {
+        const g = Math.exp(-0.5 * Math.pow((k * GRID) / EASE, 2));
+        kernel.push(g); weight += g;
+      }
+      for (const id of ids) {
+        const X = xs.get(id), Y = oy.get(id) && ys.get(id), OX = ox.get(id), OY = oy.get(id);
+        const path = [];
+        for (let i = 0; i < steps; i++) {
+          let dx = 0, dy = 0;
+          for (let k = -span; k <= span; k++) {
+            const j = Math.min(steps - 1, Math.max(0, i + k));
+            dx += (X[j] - OX[j]) * kernel[k + span];
+            dy += (Y[j] - OY[j]) * kernel[k + span];
+          }
+          path.push([round2(i * GRID), round2(OX[i] + dx / weight), round2(OY[i] + dy / weight)]);
+        }
+        // A narrow pass over the joins only — where the engine takes a body over from the clip's
+        // own keys, and where a correction starts. Wide enough to keep those seams inside what legs
+        // can do, too narrow to touch the stride itself.
+        byId[id] = { ...byId[id], path: humanPath(path, 0.1) };
+        tables.set(id, gaitTable(byId[id], play.duration));
+      }
+    }
+
+    // Nobody is made of air. A pass or a shot that would travel straight through a defender is the
+    // one thing that gives the whole illusion away, and it happens because the ball's path and the
+    // players' paths are written down separately and never asked about each other. So they are asked
+    // here: wherever the ball would pass within touching distance of someone who is not playing it,
+    // that player is given the step they really would have taken — a stretch towards the ball that
+    // comes up just short. It is half a stride at most, eased in and out over a second and a bit, so
+    // it reads as a defender lunging and being beaten, which is what actually happened.
+    const CLEAR = 0.95;                        // metres from the middle of a body to the ball
+    const LUNGE = 0.85;                        // seconds either side of the moment it is closest
+    const nearMisses = new Map();              // id -> the moment the ball went past just out of reach
+    for (let pass = 0; pass < 6; pass++) {
+      const worst = new Map();
+      for (let t = 0; t <= play.duration + 1e-9; t += 0.02) {
+        const ball = ballAt(t);
+        if (ball.carried || ball.h > 1.2) continue;      // at someone's feet, or over their heads
+        for (const pl of play.players) {
+          // Whoever has just played it or is about to take it is meant to be next to the ball
+          let mine = false;
+          for (const k of play.ball) if (k.with === pl.id && Math.abs(k.t - t) < 0.5) mine = true;
+          if (mine) continue;
+          const here = pathPos(byId[pl.id].path, t);
+          const d = Math.hypot(here.x - ball.x, here.y - ball.y);
+          if (d >= CLEAR) continue;
+          const had = worst.get(pl.id);
+          if (!had || d < had.d) worst.set(pl.id, { d, t, x: here.x - ball.x, y: here.y - ball.y });
+        }
+      }
+      if (!worst.size) break;
+      for (const [id, hit] of worst) {
+        const had = nearMisses.get(id);
+        if (!had || hit.d < had.d) nearMisses.set(id, { t: hit.t, d: hit.d, ball: ballAt(hit.t) });
+        const away = Math.hypot(hit.x, hit.y) || 1;
+        const need = CLEAR - hit.d + 0.05;
+        const ux = (hit.x / away) * need, uy = (hit.y / away) * need;
+        const path = byId[id].path.map(k => {
+          const off = (k[0] - hit.t) / LUNGE;
+          if (Math.abs(off) >= 1) return k;
+          const ease = Math.pow(1 - off * off, 2);         // full at the near miss, nothing by the edges
+          return [k[0], round2(k[1] + ux * ease), round2(Math.min(67, Math.max(1, k[2] + uy * ease)))];
+        });
+        // A narrow pass over the joins only — where the engine takes a body over from the clip's
+        // own keys, and where a correction starts. Wide enough to keep those seams inside what legs
+        // can do, too narrow to touch the stride itself.
+        byId[id] = { ...byId[id], path: humanPath(path, 0.1) };
+        tables.set(id, gaitTable(byId[id], play.duration));
+      }
+    }
+
+    actionsBy = buildActions(play, byId, ballAt, nearMisses);
 
     // Which way each body faces, sampled through the play. A player wants to look where they are
     // running, defenders and keepers want to watch the ball, and a kick or a lunge points the body
@@ -1464,9 +1975,15 @@
         const moving = moveHeading(src, t);
         const g = gait(pl, t);
         let want = moving ?? toBall;
+        if (g.speed < 0.9) want = toBall;
         if (pl.team === "B" || pl.gk) {
           const away = moving == null ? 0 : Math.abs(wrap(moving - toBall));
-          if (pl.gk || g.speed < 3.2 || away < 1.9) want = toBall;
+          const gap = Math.hypot(ball.x - p.x, ball.y - p.y);
+          // Turning your back is only ever right when the ball is a long way off and you are
+          // sprinting for goal. Anywhere near it, a defender watches the ball.
+          // Watch the ball while there is any chance of playing it — but nobody sprints backwards,
+          // so past a brisk backpedal the body turns and runs
+          if (pl.gk || away < 1.9 || g.speed < (gap < 10 ? 4.4 : 3.2)) want = toBall;
         }
         for (const a of actionsBy.get(pl.id) || []) {
           if (a.dir != null && t >= a.t0 && t <= a.t1) want = a.dir;
@@ -1493,24 +2010,37 @@
       // (short steps, reversed swing) and running across the body is a shuffle, not a full stride.
       let g = gait(pl, t);
       const travel = moveHeading(src, t);
+      let mode = "run";
       if (travel != null && g.speed > 0.6) {
         const off = Math.abs(wrap(travel - heading));
-        if (off > 1.9) g = { ...g, phase: -g.phase, run: g.run * 0.6, sprint: g.sprint * 0.25 };
-        else if (off > 1.0) g = { ...g, run: g.run * 0.78, sprint: g.sprint * 0.5 };
+        if (off > 1.9) { mode = "backpedal"; g = { ...g, phase: -g.phase, run: g.run * 0.6, sprint: g.sprint * 0.25 }; }
+        else if (off > 1.0) { mode = "shuffle"; g = { ...g, run: g.run * 0.78, sprint: g.sprint * 0.5 }; }
       }
-      const base = gaitPose(g);
+      // A defender within a few metres of the ball, facing it and not sprinting, is jockeying:
+      // knees bent, weight low, short steps. It is the stance that reads as defending.
+      let jockey = 0;
+      if ((pl.team === "B" || pl.gk) && !pl.gk) {
+        const ball = ballAt(t);
+        const gap = Math.hypot(ball.x - p.x, ball.y - p.y);
+        const facing = Math.abs(wrap(Math.atan2(ball.y - p.y, ball.x - p.x) - heading));
+        if (gap < 9 && facing < 1.1 && g.speed < 4.2) {
+          jockey = Math.min(1, (9 - gap) / 5) * Math.min(1, (4.2 - g.speed) / 2.4) * Math.min(1, (1.1 - facing) / 0.5);
+        }
+      }
+      const turnRate = wrap(headingAt(pl, t + 0.08) - headingAt(pl, t - 0.08)) / 0.16;
+      const base = gaitPose(g, { mode, jockey, turn: turnRate, t, seed: idHash(pl.id) % 7 });
       let active = null;
       for (const a of actionsBy.get(pl.id) || []) {
         if (t >= a.t0 && t <= a.t1 && (!active || a.rank > active.rank || (a.rank === active.rank && a.t0 > active.t0))) active = a;
       }
-      if (!active) return { gait: g, action: null, heading, x: p.x, y: p.y, roll: 0, ...base };
+      if (!active) return { gait: g, action: null, heading, x: p.x, y: p.y, ...base, roll: base.bank || 0 };
       const span = active.t1 - active.t0;
       const w = easeIn((t - active.t0) / Math.min(0.2, span * 0.25)) * (active.hold ? 1 : easeIn((active.t1 - t) / Math.min(0.2, span * 0.25)));
       const P = actionPose(active, (t - active.t0) / span, t);
       const mix = (x, y, k) => x + (y - x) * k;
       const lw = w * P.legW;
       // A dive tips the keeper toward the ball's side of the body
-      const roll = P.roll * w * (Math.sign(Math.cos(heading) * (active.side || 1)) || 1);
+      const roll = P.roll * w * (Math.sign(Math.cos(heading) * (active.side || 1)) || 1) + (base.bank || 0) * (1 - w);
       return {
         gait: g,
         action: active.type,
@@ -1525,13 +2055,51 @@
       };
     }
 
-    const track = [];
-    for (let t = 0; t <= play.duration + 1e-6; t += 0.05) track.push(ballAt(t));
+    // Where the players spent the clip: a grid of time-on-the-spot, blurred into a heat map.
+    // Built on demand, because most viewers never open it.
+    const HEAT_W = 108, HEAT_H = 71, HEAT_STEP = 0.1, heatCache = new Map();
+    function heatGrid(who) {
+      if (heatCache.has(who)) return heatCache.get(who);
+      const grid = new Float32Array(HEAT_W * HEAT_H);
+      const chosen = play.players.filter(pl =>
+        who === "all" ? true : who === "star" ? pl.star : pl.team === who);
+      for (const pl of chosen) {
+        const src = byId[pl.id];
+        for (let t = 0; t <= play.duration + 1e-6; t += HEAT_STEP) {
+          const p = pathPos(src.path, t);
+          const cx = p.x + 1.5, cy = p.y + 1.5;
+          const x0 = Math.max(0, Math.floor(cx - 3)), x1 = Math.min(HEAT_W - 1, Math.ceil(cx + 3));
+          const y0 = Math.max(0, Math.floor(cy - 3)), y1 = Math.min(HEAT_H - 1, Math.ceil(cy + 3));
+          for (let gy = y0; gy <= y1; gy++) {
+            for (let gx = x0; gx <= x1; gx++) {
+              const d2 = (gx + 0.5 - cx) ** 2 + (gy + 0.5 - cy) ** 2;
+              if (d2 > 9) continue;
+              grid[gy * HEAT_W + gx] += Math.exp(-d2 / 3.2);
+            }
+          }
+        }
+      }
+      let peak = 0;
+      for (const v of grid) peak = Math.max(peak, v);
+      const out = { grid, peak: peak || 1, w: HEAT_W, h: HEAT_H };
+      heatCache.set(who, out);
+      return out;
+    }
+
+    const track = [], spin = [];
+    let rolled = 0;
+    for (let t = 0; t <= play.duration + 1e-6; t += 0.05) {
+      const b = ballAt(t);
+      const prev = track[track.length - 1];
+      if (prev) rolled += Math.hypot(b.x - prev.x, b.y - prev.y) / 0.11;   // radians per metre of a match ball
+      track.push(b);
+      spin.push(rolled);
+    }
 
     const star = play.players.find(p => p.star) || null;
     const aria = `${play.title}. Overhead animation. ${play.captions.map(c => c.text).join(" ")}`;
     return {
-      play, byId, ballAt, track, star, aria, gait, hasBall, era, bodyAt, moments: momentsOf(play, byId),
+      play, byId, ballAt, track, spin, star, aria, gait, hasBall, era, bodyAt, heatGrid, moments: momentsOf(play, byId),
       lookOf: pl => looks.get(pl.id),
       bootColor: pl => era.boots[idHash(pl.id) % era.boots.length]
     };
@@ -1562,14 +2130,16 @@
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
     g.fillStyle = colors.edge;
     g.fillRect(0, 0, cssW, cssH);
-    const stripes = 14;
-    for (let i = 0; i < stripes; i++) {
-      g.fillStyle = i % 2 ? colors.a : colors.b;
-      g.fillRect(X((i * W) / stripes), Y(0), (W / stripes) * scale + 0.5, H * scale);
-    }
+    // The pitch is a panel of paper, a shade lighter than the page, with the faintest warmth
+    // across it. No mown stripes: they read as a video game more than a drawing.
+    const wash = g.createLinearGradient(X(0), Y(0), X(W), Y(H));
+    wash.addColorStop(0, colors.b);
+    wash.addColorStop(1, colors.a);
+    g.fillStyle = wash;
+    g.fillRect(X(-M), Y(-M), (W + 2 * M) * scale, (H + 2 * M) * scale);
     g.strokeStyle = colors.chalk;
     g.fillStyle = colors.chalk;
-    g.lineWidth = Math.max(1.2, 0.13 * scale);
+    g.lineWidth = Math.max(0.9, 0.09 * scale);
     const box = (x0, y0, x1, y1) => g.strokeRect(X(Math.min(x0, x1)), Y(y0), Math.abs(x1 - x0) * scale, (y1 - y0) * scale);
     const arc = (x, y, r, a0, a1) => { g.beginPath(); g.arc(X(x), Y(y), r * scale, a0, a1); g.stroke(); };
     const spot = (x, y) => { g.beginPath(); g.arc(X(x), Y(y), Math.max(1.6, 0.22 * scale), 0, Math.PI * 2); g.fill(); };
@@ -1588,7 +2158,7 @@
       else arc(11, 34, 9.15, -arcA, arcA);
       const gx = side ? W : -2;
       g.save();
-      g.fillStyle = "rgba(255,255,255,0.16)";
+      g.fillStyle = hexA(colors.ink, 0.05);
       g.fillRect(X(gx), Y(GOAL_Y0), 2 * scale, (GOAL_Y1 - GOAL_Y0) * scale);
       g.restore();
       g.strokeRect(X(gx), Y(GOAL_Y0), 2 * scale, (GOAL_Y1 - GOAL_Y0) * scale);
@@ -1661,27 +2231,38 @@
       ctx.rotate(-Math.PI / 2);
     }
     ctx.drawImage(pitchLayer, 0, 0, cssW, cssH);
+    if (heatOn) drawHeat(R);
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
 
-    // Ball route: whole route faint, travelled part highlighted
-    const idx = Math.min(R.track.length - 1, Math.floor(t / 0.05));
-    ctx.setLineDash([2, 5]);
-    ctx.strokeStyle = "rgba(255,255,255,0.42)";
-    ctx.lineWidth = 1.6;
+    // The ball's route, drawn like a brush stroke: the line the ball will take is barely there, and
+    // the line it has taken thickens and darkens towards the ball, fading out well behind it.
+    const idx = Math.max(0, Math.min(R.track.length - 1, Math.floor(t / 0.05) || 0));
+    ctx.lineWidth = Math.max(0.8, 0.07 * scale);
+    ctx.strokeStyle = hexA(colors.ink, 0.13);
     ctx.beginPath();
-    R.track.forEach((p, i) => (i ? ctx.lineTo(X(p.x), Y(p.y)) : ctx.moveTo(X(p.x), Y(p.y))));
+    for (let i = idx; i < R.track.length; i++) {
+      const p = R.track[i];
+      i === idx ? ctx.moveTo(X(p.x), Y(p.y)) : ctx.lineTo(X(p.x), Y(p.y));
+    }
     ctx.stroke();
-    ctx.setLineDash([]);
     if (idx > 0) {
-      ctx.strokeStyle = colors.accent;
-      ctx.lineWidth = Math.max(2, 0.34 * scale);
-      ctx.beginPath();
-      for (let i = 0; i <= idx; i++) {
-        const p = R.track[i];
-        i ? ctx.lineTo(X(p.x), Y(p.y)) : ctx.moveTo(X(p.x), Y(p.y));
+      const tail = Math.max(0, idx - 90);                       // about four and a half seconds
+      for (let i = tail; i < idx; i++) {
+        const a = R.track[i], b = R.track[i + 1];
+        const u = (i - tail) / Math.max(1, idx - tail);
+        ctx.strokeStyle = hexA(colors.accent, 0.08 + 0.72 * u * u);
+        ctx.lineWidth = Math.max(0.9, (0.08 + 0.3 * u) * scale);
+        ctx.beginPath();
+        ctx.moveTo(X(a.x), Y(a.y));
+        ctx.lineTo(X(b.x), Y(b.y));
+        ctx.stroke();
       }
-      const b = R.ballAt(t);
+      const b = R.ballAt(t), last = R.track[idx];
+      ctx.strokeStyle = hexA(colors.accent, 0.8);
+      ctx.lineWidth = Math.max(0.9, 0.38 * scale);
+      ctx.beginPath();
+      ctx.moveTo(X(last.x), Y(last.y));
       ctx.lineTo(X(b.x), Y(b.y));
       ctx.stroke();
     }
@@ -1691,15 +2272,16 @@
 
     // Star player's fading trail
     if (R.star) {
-      const steps = 40, span = 2.2;
-      ctx.lineWidth = Math.max(2.5, 0.42 * scale);
+      const steps = 48, span = 2.6;
       let prev = null;
       for (let i = 0; i <= steps; i++) {
         const tt = t - span + (span * i) / steps;
         if (tt < 0) continue;
         const p = pathPos(R.star.path, tt);
         if (prev) {
-          ctx.strokeStyle = hexA(play.teams[R.star.team].color, (i / steps) * 0.75);
+          const u = i / steps;
+          ctx.strokeStyle = hexA(play.teams[R.star.team].color, 0.06 + 0.5 * u * u);
+          ctx.lineWidth = Math.max(1, (0.1 + 0.28 * u) * scale);
           ctx.beginPath();
           ctx.moveTo(X(prev.x), Y(prev.y));
           ctx.lineTo(X(p.x), Y(p.y));
@@ -1717,12 +2299,12 @@
       return { pl, x: X(p.x), y: Y(p.y), h, key: !!(pl.num != null || pl.name || pl.star) };
     });
 
-    // Shadows
-    ctx.fillStyle = "rgba(10, 30, 18, 0.28)";
+    // Shadows: a soft print, not a drop shadow
+    ctx.fillStyle = hexA(colors.ink, 0.1);
     for (const s of states) {
       const rr = s.key ? r : r * 0.8;
       ctx.beginPath();
-      ctx.ellipse(s.x + 1.5, s.y + 2.5, rr, rr * 0.8, 0, 0, Math.PI * 2);
+      ctx.ellipse(s.x + 1, s.y + 1.8, rr * 1.02, rr * 0.82, 0, 0, Math.PI * 2);
       ctx.fill();
     }
 
@@ -1733,40 +2315,37 @@
       const rr = s.key ? r : r * 0.8;
       ctx.globalAlpha = s.key ? 1 : 0.88;
 
+      // The player the clip is about carries a fine ring, held steady — no pulsing
       if (s.pl.star) {
-        const pulse = reduceMotion || (!playing && !exporting)
-          ? 0.5
-          : 0.5 + 0.5 * Math.sin((exporting ? t * 1000 : performance.now()) / 260);
-        ctx.strokeStyle = colors.accent;
-        ctx.lineWidth = 2.5;
+        ctx.strokeStyle = hexA(colors.accent, 0.85);
+        ctx.lineWidth = Math.max(1, 0.1 * scale);
         ctx.beginPath();
-        ctx.arc(s.x, s.y, rr + 4 + pulse * 1.5, 0, Math.PI * 2);
+        ctx.arc(s.x, s.y, rr + 3.5, 0, Math.PI * 2);
         ctx.stroke();
       }
 
-      // Facing notch
-      ctx.fillStyle = "rgba(255,255,255,0.92)";
+      // Which way they are facing: a short stroke out of the disc, not an arrowhead
+      ctx.strokeStyle = hexA(colors.ink, s.key ? 0.5 : 0.32);
+      ctx.lineWidth = Math.max(1, 0.08 * scale);
       ctx.beginPath();
-      ctx.moveTo(s.x + Math.cos(s.h) * (rr + 4.5), s.y + Math.sin(s.h) * (rr + 4.5));
-      ctx.lineTo(s.x + Math.cos(s.h + 0.5) * (rr + 0.5), s.y + Math.sin(s.h + 0.5) * (rr + 0.5));
-      ctx.lineTo(s.x + Math.cos(s.h - 0.5) * (rr + 0.5), s.y + Math.sin(s.h - 0.5) * (rr + 0.5));
-      ctx.closePath();
-      ctx.fill();
+      ctx.moveTo(s.x + Math.cos(s.h) * rr * 0.55, s.y + Math.sin(s.h) * rr * 0.55);
+      ctx.lineTo(s.x + Math.cos(s.h) * (rr + 4), s.y + Math.sin(s.h) * (rr + 4));
+      ctx.stroke();
 
       ctx.fillStyle = s.pl.gk ? tm.gkColor : tm.color;
-      ctx.strokeStyle = tm.color2;
-      ctx.lineWidth = s.key ? 2.2 : 1.8;
+      ctx.strokeStyle = hexA(colors.ink, 0.55);
+      ctx.lineWidth = Math.max(0.8, 0.07 * scale);
       ctx.beginPath();
       ctx.arc(s.x, s.y, rr, 0, Math.PI * 2);
       ctx.fill();
       ctx.stroke();
 
       if (s.pl.num != null && rr >= 7) {
-        ctx.fillStyle = s.pl.gk ? (luminance(tm.gkColor) > 0.4 ? "#12201A" : "#FFFFFF") : tm.text;
-        ctx.font = `800 ${Math.round(rr * 1.25)}px ${FONT_DISPLAY}`;
+        ctx.fillStyle = s.pl.gk ? (luminance(tm.gkColor) > 0.4 ? "#1C1A16" : "#F6F3EC") : tm.text;
+        ctx.font = `500 ${Math.round(rr * 1.05)}px ${FONT_DISPLAY}`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        upright(s.x, s.y, () => ctx.fillText(String(s.pl.num), 0, rr * 0.08));
+        upright(s.x, s.y, () => ctx.fillText(String(s.pl.num), 0, rr * 0.06));
       }
       ctx.globalAlpha = 1;
     }
@@ -1789,29 +2368,68 @@
     ctx.beginPath();
     ctx.ellipse(bx + 1.5, by + 2, br, br * 0.75, 0, 0, Math.PI * 2);
     ctx.fill();
-    drawBall(ctx, rotated ? bx + lift : bx, rotated ? by : by - lift, br, R.era.ball);
+    const turn = (R.spin[Math.min(R.spin.length - 1, Math.floor(t / 0.05))] || 0) * (rotated ? -1 : 1);
+    drawBall(ctx, rotated ? bx + lift : bx, rotated ? by : by - lift, br, R.era.ball, turn * 0.08);
 
     // Name labels
-    ctx.font = `600 ${cssW < 520 ? 10 : 11.5}px ${FONT_BODY}`;
+    // Names are set in the same serif as the page, in ink, with a breath of paper behind them so
+    // they stay legible over the pitch without a box around each one.
+    ctx.font = `${cssW < 520 ? 10.5 : 12}px ${FONT_DISPLAY}`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
+    ctx.lineJoin = "round";
+    const ballNow = R.ballAt(t);
     for (const s of states) {
       if (!s.pl.name) continue;
-      const w = ctx.measureText(s.pl.name).width + 10;
-      const lh = cssW < 520 ? 15 : 17;
-      const ly = s.pl.star ? -r - 7 - lh / 2 : r + 5 + lh / 2;
+      const src = R.byId[s.pl.id];
+      const here = pathPos(src.path, t);
+      // Names crowd the page: keep the star, and anyone near the ball
+      if (!s.pl.star && Math.hypot(here.x - ballNow.x, here.y - ballNow.y) > 22) continue;
+      const ly = s.pl.star ? -r - 11 : r + 11;
       upright(s.x, s.y, () => {
-        ctx.fillStyle = s.pl.star ? colors.accent : "rgba(12, 28, 19, 0.74)";
-        roundRect(ctx, -w / 2, ly - lh / 2, w, lh, lh / 2);
-        ctx.fill();
-        ctx.fillStyle = s.pl.star ? "#2A1E00" : "#FFFFFF";
-        ctx.fillText(s.pl.name, 0, ly + 0.5);
+        ctx.strokeStyle = hexA(colors.ground, 0.85);
+        ctx.lineWidth = 3;
+        ctx.strokeText(s.pl.name, 0, ly);
+        ctx.fillStyle = s.pl.star ? colors.accent : hexA(colors.ink, 0.82);
+        ctx.fillText(s.pl.name, 0, ly);
       });
     }
 
   }
 
-  const FONT_DISPLAY = '"Big Shoulders Display", "Arial Narrow", sans-serif';
+  // The heat map is painted into a small canvas — one pixel per metre — and stretched over the
+  // pitch, so the browser's own smoothing does the blurring for us.
+  let heatLayer = document.createElement("canvas");
+  let heatKey = "";
+  function drawHeat(R) {
+    const who = heatWho === "A" || heatWho === "B" ? heatWho : heatWho === "star" ? "star" : "all";
+    const heat = R.heatGrid(who);
+    const key = `${R.play.title}|${who}|${colors.ground}`;
+    if (heatKey !== key) {
+      heatKey = key;
+      heatLayer.width = heat.w;
+      heatLayer.height = heat.h;
+      const g = heatLayer.getContext("2d");
+      const img = g.createImageData(heat.w, heat.h);
+      for (let i = 0; i < heat.grid.length; i++) {
+        const v = Math.min(1, Math.pow(heat.grid[i] / heat.peak, 0.6));
+        // one colour soaked into the paper: pale where players passed, deep where they lived
+        img.data[i * 4] = 150 + 50 * v;
+        img.data[i * 4 + 1] = 96 + 20 * v;
+        img.data[i * 4 + 2] = 62 + 10 * v;
+        img.data[i * 4 + 3] = Math.round(200 * Math.min(1, v * 1.2));
+      }
+      g.putImageData(img, 0, 0);
+    }
+    ctx.save();
+    ctx.globalAlpha = 0.5;
+    ctx.globalCompositeOperation = "multiply";
+    ctx.imageSmoothingEnabled = true;
+    ctx.drawImage(heatLayer, X(-1.5), Y(-1.5), heat.w * scale, heat.h * scale);
+    ctx.restore();
+  }
+
+  const FONT_DISPLAY = '"Newsreader", "Iowan Old Style", Georgia, serif';
   const FONT_BODY = '"Figtree", system-ui, sans-serif';
 
   // Period ball: its era's panel design, lit from the top left. `flat` skips light and outline
@@ -1926,7 +2544,7 @@
   const playBtn = $("playBtn");
   let current = null;
   let t = 0, playing = false, speed = 1, lastFrame = 0, exporting = false;
-  let shownCaption = -2, shownScore = "", shownMoment = -2;
+  let shownCaption = -2, shownScore = "", shownMoment = -2, shownBall = "";
   let feedRows = [];
 
   const fmt = s => `${Math.floor(s / 60)}:${(s % 60).toFixed(1).padStart(4, "0")}`;
@@ -1976,6 +2594,19 @@
       }
     }
 
+    const flight = current.ballAt(t);
+    let reading = "";
+    if (!flight.carried && flight.speed > 2.5) {
+      reading = `${Math.round(flight.speed)} m/s`;
+      if (Math.abs(flight.curve) >= 0.25) reading += " · curling";
+      else if (flight.h > 0.8) reading += ` · ${flight.h.toFixed(1)} m up`;
+      else if (flight.speed >= 26) reading += " · drilled";
+    }
+    if (reading !== shownBall) {
+      shownBall = reading;
+      $("ballMeter").textContent = reading;
+    }
+
     const sc = scoreAt(play, t);
     const key = sc.join("-");
     if (key !== shownScore) {
@@ -2003,6 +2634,7 @@
     }
     speakCommentary();
     crowdTick();
+    scoreTick();
     render();
     if (playing) requestAnimationFrame(frame);
   }
@@ -2012,6 +2644,7 @@
     playing = on && !!current;
     if (!playing && !reachedEnd) hushCommentary();
     crowdTick();
+    scoreTick();
     footageSync();
     playBtn.setAttribute("aria-label", playing ? "Pause" : "Play");
     $("feed").classList.toggle("is-live", playing);
@@ -2031,6 +2664,7 @@
     t = 0;
     shownCaption = -2;
     shownScore = "";
+    shownBall = "";
     const { teams } = play;
     $("title").textContent = play.title;
     $("subtitle").textContent = play.subtitle;
@@ -2067,6 +2701,8 @@
     $("lessons").hidden = !play.lessons.length;
     $("analysis").hidden = !play.analysis.length && !play.lessons.length;
     renderFootage(play);
+    fillHeatChoices(play);
+    updateHeatBtn();
     canvas.setAttribute("aria-label", current.aria);
     scrubber.max = play.duration;
 
@@ -2084,6 +2720,12 @@
       what.className = "what";
       what.textContent = m.text;
       jump.append(at, what);
+      if (m.metric) {
+        const metric = document.createElement("span");
+        metric.className = "metric";
+        metric.textContent = m.metric;
+        jump.append(metric);
+      }
       if (m.tag) {
         const tag = document.createElement("span");
         tag.className = "tag";
@@ -2166,6 +2808,7 @@
   }
 
   async function setLook(name) {
+    if (name === "stadium3d" || name === "arcade") name = "classic";   // retired looks fall back
     const mod = name === "classic" ? null : (window.BirdseyeLooks || {})[name];
     if (name !== "classic" && !mod) {
       lookStatus.textContent = "That look didn't load. Reload the page to try again.";
@@ -2176,6 +2819,7 @@
     hushCommentary();
     updateVoiceBtn();
     updateCrowdBtn();
+    updateHeatBtn();
     try { localStorage.setItem("birdseye.look", name); } catch (e) { /* ignore */ }
     lookStatus.textContent = "";
     if (mod && !mod.ready) {
@@ -2198,6 +2842,48 @@
     render();
   }
   lookButtons.forEach(b => b.addEventListener("click", () => setLook(b.dataset.look)));
+
+  // ---------- Movement heatmap (Classic) ----------
+  // Shades the pitch by how long players stood on each patch of grass, which shows the shape of a
+  // move in one picture: the lane a runner used, the zone a defence held, where a move was worked.
+  const heatBtn = $("heatBtn"), heatSelect = $("heatWho");
+  let heatOn = false, heatWho = "all";
+  try {
+    heatOn = localStorage.getItem("birdseye.heat") === "on";
+    heatWho = localStorage.getItem("birdseye.heatWho") || "all";
+  } catch (e) { /* defaults */ }
+
+  function fillHeatChoices(play) {
+    const star = play.players.find(p => p.star);
+    const options = [["all", "Everyone"], ["A", play.teams.A.name], ["B", play.teams.B.name]];
+    if (star) options.push(["star", star.name || `Number ${star.num}` || "The star"]);
+    heatSelect.replaceChildren(...options.map(([value, label]) => {
+      const o = document.createElement("option");
+      o.value = value;
+      o.textContent = label;
+      return o;
+    }));
+    if (!options.some(([value]) => value === heatWho)) heatWho = "all";
+    heatSelect.value = heatWho;
+  }
+
+  function updateHeatBtn() {
+    heatBtn.hidden = look !== "classic";
+    heatSelect.hidden = heatBtn.hidden || !heatOn;
+    heatBtn.setAttribute("aria-pressed", String(heatOn));
+    $("heatLabel").textContent = heatOn ? "Heatmap on" : "Heatmap";
+  }
+  heatBtn.addEventListener("click", () => {
+    heatOn = !heatOn;
+    try { localStorage.setItem("birdseye.heat", heatOn ? "on" : "off"); } catch (e) { /* ignore */ }
+    updateHeatBtn();
+    render();
+  });
+  heatSelect.addEventListener("change", () => {
+    heatWho = heatSelect.value;
+    try { localStorage.setItem("birdseye.heatWho", heatWho); } catch (e) { /* ignore */ }
+    render();
+  });
 
   // ---------- Commentary voice (Arcade) ----------
   // Reads commentary lines aloud with the browser's speech synthesis during live playback.
@@ -2349,10 +3035,11 @@
       utter.rate = d.rate;
       utter.pitch = d.pitch;
       utter.volume = 1;
-      utter.onstart = () => { if (crowd) crowd.duck(true); };
+      utter.onstart = () => { if (crowd) crowd.duck(true); if (score) score.duck(true); };
       if (i === phrases.length - 1) {
         utter.onend = utter.onerror = () => {
           if (crowd) crowd.duck(false);
+          if (score) score.duck(false);
           const next = pendingLine;
           pendingLine = null;
           if (next && playing && t - next.t < 2.5) sayLine(next);
@@ -2363,7 +3050,7 @@
   }
 
   function speakCommentary() {
-    if (!synth || !voiceOn || look !== "arcade" || !playing || !current) return;
+    if (!synth || !voiceOn || !playing || !current) return;
     const lines = current.play.commentary.length ? current.play.commentary : current.play.captions;
     let idx = -1;
     lines.forEach((c, i) => { if (c.t <= t + 1e-6) idx = i; });
@@ -2381,7 +3068,7 @@
   }
 
   function updateVoiceBtn() {
-    voiceBtn.hidden = !synth || look !== "arcade";
+    voiceBtn.hidden = !synth;
     voiceSelect.hidden = voiceBtn.hidden || !voiceSelect.options.length;
     voiceHint.hidden = voiceBtn.hidden || !needsVoiceHint;
     voiceBtn.setAttribute("aria-pressed", String(voiceOn));
@@ -2409,20 +3096,23 @@
 
   function crowdTick() {
     if (!crowd || !current) return;
-    if (!crowdOn || look === "classic") crowd.stop();
+    if (!crowdOn) crowd.stop();
     else {
       // Quieter bed whenever the commentary voice is in use, so the voice sits on top
-      crowd.setBed(synth && voiceOn && look === "arcade" ? 0.5 : 0.9);
+      crowd.setBed(synth && voiceOn ? 0.5 : 0.9);
       crowd.update(current, t, playing);
     }
   }
   function updateCrowdBtn() {
-    crowdBtn.hidden = !crowd || look === "classic";
+    crowdBtn.hidden = !crowd;
     crowdBtn.setAttribute("aria-pressed", String(crowdOn));
     document.getElementById("crowdLabel").textContent = crowdOn ? "Crowd on" : "Crowd off";
   }
   // Browsers only allow sound after the viewer interacts, so start it on the first click or key
-  const wakeCrowd = () => { if (crowd && crowdOn && look !== "classic") { crowd.resume(); crowdTick(); } };
+  const wakeCrowd = () => {
+    if (crowd && crowdOn) { crowd.resume(); crowdTick(); }
+    if (score && scoreOn) { score.resume(); scoreTick(); }
+  };
   document.addEventListener("pointerdown", wakeCrowd, true);
   document.addEventListener("keydown", wakeCrowd, true);
   crowdBtn.addEventListener("click", () => {
@@ -2433,6 +3123,33 @@
     updateCrowdBtn();
   });
   updateCrowdBtn();
+
+  // ---------- Orchestral score ----------
+  // Off by default: it is a strong flavour. When it is on it sits under everything, lifts as the
+  // ball approaches goal and swells as one goes in, and it is mixed into downloaded videos.
+  const score = window.BirdseyeScore && window.BirdseyeScoreAudio ? window.BirdseyeScore.createLive() : null;
+  const scoreBtn = $("scoreBtn");
+  let scoreOn = false;
+  try { scoreOn = localStorage.getItem("birdseye.score") === "on"; } catch (e) { /* default off */ }
+
+  function scoreTick() {
+    if (!score || !current) return;
+    if (!scoreOn) score.stop();
+    else score.update(current, t, playing);
+  }
+  function updateScoreBtn() {
+    scoreBtn.hidden = !score;
+    scoreBtn.setAttribute("aria-pressed", String(scoreOn));
+    $("scoreLabel").textContent = scoreOn ? "Score on" : "Score";
+  }
+  scoreBtn.addEventListener("click", () => {
+    scoreOn = !scoreOn;
+    try { localStorage.setItem("birdseye.score", scoreOn ? "on" : "off"); } catch (e) { /* ignore */ }
+    if (scoreOn) score.resume();
+    scoreTick();
+    updateScoreBtn();
+  });
+  updateScoreBtn();
 
   // ---------- Real footage (website only) ----------
   // A YouTube clip of the real moment beside the animation, embedded from YouTube (never copied),
@@ -3173,16 +3890,36 @@ REQUEST: ${request}`;
       for (let tt = 0; tt < total; tt += lookRate(R.play, tt) / FPS) times.push(tt);
       const config = await pickVideoConfig(format);
       let audio = null;
-      if (config && look !== "classic" && crowdOn && window.BirdseyeCrowd && window.AudioEncoder && window.AudioData) {
+      const wantCrowd = crowdOn && window.BirdseyeCrowd;
+      const wantScore = scoreOn && window.BirdseyeScore;
+      if (config && (wantCrowd || wantScore) && window.AudioEncoder && window.AudioData) {
         const audioConfig = { codec: "mp4a.40.2", sampleRate: 48000, numberOfChannels: 2, bitrate: 128000 };
         try {
           if ((await AudioEncoder.isConfigSupported(audioConfig)).supported) {
-            videoStatus.textContent = "Mixing crowd sound…";
-            const buffer = await window.BirdseyeCrowd.renderOffline(R, times, FPS, 48000);
+            videoStatus.textContent = wantScore ? "Mixing sound…" : "Mixing crowd sound…";
+            const tracks = [];
+            if (wantCrowd) tracks.push(await window.BirdseyeCrowd.renderOffline(R, times, FPS, 48000));
+            if (wantScore) tracks.push(await window.BirdseyeScore.renderOffline(R, times, FPS, 48000));
+            const parts = tracks.filter(Boolean);
+            // Crowd and score are rendered apart and added together, sample by sample
+            let buffer = parts[0] || null;
+            if (parts.length > 1) {
+              const len = Math.max(...parts.map(b => b.length));
+              const mix = new AudioBuffer({ length: len, numberOfChannels: 2, sampleRate: 48000 });
+              for (let c = 0; c < 2; c++) {
+                const out = mix.getChannelData(c);
+                for (const part of parts) {
+                  const from = part.getChannelData(Math.min(c, part.numberOfChannels - 1));
+                  for (let i = 0; i < from.length; i++) out[i] += from[i];
+                }
+                for (let i = 0; i < out.length; i++) out[i] = Math.max(-1, Math.min(1, out[i]));
+              }
+              buffer = mix;
+            }
             if (buffer) audio = { buffer, config: audioConfig };
           }
         } catch (e) {
-          console.warn("Crowd sound left out of the video:", e);
+          console.warn("Sound left out of the video:", e);
         }
       }
       const { blob, ext } = config

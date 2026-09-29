@@ -15,7 +15,7 @@ const between = (a, b) => {
 const api = new Function(
   between("  // ---------- Built-in plays ----------", "  // ---------- Validation") +
   between("  // ---------- Validation", "  // ---------- Motion ----------") +
-  between("  function catmull(", "  function moveHeading(") +
+  between("  const TOP_SPEED = 9.6;", "  function moveHeading(") +
   "\nreturn { normalizePlay, pathPos, MESSI_2011, GIVE_AND_GO, OVERLAP };"
 )();
 
@@ -41,7 +41,20 @@ function check(raw) {
   for (const rp of Array.isArray(raw.players) ? raw.players : []) {
     const np = p.players.find(x => x.id === rp.id);
     if (!np) continue;
-    if (len(rp.path) !== np.path.length) errors.push(`${rp.id}: path keyframes dropped ${len(rp.path)} -> ${np.path.length}`);
+    // The page merges keyframes less than MIN_GAP apart, because two readings a twentieth of a
+    // second apart ask a body to cover a metre in a blink. That merging is wanted; anything else
+    // dropped is not.
+    if (len(rp.path) !== np.path.length) {
+      const keys = (rp.path || []).slice().sort((a, b) => a[0] - b[0]);
+      let crowded = 0, last = null;
+      for (const k of keys) {
+        if (last != null && k[0] - last < 0.18) crowded++;
+        else last = k[0];
+      }
+      const lost = len(rp.path) - np.path.length;
+      if (lost === crowded) warns.push(`${rp.id}: ${lost} keyframe(s) merged as too close together in time`);
+      else errors.push(`${rp.id}: path keyframes dropped ${len(rp.path)} -> ${np.path.length}, ${crowded} of them crowded`);
+    }
     for (const k of Object.keys(rp.look || {})) if (!(k in np.look)) errors.push(`${rp.id}: look.${k} = ${JSON.stringify(rp.look[k])} is not allowed`);
     for (const [t, x, y] of rp.path || []) {
       if (x < -2 || x > 107 || y < -2 || y > 70) errors.push(`${rp.id}: keyframe at ${t}s is off the pitch area (${x}, ${y})`);
@@ -129,14 +142,28 @@ function check(raw) {
     if (p.duration - g.t < 1.5) warns.push(`only ${(p.duration - g.t).toFixed(1)} s after the goal`);
   }
 
-  // Ball speeds between keyframes that aren't dribbles
+  // How the ball was struck
+  for (const k of raw.ball || []) {
+    if (k.curve != null && !(typeof k.curve === "number" && Math.abs(k.curve) <= 1)) {
+      errors.push(`ball at ${k.t}s: "curve" must be between -1 and 1 (is ${k.curve})`);
+    }
+    if (k.power != null && !(typeof k.power === "number" && k.power >= 0 && k.power <= 1)) {
+      errors.push(`ball at ${k.t}s: "power" must be between 0 and 1 (is ${k.power})`);
+    }
+  }
+
+  // Ball speeds between keyframes that aren't dribbles. A bent flight is longer than the straight
+  // line between its ends, so the swerve is added back in before the speed is judged.
   const byId = Object.fromEntries(p.players.map(x => [x.id, x]));
   const at = (k, t) => (k.with ? api.pathPos(byId[k.with].path, t) : { x: k.x, y: k.y });
   for (let i = 0; i + 1 < p.ball.length; i++) {
     const a = p.ball[i], b = p.ball[i + 1];
     if (a.with && a.with === b.with) continue;
     const pa = at(a, a.t), pb = at(b, b.t);
-    const d = Math.hypot(pb.x - pa.x, pb.y - pa.y), v = d / (b.t - a.t);
+    const straight = Math.hypot(pb.x - pa.x, pb.y - pa.y);
+    const bend = Math.abs(b.curve || 0) * straight * 0.42;
+    const d = straight + (bend * bend * 2.6) / Math.max(straight, 1);
+    const v = d / (b.t - a.t);
     if (v > 38) errors.push(`ball ${a.t}->${b.t}s travels ${v.toFixed(0)} m/s over ${d.toFixed(0)} m (max ~35)`);
     else if (d > 4 && v < 6 && !b.lofted) warns.push(`ball ${a.t}->${b.t}s only ${v.toFixed(1)} m/s over ${d.toFixed(0)} m`);
   }

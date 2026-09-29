@@ -323,4 +323,75 @@ CHANGELOG:
   were authored jogging home at 2.5-3 m/s, now they chase at 4-5.5 and stay in the picture (55% to
   16% dawdling). New tools/quicken_chases.py re-times any named defender still loitering, keeping
   the position they end on, applied to 7 clips. All 20 clips and 3 built-ins still pass both checkers.
+- 2026-09-28 — four more data-backed clips (user request): Mbappé in the 2018 final (match 8658),
+  Messi's header in Rome 2009 (3750201), Drogba's header in Munich 2012 (18237) and Lucy Bronze
+  against Norway at the 2019 Women's World Cup (69199). The two set-piece goals are short by nature
+  (a corner and a worked free kick), so they hold for 8.5 s to let the celebration run. Library:
+  24 clip files plus the built-in Messi clip and 2 moves.
+- 2026-09-28 — the page no longer depends on a reachable CDN. While testing, jsDelivr, Google Fonts
+  and cdnjs all went unreachable and the app sat on a blank pitch: a stylesheet still loading blocks
+  every script, so nothing ran until the requests timed out. The fonts stylesheet now loads without
+  blocking (media="print" then swapped on load, with a noscript fallback) and the video-export muxer
+  is deferred. Verified with the network down: the page renders and all 24 clips load in system
+  fonts, and video export falls back to MediaRecorder if the muxer never arrives.
+- 2026-09-29 — movement heatmap (user request): a Heatmap button in the Classic look shades the pitch
+  by how long players stood on each patch of grass, with a picker for everyone, either team, or the
+  player the clip is about. Built from the same paths the animation uses (0.1 s samples, blurred into
+  a one-metre grid, drawn under the play), cached per clip and included in downloaded videos.
+- 2026-09-29 — ball physics (user: "curvature and dynamics for the ball", "pass power guile curve"):
+  ball keyframes take "curve" (-1 to 1) and "power" (0 to 1). A struck ball now slows as it travels
+  (drag easing over a real flight, linear across short hops so imported clips don't pulse), bends
+  along its flight — widest just past halfway, home at the end — and spins as it rolls. Roberto
+  Carlos's free kick is one curved keyframe instead of eight straight hops, and reads 35 m/s curling;
+  crosses, corners and the finishes that bent carry their own swerve. The play-by-play shows what
+  each strike did (21 m/s · curled left), and a live reading under the pitch tracks the flight.
+  The checker validates curve and power and measures the bent path, not the straight line.
+- 2026-09-29 — art direction (user: "feels very gimmicky ... like smooth art, not a video game").
+  The 3D look is gone ("looks like FIFA") and so is Arcade, the most game-like of them; Classic and
+  Broadcast remain, and the commentary voice and crowd, which used to belong to Arcade, now work in
+  both. Everything is redrawn as editorial ink on paper: warm paper ground, a pale pitch panel with
+  hairline markings and no mown stripes, players as quiet discs with an ink edge, names set in a
+  serif with a breath of paper behind them instead of black pills, the scoreline set rather than
+  boxed, and a single muted accent. The ball's route is a brush stroke that thickens and darkens
+  towards the ball and fades behind it; the star's trail is the same stroke in the team's colour.
+  The pulsing ring around the star is gone. Names now show only for the star and players within
+  22 m of the ball. The heat map is one colour soaked into the page rather than a traffic-light
+  gradient. Broadcast lost its pixel crowd (bands of tone instead), its advertising hoardings and
+  most of its colour saturation.
+- 2026-09-29 — fidelity and speed (user: "increase the fidelity of the simulation, trim features if
+  it improves render speed"). Gait rebuilt: the stride is skewed so the foot stays down and swings
+  through quickly, the body bounces twice a stride, leans into a change of pace, banks into a turn,
+  and a standing player breathes. Defenders within a few metres of the ball now jockey — knees bent,
+  weight low, short steps — which is the posture that reads as defending. Off-ball players carry
+  momentum (5.5 m/s² limit), so nobody snaps from one direction to another. On speed: measured frame
+  times in a real browser — both looks hold 60 fps (16.6-16.8 ms). The Broadcast look was still
+  rebuilding its paper grain, film grain and vignette every frame; those are now built once, which
+  cut its headless frame time from 112 ms to 69 ms. Nothing needed cutting for performance.
+- 2026-09-29 — the Broadcast look, corrected. The user saw an almost empty pitch with players facing
+  nowhere: the new "only name players near the ball" test read a property the item never had, so the
+  renderer threw halfway through every frame and left a half-drawn scene. Fixed. Also from that
+  round: stationary players no longer take their facing from path wobble (under 0.9 m/s they watch
+  the ball), the stadium is back after the wash-out went too far (crowd rows painted once into a
+  strip and stamped in, floodlights and grass colour restored), the camera frames the action rather
+  than the acreage — it sits between the ball and the players around it and holds 24-38 m across, so
+  players read at a human size — and the route on the grass is the same fading stroke as the drawn
+  look instead of a glowing wire. The Classic pitch is held to a 760 px column so the page breathes.
+- 2026-09-29 — an optional score (user request, user's choice of piece): Holst's "Mars, the Bringer
+  of War" played by the US Air Force Band, public domain, from Wikimedia Commons. A 34 s loop cut
+  from the ostinato as it builds, plus an 8.5 s brass swell for goals, embedded as AAC beside the
+  crowd in sound/recordings.js. sound/score.js keeps the level following the play — low while the
+  move is worked, rising as the ball nears goal, swelling as one goes in — ducks under the
+  commentary voice and mixes into downloaded videos alongside the crowd. Off by default.
+- 2026-09-29 — the celebration (user request): after a goal the scorer now wheels away and runs for
+  the corner flag, built with the same acceleration limits as everything else, so the run is slow
+  through the turn, flat out down the middle and eases as it arrives. Measured on the Messi clip:
+  2.0 m/s in the turn, 7.4 m/s across the middle, 6.0 m/s on arrival, with the celebrate pose
+  running throughout. Both checkers now stop judging at the goal, because running away from the ball
+  with your eyes on it is right for a celebration and wrong for play.
+- 2026-09-29 — facing, again (user: "there's a defender turned away from the ball"). A defender was
+  turning their back whenever they were quicker than a backpedal, even with the ball at their feet.
+  Now the ball is watched while there is any chance of playing it (within 10 m, up to 4.4 m/s;
+  3.2 m/s further out), and only a genuine sprint turns the body. Of the frames left where a
+  defender within 10 m faces away, 315 of 382 are sprints where turning is right and the rest are
+  bodies mid-turn, which the 7.5 rad/s limit makes unavoidable.
 

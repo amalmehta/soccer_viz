@@ -1,0 +1,859 @@
+{
+  "title": "Messi's header in Rome",
+  "subtitle": "Champions League, final · Stadio Olimpico, Rome · 27 May 2009",
+  "clock": "70'",
+  "duration": 18.7,
+  "teams": {
+    "A": {
+      "name": "Barcelona",
+      "short": "BAR",
+      "color": "#A50044",
+      "color2": "#004D98",
+      "text": "#FFFFFF",
+      "pattern": "stripes",
+      "shorts": "#004D98",
+      "socks": "#004D98",
+      "gkColor": "#2E2E33"
+    },
+    "B": {
+      "name": "Manchester United",
+      "short": "MUN",
+      "color": "#F5F5F2",
+      "color2": "#1A1A1E",
+      "text": "#C8102E",
+      "pattern": "plain",
+      "shorts": "#F5F5F2",
+      "socks": "#F5F5F2",
+      "gkColor": "#3FB98A"
+    }
+  },
+  "score": [
+    1,
+    0
+  ],
+  "players": [
+    {
+      "id": "puyol",
+      "team": "A",
+      "num": 5,
+      "name": "Puyol",
+      "look": {
+        "skin": "light",
+        "hair": "curly",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 178
+      },
+      "path": [
+        [
+          0.0,
+          53.64,
+          54.48
+        ],
+        [
+          3.85,
+          75.95,
+          44.54
+        ],
+        [
+          7.56,
+          96.51,
+          39.1
+        ],
+        [
+          11.39,
+          94.41,
+          42.38
+        ],
+        [
+          15.23,
+          92.31,
+          45.65
+        ]
+      ]
+    },
+    {
+      "id": "giggs",
+      "team": "B",
+      "num": 11,
+      "name": "Giggs",
+      "look": {
+        "skin": "light",
+        "hair": "curly",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 179
+      },
+      "path": [
+        [
+          0.0,
+          71.14,
+          40.88
+        ],
+        [
+          3.29,
+          71.14,
+          40.88
+        ],
+        [
+          5.42,
+          83.78,
+          39.95
+        ],
+        [
+          7.56,
+          96.42,
+          39.02
+        ],
+        [
+          11.39,
+          93.23,
+          41.65
+        ],
+        [
+          14.1,
+          90.74,
+          43.7
+        ],
+        [
+          14.27,
+          90.04,
+          44.28
+        ],
+        [
+          18.7,
+          90.04,
+          44.28
+        ]
+      ]
+    },
+    {
+      "id": "eto-o",
+      "team": "A",
+      "num": 9,
+      "name": "Eto'o",
+      "look": {
+        "skin": "dark",
+        "hair": "buzz",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 180
+      },
+      "path": [
+        [
+          0.0,
+          93.01,
+          54.65
+        ],
+        [
+          2.67,
+          93.01,
+          54.65
+        ],
+        [
+          5.33,
+          93.01,
+          54.65
+        ],
+        [
+          6.82,
+          98.44,
+          52.27
+        ],
+        [
+          9.62,
+          95.03,
+          56.01
+        ],
+        [
+          12.43,
+          91.61,
+          59.75
+        ],
+        [
+          15.23,
+          88.2,
+          63.49
+        ]
+      ]
+    },
+    {
+      "id": "evra",
+      "team": "B",
+      "num": 3,
+      "name": "Evra",
+      "look": {
+        "skin": "dark",
+        "hair": "buzz",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 175
+      },
+      "path": [
+        [
+          0.0,
+          92.92,
+          45.48
+        ],
+        [
+          2.93,
+          92.92,
+          45.48
+        ],
+        [
+          5.6,
+          92.92,
+          45.48
+        ],
+        [
+          6.41,
+          91.52,
+          49.64
+        ],
+        [
+          7.23,
+          90.12,
+          53.8
+        ],
+        [
+          18.7,
+          90.12,
+          53.8
+        ]
+      ]
+    },
+    {
+      "id": "xavi",
+      "team": "A",
+      "num": 6,
+      "name": "Xavi",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 170
+      },
+      "path": [
+        [
+          0.0,
+          71.58,
+          53.63
+        ],
+        [
+          3.58,
+          71.58,
+          53.63
+        ],
+        [
+          7.16,
+          71.58,
+          53.63
+        ],
+        [
+          10.74,
+          71.58,
+          53.63
+        ],
+        [
+          13.65,
+          86.27,
+          49.81
+        ],
+        [
+          15.23,
+          85.49,
+          51.34
+        ]
+      ]
+    },
+    {
+      "id": "messi",
+      "team": "A",
+      "num": 10,
+      "name": "Messi",
+      "star": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 170
+      },
+      "path": [
+        [
+          0,
+          85.58,
+          29.16
+        ],
+        [
+          8.35,
+          93.28,
+          30.37
+        ],
+        [
+          15.19,
+          99.63,
+          31.05
+        ],
+        [
+          18.7,
+          102.58,
+          30.26
+        ]
+      ]
+    },
+    {
+      "id": "sar",
+      "team": "B",
+      "num": 1,
+      "name": "Van der Sar",
+      "gk": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "none",
+        "height": 197
+      },
+      "path": [
+        [
+          0,
+          101.42,
+          31.88
+        ],
+        [
+          8.38,
+          102.52,
+          32.48
+        ],
+        [
+          15.23,
+          103.42,
+          32.98
+        ],
+        [
+          18.7,
+          104,
+          32.43
+        ]
+      ]
+    },
+    {
+      "id": "carrick",
+      "team": "B",
+      "num": 16,
+      "name": "Carrick",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 188
+      },
+      "path": [
+        [
+          0,
+          72.54,
+          36.47
+        ],
+        [
+          3.8,
+          75.59,
+          36.95
+        ],
+        [
+          4.67,
+          80.24,
+          37.68
+        ],
+        [
+          5.85,
+          86.54,
+          38.67
+        ],
+        [
+          6.44,
+          89.54,
+          37.57
+        ],
+        [
+          18.7,
+          89.54,
+          37.57
+        ]
+      ]
+    },
+    {
+      "id": "vidic",
+      "team": "B",
+      "num": 15,
+      "name": "Vidić",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 188
+      },
+      "path": [
+        [
+          0,
+          76.3,
+          48.96
+        ],
+        [
+          4.1,
+          79.66,
+          48.96
+        ],
+        [
+          4.9,
+          84.0,
+          48.96
+        ],
+        [
+          6.07,
+          90.3,
+          48.96
+        ],
+        [
+          6.63,
+          93.3,
+          48.96
+        ],
+        [
+          18.7,
+          93.3,
+          48.96
+        ]
+      ]
+    },
+    {
+      "id": "ferdinand",
+      "team": "B",
+      "num": 5,
+      "name": "Ferdinand",
+      "look": {
+        "skin": "brown",
+        "hair": "buzz",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 189
+      },
+      "path": [
+        [
+          0,
+          85.23,
+          35.35
+        ],
+        [
+          5.0,
+          89.55,
+          34.66
+        ],
+        [
+          5.63,
+          92.93,
+          34.14
+        ],
+        [
+          6.8,
+          99.2,
+          33.3
+        ],
+        [
+          7.39,
+          102.23,
+          34.25
+        ],
+        [
+          18.7,
+          102.23,
+          34.25
+        ]
+      ]
+    },
+    {
+      "id": "o-shea",
+      "team": "B",
+      "num": 22,
+      "name": "O'Shea",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 188
+      },
+      "path": [
+        [
+          0,
+          81.9,
+          26.34
+        ],
+        [
+          4.7,
+          85.9,
+          26.02
+        ],
+        [
+          5.39,
+          89.6,
+          25.73
+        ],
+        [
+          6.56,
+          95.9,
+          25.24
+        ],
+        [
+          7.12,
+          98.9,
+          25.79
+        ],
+        [
+          18.7,
+          98.9,
+          25.79
+        ]
+      ]
+    },
+    {
+      "id": "ronaldo",
+      "team": "B",
+      "num": 7,
+      "name": "Ronaldo",
+      "look": {
+        "skin": "olive",
+        "hair": "short",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 187
+      },
+      "path": [
+        [
+          0,
+          70.05,
+          46.89
+        ],
+        [
+          3.4,
+          72.47,
+          46.92
+        ],
+        [
+          4.27,
+          77.18,
+          47.03
+        ],
+        [
+          5.44,
+          83.48,
+          47.52
+        ],
+        [
+          6.01,
+          86.48,
+          46.97
+        ],
+        [
+          18.7,
+          86.48,
+          46.97
+        ]
+      ]
+    },
+    {
+      "id": "henry",
+      "team": "A",
+      "num": 14,
+      "name": "Henry",
+      "look": {
+        "skin": "dark",
+        "hair": "buzz",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 188
+      },
+      "path": [
+        [
+          0,
+          69.74,
+          18.46
+        ],
+        [
+          8.38,
+          77.44,
+          19.67
+        ],
+        [
+          15.23,
+          83.74,
+          20.66
+        ],
+        [
+          18.7,
+          86.74,
+          19.56
+        ]
+      ]
+    },
+    {
+      "id": "bar-gk2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          16,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "bar-cb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          52,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "bar-lb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          58,
+          56
+        ]
+      ]
+    },
+    {
+      "id": "mun-cm",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          72,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "mun-w",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          66,
+          50
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0.0,
+      "with": "puyol"
+    },
+    {
+      "t": 3.85,
+      "with": "puyol"
+    },
+    {
+      "t": 5.33,
+      "with": "eto-o"
+    },
+    {
+      "t": 6.82,
+      "with": "eto-o"
+    },
+    {
+      "t": 7.56,
+      "with": "puyol"
+    },
+    {
+      "t": 10.74,
+      "with": "xavi"
+    },
+    {
+      "t": 13.65,
+      "with": "xavi"
+    },
+    {
+      "t": 15.19,
+      "with": "messi",
+      "curve": 0.3
+    },
+    {
+      "t": 16.22,
+      "x": 105.4,
+      "y": 36.98
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "70' — Barcelona lead 1–0 in the final."
+    },
+    {
+      "t": 5.3,
+      "text": "Puyol and Eto'o keep it on the right."
+    },
+    {
+      "t": 10.7,
+      "text": "Xavi takes it to the touchline."
+    },
+    {
+      "t": 13.7,
+      "text": "The cross hangs up towards the far side."
+    },
+    {
+      "t": 15.2,
+      "text": "Messi climbs above the defence."
+    },
+    {
+      "t": 16.2,
+      "text": "Headed back over Van der Sar. 2–0."
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "Seventy minutes in Rome, Barcelona a goal up and United needing something."
+    },
+    {
+      "t": 5.3,
+      "text": "Puyol, into Eto'o, back to Puyol on the right…"
+    },
+    {
+      "t": 10.7,
+      "text": "…Xavi has it wide, looking up."
+    },
+    {
+      "t": 13.7,
+      "text": "The cross is hung towards the far post…"
+    },
+    {
+      "t": 15.2,
+      "text": "…MESSI! Up above them all!"
+    },
+    {
+      "t": 16.22,
+      "text": "Headed back over the keeper — two-nil, and that is the trophy."
+    },
+    {
+      "t": 17.6,
+      "text": "The smallest player on the pitch, winning it in the air."
+    }
+  ],
+  "events": [
+    {
+      "t": 0.0,
+      "type": "tackle",
+      "team": "A"
+    },
+    {
+      "t": 3.85,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 6.82,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 7.56,
+      "type": "tackle",
+      "team": "B"
+    },
+    {
+      "t": 8.79,
+      "type": "tackle",
+      "team": "B"
+    },
+    {
+      "t": 13.65,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 15.23,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 16.22,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "actions": [
+    {
+      "t": 15.23,
+      "id": "messi",
+      "type": "header"
+    }
+  ],
+  "venue": {
+    "time": "night",
+    "roof": "partial",
+    "stands": "#9aa0a8",
+    "accent": "#d9dde3",
+    "track": true,
+    "grass": "#2e7a3c",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "Barcelona led 1–0 through Eto'o and had controlled the final. United had pushed their full-backs high looking for a way back, leaving the far side of the penalty area thin."
+    },
+    {
+      "label": "Build-up",
+      "text": "Barcelona worked it patiently along the right through Puyol, Eto'o and Xavi until the cross could be delivered from wide rather than forced through the middle."
+    },
+    {
+      "label": "The delivery",
+      "text": "Xavi did not drive it in low. The ball was lifted and hung towards the far side of the six-yard box, away from the defenders watching the ball at the near post."
+    },
+    {
+      "label": "The header",
+      "text": "Messi started the run late and jumped early, meeting the ball at its highest point above Ferdinand. The header went back across the goal, the way the ball had come, and looped over Van der Sar."
+    }
+  ],
+  "lessons": [
+    {
+      "label": "Hang it to the far side",
+      "text": "A high cross to the far post beats a low one when the box is crowded: the defenders' eyes are on the ball at the near post and nobody tracks the late runner."
+    },
+    {
+      "label": "Start late, jump early",
+      "text": "Messi arrives after the defenders have set their position. Timing the jump beats standing in the spot and waiting to be marked."
+    },
+    {
+      "label": "Head it back across",
+      "text": "Directing a header against the flight sends it away from the keeper's momentum, into the part of the goal nobody can cover."
+    },
+    {
+      "label": "Height is not everything",
+      "text": "The smallest player on the pitch won that header because the run and the timing were better, not because of reach."
+    }
+  ],
+  "note": "The ball's path, its timing and the tracked players come from StatsBomb's open data for this match (id 3750201). Players the data only sees at the shot have routes drawn back into those positions, and any extra team-mates are placed by hand. Commentary is original, not the broadcast."
+}

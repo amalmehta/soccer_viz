@@ -1,0 +1,760 @@
+{
+  "title": "Bronze against Norway",
+  "subtitle": "Women's World Cup, quarter-final · Stade Océane, Le Havre · 27 Jun 2019",
+  "clock": "57'",
+  "duration": 8.5,
+  "teams": {
+    "A": {
+      "name": "England",
+      "short": "ENG",
+      "color": "#F5F5F2",
+      "color2": "#1B315E",
+      "text": "#1B315E",
+      "pattern": "plain",
+      "shorts": "#1B315E",
+      "socks": "#F5F5F2",
+      "gkColor": "#3FB98A"
+    },
+    "B": {
+      "name": "Norway",
+      "short": "NOR",
+      "color": "#C8102E",
+      "color2": "#F5F5F2",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#F5F5F2",
+      "socks": "#C8102E",
+      "gkColor": "#E8E23F"
+    }
+  },
+  "score": [
+    2,
+    0
+  ],
+  "players": [
+    {
+      "id": "mead",
+      "team": "A",
+      "num": 22,
+      "name": "Mead",
+      "look": {
+        "skin": "light",
+        "hair": "ponytail",
+        "hairColor": "blond",
+        "beard": "none",
+        "height": 165
+      },
+      "path": [
+        [
+          0,
+          83.48,
+          58.99
+        ],
+        [
+          2.81,
+          91.18,
+          58.99
+        ],
+        [
+          5.1,
+          97.48,
+          58.99
+        ],
+        [
+          6.0,
+          100.48,
+          58.99
+        ]
+      ]
+    },
+    {
+      "id": "bronze",
+      "team": "A",
+      "num": 2,
+      "name": "Bronze",
+      "star": true,
+      "look": {
+        "skin": "light",
+        "hair": "ponytail",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 172
+      },
+      "path": [
+        [
+          0,
+          82.73,
+          37.49
+        ],
+        [
+          0.97,
+          85.4,
+          38.1
+        ],
+        [
+          1.76,
+          87.59,
+          38.59
+        ],
+        [
+          6.0,
+          90.59,
+          38.04
+        ]
+      ]
+    },
+    {
+      "id": "scott",
+      "team": "A",
+      "num": 8,
+      "name": "Scott",
+      "look": {
+        "skin": "light",
+        "hair": "ponytail",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 181
+      },
+      "path": [
+        [
+          0,
+          87.71,
+          35.55
+        ],
+        [
+          0.97,
+          90.05,
+          35.04
+        ],
+        [
+          1.76,
+          91.48,
+          33.53
+        ],
+        [
+          6.0,
+          99.51,
+          34.51
+        ]
+      ]
+    },
+    {
+      "id": "stokes",
+      "team": "A",
+      "num": 12,
+      "name": "Stokes",
+      "path": [
+        [
+          0,
+          97.55,
+          23.19
+        ],
+        [
+          0.97,
+          100.42,
+          24.76
+        ],
+        [
+          1.76,
+          103.55,
+          25.96
+        ],
+        [
+          6.0,
+          103.27,
+          25.67
+        ]
+      ]
+    },
+    {
+      "id": "bright",
+      "team": "A",
+      "num": 6,
+      "name": "Bright",
+      "path": [
+        [
+          0,
+          94.53,
+          23.2
+        ],
+        [
+          0.97,
+          96.84,
+          24.02
+        ],
+        [
+          1.76,
+          97.8,
+          24.37
+        ],
+        [
+          6.0,
+          102.66,
+          26.27
+        ]
+      ]
+    },
+    {
+      "id": "white",
+      "team": "A",
+      "num": 18,
+      "name": "White",
+      "look": {
+        "skin": "light",
+        "hair": "ponytail",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 170
+      },
+      "path": [
+        [
+          0,
+          90.45,
+          31.37
+        ],
+        [
+          0.97,
+          93.02,
+          32.6
+        ],
+        [
+          1.76,
+          94.31,
+          34.09
+        ],
+        [
+          6.0,
+          100.39,
+          31.11
+        ]
+      ]
+    },
+    {
+      "id": "houghton",
+      "team": "A",
+      "num": 5,
+      "name": "Houghton",
+      "look": {
+        "skin": "light",
+        "hair": "ponytail",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 165
+      },
+      "path": [
+        [
+          0,
+          91.68,
+          39.14
+        ],
+        [
+          0.97,
+          93.92,
+          40.08
+        ],
+        [
+          1.76,
+          95.02,
+          40.32
+        ],
+        [
+          6.0,
+          102.58,
+          36.93
+        ]
+      ]
+    },
+    {
+      "id": "walsh",
+      "team": "A",
+      "num": 4,
+      "name": "Walsh",
+      "path": [
+        [
+          0,
+          93.05,
+          42.92
+        ],
+        [
+          0.97,
+          95.72,
+          42.31
+        ],
+        [
+          1.76,
+          97.91,
+          41.82
+        ],
+        [
+          6.0,
+          100.91,
+          42.37
+        ]
+      ]
+    },
+    {
+      "id": "kirby",
+      "team": "A",
+      "num": 10,
+      "name": "Kirby",
+      "path": [
+        [
+          0,
+          88.26,
+          49.89
+        ],
+        [
+          0.97,
+          91.05,
+          51.06
+        ],
+        [
+          1.76,
+          93.33,
+          52.01
+        ],
+        [
+          6.0,
+          96.54,
+          50.84
+        ]
+      ]
+    },
+    {
+      "id": "herlovsen",
+      "team": "B",
+      "num": 9,
+      "name": "Herlovsen",
+      "path": [
+        [
+          0,
+          93.59,
+          35.12
+        ],
+        [
+          0.97,
+          95.48,
+          35.0
+        ],
+        [
+          1.76,
+          97.88,
+          34.18
+        ],
+        [
+          6.0,
+          100.21,
+          34.34
+        ]
+      ]
+    },
+    {
+      "id": "s-vik",
+      "team": "B",
+      "num": 21,
+      "name": "Sævik",
+      "path": [
+        [
+          0,
+          92.65,
+          29.72
+        ],
+        [
+          0.97,
+          95.31,
+          30.87
+        ],
+        [
+          1.76,
+          98.48,
+          31.16
+        ],
+        [
+          6.0,
+          100.91,
+          30.78
+        ]
+      ]
+    },
+    {
+      "id": "minde",
+      "team": "B",
+      "num": 17,
+      "name": "Minde",
+      "path": [
+        [
+          0,
+          95.86,
+          29.04
+        ],
+        [
+          0.97,
+          98.47,
+          30.16
+        ],
+        [
+          1.76,
+          100.61,
+          31.07
+        ],
+        [
+          6.0,
+          103.45,
+          29.5
+        ]
+      ]
+    },
+    {
+      "id": "risa",
+      "team": "B",
+      "num": 8,
+      "name": "Risa",
+      "path": [
+        [
+          0,
+          94.89,
+          26.88
+        ],
+        [
+          0.97,
+          97.59,
+          27.65
+        ],
+        [
+          1.76,
+          99.93,
+          28.93
+        ],
+        [
+          6.0,
+          102.75,
+          27.33
+        ]
+      ]
+    },
+    {
+      "id": "thorisdottir",
+      "team": "B",
+      "num": 3,
+      "name": "Thorisdottir",
+      "look": {
+        "skin": "light",
+        "hair": "ponytail",
+        "hairColor": "blond",
+        "beard": "none",
+        "height": 175
+      },
+      "path": [
+        [
+          0,
+          96.09,
+          34.17
+        ],
+        [
+          0.97,
+          98.54,
+          34.18
+        ],
+        [
+          1.76,
+          99.85,
+          33.64
+        ],
+        [
+          6.0,
+          103.62,
+          34.59
+        ]
+      ]
+    },
+    {
+      "id": "engen",
+      "team": "B",
+      "num": 14,
+      "name": "Engen",
+      "path": [
+        [
+          0,
+          95.19,
+          36.36
+        ],
+        [
+          0.97,
+          98.12,
+          37.61
+        ],
+        [
+          1.76,
+          101.5,
+          38.84
+        ],
+        [
+          6.0,
+          102.84,
+          37.4
+        ]
+      ]
+    },
+    {
+      "id": "mjelde",
+      "team": "B",
+      "num": 6,
+      "name": "Mjelde",
+      "path": [
+        [
+          0,
+          91.2,
+          33.89
+        ],
+        [
+          0.97,
+          94.0,
+          35.26
+        ],
+        [
+          1.76,
+          96.4,
+          37.83
+        ],
+        [
+          6.0,
+          99.16,
+          35.11
+        ]
+      ]
+    },
+    {
+      "id": "wold",
+      "team": "B",
+      "num": 2,
+      "name": "Wold",
+      "path": [
+        [
+          0,
+          85.97,
+          41.81
+        ],
+        [
+          0.97,
+          88.64,
+          41.2
+        ],
+        [
+          1.76,
+          90.83,
+          40.71
+        ],
+        [
+          6.0,
+          93.83,
+          41.26
+        ]
+      ]
+    },
+    {
+      "id": "reiten",
+      "team": "B",
+      "num": 16,
+      "name": "Reiten",
+      "path": [
+        [
+          0,
+          90.43,
+          49.13
+        ],
+        [
+          0.97,
+          93.1,
+          49.13
+        ],
+        [
+          1.76,
+          95.29,
+          49.13
+        ],
+        [
+          6.0,
+          98.29,
+          49.13
+        ]
+      ]
+    },
+    {
+      "id": "hansen",
+      "team": "B",
+      "num": 10,
+      "name": "Hansen",
+      "path": [
+        [
+          0,
+          94.37,
+          51.09
+        ],
+        [
+          0.97,
+          97.04,
+          51.09
+        ],
+        [
+          1.76,
+          99.23,
+          51.09
+        ],
+        [
+          6.0,
+          102.23,
+          51.09
+        ]
+      ]
+    },
+    {
+      "id": "hjelmseth",
+      "team": "B",
+      "num": 1,
+      "name": "Hjelmseth",
+      "gk": true,
+      "path": [
+        [
+          0,
+          101.7,
+          37.05
+        ],
+        [
+          0.97,
+          102.96,
+          35.92
+        ],
+        [
+          1.76,
+          104,
+          35.52
+        ],
+        [
+          6.0,
+          104,
+          35.95
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0.0,
+      "with": "mead"
+    },
+    {
+      "t": 1.76,
+      "with": "bronze"
+    },
+    {
+      "t": 2.51,
+      "x": 105.4,
+      "y": 34.42,
+      "power": 1
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "57' — England lead Norway 2–0 in the quarter-final."
+    },
+    {
+      "t": 0.9,
+      "text": "Mead plays it short instead of crossing."
+    },
+    {
+      "t": 1.8,
+      "text": "Bronze runs onto it, 18 metres out."
+    },
+    {
+      "t": 2.5,
+      "text": "Right foot, first time, into the roof of the net."
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "Just before the hour in Le Havre, England two up and Norway still reeling."
+    },
+    {
+      "t": 0.9,
+      "text": "It's worked short by Mead, and rolled back…"
+    },
+    {
+      "t": 1.8,
+      "text": "…Bronze, first time!"
+    },
+    {
+      "t": 2.6,
+      "text": "OH, WHAT A STRIKE! Into the roof of the net from eighteen yards!"
+    },
+    {
+      "t": 4.4,
+      "text": "A full-back running through the ball. Three-nil, and that is the tie."
+    }
+  ],
+  "events": [
+    {
+      "t": 0.0,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 1.76,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 2.51,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "actions": [],
+  "venue": {
+    "time": "night",
+    "roof": "partial",
+    "stands": "#2f4a7a",
+    "accent": "#c9d2e0",
+    "track": false,
+    "grass": "#3a8a45",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "England led 2–0 and Norway were defending their box in numbers. With everyone waiting for a cross, the space in front of the penalty area was unguarded."
+    },
+    {
+      "label": "The routine",
+      "text": "Instead of delivering into the crowd, Mead worked it short and laid the ball into the path of a runner arriving from deep."
+    },
+    {
+      "label": "The strike",
+      "text": "Bronze hit it first time with the right foot, striking through the ball rather than under it, from about eighteen metres."
+    },
+    {
+      "label": "Why it worked",
+      "text": "Every Norwegian defender had turned to watch for a cross into the six-yard box. Nobody stepped out to the edge of the area, and the shot was already gone by the time anyone moved."
+    }
+  ],
+  "lessons": [
+    {
+      "label": "Work it short",
+      "text": "A short set piece drags one defender out and turns a crowded box into a clear shooting lane at the edge."
+    },
+    {
+      "label": "Arrive, don't wait",
+      "text": "Running onto the ball from deep means the shot is struck at pace, and the defence has nobody assigned to you."
+    },
+    {
+      "label": "Strike through it",
+      "text": "Hitting through the middle of the ball with a firm ankle keeps a first-time shot from ballooning, even at full power."
+    },
+    {
+      "label": "Full-backs score too",
+      "text": "The chance fell to a defender arriving late. Defenders who follow the attack in are the ones nobody counts."
+    }
+  ],
+  "note": "The ball's path, its timing and the tracked players come from StatsBomb's open data for this match (id 69199). Players the data only sees at the shot have routes drawn back into those positions, and any extra team-mates are placed by hand. Commentary is original, not the broadcast."
+}
