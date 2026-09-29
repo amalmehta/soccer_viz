@@ -33,7 +33,7 @@
   ],
   "players": [
     {
-      "id": "modri",
+      "id": "modric",
       "team": "A",
       "num": 10,
       "name": "Modrić",
@@ -281,7 +281,7 @@
       ]
     },
     {
-      "id": "man",
+      "id": "mane",
       "team": "B",
       "num": 19,
       "name": "Mané",
@@ -709,7 +709,7 @@
   "ball": [
     {
       "t": 0.0,
-      "with": "modri"
+      "with": "modric"
     },
     {
       "t": 1.26,

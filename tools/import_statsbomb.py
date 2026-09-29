@@ -24,6 +24,7 @@ import os
 import pathlib
 import re
 import sys
+import unicodedata
 import urllib.error
 import urllib.request
 
@@ -79,7 +80,10 @@ def surname(name):
 
 
 def slug(text):
-    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
+    """A plain-ASCII id: accents are folded, so Pelé and Modrić become pele and modric."""
+    flat = unicodedata.normalize("NFKD", text.lower())
+    flat = "".join(c for c in flat if not unicodedata.combining(c))
+    return re.sub(r"[^a-z0-9]+", "-", flat).strip("-")
 
 
 def to_pitch(loc, flip):

@@ -33,7 +33,7 @@
   ],
   "players": [
     {
-      "id": "pel",
+      "id": "pele",
       "team": "A",
       "num": 10,
       "name": "Pelé",
@@ -81,7 +81,7 @@
       ]
     },
     {
-      "id": "g-rson",
+      "id": "gerson",
       "team": "A",
       "num": 8,
       "name": "Gérson",
@@ -671,15 +671,15 @@
   "ball": [
     {
       "t": 0.0,
-      "with": "pel"
+      "with": "pele"
     },
     {
       "t": 1.05,
-      "with": "g-rson"
+      "with": "gerson"
     },
     {
       "t": 1.45,
-      "with": "g-rson"
+      "with": "gerson"
     },
     {
       "t": 2.12,
@@ -723,11 +723,11 @@
     },
     {
       "t": 18.49,
-      "with": "pel"
+      "with": "pele"
     },
     {
       "t": 20.19,
-      "with": "pel"
+      "with": "pele"
     },
     {
       "t": 21.96,

@@ -271,4 +271,11 @@ CHANGELOG:
   Valdano, Burruchaga) have hand-drawn routes that end exactly where the data puts them, and the
   rest of both teams are unnamed so the off-ball engine moves them. Words, kits and venue are the
   hand-written ones. 19.9 s instead of 16.2 s, because the real build-up starts two passes earlier.
+- 2026-09-28 — Carlos Alberto 1970 and Bale 2018 rebuilt from the real data (user request): both now
+  carry StatsBomb's ball path and timing (matches 3888702 and 18245), so the 1970 move runs the full
+  25 s from Clodoaldo's dribble through Rivelino and Jairzinho to Pelé's lay-off, and the Kyiv goal
+  starts three passes earlier at 23 s, with Bale's overhead kick taken straight from the shot record.
+  Players the data only sees at the shot have hand-drawn routes into those positions; the rest of
+  each team is unnamed so the off-ball engine moves them. Also fixed: the importer folded accents
+  out of ids (Pelé, Gérson, Modrić, Mané now import as pele, gerson, modric, mane).
 
