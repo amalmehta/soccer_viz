@@ -305,4 +305,14 @@ CHANGELOG:
   loops seamlessly) and the sustained roar at 1:17 is the goal reaction (10 s). Both are embedded as
   AAC in sound/recordings.js (541 KB), which the page and the site build now load, so the Crowd
   button appears. Credit is in build_sounds.py, sound/recordings/README.md and the README.
+- 2026-09-28 — movement fixes (user: "players going the direction and with the gait that makes
+  sense", worst in Broadcast). Measured first with a new tools/check_motion.js: bodies were snapping
+  round at up to 62 rad/s as their facing flipped between "watch the ball" and "face the run", and
+  players travelling backwards kept a full forward stride, which reads as gliding. Now each body has
+  a heading track built at compile time that follows what the player wants to look at but turns at a
+  human rate (7.5 rad/s), with kicks and lunges steering the same track instead of snapping it. The
+  run cycle follows the direction of travel: backwards is a backpedal (reversed swing, 60% stride),
+  across the body is a shuffle (78%). Defenders turn to run above 3.2 m/s rather than 4, and off-ball
+  players ease off the mark instead of starting at a sprint. After: turn rate never exceeds the cap,
+  sprinting backwards is under 0.4% of frames everywhere (was up to 36 m/s of it), 21 clips ok.
 

@@ -997,7 +997,7 @@
         if (pl.gk) {
           const d = Math.hypot(ball.x - ownGoal.x, ball.y - ownGoal.y);
           target = toward(ownGoal, ball, lim(d / 7, 1, 6));
-          vmax = 5;
+          vmax = 4.5;
         } else if (pl.team === "B") {
           const zone = { x: anchor.x + 0.32 * (drift.x - start.x), y: anchor.y + 0.38 * (drift.y - start.y) };
           target = zone;
@@ -1026,9 +1026,10 @@
           };
         }
 
-        // React with a short delay, never faster than a sprint
+        // React with a short delay, never faster than a sprint, and never straight off the mark
         const dx = target.x - prev.x, dy = target.y - prev.y, want = Math.hypot(dx, dy);
-        const move = Math.min(vmax * step, want * Math.min(1, step / 0.35));
+        const warm = Math.min(1, 0.4 + t * 1.2);
+        const move = Math.min(vmax * step * warm, want * Math.min(1, step / 0.35));
         let x = prev.x + (want ? (dx / want) * move : 0), y = prev.y + (want ? (dy / want) * move : 0);
         // While the ball is in front of them, defenders give ground at a jockeying backpedal
         // (2 m/s at most) instead of turning and running from it; once it's past them they sprint back
@@ -1438,21 +1439,60 @@
     }
     actionsBy = buildActions(play, byId, ballAt);
 
+    // Which way each body faces, sampled through the play. A player wants to look where they are
+    // running, defenders and keepers want to watch the ball, and a kick or a lunge points the body
+    // at its target — but a body can only turn so fast, so the want is followed at a human rate.
+    const HEAD_DT = 0.05, TURN = 7.5;                 // radians per second
+    const wrap = a => Math.atan2(Math.sin(a), Math.cos(a));
+    const headings = new Map();
+    for (const pl of play.players) {
+      const src = byId[pl.id];
+      const n = Math.ceil(play.duration / HEAD_DT) + 2;
+      const arr = new Float64Array(n);
+      let h = null;
+      for (let i = 0; i < n; i++) {
+        const t = i * HEAD_DT;
+        const p = pathPos(src.path, t);
+        const ball = ballAt(t);
+        const toBall = Math.atan2(ball.y - p.y, ball.x - p.x);
+        const moving = moveHeading(src, t);
+        const g = gait(pl, t);
+        let want = moving ?? toBall;
+        if (pl.team === "B" || pl.gk) {
+          const away = moving == null ? 0 : Math.abs(wrap(moving - toBall));
+          if (pl.gk || g.speed < 3.2 || away < 1.9) want = toBall;
+        }
+        for (const a of actionsBy.get(pl.id) || []) {
+          if (a.dir != null && t >= a.t0 && t <= a.t1) want = a.dir;
+        }
+        if (h == null) h = want;
+        else h += Math.max(-TURN * HEAD_DT, Math.min(TURN * HEAD_DT, wrap(want - h)));
+        arr[i] = h;
+      }
+      headings.set(pl.id, arr);
+    }
+    function headingAt(pl, t) {
+      const arr = headings.get(pl.id);
+      const f = Math.max(0, t) / HEAD_DT;
+      const i = Math.min(arr.length - 2, Math.floor(f)), u = Math.min(1, f - i);
+      return arr[i] + wrap(arr[i + 1] - arr[i]) * u;
+    }
+
     // Everything a look needs to pose a player: position, facing, lift, lean, roll and joint angles
     function bodyAt(pl, t) {
-      const g = gait(pl, t);
-      const base = gaitPose(g);
       const src = byId[pl.id];
       const p = pathPos(src.path, t);
-      const ball = ballAt(t);
-      const toBall = Math.atan2(ball.y - p.y, ball.x - p.x);
-      const moving = moveHeading(src, t);
-      let heading = moving ?? toBall;
-      // Defenders and keepers keep their eyes on the ball, turning their back only to sprint back
-      if (pl.team === "B" || pl.gk) {
-        const away = moving == null ? 0 : Math.abs(Math.atan2(Math.sin(moving - toBall), Math.cos(moving - toBall)));
-        if (pl.gk || g.speed < 4 || away < 1.9) heading = toBall;
+      let heading = headingAt(pl, t);
+      // The legs follow the way the body is actually travelling: running backwards is a backpedal
+      // (short steps, reversed swing) and running across the body is a shuffle, not a full stride.
+      let g = gait(pl, t);
+      const travel = moveHeading(src, t);
+      if (travel != null && g.speed > 0.6) {
+        const off = Math.abs(wrap(travel - heading));
+        if (off > 1.9) g = { ...g, phase: -g.phase, run: g.run * 0.6, sprint: g.sprint * 0.25 };
+        else if (off > 1.0) g = { ...g, run: g.run * 0.78, sprint: g.sprint * 0.5 };
       }
+      const base = gaitPose(g);
       let active = null;
       for (const a of actionsBy.get(pl.id) || []) {
         if (t >= a.t0 && t <= a.t1 && (!active || a.rank > active.rank || (a.rank === active.rank && a.t0 > active.t0))) active = a;
@@ -1461,7 +1501,6 @@
       const span = active.t1 - active.t0;
       const w = easeIn((t - active.t0) / Math.min(0.2, span * 0.25)) * (active.hold ? 1 : easeIn((active.t1 - t) / Math.min(0.2, span * 0.25)));
       const P = actionPose(active, (t - active.t0) / span, t);
-      if (active.dir != null && w > 0.3) heading = active.dir;
       const mix = (x, y, k) => x + (y - x) * k;
       const lw = w * P.legW;
       // A dive tips the keeper toward the ball's side of the body
