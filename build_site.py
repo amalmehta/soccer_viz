@@ -66,7 +66,12 @@ def main():
     split = src.index('<header class="top">')
     head_part, body_part = src[:split], src[split:]
 
+    # The written docs (INSTRUCTIONS.md, FILE-STRUCTURE.md) live in docs/ too; keep them across rebuilds
+    kept = {f.name: f.read_bytes() for f in SITE.glob("*.md")}
     shutil.rmtree(SITE, ignore_errors=True)
+    SITE.mkdir(parents=True)
+    for name, data in kept.items():
+        (SITE / name).write_bytes(data)
     for rel in ASSETS:
         (SITE / rel).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / rel, SITE / rel)
