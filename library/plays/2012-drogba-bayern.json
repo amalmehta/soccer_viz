@@ -1,0 +1,753 @@
+{
+  "title": "Drogba's header in Munich",
+  "subtitle": "Champions League, final · Allianz Arena, Munich · 19 May 2012",
+  "clock": "88'",
+  "duration": 8.5,
+  "teams": {
+    "A": {
+      "name": "Chelsea",
+      "short": "CHE",
+      "color": "#034694",
+      "color2": "#F5F5F2",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#034694",
+      "socks": "#F5F5F2",
+      "gkColor": "#3FB98A"
+    },
+    "B": {
+      "name": "Bayern Munich",
+      "short": "FCB",
+      "color": "#DC052D",
+      "color2": "#F5F5F2",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#DC052D",
+      "socks": "#DC052D",
+      "gkColor": "#2E7D32"
+    }
+  },
+  "score": [
+    0,
+    1
+  ],
+  "players": [
+    {
+      "id": "mata",
+      "team": "A",
+      "num": 10,
+      "name": "Mata",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 170
+      },
+      "path": [
+        [
+          0.0,
+          105.0,
+          68.0
+        ],
+        [
+          1.49,
+          102.38,
+          67.15
+        ]
+      ]
+    },
+    {
+      "id": "drogba",
+      "team": "A",
+      "num": 11,
+      "name": "Drogba",
+      "star": true,
+      "look": {
+        "skin": "dark",
+        "hair": "buzz",
+        "hairColor": "black",
+        "beard": "stubble",
+        "height": 189
+      },
+      "path": [
+        [
+          0,
+          90.1,
+          42.1
+        ],
+        [
+          0.8,
+          91.34,
+          41.78
+        ],
+        [
+          1.45,
+          92.87,
+          41.35
+        ],
+        [
+          6.0,
+          101.88,
+          42.2
+        ]
+      ]
+    },
+    {
+      "id": "boateng",
+      "team": "B",
+      "num": 17,
+      "name": "Boateng",
+      "look": {
+        "skin": "brown",
+        "hair": "buzz",
+        "hairColor": "black",
+        "beard": "stubble",
+        "height": 192
+      },
+      "path": [
+        [
+          0,
+          92.7,
+          38.36
+        ],
+        [
+          0.82,
+          94.66,
+          37.81
+        ],
+        [
+          1.49,
+          94.88,
+          36.39
+        ],
+        [
+          6.0,
+          101.88,
+          40.25
+        ]
+      ]
+    },
+    {
+      "id": "ribery",
+      "team": "B",
+      "num": 7,
+      "name": "Ribéry",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 170
+      },
+      "path": [
+        [
+          0,
+          84.27,
+          45.3
+        ],
+        [
+          0.82,
+          86.53,
+          44.7
+        ],
+        [
+          1.49,
+          88.38,
+          44.2
+        ],
+        [
+          6.0,
+          91.38,
+          44.75
+        ]
+      ]
+    },
+    {
+      "id": "kroos",
+      "team": "B",
+      "num": 39,
+      "name": "Kroos",
+      "path": [
+        [
+          0,
+          100.94,
+          33.06
+        ],
+        [
+          0.82,
+          103.47,
+          32.07
+        ],
+        [
+          1.49,
+          104,
+          30.41
+        ],
+        [
+          6.0,
+          104,
+          32.85
+        ]
+      ]
+    },
+    {
+      "id": "contento",
+      "team": "B",
+      "num": 26,
+      "name": "Contento",
+      "path": [
+        [
+          0,
+          100.57,
+          36.29
+        ],
+        [
+          0.82,
+          104,
+          34.99
+        ],
+        [
+          1.49,
+          104,
+          33.61
+        ],
+        [
+          6.0,
+          104,
+          35.1
+        ]
+      ]
+    },
+    {
+      "id": "buyten",
+      "team": "B",
+      "num": 5,
+      "name": "Buyten",
+      "path": [
+        [
+          0,
+          98.44,
+          36.67
+        ],
+        [
+          0.82,
+          100.25,
+          36.23
+        ],
+        [
+          1.49,
+          100.97,
+          36.45
+        ],
+        [
+          6.0,
+          104,
+          35.4
+        ]
+      ]
+    },
+    {
+      "id": "lampard",
+      "team": "A",
+      "num": 8,
+      "name": "Lampard",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "none",
+        "height": 184
+      },
+      "path": [
+        [
+          0,
+          99.34,
+          45.0
+        ],
+        [
+          0.82,
+          101.89,
+          45.46
+        ],
+        [
+          1.49,
+          103.54,
+          45.41
+        ],
+        [
+          6.0,
+          102.75,
+          41.65
+        ]
+      ]
+    },
+    {
+      "id": "malouda",
+      "team": "A",
+      "num": 15,
+      "name": "Malouda",
+      "path": [
+        [
+          0,
+          92.39,
+          44.73
+        ],
+        [
+          0.82,
+          94.57,
+          44.25
+        ],
+        [
+          1.49,
+          96.36,
+          44.14
+        ],
+        [
+          6.0,
+          102.75,
+          38.5
+        ]
+      ]
+    },
+    {
+      "id": "cahill",
+      "team": "A",
+      "num": 24,
+      "name": "Cahill",
+      "path": [
+        [
+          0,
+          94.48,
+          31.65
+        ],
+        [
+          0.82,
+          96.15,
+          31.55
+        ],
+        [
+          1.49,
+          96.04,
+          31.77
+        ],
+        [
+          6.0,
+          103.62,
+          34.3
+        ]
+      ]
+    },
+    {
+      "id": "luiz",
+      "team": "A",
+      "num": 4,
+      "name": "Luiz",
+      "path": [
+        [
+          0,
+          97.36,
+          33.83
+        ],
+        [
+          0.82,
+          99.21,
+          33.37
+        ],
+        [
+          1.49,
+          100.36,
+          32.26
+        ],
+        [
+          6.0,
+          104,
+          34.0
+        ]
+      ]
+    },
+    {
+      "id": "bosingwa",
+      "team": "A",
+      "num": 17,
+      "name": "Bosingwa",
+      "path": [
+        [
+          0,
+          92.5,
+          35.59
+        ],
+        [
+          0.82,
+          94.59,
+          34.86
+        ],
+        [
+          1.49,
+          96.36,
+          34.33
+        ],
+        [
+          6.0,
+          100.12,
+          35.4
+        ]
+      ]
+    },
+    {
+      "id": "torres",
+      "team": "A",
+      "num": 9,
+      "name": "Torres",
+      "path": [
+        [
+          0,
+          97.39,
+          26.95
+        ],
+        [
+          0.82,
+          99.65,
+          27.55
+        ],
+        [
+          1.49,
+          101.5,
+          28.05
+        ],
+        [
+          6.0,
+          104,
+          27.5
+        ]
+      ]
+    },
+    {
+      "id": "neuer",
+      "team": "B",
+      "num": 1,
+      "name": "Neuer",
+      "gk": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 193
+      },
+      "path": [
+        [
+          0,
+          103.19,
+          37.76
+        ],
+        [
+          0.82,
+          104,
+          37.74
+        ],
+        [
+          1.49,
+          104,
+          38.42
+        ],
+        [
+          6.0,
+          104,
+          37.1
+        ]
+      ]
+    },
+    {
+      "id": "robben",
+      "team": "B",
+      "num": 10,
+      "name": "Robben",
+      "look": {
+        "skin": "light",
+        "hair": "bald",
+        "hairColor": "light-brown",
+        "beard": "stubble",
+        "height": 180
+      },
+      "path": [
+        [
+          0,
+          88.64,
+          28.9
+        ],
+        [
+          0.82,
+          90.9,
+          28.9
+        ],
+        [
+          1.49,
+          92.75,
+          28.9
+        ],
+        [
+          6.0,
+          95.75,
+          28.9
+        ]
+      ]
+    },
+    {
+      "id": "lahm",
+      "team": "B",
+      "num": 21,
+      "name": "Lahm",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 170
+      },
+      "path": [
+        [
+          0,
+          94.32,
+          45.98
+        ],
+        [
+          0.82,
+          96.55,
+          45.55
+        ],
+        [
+          1.49,
+          98.58,
+          44.85
+        ],
+        [
+          6.0,
+          101.88,
+          43.9
+        ]
+      ]
+    },
+    {
+      "id": "tymoshchuk",
+      "team": "B",
+      "num": 44,
+      "name": "Tymoshchuk",
+      "path": [
+        [
+          0,
+          95.95,
+          43.6
+        ],
+        [
+          0.82,
+          98.67,
+          43.59
+        ],
+        [
+          1.49,
+          102.19,
+          43.71
+        ],
+        [
+          6.0,
+          102.75,
+          38.8
+        ]
+      ]
+    },
+    {
+      "id": "gomez",
+      "team": "B",
+      "num": 33,
+      "name": "Gómez",
+      "path": [
+        [
+          0,
+          95.73,
+          39.12
+        ],
+        [
+          0.82,
+          98.05,
+          39.06
+        ],
+        [
+          1.49,
+          100.14,
+          37.93
+        ],
+        [
+          6.0,
+          102.75,
+          38.55
+        ]
+      ]
+    },
+    {
+      "id": "schweinsteiger",
+      "team": "B",
+      "num": 31,
+      "name": "Schweinsteiger",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "stubble",
+        "height": 183
+      },
+      "path": [
+        [
+          0,
+          95.51,
+          36.83
+        ],
+        [
+          0.82,
+          97.16,
+          36.33
+        ],
+        [
+          1.49,
+          97.65,
+          36.15
+        ],
+        [
+          6.0,
+          102.75,
+          36.25
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0.0,
+      "with": "mata"
+    },
+    {
+      "t": 1.45,
+      "with": "drogba"
+    },
+    {
+      "t": 2.41,
+      "x": 105.4,
+      "y": 36.21
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "88' — Chelsea trail 1–0 with the final slipping away."
+    },
+    {
+      "t": 0.9,
+      "text": "Mata's corner from the left."
+    },
+    {
+      "t": 1.5,
+      "text": "Drogba attacks it in front of the marker."
+    },
+    {
+      "t": 2.4,
+      "text": "Headed back across Neuer. 1–1."
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "Eighty-eight minutes in Munich, Chelsea a goal down, and this is the corner."
+    },
+    {
+      "t": 0.9,
+      "text": "Mata swings it in from the left…"
+    },
+    {
+      "t": 1.5,
+      "text": "…DROGBA! Powered in!"
+    },
+    {
+      "t": 2.6,
+      "text": "One apiece! From nowhere, Chelsea are level in a European Cup final."
+    },
+    {
+      "t": 4.2,
+      "text": "Their first corner of the night, and it has saved them."
+    }
+  ],
+  "events": [
+    {
+      "t": 0.0,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 1.49,
+      "type": "tackle",
+      "team": "B"
+    },
+    {
+      "t": 1.49,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 2.41,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "actions": [
+    {
+      "t": 1.49,
+      "id": "drogba",
+      "type": "header"
+    }
+  ],
+  "venue": {
+    "time": "night",
+    "roof": "partial",
+    "stands": "#8a1420",
+    "accent": "#e0e3e8",
+    "track": false,
+    "grass": "#2e7a3c",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "Bayern had led since Müller's goal at 83 minutes and had dominated the match. With two minutes left, this was Chelsea's first corner of the night and effectively their last chance."
+    },
+    {
+      "label": "The delivery",
+      "text": "Mata swung it in from the left towards the near half of the six-yard box, at a height a runner could attack but the goalkeeper could not comfortably come for."
+    },
+    {
+      "label": "The run",
+      "text": "Drogba started from behind the defensive line and attacked the ball in front of the marker, meeting it while the defenders were still moving backwards with the flight."
+    },
+    {
+      "label": "The header",
+      "text": "The contact was downward and back across goal. Neuer had shifted towards the near post with the delivery and could not get across to the far side."
+    }
+  ],
+  "lessons": [
+    {
+      "label": "Attack the near half",
+      "text": "Meeting a corner in front of the marker beats waiting at the far post: the defender is turning and cannot jump through you."
+    },
+    {
+      "label": "Start from deeper",
+      "text": "Running onto the ball from behind the line gives you momentum the static defenders do not have."
+    },
+    {
+      "label": "Head it back across",
+      "text": "Send a header against the flight of the cross. The goalkeeper's weight is already moving the other way."
+    },
+    {
+      "label": "One chance is enough",
+      "text": "Chelsea had barely attacked all night and still won the final. Set pieces are the way a team under pressure scores."
+    }
+  ],
+  "note": "The ball's path, its timing and the tracked players come from StatsBomb's open data for this match (id 18237). Players the data only sees at the shot have routes drawn back into those positions, and any extra team-mates are placed by hand. Commentary is original, not the broadcast."
+}

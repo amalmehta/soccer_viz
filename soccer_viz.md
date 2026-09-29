@@ -323,4 +323,15 @@ CHANGELOG:
   were authored jogging home at 2.5-3 m/s, now they chase at 4-5.5 and stay in the picture (55% to
   16% dawdling). New tools/quicken_chases.py re-times any named defender still loitering, keeping
   the position they end on, applied to 7 clips. All 20 clips and 3 built-ins still pass both checkers.
+- 2026-09-28 — four more data-backed clips (user request): Mbappé in the 2018 final (match 8658),
+  Messi's header in Rome 2009 (3750201), Drogba's header in Munich 2012 (18237) and Lucy Bronze
+  against Norway at the 2019 Women's World Cup (69199). The two set-piece goals are short by nature
+  (a corner and a worked free kick), so they hold for 8.5 s to let the celebration run. Library:
+  24 clip files plus the built-in Messi clip and 2 moves.
+- 2026-09-28 — the page no longer depends on a reachable CDN. While testing, jsDelivr, Google Fonts
+  and cdnjs all went unreachable and the app sat on a blank pitch: a stylesheet still loading blocks
+  every script, so nothing ran until the requests timed out. The fonts stylesheet now loads without
+  blocking (media="print" then swapped on load, with a noscript fallback) and the video-export muxer
+  is deferred. Verified with the network down: the page renders and all 24 clips load in system
+  fonts, and video export falls back to MediaRecorder if the muxer never arrives.
 

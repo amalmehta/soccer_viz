@@ -1,0 +1,694 @@
+{
+  "title": "TODO: name this goal (Lottin, 2018)",
+  "subtitle": "FIFA World Cup, final · Stadion Luzhniki · 2018-07-15",
+  "clock": "65'",
+  "duration": 22.9,
+  "teams": {
+    "A": {
+      "name": "France",
+      "short": "FRA",
+      "color": "#2C5BD6",
+      "color2": "#0F2B7A",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#FFFFFF",
+      "socks": "#2C5BD6",
+      "gkColor": "#F2C94C"
+    },
+    "B": {
+      "name": "Croatia",
+      "short": "CRO",
+      "color": "#EE6A55",
+      "color2": "#8A2A1C",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#1E2430",
+      "socks": "#EE6A55",
+      "gkColor": "#34C77B"
+    }
+  },
+  "score": [
+    0,
+    0
+  ],
+  "players": [
+    {
+      "id": "hernandez",
+      "team": "A",
+      "num": 21,
+      "name": "Hernandez",
+      "path": [
+        [
+          0.0,
+          56.88,
+          5.95
+        ],
+        [
+          2.55,
+          61.25,
+          5.1
+        ],
+        [
+          6.31,
+          60.38,
+          4.25
+        ],
+        [
+          10.07,
+          59.5,
+          3.4
+        ],
+        [
+          11.75,
+          56.88,
+          2.55
+        ],
+        [
+          14.19,
+          69.13,
+          7.23
+        ],
+        [
+          16.63,
+          81.38,
+          11.9
+        ],
+        [
+          19.43,
+          90.12,
+          17.85
+        ]
+      ]
+    },
+    {
+      "id": "matuidi",
+      "team": "A",
+      "num": 14,
+      "name": "Matuidi",
+      "path": [
+        [
+          0.0,
+          68.25,
+          2.55
+        ],
+        [
+          3.15,
+          68.25,
+          2.55
+        ],
+        [
+          6.41,
+          69.12,
+          5.61
+        ],
+        [
+          9.66,
+          70.0,
+          8.67
+        ],
+        [
+          12.92,
+          70.87,
+          11.73
+        ],
+        [
+          16.17,
+          71.75,
+          14.79
+        ],
+        [
+          19.43,
+          72.62,
+          17.85
+        ]
+      ]
+    },
+    {
+      "id": "pogba",
+      "team": "A",
+      "num": 6,
+      "name": "Pogba",
+      "path": [
+        [
+          0.0,
+          50.75,
+          4.25
+        ],
+        [
+          2.4,
+          50.75,
+          4.25
+        ],
+        [
+          4.79,
+          50.75,
+          4.25
+        ],
+        [
+          5.79,
+          51.62,
+          5.95
+        ],
+        [
+          7.88,
+          49.0,
+          5.1
+        ],
+        [
+          9.03,
+          48.12,
+          5.1
+        ]
+      ]
+    },
+    {
+      "id": "nzonzi",
+      "team": "A",
+      "num": 15,
+      "name": "Nzonzi",
+      "path": [
+        [
+          0.0,
+          49.0,
+          16.15
+        ],
+        [
+          3.5,
+          49.0,
+          16.15
+        ],
+        [
+          6.99,
+          49.0,
+          16.15
+        ]
+      ]
+    },
+    {
+      "id": "mandzukic",
+      "team": "B",
+      "num": 17,
+      "name": "Mandžukić",
+      "path": [
+        [
+          0.0,
+          59.5,
+          4.25
+        ],
+        [
+          3.25,
+          59.5,
+          4.25
+        ],
+        [
+          6.5,
+          59.5,
+          4.25
+        ],
+        [
+          9.75,
+          59.5,
+          4.25
+        ],
+        [
+          11.75,
+          56.0,
+          1.7
+        ],
+        [
+          15.59,
+          64.31,
+          9.35
+        ],
+        [
+          19.43,
+          72.62,
+          17.0
+        ]
+      ]
+    },
+    {
+      "id": "mbappe",
+      "team": "A",
+      "num": 10,
+      "name": "Mbappé",
+      "path": [
+        [
+          0.0,
+          80.5,
+          32.3
+        ],
+        [
+          3.55,
+          80.5,
+          32.3
+        ],
+        [
+          7.1,
+          80.5,
+          32.3
+        ],
+        [
+          10.65,
+          80.5,
+          32.3
+        ],
+        [
+          14.2,
+          80.5,
+          32.3
+        ],
+        [
+          17.75,
+          80.5,
+          32.3
+        ],
+        [
+          19.43,
+          82.25,
+          34.0
+        ]
+      ],
+      "star": true
+    },
+    {
+      "id": "subasic",
+      "team": "B",
+      "num": 23,
+      "name": "Subašić",
+      "path": [
+        [
+          0.0,
+          104.12,
+          34.85
+        ],
+        [
+          3.89,
+          104.12,
+          34.85
+        ],
+        [
+          7.77,
+          104.12,
+          34.85
+        ],
+        [
+          11.66,
+          104.12,
+          34.85
+        ],
+        [
+          15.54,
+          104.12,
+          34.85
+        ],
+        [
+          19.43,
+          104.12,
+          34.85
+        ]
+      ],
+      "gk": true
+    },
+    {
+      "id": "strinic",
+      "team": "B",
+      "num": 3,
+      "name": "Strinić",
+      "path": [
+        [
+          0.0,
+          87.5,
+          41.65
+        ],
+        [
+          3.89,
+          87.5,
+          41.65
+        ],
+        [
+          7.77,
+          87.5,
+          41.65
+        ],
+        [
+          11.66,
+          87.5,
+          41.65
+        ],
+        [
+          15.54,
+          87.5,
+          41.65
+        ],
+        [
+          19.43,
+          87.5,
+          41.65
+        ]
+      ]
+    },
+    {
+      "id": "vida",
+      "team": "B",
+      "num": 21,
+      "name": "Vida",
+      "path": [
+        [
+          0.0,
+          85.75,
+          33.15
+        ],
+        [
+          3.89,
+          85.75,
+          33.15
+        ],
+        [
+          7.77,
+          85.75,
+          33.15
+        ],
+        [
+          11.66,
+          85.75,
+          33.15
+        ],
+        [
+          15.54,
+          85.75,
+          33.15
+        ],
+        [
+          19.43,
+          85.75,
+          33.15
+        ]
+      ]
+    },
+    {
+      "id": "giroud",
+      "team": "A",
+      "num": 9,
+      "name": "Giroud",
+      "path": [
+        [
+          0.0,
+          88.38,
+          27.2
+        ],
+        [
+          3.89,
+          88.38,
+          27.2
+        ],
+        [
+          7.77,
+          88.38,
+          27.2
+        ],
+        [
+          11.66,
+          88.38,
+          27.2
+        ],
+        [
+          15.54,
+          88.38,
+          27.2
+        ],
+        [
+          19.43,
+          88.38,
+          27.2
+        ]
+      ]
+    },
+    {
+      "id": "lovren",
+      "team": "B",
+      "num": 6,
+      "name": "Lovren",
+      "path": [
+        [
+          0.0,
+          90.12,
+          27.2
+        ],
+        [
+          3.89,
+          90.12,
+          27.2
+        ],
+        [
+          7.77,
+          90.12,
+          27.2
+        ],
+        [
+          11.66,
+          90.12,
+          27.2
+        ],
+        [
+          15.54,
+          90.12,
+          27.2
+        ],
+        [
+          19.43,
+          90.12,
+          27.2
+        ]
+      ]
+    },
+    {
+      "id": "brozovic",
+      "team": "B",
+      "num": 11,
+      "name": "Brozović",
+      "path": [
+        [
+          0.0,
+          85.75,
+          23.8
+        ],
+        [
+          3.89,
+          85.75,
+          23.8
+        ],
+        [
+          7.77,
+          85.75,
+          23.8
+        ],
+        [
+          11.66,
+          85.75,
+          23.8
+        ],
+        [
+          15.54,
+          85.75,
+          23.8
+        ],
+        [
+          19.43,
+          85.75,
+          23.8
+        ]
+      ]
+    },
+    {
+      "id": "vrsaljko",
+      "team": "B",
+      "num": 2,
+      "name": "Vrsaljko",
+      "path": [
+        [
+          0.0,
+          89.25,
+          20.4
+        ],
+        [
+          3.89,
+          89.25,
+          20.4
+        ],
+        [
+          7.77,
+          89.25,
+          20.4
+        ],
+        [
+          11.66,
+          89.25,
+          20.4
+        ],
+        [
+          15.54,
+          89.25,
+          20.4
+        ],
+        [
+          19.43,
+          89.25,
+          20.4
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0.0,
+      "with": "hernandez"
+    },
+    {
+      "t": 2.55,
+      "with": "hernandez"
+    },
+    {
+      "t": 3.15,
+      "with": "matuidi"
+    },
+    {
+      "t": 4.79,
+      "with": "pogba"
+    },
+    {
+      "t": 5.79,
+      "with": "pogba"
+    },
+    {
+      "t": 6.99,
+      "with": "nzonzi"
+    },
+    {
+      "t": 7.88,
+      "with": "pogba"
+    },
+    {
+      "t": 9.03,
+      "with": "pogba"
+    },
+    {
+      "t": 10.07,
+      "with": "hernandez"
+    },
+    {
+      "t": 11.75,
+      "with": "hernandez"
+    },
+    {
+      "t": 16.63,
+      "with": "hernandez"
+    },
+    {
+      "t": 17.75,
+      "with": "mbappe"
+    },
+    {
+      "t": 19.43,
+      "with": "mbappe"
+    },
+    {
+      "t": 20.36,
+      "x": 105.4,
+      "y": 31.45
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "TODO: write the captions, 3 to 8 of them."
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "TODO: write original commentary, 4 to 9 lines."
+    }
+  ],
+  "events": [
+    {
+      "t": 2.55,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 3.15,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 5.79,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 6.99,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 9.03,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 16.63,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 19.43,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 20.36,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "actions": [],
+  "venue": {
+    "time": "day",
+    "roof": "open",
+    "stands": "#2a3550",
+    "accent": "#d9dde3",
+    "track": false,
+    "grass": "#2e7a3c",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "TODO: the state of the match and why the space was there."
+    },
+    {
+      "label": "Key moment",
+      "text": "TODO: the moment the goal turned on."
+    },
+    {
+      "label": "The finish",
+      "text": "TODO: how it was finished."
+    }
+  ],
+  "lessons": [
+    {
+      "label": "TODO lesson one",
+      "text": "TODO: a practical coaching point from this play."
+    },
+    {
+      "label": "TODO lesson two",
+      "text": "TODO: a practical coaching point from this play."
+    },
+    {
+      "label": "TODO lesson three",
+      "text": "TODO: a practical coaching point from this play."
+    }
+  ],
+  "note": "Ball path and player positions come from StatsBomb open data (match 8658); players away from the ball are placed from the shot's freeze frame and moved by the app. Commentary is original, not the broadcast."
+}

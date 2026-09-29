@@ -1,0 +1,842 @@
+{
+  "title": "Mbappé in the Moscow final",
+  "subtitle": "FIFA World Cup, final · Luzhniki Stadium, Moscow · 15 Jul 2018",
+  "clock": "65'",
+  "duration": 22.9,
+  "teams": {
+    "A": {
+      "name": "France",
+      "short": "FRA",
+      "color": "#1F3A93",
+      "color2": "#F5F5F2",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#F5F5F2",
+      "socks": "#C8102E",
+      "gkColor": "#3FB98A"
+    },
+    "B": {
+      "name": "Croatia",
+      "short": "CRO",
+      "color": "#F5F5F2",
+      "color2": "#C8102E",
+      "text": "#C8102E",
+      "pattern": "stripes",
+      "shorts": "#1B2A4A",
+      "socks": "#1B2A4A",
+      "gkColor": "#2E2E33"
+    }
+  },
+  "score": [
+    3,
+    1
+  ],
+  "players": [
+    {
+      "id": "hernandez",
+      "team": "A",
+      "num": 21,
+      "name": "L. Hernández",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 184
+      },
+      "path": [
+        [
+          0.0,
+          56.88,
+          5.95
+        ],
+        [
+          2.55,
+          61.25,
+          5.1
+        ],
+        [
+          6.31,
+          60.38,
+          4.25
+        ],
+        [
+          10.07,
+          59.5,
+          3.4
+        ],
+        [
+          11.75,
+          56.88,
+          2.55
+        ],
+        [
+          14.19,
+          69.13,
+          7.23
+        ],
+        [
+          16.63,
+          81.38,
+          11.9
+        ],
+        [
+          19.43,
+          90.12,
+          17.85
+        ]
+      ]
+    },
+    {
+      "id": "matuidi",
+      "team": "A",
+      "num": 14,
+      "name": "Matuidi",
+      "look": {
+        "skin": "dark",
+        "hair": "buzz",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 175
+      },
+      "path": [
+        [
+          0.0,
+          68.25,
+          2.55
+        ],
+        [
+          3.15,
+          68.25,
+          2.55
+        ],
+        [
+          6.41,
+          69.12,
+          5.61
+        ],
+        [
+          9.66,
+          70.0,
+          8.67
+        ],
+        [
+          12.92,
+          70.87,
+          11.73
+        ],
+        [
+          16.17,
+          71.75,
+          14.79
+        ],
+        [
+          19.43,
+          72.62,
+          17.85
+        ]
+      ]
+    },
+    {
+      "id": "pogba",
+      "team": "A",
+      "num": 6,
+      "name": "Pogba",
+      "look": {
+        "skin": "dark",
+        "hair": "short",
+        "hairColor": "blond",
+        "beard": "stubble",
+        "height": 191
+      },
+      "path": [
+        [
+          0.0,
+          50.75,
+          4.25
+        ],
+        [
+          2.4,
+          50.75,
+          4.25
+        ],
+        [
+          4.79,
+          50.75,
+          4.25
+        ],
+        [
+          5.79,
+          51.62,
+          5.95
+        ],
+        [
+          7.88,
+          49.0,
+          5.1
+        ],
+        [
+          9.03,
+          48.12,
+          5.1
+        ]
+      ]
+    },
+    {
+      "id": "nzonzi",
+      "team": "A",
+      "num": 15,
+      "name": "Nzonzi",
+      "look": {
+        "skin": "dark",
+        "hair": "buzz",
+        "hairColor": "black",
+        "beard": "beard",
+        "height": 196
+      },
+      "path": [
+        [
+          0,
+          40.2,
+          13.95
+        ],
+        [
+          3.84,
+          45.04,
+          15.16
+        ],
+        [
+          6.99,
+          49.0,
+          16.15
+        ],
+        [
+          22.9,
+          52.0,
+          15.05
+        ]
+      ]
+    },
+    {
+      "id": "mandzukic",
+      "team": "B",
+      "num": 17,
+      "name": "Mandžukić",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 190
+      },
+      "path": [
+        [
+          0.0,
+          59.5,
+          4.25
+        ],
+        [
+          2.2,
+          58.97,
+          4.06
+        ],
+        [
+          2.48,
+          57.74,
+          4.34
+        ],
+        [
+          2.89,
+          59.19,
+          6.03
+        ],
+        [
+          4.14,
+          55.01,
+          0.74
+        ],
+        [
+          6.49,
+          64.31,
+          9.35
+        ],
+        [
+          8.58,
+          72.62,
+          17.0
+        ],
+        [
+          22.9,
+          72.62,
+          17.0
+        ]
+      ]
+    },
+    {
+      "id": "mbappe",
+      "team": "A",
+      "num": 10,
+      "name": "Mbappé",
+      "star": true,
+      "look": {
+        "skin": "brown",
+        "hair": "short",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 178
+      },
+      "path": [
+        [
+          0.0,
+          80.5,
+          32.3
+        ],
+        [
+          3.55,
+          80.5,
+          32.3
+        ],
+        [
+          7.1,
+          80.5,
+          32.3
+        ],
+        [
+          10.65,
+          80.5,
+          32.3
+        ],
+        [
+          14.2,
+          80.5,
+          32.3
+        ],
+        [
+          17.75,
+          80.5,
+          32.3
+        ],
+        [
+          19.43,
+          82.25,
+          34.0
+        ]
+      ]
+    },
+    {
+      "id": "subasic",
+      "team": "B",
+      "num": 23,
+      "name": "Subašić",
+      "gk": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 191
+      },
+      "path": [
+        [
+          0,
+          102.12,
+          33.75
+        ],
+        [
+          10.69,
+          103.22,
+          34.36
+        ],
+        [
+          19.43,
+          104.12,
+          34.85
+        ],
+        [
+          22.9,
+          104,
+          34.3
+        ]
+      ]
+    },
+    {
+      "id": "strinic",
+      "team": "B",
+      "num": 3,
+      "name": "Strinić",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 186
+      },
+      "path": [
+        [
+          0,
+          73.5,
+          43.85
+        ],
+        [
+          10.69,
+          81.2,
+          42.64
+        ],
+        [
+          19.43,
+          87.5,
+          41.65
+        ],
+        [
+          22.9,
+          90.5,
+          42.75
+        ]
+      ]
+    },
+    {
+      "id": "vida",
+      "team": "B",
+      "num": 21,
+      "name": "Vida",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "stubble",
+        "height": 184
+      },
+      "path": [
+        [
+          0,
+          71.75,
+          30.95
+        ],
+        [
+          10.69,
+          75.1,
+          31.63
+        ],
+        [
+          19.43,
+          85.9,
+          33.2
+        ],
+        [
+          22.9,
+          88.75,
+          32.05
+        ]
+      ]
+    },
+    {
+      "id": "giroud",
+      "team": "A",
+      "num": 9,
+      "name": "Giroud",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 193
+      },
+      "path": [
+        [
+          0,
+          74.38,
+          25.0
+        ],
+        [
+          10.69,
+          81.76,
+          25.98
+        ],
+        [
+          19.43,
+          87.45,
+          26.96
+        ],
+        [
+          22.9,
+          91.38,
+          26.1
+        ]
+      ]
+    },
+    {
+      "id": "lovren",
+      "team": "B",
+      "num": 6,
+      "name": "Lovren",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 188
+      },
+      "path": [
+        [
+          0,
+          76.12,
+          27.2
+        ],
+        [
+          10.69,
+          83.98,
+          27.25
+        ],
+        [
+          19.43,
+          90.79,
+          27.4
+        ],
+        [
+          22.9,
+          93.12,
+          27.2
+        ]
+      ]
+    },
+    {
+      "id": "brozovic",
+      "team": "B",
+      "num": 11,
+      "name": "Brozović",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 181
+      },
+      "path": [
+        [
+          0,
+          71.75,
+          24.9
+        ],
+        [
+          10.69,
+          79.45,
+          24.3
+        ],
+        [
+          19.43,
+          85.75,
+          23.8
+        ],
+        [
+          22.9,
+          88.75,
+          24.35
+        ]
+      ]
+    },
+    {
+      "id": "vrsaljko",
+      "team": "B",
+      "num": 2,
+      "name": "Vrsaljko",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 181
+      },
+      "path": [
+        [
+          0,
+          75.25,
+          19.3
+        ],
+        [
+          10.69,
+          82.95,
+          19.9
+        ],
+        [
+          19.43,
+          89.25,
+          20.4
+        ],
+        [
+          22.9,
+          92.25,
+          19.85
+        ]
+      ]
+    },
+    {
+      "id": "fra-gk2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          20,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "fra-rb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          55,
+          58
+        ]
+      ]
+    },
+    {
+      "id": "fra-cb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          46,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "cro-lb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          70,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "cro-cm",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          66,
+          36
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0.0,
+      "with": "hernandez"
+    },
+    {
+      "t": 2.55,
+      "with": "hernandez"
+    },
+    {
+      "t": 3.15,
+      "with": "matuidi"
+    },
+    {
+      "t": 4.79,
+      "with": "pogba"
+    },
+    {
+      "t": 5.79,
+      "with": "pogba"
+    },
+    {
+      "t": 6.99,
+      "with": "nzonzi"
+    },
+    {
+      "t": 7.88,
+      "with": "pogba"
+    },
+    {
+      "t": 9.03,
+      "with": "pogba"
+    },
+    {
+      "t": 10.07,
+      "with": "hernandez"
+    },
+    {
+      "t": 11.75,
+      "with": "hernandez"
+    },
+    {
+      "t": 16.63,
+      "with": "hernandez"
+    },
+    {
+      "t": 17.75,
+      "with": "mbappe"
+    },
+    {
+      "t": 19.43,
+      "with": "mbappe"
+    },
+    {
+      "t": 20.36,
+      "x": 105.4,
+      "y": 31.45
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "65' — France lead 3–1 in the final."
+    },
+    {
+      "t": 3.2,
+      "text": "France keep it: Matuidi, Pogba, Nzonzi."
+    },
+    {
+      "t": 10.1,
+      "text": "Hernández carries it forward on the left."
+    },
+    {
+      "t": 17.8,
+      "text": "It comes to Mbappé, 25 metres out."
+    },
+    {
+      "t": 19.4,
+      "text": "Right foot, low, almost no backlift."
+    },
+    {
+      "t": 20.4,
+      "text": "Into the corner. France 4–1 Croatia."
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "Sixty-five minutes in Moscow, France three-one up, and Croatia are chasing shadows."
+    },
+    {
+      "t": 3.2,
+      "text": "Matuidi, Pogba, Nzonzi — France in no hurry at all."
+    },
+    {
+      "t": 10.1,
+      "text": "Hernández takes it forward on the left…"
+    },
+    {
+      "t": 17.8,
+      "text": "…and it's rolled to Mbappé, twenty-five yards out."
+    },
+    {
+      "t": 19.4,
+      "text": "Mbappé, first time…"
+    },
+    {
+      "t": 20.36,
+      "text": "…IN! Low into the corner, and that is four!"
+    },
+    {
+      "t": 21.8,
+      "text": "Nineteen years old, scoring in a World Cup final."
+    }
+  ],
+  "events": [
+    {
+      "t": 2.55,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 3.15,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 5.79,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 6.99,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 9.03,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 16.63,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 19.43,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 20.36,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "actions": [],
+  "venue": {
+    "time": "dusk",
+    "roof": "partial",
+    "stands": "#7a1f2b",
+    "accent": "#d9dde3",
+    "track": false,
+    "grass": "#3a8a45",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "France led 3–1 with twenty-five minutes left. Croatia had played extra time in three straight knockout rounds and were pushing bodies forward, which left the space in front of their box unguarded."
+    },
+    {
+      "label": "Build-up",
+      "text": "France simply kept the ball — Matuidi, Pogba, Nzonzi, back to Pogba — until Croatia's midfield had been pulled across and Hernández could carry it forward on the left."
+    },
+    {
+      "label": "The strike",
+      "text": "The ball came to Mbappé about twenty-five metres out with nobody closing. There was no touch to set it and almost no backlift: a low drive struck as the ball arrived."
+    },
+    {
+      "label": "Why it worked",
+      "text": "Subašić was screened by the Croatian defenders and had no wind-up to read. Low and across the keeper is the hardest ball to reach from that range."
+    }
+  ],
+  "lessons": [
+    {
+      "label": "Shoot from the edge",
+      "text": "When a tiring defence drops off, the space in front of the box is free. A shot from there beats trying to play through a packed area."
+    },
+    {
+      "label": "No backlift",
+      "text": "Striking without a wind-up gives the keeper nothing to react to. Hit through the ball with the body over it rather than leaning back."
+    },
+    {
+      "label": "Keep it low",
+      "text": "A low shot forces the keeper all the way to the ground and can be hidden by defenders' legs until it is too late."
+    },
+    {
+      "label": "Make them chase",
+      "text": "France's patient passing before the goal was not caution; it was what pulled Croatia out of shape and created the opening."
+    }
+  ],
+  "note": "The ball's path, its timing and the tracked players come from StatsBomb's open data for this match (id 8658). Players the data only sees at the shot have routes drawn back into those positions, and any extra team-mates are placed by hand. Commentary is original, not the broadcast."
+}

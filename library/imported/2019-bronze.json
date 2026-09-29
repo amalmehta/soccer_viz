@@ -1,0 +1,476 @@
+{
+  "title": "TODO: name this goal (Bronze, 2019)",
+  "subtitle": "Women's World Cup, quarter-finals · Stade Océane · 2019-06-27",
+  "clock": "57'",
+  "duration": 6.0,
+  "teams": {
+    "A": {
+      "name": "England Women's",
+      "short": "ENG",
+      "color": "#2C5BD6",
+      "color2": "#0F2B7A",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#FFFFFF",
+      "socks": "#2C5BD6",
+      "gkColor": "#F2C94C"
+    },
+    "B": {
+      "name": "Norway Women's",
+      "short": "NOR",
+      "color": "#EE6A55",
+      "color2": "#8A2A1C",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#1E2430",
+      "socks": "#EE6A55",
+      "gkColor": "#34C77B"
+    }
+  },
+  "score": [
+    0,
+    0
+  ],
+  "players": [
+    {
+      "id": "mead",
+      "team": "A",
+      "num": 22,
+      "name": "Mead",
+      "path": [
+        [
+          0.0,
+          97.48,
+          58.99
+        ]
+      ]
+    },
+    {
+      "id": "bronze",
+      "team": "A",
+      "num": 2,
+      "name": "Bronze",
+      "path": [
+        [
+          0.0,
+          87.59,
+          38.59
+        ],
+        [
+          1.76,
+          87.59,
+          38.59
+        ]
+      ],
+      "star": true
+    },
+    {
+      "id": "scott",
+      "team": "A",
+      "num": 8,
+      "name": "Scott",
+      "path": [
+        [
+          0.0,
+          96.51,
+          34.51
+        ],
+        [
+          1.76,
+          96.51,
+          34.51
+        ]
+      ]
+    },
+    {
+      "id": "stokes",
+      "team": "A",
+      "num": 12,
+      "name": "Stokes",
+      "path": [
+        [
+          0.0,
+          100.27,
+          26.77
+        ],
+        [
+          1.76,
+          100.27,
+          26.77
+        ]
+      ]
+    },
+    {
+      "id": "bright",
+      "team": "A",
+      "num": 6,
+      "name": "Bright",
+      "path": [
+        [
+          0.0,
+          99.66,
+          27.37
+        ],
+        [
+          1.76,
+          99.66,
+          27.37
+        ]
+      ]
+    },
+    {
+      "id": "white",
+      "team": "A",
+      "num": 18,
+      "name": "White",
+      "path": [
+        [
+          0.0,
+          97.39,
+          32.21
+        ],
+        [
+          1.76,
+          97.39,
+          32.21
+        ]
+      ]
+    },
+    {
+      "id": "houghton",
+      "team": "A",
+      "num": 5,
+      "name": "Houghton",
+      "path": [
+        [
+          0.0,
+          99.58,
+          37.48
+        ],
+        [
+          1.76,
+          99.58,
+          37.48
+        ]
+      ]
+    },
+    {
+      "id": "walsh",
+      "team": "A",
+      "num": 4,
+      "name": "Walsh",
+      "path": [
+        [
+          0.0,
+          97.91,
+          41.82
+        ],
+        [
+          1.76,
+          97.91,
+          41.82
+        ]
+      ]
+    },
+    {
+      "id": "kirby",
+      "team": "A",
+      "num": 10,
+      "name": "Kirby",
+      "path": [
+        [
+          0.0,
+          93.54,
+          51.94
+        ],
+        [
+          1.76,
+          93.54,
+          51.94
+        ]
+      ]
+    },
+    {
+      "id": "herlovsen",
+      "team": "B",
+      "num": 9,
+      "name": "Herlovsen",
+      "path": [
+        [
+          0.0,
+          97.21,
+          34.34
+        ],
+        [
+          1.76,
+          97.21,
+          34.34
+        ]
+      ]
+    },
+    {
+      "id": "s-vik",
+      "team": "B",
+      "num": 21,
+      "name": "Sævik",
+      "path": [
+        [
+          0.0,
+          97.91,
+          31.88
+        ],
+        [
+          1.76,
+          97.91,
+          31.88
+        ]
+      ]
+    },
+    {
+      "id": "minde",
+      "team": "B",
+      "num": 17,
+      "name": "Minde",
+      "path": [
+        [
+          0.0,
+          100.45,
+          30.6
+        ],
+        [
+          1.76,
+          100.45,
+          30.6
+        ]
+      ]
+    },
+    {
+      "id": "risa",
+      "team": "B",
+      "num": 8,
+      "name": "Risa",
+      "path": [
+        [
+          0.0,
+          99.75,
+          27.88
+        ],
+        [
+          1.76,
+          99.75,
+          27.88
+        ]
+      ]
+    },
+    {
+      "id": "thorisdottir",
+      "team": "B",
+      "num": 3,
+      "name": "Thorisdottir",
+      "path": [
+        [
+          0.0,
+          100.62,
+          34.59
+        ],
+        [
+          1.76,
+          100.62,
+          34.59
+        ]
+      ]
+    },
+    {
+      "id": "engen",
+      "team": "B",
+      "num": 14,
+      "name": "Engen",
+      "path": [
+        [
+          0.0,
+          99.84,
+          38.5
+        ],
+        [
+          1.76,
+          99.84,
+          38.5
+        ]
+      ]
+    },
+    {
+      "id": "mjelde",
+      "team": "B",
+      "num": 6,
+      "name": "Mjelde",
+      "path": [
+        [
+          0.0,
+          96.16,
+          36.21
+        ],
+        [
+          1.76,
+          96.16,
+          36.21
+        ]
+      ]
+    },
+    {
+      "id": "wold",
+      "team": "B",
+      "num": 2,
+      "name": "Wold",
+      "path": [
+        [
+          0.0,
+          90.83,
+          40.71
+        ],
+        [
+          1.76,
+          90.83,
+          40.71
+        ]
+      ]
+    },
+    {
+      "id": "reiten",
+      "team": "B",
+      "num": 16,
+      "name": "Reiten",
+      "path": [
+        [
+          0.0,
+          95.29,
+          49.13
+        ],
+        [
+          1.76,
+          95.29,
+          49.13
+        ]
+      ]
+    },
+    {
+      "id": "hansen",
+      "team": "B",
+      "num": 10,
+      "name": "Hansen",
+      "path": [
+        [
+          0.0,
+          99.23,
+          51.09
+        ],
+        [
+          1.76,
+          99.23,
+          51.09
+        ]
+      ]
+    },
+    {
+      "id": "hjelmseth",
+      "team": "B",
+      "num": 1,
+      "name": "Hjelmseth",
+      "path": [
+        [
+          0.0,
+          103.69,
+          34.85
+        ],
+        [
+          1.76,
+          103.69,
+          34.85
+        ]
+      ],
+      "gk": true
+    }
+  ],
+  "ball": [
+    {
+      "t": 0.0,
+      "with": "mead"
+    },
+    {
+      "t": 1.76,
+      "with": "bronze"
+    },
+    {
+      "t": 2.51,
+      "x": 105.4,
+      "y": 34.42
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "TODO: write the captions, 3 to 8 of them."
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "TODO: write original commentary, 4 to 9 lines."
+    }
+  ],
+  "events": [
+    {
+      "t": 0.0,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 1.76,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 2.51,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "actions": [],
+  "venue": {
+    "time": "day",
+    "roof": "open",
+    "stands": "#2a3550",
+    "accent": "#d9dde3",
+    "track": false,
+    "grass": "#2e7a3c",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "TODO: the state of the match and why the space was there."
+    },
+    {
+      "label": "Key moment",
+      "text": "TODO: the moment the goal turned on."
+    },
+    {
+      "label": "The finish",
+      "text": "TODO: how it was finished."
+    }
+  ],
+  "lessons": [
+    {
+      "label": "TODO lesson one",
+      "text": "TODO: a practical coaching point from this play."
+    },
+    {
+      "label": "TODO lesson two",
+      "text": "TODO: a practical coaching point from this play."
+    },
+    {
+      "label": "TODO lesson three",
+      "text": "TODO: a practical coaching point from this play."
+    }
+  ],
+  "note": "Ball path and player positions come from StatsBomb open data (match 69199); players away from the ball are placed from the shot's freeze frame and moved by the app. Commentary is original, not the broadcast."
+}

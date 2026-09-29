@@ -1,0 +1,474 @@
+{
+  "title": "TODO: name this goal (Tébily, 2012)",
+  "subtitle": "Champions League, final · Allianz Arena · 2012-05-19",
+  "clock": "88'",
+  "duration": 6.0,
+  "teams": {
+    "A": {
+      "name": "Chelsea",
+      "short": "CHE",
+      "color": "#2C5BD6",
+      "color2": "#0F2B7A",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#FFFFFF",
+      "socks": "#2C5BD6",
+      "gkColor": "#F2C94C"
+    },
+    "B": {
+      "name": "Bayern Munich",
+      "short": "BAY",
+      "color": "#EE6A55",
+      "color2": "#8A2A1C",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#1E2430",
+      "socks": "#EE6A55",
+      "gkColor": "#34C77B"
+    }
+  },
+  "score": [
+    0,
+    0
+  ],
+  "players": [
+    {
+      "id": "mata",
+      "team": "A",
+      "num": 10,
+      "name": "Mata",
+      "path": [
+        [
+          0.0,
+          105.0,
+          68.0
+        ],
+        [
+          1.49,
+          102.38,
+          67.15
+        ]
+      ]
+    },
+    {
+      "id": "drogba",
+      "team": "A",
+      "num": 11,
+      "name": "Drogba",
+      "path": [
+        [
+          0.0,
+          98.88,
+          41.65
+        ],
+        [
+          1.45,
+          98.88,
+          41.65
+        ]
+      ],
+      "star": true
+    },
+    {
+      "id": "boateng",
+      "team": "B",
+      "num": 17,
+      "name": "Boateng",
+      "path": [
+        [
+          0.0,
+          98.88,
+          40.8
+        ],
+        [
+          1.49,
+          98.88,
+          40.8
+        ]
+      ]
+    },
+    {
+      "id": "ribery",
+      "team": "B",
+      "num": 7,
+      "name": "Ribéry",
+      "path": [
+        [
+          0.0,
+          88.38,
+          44.2
+        ],
+        [
+          1.49,
+          88.38,
+          44.2
+        ]
+      ]
+    },
+    {
+      "id": "kroos",
+      "team": "B",
+      "num": 39,
+      "name": "Kroos",
+      "path": [
+        [
+          0.0,
+          105.0,
+          32.3
+        ],
+        [
+          1.49,
+          105.0,
+          32.3
+        ]
+      ]
+    },
+    {
+      "id": "contento",
+      "team": "B",
+      "num": 26,
+      "name": "Contento",
+      "path": [
+        [
+          0.0,
+          103.25,
+          34.0
+        ],
+        [
+          1.49,
+          103.25,
+          34.0
+        ]
+      ]
+    },
+    {
+      "id": "buyten",
+      "team": "B",
+      "num": 5,
+      "name": "Buyten",
+      "path": [
+        [
+          0.0,
+          101.5,
+          34.85
+        ],
+        [
+          1.49,
+          101.5,
+          34.85
+        ]
+      ]
+    },
+    {
+      "id": "lampard",
+      "team": "A",
+      "num": 8,
+      "name": "Lampard",
+      "path": [
+        [
+          0.0,
+          99.75,
+          41.65
+        ],
+        [
+          1.49,
+          99.75,
+          41.65
+        ]
+      ]
+    },
+    {
+      "id": "malouda",
+      "team": "A",
+      "num": 15,
+      "name": "Malouda",
+      "path": [
+        [
+          0.0,
+          99.75,
+          37.4
+        ],
+        [
+          1.49,
+          99.75,
+          37.4
+        ]
+      ]
+    },
+    {
+      "id": "cahill",
+      "team": "A",
+      "num": 24,
+      "name": "Cahill",
+      "path": [
+        [
+          0.0,
+          100.62,
+          34.85
+        ],
+        [
+          1.49,
+          100.62,
+          34.85
+        ]
+      ]
+    },
+    {
+      "id": "luiz",
+      "team": "A",
+      "num": 4,
+      "name": "Luiz",
+      "path": [
+        [
+          0.0,
+          101.5,
+          34.0
+        ],
+        [
+          1.49,
+          101.5,
+          34.0
+        ]
+      ]
+    },
+    {
+      "id": "bosingwa",
+      "team": "A",
+      "num": 17,
+      "name": "Bosingwa",
+      "path": [
+        [
+          0.0,
+          97.12,
+          34.85
+        ],
+        [
+          1.49,
+          97.12,
+          34.85
+        ]
+      ]
+    },
+    {
+      "id": "torres",
+      "team": "A",
+      "num": 9,
+      "name": "Torres",
+      "path": [
+        [
+          0.0,
+          101.5,
+          28.05
+        ],
+        [
+          1.49,
+          101.5,
+          28.05
+        ]
+      ]
+    },
+    {
+      "id": "neuer",
+      "team": "B",
+      "num": 1,
+      "name": "Neuer",
+      "path": [
+        [
+          0.0,
+          105.0,
+          36.55
+        ],
+        [
+          1.49,
+          105.0,
+          36.55
+        ]
+      ],
+      "gk": true
+    },
+    {
+      "id": "robben",
+      "team": "B",
+      "num": 10,
+      "name": "Robben",
+      "path": [
+        [
+          0.0,
+          92.75,
+          28.9
+        ],
+        [
+          1.49,
+          92.75,
+          28.9
+        ]
+      ]
+    },
+    {
+      "id": "lahm",
+      "team": "B",
+      "num": 21,
+      "name": "Lahm",
+      "path": [
+        [
+          0.0,
+          98.88,
+          43.35
+        ],
+        [
+          1.49,
+          98.88,
+          43.35
+        ]
+      ]
+    },
+    {
+      "id": "tymoshchuk",
+      "team": "B",
+      "num": 44,
+      "name": "Tymoshchuk",
+      "path": [
+        [
+          0.0,
+          99.75,
+          38.25
+        ],
+        [
+          1.49,
+          99.75,
+          38.25
+        ]
+      ]
+    },
+    {
+      "id": "gomez",
+      "team": "B",
+      "num": 33,
+      "name": "Gómez",
+      "path": [
+        [
+          0.0,
+          99.75,
+          39.1
+        ],
+        [
+          1.49,
+          99.75,
+          39.1
+        ]
+      ]
+    },
+    {
+      "id": "schweinsteiger",
+      "team": "B",
+      "num": 31,
+      "name": "Schweinsteiger",
+      "path": [
+        [
+          0.0,
+          99.75,
+          35.7
+        ],
+        [
+          1.49,
+          99.75,
+          35.7
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0.0,
+      "with": "mata"
+    },
+    {
+      "t": 1.45,
+      "with": "drogba"
+    },
+    {
+      "t": 2.41,
+      "x": 105.4,
+      "y": 36.21
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "TODO: write the captions, 3 to 8 of them."
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "TODO: write original commentary, 4 to 9 lines."
+    }
+  ],
+  "events": [
+    {
+      "t": 0.0,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 1.49,
+      "type": "tackle",
+      "team": "B"
+    },
+    {
+      "t": 1.49,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 2.41,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "actions": [
+    {
+      "t": 1.49,
+      "id": "drogba",
+      "type": "header"
+    }
+  ],
+  "venue": {
+    "time": "day",
+    "roof": "open",
+    "stands": "#2a3550",
+    "accent": "#d9dde3",
+    "track": false,
+    "grass": "#2e7a3c",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "TODO: the state of the match and why the space was there."
+    },
+    {
+      "label": "Key moment",
+      "text": "TODO: the moment the goal turned on."
+    },
+    {
+      "label": "The finish",
+      "text": "TODO: how it was finished."
+    }
+  ],
+  "lessons": [
+    {
+      "label": "TODO lesson one",
+      "text": "TODO: a practical coaching point from this play."
+    },
+    {
+      "label": "TODO lesson two",
+      "text": "TODO: a practical coaching point from this play."
+    },
+    {
+      "label": "TODO lesson three",
+      "text": "TODO: a practical coaching point from this play."
+    }
+  ],
+  "note": "Ball path and player positions come from StatsBomb open data (match 18237); players away from the ball are placed from the shot's freeze frame and moved by the app. Commentary is original, not the broadcast."
+}

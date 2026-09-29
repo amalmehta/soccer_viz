@@ -100,6 +100,10 @@ def quicken(player, t0, duration):
         when = round(t0 + walked / CHASE, 2)
         if when >= duration:
             break
+        if when - out[-1][0] < 0.15:      # keyframes any closer are one moment to the app
+            out[-1] = [out[-1][0], round(b[1], 2), round(b[2], 2)]
+            changed = True
+            continue
         out.append([when, round(b[1], 2), round(b[2], 2)])
         changed = True
         i += 1
