@@ -809,7 +809,12 @@
         .map(k => [clamp(num(k[0], NaN), 0, 30), clamp(num(k[1], NaN), -2, 107), clamp(num(k[2], NaN), -2, 70)])
         .filter(k => k.every(Number.isFinite))
         .sort((a, b) => a[0] - b[0]);
-      for (const k of keys) if (!path.length || k[0] > path[path.length - 1][0] + 0.01) path.push(k);
+      // Keys crowded into a fraction of a second (imported ones land on event times, which cluster)
+      // would ask a body to cover a metre in a blink; the latest reading of the pair wins.
+      for (const k of keys) {
+        if (path.length && k[0] - path[path.length - 1][0] < MIN_GAP) path[path.length - 1] = k;
+        else path.push(k);
+      }
       if (!path.length) continue;
       ids.add(id);
       const n = p.num == null ? NaN : Math.round(clamp(num(p.num, NaN), 0, 99));
@@ -958,8 +963,25 @@
   }
 
   // ---------- Motion ----------
-  function catmull(p0, p1, p2, p3, u) {
-    return 0.5 * (2 * p1 + (-p0 + p2) * u + (2 * p0 - 5 * p1 + 4 * p2 - p3) * u * u + (-p0 + 3 * p1 - 3 * p2 + p3) * u * u * u);
+  // A path is a handful of positions with times on them, and the curve drawn through them decides
+  // how a body moves between them. The textbook Catmull-Rom spline assumes the points are evenly
+  // spaced in time; ours are not — a keyframe every two seconds here, every fifth of a second there.
+  // Pretending otherwise puts a step in the speed at every keyframe, which is a body that jumps from
+  // a walk to a sprint and back between one frame and the next: the levitating look. So the speed at
+  // each keyframe is worked out from the real time to the keyframes either side, and the curve
+  // between two keyframes is the cubic that leaves the first at that speed and arrives at the second
+  // at its speed. Speed is then continuous the whole way along and nobody is flung anywhere.
+  const TOP_SPEED = 9.6;                     // metres per second: a fast footballer flat out
+  function keySpeed(path, i) {
+    const n = path.length;
+    const a = path[Math.max(i - 1, 0)], b = path[Math.min(i + 1, n - 1)];
+    const dt = b[0] - a[0];
+    if (dt <= 1e-9) return { x: 0, y: 0 };
+    let vx = (b[1] - a[1]) / dt, vy = (b[2] - a[2]) / dt;
+    // No spline overshoot may put a body above a sprint
+    const v = Math.hypot(vx, vy);
+    if (v > TOP_SPEED) { vx *= TOP_SPEED / v; vy *= TOP_SPEED / v; }
+    return { x: vx, y: vy };
   }
   function pathPos(path, t) {
     const n = path.length;
@@ -967,9 +989,81 @@
     if (t >= path[n - 1][0]) return { x: path[n - 1][1], y: path[n - 1][2] };
     let i = 0;
     while (i < n - 2 && t > path[i + 1][0]) i++;
-    const a = path[Math.max(i - 1, 0)], b = path[i], c = path[i + 1], d = path[Math.min(i + 2, n - 1)];
-    const u = (t - b[0]) / (c[0] - b[0]);
-    return { x: catmull(a[1], b[1], c[1], d[1], u), y: catmull(a[2], b[2], c[2], d[2], u) };
+    const b = path[i], c = path[i + 1];
+    const dt = c[0] - b[0];
+    const u = (t - b[0]) / dt, u2 = u * u, u3 = u2 * u;
+    const h00 = 2 * u3 - 3 * u2 + 1, h10 = u3 - 2 * u2 + u, h01 = -2 * u3 + 3 * u2, h11 = u3 - u2;
+    const mb = keySpeed(path, i), mc = keySpeed(path, i + 1);
+    return {
+      x: h00 * b[1] + h10 * dt * mb.x + h01 * c[1] + h11 * dt * mc.x,
+      y: h00 * b[2] + h10 * dt * mb.y + h01 * c[2] + h11 * dt * mc.y
+    };
+  }
+  // Two keyframes a hundredth of a second apart make a segment so short that a step of a few
+  // centimetres across it reads as a body teleporting. Paths are stitched together from several
+  // sources (the clip's own keys, the off-ball engine, a celebration run), so the seams are tidied
+  // before anything moves along them.
+  const MIN_GAP = 0.18;                      // seconds between keyframes
+  function cleanPath(path) {
+    const out = [path[0]];
+    for (let i = 1; i < path.length; i++) {
+      if (path[i][0] - out[out.length - 1][0] < MIN_GAP) out[out.length - 1] = path[i];
+      else out.push(path[i]);
+    }
+    return out;
+  }
+  // Keyframes are where a player was, not how they got there. Two positions a second apart can ask
+  // for a change of pace no one could make, and the body then appears to be slid across the grass by
+  // an unseen hand. Running the trajectory through a short blur in time is the honest correction: a
+  // real player leans into a turn early and drifts wide of the corner, which is exactly what the
+  // blur does, and it holds the change of pace down to something legs can produce. Positions barely
+  // move — a tenth of a metre where the path was already reasonable — and everything that follows
+  // (stride, facing, where the ball sits at a player's feet) is read back off the smoothed path, so
+  // nothing can drift out of step with anything else.
+  const SMOOTH = 0.22, SAMPLE = 0.05;        // seconds: the width of the blur, and the step it works on
+  function humanPath(path) {
+    const t0 = path[0][0], t1 = path[path.length - 1][0];
+    if (t1 - t0 < SMOOTH * 3) return path;
+    const n = Math.round((t1 - t0) / SAMPLE) + 1;
+    const xs = new Float64Array(n), ys = new Float64Array(n);
+    for (let i = 0; i < n; i++) {
+      const p = pathPos(path, t0 + i * SAMPLE);
+      xs[i] = p.x; ys[i] = p.y;
+    }
+    const reach = Math.ceil((SMOOTH * 3) / SAMPLE);
+    const w = [];
+    let sum = 0;
+    for (let k = -reach; k <= reach; k++) {
+      const g = Math.exp(-0.5 * Math.pow((k * SAMPLE) / SMOOTH, 2));
+      w.push(g); sum += g;
+    }
+    // Past either end of the clip the run is carried on in a straight line at the speed it had
+    // there. Holding the body still instead would have it ease out of a standstill into its opening
+    // stride, which is a burst of speed nobody asked for in the first tenth of a second.
+    const sample = (arr, j) => {
+      if (j < 0) return arr[0] + (arr[0] - arr[1]) * -j;
+      if (j > n - 1) return arr[n - 1] + (arr[n - 1] - arr[n - 2]) * (j - (n - 1));
+      return arr[j];
+    };
+    const blur = i => {
+      let x = 0, y = 0;
+      for (let k = -reach; k <= reach; k++) {
+        x += sample(xs, i + k) * w[k + reach]; y += sample(ys, i + k) * w[k + reach];
+      }
+      return [round2(t0 + i * SAMPLE), round2(x / sum), round2(y / sum)];
+    };
+    const out = [];
+    const every = Math.max(1, Math.round(0.1 / SAMPLE));
+    let last = 0;
+    for (let i = 0; i < n; i += every) { out.push(blur(i)); last = i; }
+    // The final key closes the path. Tacked on a twentieth of a second after the one before it, it
+    // would read as a last-instant lunge and a dead stop; so it replaces that key instead.
+    if (last !== n - 1) {
+      const end = blur(n - 1);
+      if (end[0] - out[out.length - 1][0] < MIN_GAP) out[out.length - 1] = end;
+      else out.push(end);
+    }
+    return out;
   }
   function moveHeading(pl, t) {
     const a = pathPos(pl.path, t - 0.08), b = pathPos(pl.path, t + 0.08);
@@ -1604,7 +1698,7 @@
 
     // Supporting players get off-ball movement; everything below (actions, poses, looks) uses it
     for (const [id, path] of offBallPaths(play, ballAt)) {
-      byId[id] = { ...byId[id], path };
+      byId[id] = { ...byId[id], path: cleanPath(path) };
       tables.set(id, gaitTable(byId[id], play.duration));
     }
 
@@ -1621,10 +1715,19 @@
       const before = pathPos(src.path, from - 0.2);
       // The near corner of the goal they scored at, a couple of metres inside the line
       const flag = { x: 101.5, y: here.y < 34 ? 4.5 : 63.5 };
-      const keys = [[round2(from), round2(here.x), round2(here.y)]];
+      // The run has to grow out of the stride the scorer was already in. Without the last half second
+      // of the real path written out at the same cadence, the join has a keyframe two seconds behind
+      // it and one a fifth of a second ahead, and the body lurches as it crosses.
+      const STEP = 0.2;
+      const keys = [];
+      for (let t = from - 0.6; t < from - 1e-6; t += STEP) {
+        const q = pathPos(src.path, t);
+        keys.push([round2(t), round2(q.x), round2(q.y)]);
+      }
+      keys.push([round2(from), round2(here.x), round2(here.y)]);
       let vx = (here.x - before.x) / 0.2, vy = (here.y - before.y) / 0.2;
       let x = here.x, y = here.y;
-      const STEP = 0.2, TOP = 7.4, ACC = 6;
+      const TOP = 7.4, ACC = 6;
       for (let t = from + STEP; t <= play.duration + 1e-6; t += STEP) {
         const dx = flag.x - x, dy = flag.y - y;
         const away = Math.hypot(dx, dy) || 1;
@@ -1638,10 +1741,114 @@
         y = Math.max(1, Math.min(67, y + vy * STEP));
         keys.push([round2(t), round2(x), round2(y)]);
       }
-      const kept = src.path.filter(k => k[0] < from - 0.01);
-      byId[scorer] = { ...src, path: kept.concat(keys) };
+      const kept = src.path.filter(k => k[0] < from - 0.6 - STEP);
+      byId[scorer] = { ...src, path: cleanPath(kept.concat(keys)) };
       tables.set(scorer, gaitTable(byId[scorer], play.duration));
     }
+    // Every path is now final: the clip's own keys, the off-ball engine's and the celebration run's.
+    // Smoothing them together keeps the seams between the three from showing.
+    for (const pl of play.players) {
+      byId[pl.id] = { ...byId[pl.id], path: humanPath(byId[pl.id].path) };
+      tables.set(pl.id, gaitTable(byId[pl.id], play.duration));
+    }
+
+    // Two players cannot stand in the same place either, and they do: a clip's keyframes and the
+    // off-ball engine's paths are each written without reference to the other, so bodies drift
+    // through one another as though neither were there. Every body is stepped through the clip and
+    // any pair standing inside each other is eased apart, half the shortfall each, along the line
+    // between them — except whoever has the ball, who is left exactly where they are so the ball
+    // stays on its line. The result is blurred in time again, so what shows is two players leaning
+    // away from a collision rather than being shoved.
+    const APART = 1.15, GRID = 0.1;             // metres between two bodies, sampled every tenth of a second
+    {
+      const ids = play.players.map(pl => pl.id);
+      const steps = Math.ceil(play.duration / GRID) + 1;
+      const xs = new Map(ids.map(id => [id, new Float64Array(steps)]));
+      const ys = new Map(ids.map(id => [id, new Float64Array(steps)]));
+      const carrier = t => {
+        const k = play.ball;
+        for (let i = 0; i < k.length; i++) {
+          if (!k[i].with) continue;
+          if (Math.abs(k[i].t - t) < 0.25) return k[i].with;
+          if (i + 1 < k.length && k[i + 1].with === k[i].with && t >= k[i].t && t <= k[i + 1].t) return k[i].with;
+        }
+        return null;
+      };
+      for (let i = 0; i < steps; i++) {
+        const t = i * GRID;
+        const held = carrier(t);
+        const now = ids.map(id => {
+          const p = pathPos(byId[id].path, t);
+          return { id, x: p.x, y: p.y, fixed: id === held };
+        });
+        for (let pass = 0; pass < 4; pass++) {
+          for (let a = 0; a < now.length; a++) {
+            for (let b = a + 1; b < now.length; b++) {
+              const dx = now[b].x - now[a].x, dy = now[b].y - now[a].y;
+              const d = Math.hypot(dx, dy);
+              if (d >= APART) continue;
+              const ux = d > 1e-6 ? dx / d : 1, uy = d > 1e-6 ? dy / d : 0;
+              const room = APART - d;
+              // Whoever is on the ball holds their ground; the other gives way
+              const mine = now[a].fixed ? 0 : now[b].fixed ? 1 : 0.5;
+              now[a].x -= ux * room * mine; now[a].y -= uy * room * mine;
+              now[b].x += ux * room * (1 - mine); now[b].y += uy * room * (1 - mine);
+            }
+          }
+        }
+        now.forEach((q, j) => { xs.get(ids[j])[i] = q.x; ys.get(ids[j])[i] = q.y; });
+      }
+      for (const id of ids) {
+        const X = xs.get(id), Y = ys.get(id);
+        const path = [];
+        for (let i = 0; i < steps; i++) path.push([round2(i * GRID), round2(X[i]), round2(Y[i])]);
+        byId[id] = { ...byId[id], path: humanPath(path) };
+        tables.set(id, gaitTable(byId[id], play.duration));
+      }
+    }
+
+    // Nobody is made of air. A pass or a shot that would travel straight through a defender is the
+    // one thing that gives the whole illusion away, and it happens because the ball's path and the
+    // players' paths are written down separately and never asked about each other. So they are asked
+    // here: wherever the ball would pass within touching distance of someone who is not playing it,
+    // that player is given the step they really would have taken — a stretch towards the ball that
+    // comes up just short. It is half a stride at most, eased in and out over a second and a bit, so
+    // it reads as a defender lunging and being beaten, which is what actually happened.
+    const CLEAR = 0.95;                        // metres from the middle of a body to the ball
+    const LUNGE = 0.85;                        // seconds either side of the moment it is closest
+    for (let pass = 0; pass < 3; pass++) {
+      const worst = new Map();
+      for (let t = 0; t <= play.duration + 1e-9; t += 0.02) {
+        const ball = ballAt(t);
+        if (ball.carried || ball.h > 1.2) continue;      // at someone's feet, or over their heads
+        for (const pl of play.players) {
+          // Whoever has just played it or is about to take it is meant to be next to the ball
+          let mine = false;
+          for (const k of play.ball) if (k.with === pl.id && Math.abs(k.t - t) < 0.5) mine = true;
+          if (mine) continue;
+          const here = pathPos(byId[pl.id].path, t);
+          const d = Math.hypot(here.x - ball.x, here.y - ball.y);
+          if (d >= CLEAR) continue;
+          const had = worst.get(pl.id);
+          if (!had || d < had.d) worst.set(pl.id, { d, t, x: here.x - ball.x, y: here.y - ball.y });
+        }
+      }
+      if (!worst.size) break;
+      for (const [id, hit] of worst) {
+        const away = Math.hypot(hit.x, hit.y) || 1;
+        const need = CLEAR - hit.d + 0.05;
+        const ux = (hit.x / away) * need, uy = (hit.y / away) * need;
+        const path = byId[id].path.map(k => {
+          const off = (k[0] - hit.t) / LUNGE;
+          if (Math.abs(off) >= 1) return k;
+          const ease = Math.pow(1 - off * off, 2);         // full at the near miss, nothing by the edges
+          return [k[0], round2(k[1] + ux * ease), round2(Math.min(67, Math.max(1, k[2] + uy * ease)))];
+        });
+        byId[id] = { ...byId[id], path };
+        tables.set(id, gaitTable(byId[id], play.duration));
+      }
+    }
+
     actionsBy = buildActions(play, byId, ballAt);
 
     // Which way each body faces, sampled through the play. A player wants to look where they are
@@ -1925,7 +2132,7 @@
 
     // The ball's route, drawn like a brush stroke: the line the ball will take is barely there, and
     // the line it has taken thickens and darkens towards the ball, fading out well behind it.
-    const idx = Math.min(R.track.length - 1, Math.floor(t / 0.05));
+    const idx = Math.max(0, Math.min(R.track.length - 1, Math.floor(t / 0.05) || 0));
     ctx.lineWidth = Math.max(0.8, 0.07 * scale);
     ctx.strokeStyle = hexA(colors.ink, 0.13);
     ctx.beginPath();

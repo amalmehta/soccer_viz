@@ -15,7 +15,7 @@ const between = (a, b) => {
 const api = new Function(
   between("  // ---------- Built-in plays ----------", "  // ---------- Validation") +
   between("  // ---------- Validation", "  // ---------- Motion ----------") +
-  between("  function catmull(", "  function moveHeading(") +
+  between("  const TOP_SPEED = 9.6;", "  function moveHeading(") +
   "\nreturn { normalizePlay, pathPos, MESSI_2011, GIVE_AND_GO, OVERLAP };"
 )();
 
@@ -41,7 +41,20 @@ function check(raw) {
   for (const rp of Array.isArray(raw.players) ? raw.players : []) {
     const np = p.players.find(x => x.id === rp.id);
     if (!np) continue;
-    if (len(rp.path) !== np.path.length) errors.push(`${rp.id}: path keyframes dropped ${len(rp.path)} -> ${np.path.length}`);
+    // The page merges keyframes less than MIN_GAP apart, because two readings a twentieth of a
+    // second apart ask a body to cover a metre in a blink. That merging is wanted; anything else
+    // dropped is not.
+    if (len(rp.path) !== np.path.length) {
+      const keys = (rp.path || []).slice().sort((a, b) => a[0] - b[0]);
+      let crowded = 0, last = null;
+      for (const k of keys) {
+        if (last != null && k[0] - last < 0.18) crowded++;
+        else last = k[0];
+      }
+      const lost = len(rp.path) - np.path.length;
+      if (lost === crowded) warns.push(`${rp.id}: ${lost} keyframe(s) merged as too close together in time`);
+      else errors.push(`${rp.id}: path keyframes dropped ${len(rp.path)} -> ${np.path.length}, ${crowded} of them crowded`);
+    }
     for (const k of Object.keys(rp.look || {})) if (!(k in np.look)) errors.push(`${rp.id}: look.${k} = ${JSON.stringify(rp.look[k])} is not allowed`);
     for (const [t, x, y] of rp.path || []) {
       if (x < -2 || x > 107 || y < -2 || y > 70) errors.push(`${rp.id}: keyframe at ${t}s is off the pitch area (${x}, ${y})`);
