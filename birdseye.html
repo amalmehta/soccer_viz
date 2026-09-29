@@ -2216,18 +2216,53 @@
   // line is split into phrases at its pauses and every phrase gets its own delivery: energy follows
   // the crowd's mood at that moment, "!" phrases come faster and higher, "…" phrases are held for
   // suspense. Natural-sounding voices get a lighter touch because big pitch shifts make them odd.
+  // Names browsers say badly. Only what's spoken changes; the captions on screen keep the real
+  // spelling. Written the way an English commentator says them, not in any phonetic alphabet.
+  const SAY_AS = [
+    ["Souček", "Sow-chek"], ["Vaclík", "Vats-leek"], ["Král", "Kraal"], ["Schick", "Shick"],
+    ["Masopust", "Masso-pust"], ["Jankto", "Yank-toe"], ["Bořil", "Bor-zhil"], ["Celustka", "Tse-lust-ka"],
+    ["Kanté", "Kon-tay"], ["Mbappé", "Em-bapp-ay"], ["Hernández", "Air-nandez"], ["Tchouaméni", "Choo-ah-meny"],
+    ["Koundé", "Koon-day"], ["Upamecano", "Oopa-mecano"], ["Modrić", "Mod-rich"], ["Mané", "Mah-nay"],
+    ["Casemiro", "Cazza-meero"], ["Di María", "Dee Ma-ree-a"], ["Álvarez", "Al-varez"], ["Riise", "Ree-suh"],
+    ["Šmicer", "Shmit-ser"], ["Dida", "Dee-da"], ["Gérson", "Zher-son"], ["Jairzinho", "Jair-zeen-yo"],
+    ["Rivelino", "Ree-vel-eeno"], ["Clodoaldo", "Clo-do-aldo"], ["Albertosi", "Alber-tozzy"],
+    ["Cuciuffo", "Coo-chuffo"], ["Tostão", "Toss-taow"], ["Pelé", "Pel-ay"], ["Agüero", "Ag-wero"],
+    ["Ibrahimović", "Ibra-himovich"], ["Čech", "Check"], ["Fàbregas", "Fabregas"], ["Mühren", "Mure-en"],
+    ["Dasayev", "Dass-eye-ev"], ["Riquelme", "Ree-kelmay"], ["Cambiasso", "Cam-bee-asso"],
+    ["Al-Owairan", "Al Oh-why-ran"], ["Dabizas", "Dab-eezas"], ["Maxi Rodríguez", "Maxi Rodrigez"],
+    ["Sorín", "Sor-een"], ["Mascherano", "Mask-erano"], ["Barthez", "Bar-tez"], ["Pires", "Pee-ress"]
+  ];
+  const sayAs = text => SAY_AS.reduce((t, [from, to]) => t.split(from).join(to), text);
+
+  // A line is split into the units a commentator would say in one breath: first at its pauses, then
+  // any long stretch at a comma or a joining word. Short units keep the voice from droning.
   function phrasesOf(text) {
     const out = [];
     let cur = "";
+    const push = (t, end) => {
+      t = t.trim();
+      if (!t) return;
+      while (t.length > 46) {
+        const half = Math.floor(t.length / 2);
+        let cut = -1;
+        for (const m of t.matchAll(/,\s|;\s|\s(?:and|but|then|who|which|while)\s/g)) {
+          if (cut < 0 || Math.abs(m.index - half) < Math.abs(cut - half)) cut = m.index;
+        }
+        if (cut < 6 || t.length - cut < 12) break;
+        out.push({ text: t.slice(0, cut).replace(/[,;]$/, "").trim(), end: "," });
+        t = t.slice(cut).replace(/^[,;]\s*/, "").trim();
+      }
+      out.push({ text: t, end });
+    };
     for (const part of text.split(/(…|—|!|\?|\.(?=\s|$))/)) {
       if (!part) continue;
       if (/^(…|—|!|\?|\.)$/.test(part)) {
         if (part === "!" || part === "?" || part === ".") cur += part;
-        if (cur.trim()) out.push({ text: cur.trim(), end: part });
+        push(cur, part);
         cur = "";
       } else cur += part;
     }
-    if (cur.trim()) out.push({ text: cur.trim(), end: "" });
+    push(cur, "");
     return out;
   }
 
@@ -2238,11 +2273,16 @@
     if (shout) energy = Math.max(energy, 0.8);
     if (suspense) energy = Math.max(energy, 0.35);
     const k = good ? 0.55 : 1;
+    // No two phrases come out identical: a small wobble, fixed per phrase, keeps it from droning
+    let h = 2166136261;
+    for (let i = 0; i < phrase.text.length; i++) { h ^= phrase.text.charCodeAt(i); h = Math.imul(h, 16777619); }
+    const wobble = (((h >>> 0) % 1000) / 1000 - 0.5) * 2;   // -1..1
+    const trailing = phrase.end === "," ? 0.04 : 0;          // a clause still hanging keeps its pace up
     return {
-      // Capitalised words are said, not spelled out
-      text: phrase.text.replace(/\b[A-Z][A-Z']+\b/g, w => w.toLowerCase()),
-      rate: Math.min(1.6, 1.06 + k * 0.3 * energy - (suspense ? 0.12 * k : 0)),
-      pitch: Math.min(1.7, 1 + k * (0.04 + 0.38 * energy) + (suspense ? 0.06 * k : 0)),
+      // Capitalised words are said, not spelled out; awkward names are spelled the way they sound
+      text: sayAs(phrase.text.replace(/\b[A-Z][A-Z']+\b/g, w => w.toLowerCase())),
+      rate: Math.min(1.6, 1.06 + k * 0.3 * energy - (suspense ? 0.12 * k : 0) + trailing + wobble * 0.045),
+      pitch: Math.min(1.7, 1 + k * (0.04 + 0.38 * energy) + (suspense ? 0.06 * k : 0) + wobble * 0.03),
       volume: 0.85 + 0.15 * energy
     };
   }

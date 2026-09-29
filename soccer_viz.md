@@ -291,4 +291,11 @@ CHANGELOG:
   when the shot belonged to team B. Finishing is now a shared pass: players the data sees only at
   the shot get a route drawn back from that spot, and routes are nudged apart so nobody stands
   inside anyone else. Library: 20 clip files plus the built-in Messi clip and 2 moves.
+- 2026-09-28 — commentary voice (user: "sounds robotic again on these new clips"): lines are now
+  split into breath-sized units — first at their pauses as before, then any stretch over ~46
+  characters at a comma or a joining word — so the voice resets its intonation more often instead of
+  reading a long clause flat. Each unit also gets a small fixed wobble in rate and pitch, and a
+  clause left hanging keeps its pace up. Awkward names are respelled for the voice only (Schick →
+  Shick, Riise → Ree-suh, Souček → Sow-chek, Kanté → Kon-tay and about forty more); captions and
+  labels keep the real spelling. Verified by recording what the page asks the voice to say.
 
