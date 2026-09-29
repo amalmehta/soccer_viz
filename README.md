@@ -4,7 +4,8 @@ Famous goals and classic moves, drawn from above.
 
 Birdseye FC replays iconic football moments as stylised animations: every player runs, turns,
 lunges and dives on a scale pitch, with original commentary read aloud over the top. Seventeen
-clips ship with it, from Carlos Alberto in 1970 to Bale in Kyiv, plus two coaching moves.
+clips ship with it, from Carlos Alberto in 1970 to the Lusail final, plus two coaching moves.
+Four of them are built from StatsBomb's own match data rather than from memory.
 
 **Live:** https://amalmehta.github.io/soccer_viz/
 

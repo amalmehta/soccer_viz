@@ -1,0 +1,761 @@
+{
+  "title": "TODO: name this goal (Hernández, 2022)",
+  "subtitle": "FIFA World Cup, final · Lusail Stadium · 2022-12-18",
+  "clock": "36'",
+  "duration": 23.8,
+  "teams": {
+    "A": {
+      "name": "Argentina",
+      "short": "ARG",
+      "color": "#2C5BD6",
+      "color2": "#0F2B7A",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#FFFFFF",
+      "socks": "#2C5BD6",
+      "gkColor": "#F2C94C"
+    },
+    "B": {
+      "name": "France",
+      "short": "FRA",
+      "color": "#EE6A55",
+      "color2": "#8A2A1C",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#1E2430",
+      "socks": "#EE6A55",
+      "gkColor": "#34C77B"
+    }
+  },
+  "score": [
+    0,
+    0
+  ],
+  "players": [
+    {
+      "id": "hernandez",
+      "team": "B",
+      "num": 22,
+      "name": "Hernández",
+      "path": [
+        [
+          0.0,
+          23.54,
+          67.92
+        ],
+        [
+          3.46,
+          33.3,
+          64.99
+        ],
+        [
+          6.93,
+          43.05,
+          62.05
+        ],
+        [
+          10.39,
+          52.81,
+          59.12
+        ],
+        [
+          13.86,
+          62.57,
+          56.19
+        ],
+        [
+          17.32,
+          72.32,
+          53.25
+        ],
+        [
+          20.79,
+          82.08,
+          50.32
+        ]
+      ]
+    },
+    {
+      "id": "mbappe",
+      "team": "B",
+      "num": 10,
+      "name": "Mbappé",
+      "path": [
+        [
+          0.0,
+          8.05,
+          62.05
+        ],
+        [
+          1.24,
+          8.05,
+          62.05
+        ],
+        [
+          2.39,
+          6.12,
+          59.16
+        ],
+        [
+          3.22,
+          6.62,
+          52.96
+        ]
+      ]
+    },
+    {
+      "id": "romero",
+      "team": "A",
+      "num": 13,
+      "name": "Romero",
+      "path": [
+        [
+          0.0,
+          6.21,
+          59.24
+        ],
+        [
+          2.39,
+          6.21,
+          59.24
+        ]
+      ]
+    },
+    {
+      "id": "molina",
+      "team": "A",
+      "num": 26,
+      "name": "Molina",
+      "path": [
+        [
+          0.0,
+          5.08,
+          46.32
+        ],
+        [
+          3.33,
+          5.08,
+          46.32
+        ],
+        [
+          7.18,
+          13.87,
+          53.67
+        ],
+        [
+          11.03,
+          22.66,
+          61.03
+        ]
+      ]
+    },
+    {
+      "id": "martinez",
+      "team": "A",
+      "num": 23,
+      "name": "Martínez",
+      "path": [
+        [
+          0.0,
+          3.59,
+          35.79
+        ],
+        [
+          2.23,
+          3.59,
+          35.79
+        ],
+        [
+          4.45,
+          3.59,
+          35.79
+        ]
+      ],
+      "gk": true
+    },
+    {
+      "id": "upamecano",
+      "team": "B",
+      "num": 18,
+      "name": "Upamecano",
+      "path": [
+        [
+          0.0,
+          44.54,
+          62.05
+        ],
+        [
+          2.75,
+          44.54,
+          62.05
+        ],
+        [
+          5.51,
+          44.54,
+          62.05
+        ],
+        [
+          8.26,
+          44.54,
+          62.05
+        ],
+        [
+          9.43,
+          42.61,
+          63.32
+        ],
+        [
+          13.22,
+          59.76,
+          55.84
+        ],
+        [
+          17.0,
+          76.91,
+          48.36
+        ],
+        [
+          20.79,
+          94.06,
+          40.88
+        ]
+      ]
+    },
+    {
+      "id": "macallister",
+      "team": "A",
+      "num": 20,
+      "name": "MacAllister",
+      "path": [
+        [
+          0.0,
+          36.57,
+          50.15
+        ],
+        [
+          3.12,
+          36.57,
+          50.15
+        ],
+        [
+          6.25,
+          36.57,
+          50.15
+        ],
+        [
+          9.38,
+          36.57,
+          50.15
+        ],
+        [
+          12.5,
+          36.57,
+          50.15
+        ],
+        [
+          15.8,
+          57.02,
+          48.74
+        ],
+        [
+          19.1,
+          77.47,
+          47.32
+        ],
+        [
+          20.79,
+          87.9,
+          46.15
+        ]
+      ]
+    },
+    {
+      "id": "messi",
+      "team": "A",
+      "num": 10,
+      "name": "Messi",
+      "path": [
+        [
+          0.0,
+          46.46,
+          52.53
+        ],
+        [
+          3.37,
+          46.46,
+          52.53
+        ],
+        [
+          6.74,
+          46.46,
+          52.53
+        ],
+        [
+          10.11,
+          46.46,
+          52.53
+        ],
+        [
+          13.48,
+          46.46,
+          52.53
+        ],
+        [
+          13.95,
+          46.29,
+          52.53
+        ]
+      ]
+    },
+    {
+      "id": "alvarez",
+      "team": "A",
+      "num": 9,
+      "name": "Álvarez",
+      "path": [
+        [
+          0.0,
+          55.3,
+          57.97
+        ],
+        [
+          3.85,
+          55.3,
+          57.97
+        ],
+        [
+          7.69,
+          55.3,
+          57.97
+        ],
+        [
+          11.54,
+          55.3,
+          57.97
+        ],
+        [
+          15.38,
+          55.3,
+          57.97
+        ],
+        [
+          15.78,
+          55.3,
+          57.97
+        ],
+        [
+          18.29,
+          67.14,
+          50.48
+        ],
+        [
+          20.79,
+          78.93,
+          43.03
+        ]
+      ]
+    },
+    {
+      "id": "maria",
+      "team": "A",
+      "num": 11,
+      "name": "María",
+      "path": [
+        [
+          0.0,
+          97.83,
+          27.29
+        ],
+        [
+          3.46,
+          97.83,
+          27.29
+        ],
+        [
+          6.92,
+          97.83,
+          27.29
+        ],
+        [
+          10.38,
+          97.83,
+          27.29
+        ],
+        [
+          13.84,
+          97.83,
+          27.29
+        ],
+        [
+          17.3,
+          97.83,
+          27.29
+        ],
+        [
+          20.76,
+          97.83,
+          27.29
+        ]
+      ],
+      "star": true
+    },
+    {
+      "id": "kounde",
+      "team": "B",
+      "num": 5,
+      "name": "Koundé",
+      "path": [
+        [
+          0.0,
+          97.74,
+          43.95
+        ],
+        [
+          3.46,
+          97.74,
+          43.95
+        ],
+        [
+          6.93,
+          97.74,
+          43.95
+        ],
+        [
+          10.39,
+          97.74,
+          43.95
+        ],
+        [
+          13.86,
+          97.74,
+          43.95
+        ],
+        [
+          17.32,
+          97.74,
+          43.95
+        ],
+        [
+          20.79,
+          97.74,
+          43.95
+        ]
+      ]
+    },
+    {
+      "id": "tchouameni",
+      "team": "B",
+      "num": 8,
+      "name": "Tchouaméni",
+      "path": [
+        [
+          0.0,
+          96.6,
+          32.05
+        ],
+        [
+          3.46,
+          96.6,
+          32.05
+        ],
+        [
+          6.93,
+          96.6,
+          32.05
+        ],
+        [
+          10.39,
+          96.6,
+          32.05
+        ],
+        [
+          13.86,
+          96.6,
+          32.05
+        ],
+        [
+          17.32,
+          96.6,
+          32.05
+        ],
+        [
+          20.79,
+          96.6,
+          32.05
+        ]
+      ]
+    },
+    {
+      "id": "varane",
+      "team": "B",
+      "num": 4,
+      "name": "Varane",
+      "path": [
+        [
+          0.0,
+          88.9,
+          40.8
+        ],
+        [
+          3.46,
+          88.9,
+          40.8
+        ],
+        [
+          6.93,
+          88.9,
+          40.8
+        ],
+        [
+          10.39,
+          88.9,
+          40.8
+        ],
+        [
+          13.86,
+          88.9,
+          40.8
+        ],
+        [
+          17.32,
+          88.9,
+          40.8
+        ],
+        [
+          20.79,
+          88.9,
+          40.8
+        ]
+      ]
+    },
+    {
+      "id": "lloris",
+      "team": "B",
+      "num": 1,
+      "name": "Lloris",
+      "path": [
+        [
+          0.0,
+          100.27,
+          29.84
+        ],
+        [
+          3.46,
+          100.27,
+          29.84
+        ],
+        [
+          6.93,
+          100.27,
+          29.84
+        ],
+        [
+          10.39,
+          100.27,
+          29.84
+        ],
+        [
+          13.86,
+          100.27,
+          29.84
+        ],
+        [
+          17.32,
+          100.27,
+          29.84
+        ],
+        [
+          20.79,
+          100.27,
+          29.84
+        ]
+      ],
+      "gk": true
+    }
+  ],
+  "ball": [
+    {
+      "t": 0.0,
+      "with": "hernandez"
+    },
+    {
+      "t": 1.24,
+      "with": "mbappe"
+    },
+    {
+      "t": 2.39,
+      "with": "mbappe"
+    },
+    {
+      "t": 3.33,
+      "with": "molina"
+    },
+    {
+      "t": 4.45,
+      "with": "martinez"
+    },
+    {
+      "t": 8.26,
+      "with": "upamecano"
+    },
+    {
+      "t": 8.38,
+      "x": 44.62,
+      "y": 62.13
+    },
+    {
+      "t": 9.43,
+      "with": "upamecano"
+    },
+    {
+      "t": 11.03,
+      "with": "molina"
+    },
+    {
+      "t": 11.15,
+      "x": 22.57,
+      "y": 60.95
+    },
+    {
+      "t": 12.5,
+      "with": "macallister"
+    },
+    {
+      "t": 13.48,
+      "with": "messi"
+    },
+    {
+      "t": 13.95,
+      "with": "messi"
+    },
+    {
+      "t": 15.38,
+      "with": "alvarez"
+    },
+    {
+      "t": 15.78,
+      "with": "alvarez"
+    },
+    {
+      "t": 19.1,
+      "with": "macallister"
+    },
+    {
+      "t": 20.77,
+      "with": "maria"
+    },
+    {
+      "t": 21.25,
+      "x": 105.4,
+      "y": 35.45
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "TODO: write the captions, 3 to 8 of them."
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "TODO: write original commentary, 4 to 9 lines."
+    }
+  ],
+  "events": [
+    {
+      "t": 0.0,
+      "type": "pass",
+      "team": "B"
+    },
+    {
+      "t": 3.33,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 4.45,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 9.43,
+      "type": "pass",
+      "team": "B"
+    },
+    {
+      "t": 11.03,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 12.5,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 13.95,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 15.45,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 19.1,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 20.79,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 21.25,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "actions": [],
+  "venue": {
+    "time": "day",
+    "roof": "open",
+    "stands": "#2a3550",
+    "accent": "#d9dde3",
+    "track": false,
+    "grass": "#2e7a3c",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "TODO: the state of the match and why the space was there."
+    },
+    {
+      "label": "Key moment",
+      "text": "TODO: the moment the goal turned on."
+    },
+    {
+      "label": "The finish",
+      "text": "TODO: how it was finished."
+    }
+  ],
+  "lessons": [
+    {
+      "label": "TODO lesson one",
+      "text": "TODO: a practical coaching point from this play."
+    },
+    {
+      "label": "TODO lesson two",
+      "text": "TODO: a practical coaching point from this play."
+    },
+    {
+      "label": "TODO lesson three",
+      "text": "TODO: a practical coaching point from this play."
+    }
+  ],
+  "note": "Ball path and player positions come from StatsBomb open data (match 3869685); players away from the ball are placed from the shot's freeze frame and moved by the app. Commentary is original, not the broadcast."
+}

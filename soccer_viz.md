@@ -278,4 +278,10 @@ CHANGELOG:
   Players the data only sees at the shot have hand-drawn routes into those positions; the rest of
   each team is unnamed so the off-ball engine moves them. Also fixed: the importer folded accents
   out of ids (Pelé, Gérson, Modrić, Mané now import as pele, gerson, modric, mane).
+- 2026-09-28 — checked every clip against the StatsBomb open data: only the three already rebuilt
+  (1970, 1986, 2018) are covered. Their Champions League set is finals only, their Premier League
+  set is 2003/04 and 2015/16, and of the old World Cups they hold 1958, 1962, 1970, 1974, 1986,
+  1990, 2018 and 2022 — so Zidane 2002, Ronaldinho 2005, Iniesta 2010, Agüero 2012 and the rest
+  cannot be upgraded. Added instead (user choice): Di María's goal in the 2022 final, imported from
+  match 3869685 and finished by hand. The library is 17 clips and 2 moves.
 
