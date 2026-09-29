@@ -1,0 +1,942 @@
+{
+  "title": "Gerrard's header in Istanbul",
+  "subtitle": "Champions League, final · Atatürk Olympic Stadium · 25 May 2005",
+  "clock": "54'",
+  "duration": 20.4,
+  "teams": {
+    "A": {
+      "name": "Liverpool",
+      "short": "LIV",
+      "color": "#C8102E",
+      "color2": "#F5F5F2",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#C8102E",
+      "socks": "#C8102E",
+      "gkColor": "#3FB98A"
+    },
+    "B": {
+      "name": "AC Milan",
+      "short": "MIL",
+      "color": "#F5F5F2",
+      "color2": "#1A1A1E",
+      "text": "#C8102E",
+      "pattern": "plain",
+      "shorts": "#F5F5F2",
+      "socks": "#F5F5F2",
+      "gkColor": "#2E7D32"
+    }
+  },
+  "score": [
+    0,
+    3
+  ],
+  "players": [
+    {
+      "id": "riise",
+      "team": "A",
+      "num": 6,
+      "name": "Riise",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "blond",
+        "beard": "none",
+        "height": 186
+      },
+      "path": [
+        [
+          0.0,
+          74.02,
+          1.19
+        ],
+        [
+          3.85,
+          78.57,
+          2.35
+        ],
+        [
+          7.69,
+          83.12,
+          3.51
+        ],
+        [
+          11.54,
+          87.67,
+          4.67
+        ],
+        [
+          12.74,
+          89.34,
+          4.67
+        ],
+        [
+          13.97,
+          85.92,
+          5.18
+        ],
+        [
+          15.58,
+          86.71,
+          5.18
+        ]
+      ]
+    },
+    {
+      "id": "gerrard",
+      "team": "A",
+      "num": 8,
+      "name": "Gerrard",
+      "star": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "none",
+        "height": 185
+      },
+      "path": [
+        [
+          0.0,
+          61.6,
+          4.5
+        ],
+        [
+          1.42,
+          61.6,
+          4.5
+        ],
+        [
+          2.84,
+          61.43,
+          7.22
+        ],
+        [
+          6.37,
+          69.76,
+          13.0
+        ],
+        [
+          9.9,
+          78.09,
+          18.79
+        ],
+        [
+          13.43,
+          86.43,
+          24.57
+        ],
+        [
+          16.96,
+          94.76,
+          30.35
+        ]
+      ]
+    },
+    {
+      "id": "alonso",
+      "team": "A",
+      "num": 14,
+      "name": "Alonso",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 183
+      },
+      "path": [
+        [
+          0.0,
+          58.98,
+          26.69
+        ],
+        [
+          3.78,
+          58.98,
+          26.69
+        ],
+        [
+          4.82,
+          59.41,
+          27.2
+        ],
+        [
+          8.34,
+          65.98,
+          33.57
+        ],
+        [
+          9.54,
+          67.64,
+          32.13
+        ]
+      ]
+    },
+    {
+      "id": "hamann",
+      "team": "A",
+      "num": 16,
+      "name": "Hamann",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "none",
+        "height": 191
+      },
+      "path": [
+        [
+          0.0,
+          62.91,
+          42.67
+        ],
+        [
+          2.99,
+          62.91,
+          42.67
+        ],
+        [
+          5.98,
+          62.91,
+          42.67
+        ],
+        [
+          7.24,
+          66.67,
+          44.71
+        ]
+      ]
+    },
+    {
+      "id": "cafu",
+      "team": "B",
+      "num": 2,
+      "name": "Cafu",
+      "look": {
+        "skin": "brown",
+        "hair": "curly",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 176
+      },
+      "path": [
+        [
+          0,
+          77.88,
+          8.93
+        ],
+        [
+          7.13,
+          85.58,
+          10.14
+        ],
+        [
+          12.97,
+          91.88,
+          11.13
+        ],
+        [
+          20.4,
+          94.88,
+          10.03
+        ]
+      ]
+    },
+    {
+      "id": "kaka",
+      "team": "B",
+      "num": 22,
+      "name": "Kaká",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 186
+      },
+      "path": [
+        [
+          0,
+          68.08,
+          44.54
+        ],
+        [
+          9.33,
+          75.78,
+          43.93
+        ],
+        [
+          16.96,
+          82.08,
+          43.44
+        ],
+        [
+          20.4,
+          85.08,
+          43.99
+        ]
+      ]
+    },
+    {
+      "id": "seedorf",
+      "team": "B",
+      "num": 20,
+      "name": "Seedorf",
+      "look": {
+        "skin": "dark",
+        "hair": "buzz",
+        "hairColor": "black",
+        "beard": "stubble",
+        "height": 176
+      },
+      "path": [
+        [
+          0,
+          73.41,
+          39.0
+        ],
+        [
+          9.33,
+          81.11,
+          37.79
+        ],
+        [
+          16.96,
+          87.41,
+          36.8
+        ],
+        [
+          20.4,
+          90.41,
+          37.9
+        ]
+      ]
+    },
+    {
+      "id": "maldini",
+      "team": "B",
+      "num": 3,
+      "name": "Maldini",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 186
+      },
+      "path": [
+        [
+          0,
+          81.99,
+          38.66
+        ],
+        [
+          9.33,
+          90.11,
+          38.11
+        ],
+        [
+          16.96,
+          96.96,
+          37.0
+        ],
+        [
+          20.4,
+          98.99,
+          37.56
+        ]
+      ]
+    },
+    {
+      "id": "stam",
+      "team": "B",
+      "num": 31,
+      "name": "Stam",
+      "look": {
+        "skin": "light",
+        "hair": "bald",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 191
+      },
+      "path": [
+        [
+          0,
+          82.95,
+          32.98
+        ],
+        [
+          9.33,
+          90.65,
+          32.98
+        ],
+        [
+          16.96,
+          96.95,
+          32.98
+        ],
+        [
+          20.4,
+          99.95,
+          32.98
+        ]
+      ]
+    },
+    {
+      "id": "nesta",
+      "team": "B",
+      "num": 13,
+      "name": "Nesta",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 187
+      },
+      "path": [
+        [
+          0,
+          81.9,
+          30.34
+        ],
+        [
+          9.33,
+          89.84,
+          29.27
+        ],
+        [
+          16.96,
+          97.8,
+          28.2
+        ],
+        [
+          20.4,
+          98.9,
+          29.24
+        ]
+      ]
+    },
+    {
+      "id": "gattuso",
+      "team": "B",
+      "num": 8,
+      "name": "Gattuso",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "beard",
+        "height": 177
+      },
+      "path": [
+        [
+          0,
+          76.21,
+          18.03
+        ],
+        [
+          9.33,
+          83.91,
+          19.24
+        ],
+        [
+          16.96,
+          90.21,
+          20.23
+        ],
+        [
+          20.4,
+          93.21,
+          19.13
+        ]
+      ]
+    },
+    {
+      "id": "pirlo",
+      "team": "B",
+      "num": 21,
+      "name": "Pirlo",
+      "look": {
+        "skin": "light",
+        "hair": "long",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 177
+      },
+      "path": [
+        [
+          0,
+          80.15,
+          26.19
+        ],
+        [
+          9.33,
+          87.7,
+          27.41
+        ],
+        [
+          16.96,
+          95.51,
+          27.72
+        ],
+        [
+          20.4,
+          97.15,
+          27.29
+        ]
+      ]
+    },
+    {
+      "id": "garcia",
+      "team": "A",
+      "num": 10,
+      "name": "García",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 175
+      },
+      "path": [
+        [
+          0,
+          81.02,
+          34.26
+        ],
+        [
+          9.33,
+          88.54,
+          35.2
+        ],
+        [
+          16.96,
+          94.39,
+          36.11
+        ],
+        [
+          20.4,
+          98.02,
+          35.36
+        ]
+      ]
+    },
+    {
+      "id": "baros",
+      "team": "A",
+      "num": 5,
+      "name": "Baroš",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "none",
+        "height": 186
+      },
+      "path": [
+        [
+          0,
+          80.24,
+          23.81
+        ],
+        [
+          9.33,
+          87.94,
+          25.02
+        ],
+        [
+          16.96,
+          94.15,
+          25.7
+        ],
+        [
+          20.4,
+          97.24,
+          24.91
+        ]
+      ]
+    },
+    {
+      "id": "smicer",
+      "team": "A",
+      "num": 11,
+      "name": "Smicer",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "none",
+        "height": 179
+      },
+      "path": [
+        [
+          0,
+          75.42,
+          41.73
+        ],
+        [
+          9.33,
+          83.12,
+          41.12
+        ],
+        [
+          16.96,
+          89.42,
+          40.63
+        ],
+        [
+          20.4,
+          92.42,
+          41.18
+        ]
+      ]
+    },
+    {
+      "id": "dida",
+      "team": "B",
+      "num": 1,
+      "name": "Dida",
+      "gk": true,
+      "look": {
+        "skin": "dark",
+        "hair": "buzz",
+        "hairColor": "black",
+        "beard": "none",
+        "height": 195
+      },
+      "path": [
+        [
+          0,
+          101.69,
+          33.23
+        ],
+        [
+          9.33,
+          102.79,
+          33.23
+        ],
+        [
+          16.96,
+          103.69,
+          33.23
+        ],
+        [
+          20.4,
+          104,
+          33.23
+        ]
+      ]
+    },
+    {
+      "id": "liv-gk",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "gk": true,
+      "path": [
+        [
+          0,
+          8,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "liv-cb1",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          52,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "liv-cb2",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          50,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "liv-rb",
+      "team": "A",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          60,
+          54
+        ]
+      ]
+    },
+    {
+      "id": "mil-lb",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          78,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "mil-fw",
+      "team": "B",
+      "num": null,
+      "name": null,
+      "path": [
+        [
+          0,
+          68,
+          34
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 0.0,
+      "with": "riise"
+    },
+    {
+      "t": 1.42,
+      "with": "gerrard"
+    },
+    {
+      "t": 2.84,
+      "with": "gerrard"
+    },
+    {
+      "t": 3.78,
+      "with": "alonso"
+    },
+    {
+      "t": 4.82,
+      "with": "alonso"
+    },
+    {
+      "t": 5.98,
+      "with": "hamann"
+    },
+    {
+      "t": 7.24,
+      "with": "hamann"
+    },
+    {
+      "t": 8.35,
+      "with": "alonso"
+    },
+    {
+      "t": 9.54,
+      "with": "alonso"
+    },
+    {
+      "t": 11.54,
+      "with": "riise"
+    },
+    {
+      "t": 12.74,
+      "with": "riise"
+    },
+    {
+      "t": 12.97,
+      "x": 91.96,
+      "y": 11.22
+    },
+    {
+      "t": 13.97,
+      "with": "riise"
+    },
+    {
+      "t": 15.58,
+      "with": "riise"
+    },
+    {
+      "t": 16.96,
+      "with": "gerrard",
+      "lofted": true
+    },
+    {
+      "t": 17.9,
+      "x": 105.4,
+      "y": 36.46
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "54' — Liverpool are 3–0 down in the final."
+    },
+    {
+      "t": 3.8,
+      "text": "Alonso and Hamann keep the ball moving."
+    },
+    {
+      "t": 11.5,
+      "text": "Riise crosses from the left — blocked."
+    },
+    {
+      "t": 14.0,
+      "text": "Riise wins it back and crosses again."
+    },
+    {
+      "t": 17.0,
+      "text": "Gerrard arrives from midfield and heads it back across Dida."
+    },
+    {
+      "t": 18.5,
+      "text": "3–1. Liverpool are alive."
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "Just before the hour in Istanbul, and Liverpool are three down in a European Cup final."
+    },
+    {
+      "t": 3.8,
+      "text": "Alonso, Hamann, back to Alonso — Liverpool keeping it at last."
+    },
+    {
+      "t": 11.5,
+      "text": "Riise, the cross… blocked."
+    },
+    {
+      "t": 14.0,
+      "text": "But Riise has it again, and this one is in…"
+    },
+    {
+      "t": 17.0,
+      "text": "…GERRARD! Up above them all, and it's back across the goalkeeper!"
+    },
+    {
+      "t": 18.4,
+      "text": "Three-one! The captain has given Liverpool something to hold on to."
+    },
+    {
+      "t": 20.0,
+      "text": "Six minutes later it would be three apiece."
+    }
+  ],
+  "events": [
+    {
+      "t": 0.0,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 2.84,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 4.82,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 7.24,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 9.54,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 12.74,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 12.97,
+      "type": "tackle",
+      "team": "B"
+    },
+    {
+      "t": 15.58,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 16.96,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 17.9,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "actions": [
+    {
+      "t": 16.96,
+      "id": "gerrard",
+      "type": "header"
+    }
+  ],
+  "venue": {
+    "time": "night",
+    "roof": "partial",
+    "stands": "#8d939b",
+    "accent": "#d9dde3",
+    "track": true,
+    "grass": "#2e7a3c",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "Liverpool were 3–0 down at half-time in the final. The second half began with more of the ball, but nothing had come from it until the attack went down the left."
+    },
+    {
+      "label": "Persistence",
+      "text": "Riise's first cross was blocked. The ball came straight back to the same player, and rather than restarting the move, Riise crossed again before Milan's defence had reset."
+    },
+    {
+      "label": "The run",
+      "text": "Gerrard attacked from midfield rather than from the forward line, arriving at the far side of the six-yard box where Milan's centre-backs were watching the strikers instead."
+    },
+    {
+      "label": "The header",
+      "text": "The header went back across the goal, the direction the ball had come from. Dida was moving towards the near post and could not change direction in time."
+    }
+  ],
+  "lessons": [
+    {
+      "label": "Cross it again",
+      "text": "A blocked cross is not the end of the attack. Winning the ball back and delivering immediately attacks a defence that is still re-forming."
+    },
+    {
+      "label": "Arrive from midfield",
+      "text": "Gerrard starts the move deep and enters the box late. Defenders watching the strikers rarely pick up the runner coming from behind them."
+    },
+    {
+      "label": "Head it back across",
+      "text": "Directing a header away from the side the cross came from sends it against the keeper's momentum and into the part of the goal nobody is covering."
+    },
+    {
+      "label": "Attack the far post",
+      "text": "The far side of the six-yard box is the least defended space in the box, because everyone else is drawn to the ball."
+    }
+  ],
+  "note": "The ball's path, its timing and the tracked players come from StatsBomb's open data for this match (id 2302764). Players the data only sees at the shot have routes drawn back into those positions, and any extra team-mates are placed by hand. Commentary is original, not the broadcast."
+}

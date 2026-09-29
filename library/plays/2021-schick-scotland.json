@@ -1,0 +1,1063 @@
+{
+  "title": "Schick from the halfway line",
+  "subtitle": "UEFA Euro 2020, group stage · Hampden Park, Glasgow · 14 Jun 2021",
+  "clock": "52'",
+  "duration": 18.7,
+  "teams": {
+    "A": {
+      "name": "Czech Republic",
+      "short": "CZE",
+      "color": "#F5F5F2",
+      "color2": "#D7141A",
+      "text": "#11317A",
+      "pattern": "plain",
+      "shorts": "#F5F5F2",
+      "socks": "#F5F5F2",
+      "gkColor": "#3FB98A"
+    },
+    "B": {
+      "name": "Scotland",
+      "short": "SCO",
+      "color": "#1B315E",
+      "color2": "#F5F5F2",
+      "text": "#FFFFFF",
+      "pattern": "plain",
+      "shorts": "#F5F5F2",
+      "socks": "#1B315E",
+      "gkColor": "#E8E23F"
+    }
+  },
+  "score": [
+    1,
+    0
+  ],
+  "players": [
+    {
+      "id": "dykes",
+      "team": "B",
+      "num": 9,
+      "name": "Dykes",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "stubble",
+        "height": 188
+      },
+      "path": [
+        [
+          0,
+          15.5,
+          44
+        ],
+        [
+          3,
+          16.5,
+          43
+        ],
+        [
+          10,
+          16.2,
+          41.5
+        ],
+        [
+          18.7,
+          22,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "masopust",
+      "team": "A",
+      "num": 12,
+      "name": "Masopust",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 177
+      },
+      "path": [
+        [
+          0,
+          17.5,
+          53.5
+        ],
+        [
+          1.25,
+          18.4,
+          52.6
+        ],
+        [
+          5,
+          21,
+          50
+        ],
+        [
+          10,
+          19.5,
+          51.4
+        ],
+        [
+          18.7,
+          26,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "kral",
+      "team": "A",
+      "num": 21,
+      "name": "Král",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "stubble",
+        "height": 190
+      },
+      "path": [
+        [
+          0.0,
+          9.97,
+          59.42
+        ],
+        [
+          2.1,
+          9.97,
+          59.42
+        ],
+        [
+          3.38,
+          11.99,
+          60.27
+        ],
+        [
+          6.68,
+          19.82,
+          51.0
+        ],
+        [
+          9.98,
+          27.65,
+          41.73
+        ]
+      ]
+    },
+    {
+      "id": "armstrong",
+      "team": "B",
+      "num": 17,
+      "name": "Armstrong",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "none",
+        "height": 178
+      },
+      "path": [
+        [
+          0.0,
+          12.39,
+          60.37
+        ],
+        [
+          3.38,
+          10.15,
+          58.43
+        ],
+        [
+          6.61,
+          26.51,
+          52.02
+        ],
+        [
+          9.98,
+          24.5,
+          45.48
+        ]
+      ]
+    },
+    {
+      "id": "hendry",
+      "team": "B",
+      "num": 24,
+      "name": "Hendry",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "stubble",
+        "height": 187
+      },
+      "path": [
+        [
+          0.0,
+          33.69,
+          23.89
+        ],
+        [
+          2.91,
+          33.69,
+          23.89
+        ],
+        [
+          5.82,
+          33.69,
+          23.89
+        ],
+        [
+          8.73,
+          33.69,
+          23.89
+        ],
+        [
+          9.13,
+          33.69,
+          23.89
+        ],
+        [
+          9.98,
+          29.54,
+          26.82
+        ],
+        [
+          13.63,
+          40.51,
+          26.44
+        ]
+      ]
+    },
+    {
+      "id": "jankto",
+      "team": "A",
+      "num": 14,
+      "name": "Jankto",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 187
+      },
+      "path": [
+        [
+          0.0,
+          31.15,
+          23.2
+        ],
+        [
+          2.81,
+          31.15,
+          23.2
+        ],
+        [
+          5.61,
+          31.15,
+          23.2
+        ],
+        [
+          8.42,
+          31.15,
+          23.2
+        ],
+        [
+          8.79,
+          33.77,
+          23.97
+        ],
+        [
+          9.98,
+          36.14,
+          23.89
+        ],
+        [
+          13.63,
+          50.23,
+          23.46
+        ]
+      ]
+    },
+    {
+      "id": "vaclik",
+      "team": "A",
+      "num": 1,
+      "name": "Vaclík",
+      "gk": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 191
+      },
+      "path": [
+        [
+          0,
+          1.5,
+          34.41
+        ],
+        [
+          5.49,
+          1.16,
+          33.2
+        ],
+        [
+          9.98,
+          0.88,
+          32.21
+        ],
+        [
+          18.7,
+          2.38,
+          33.31
+        ]
+      ]
+    },
+    {
+      "id": "schick",
+      "team": "A",
+      "num": 10,
+      "name": "Schick",
+      "star": true,
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "stubble",
+        "height": 191
+      },
+      "path": [
+        [
+          0.0,
+          38.32,
+          36.21
+        ],
+        [
+          3.33,
+          38.32,
+          36.21
+        ],
+        [
+          6.65,
+          38.32,
+          36.21
+        ],
+        [
+          9.98,
+          38.32,
+          36.21
+        ],
+        [
+          13.55,
+          55.48,
+          21.5
+        ]
+      ]
+    },
+    {
+      "id": "darida",
+      "team": "A",
+      "num": 8,
+      "name": "Darida",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 172
+      },
+      "path": [
+        [
+          0.0,
+          28.52,
+          35.36
+        ],
+        [
+          3.33,
+          28.52,
+          35.36
+        ],
+        [
+          6.65,
+          28.52,
+          35.36
+        ],
+        [
+          9.98,
+          28.52,
+          35.36
+        ],
+        [
+          13.63,
+          35.96,
+          26.61
+        ]
+      ]
+    },
+    {
+      "id": "soucek",
+      "team": "A",
+      "num": 15,
+      "name": "Souček",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "stubble",
+        "height": 192
+      },
+      "path": [
+        [
+          0.0,
+          25.81,
+          27.96
+        ],
+        [
+          3.33,
+          25.81,
+          27.96
+        ],
+        [
+          6.65,
+          25.81,
+          27.96
+        ],
+        [
+          9.98,
+          25.81,
+          27.96
+        ],
+        [
+          13.63,
+          41.82,
+          25.41
+        ]
+      ]
+    },
+    {
+      "id": "boril",
+      "team": "A",
+      "num": 18,
+      "name": "Bořil",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 180
+      },
+      "path": [
+        [
+          0,
+          12.29,
+          23.04
+        ],
+        [
+          5.49,
+          15.59,
+          22.69
+        ],
+        [
+          9.98,
+          18.29,
+          23.2
+        ],
+        [
+          18.7,
+          21.29,
+          23.59
+        ]
+      ]
+    },
+    {
+      "id": "kalas",
+      "team": "A",
+      "num": 6,
+      "name": "Kalas",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 192
+      },
+      "path": [
+        [
+          0,
+          10.45,
+          34.16
+        ],
+        [
+          5.49,
+          13.75,
+          32.95
+        ],
+        [
+          9.98,
+          16.45,
+          31.96
+        ],
+        [
+          18.7,
+          19.45,
+          33.06
+        ]
+      ]
+    },
+    {
+      "id": "celustka",
+      "team": "A",
+      "num": 3,
+      "name": "Celustka",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 191
+      },
+      "path": [
+        [
+          0,
+          11.59,
+          36.22
+        ],
+        [
+          5.49,
+          14.89,
+          37.43
+        ],
+        [
+          9.98,
+          17.59,
+          38.42
+        ],
+        [
+          18.7,
+          20.59,
+          37.32
+        ]
+      ]
+    },
+    {
+      "id": "coufal",
+      "team": "A",
+      "num": 5,
+      "name": "Coufal",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 182
+      },
+      "path": [
+        [
+          0,
+          10.8,
+          45.55
+        ],
+        [
+          5.49,
+          13.85,
+          44.96
+        ],
+        [
+          9.98,
+          16.69,
+          43.88
+        ],
+        [
+          18.7,
+          19.8,
+          44.45
+        ]
+      ]
+    },
+    {
+      "id": "mcginn",
+      "team": "B",
+      "num": 7,
+      "name": "McGinn",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 178
+      },
+      "path": [
+        [
+          0,
+          17.45,
+          29.25
+        ],
+        [
+          5.49,
+          20.75,
+          29.86
+        ],
+        [
+          9.98,
+          23.45,
+          30.35
+        ],
+        [
+          18.7,
+          26.45,
+          29.8
+        ]
+      ]
+    },
+    {
+      "id": "mctominay",
+      "team": "B",
+      "num": 4,
+      "name": "McTominay",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 193
+      },
+      "path": [
+        [
+          0,
+          18.32,
+          32.73
+        ],
+        [
+          5.49,
+          21.62,
+          32.73
+        ],
+        [
+          9.98,
+          24.32,
+          32.73
+        ],
+        [
+          18.7,
+          27.32,
+          32.73
+        ]
+      ]
+    },
+    {
+      "id": "adams",
+      "team": "B",
+      "num": 10,
+      "name": "Adams",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 178
+      },
+      "path": [
+        [
+          0,
+          12.29,
+          26.35
+        ],
+        [
+          5.49,
+          15.59,
+          26.08
+        ],
+        [
+          9.98,
+          18.29,
+          25.61
+        ],
+        [
+          18.7,
+          21.29,
+          25.8
+        ]
+      ]
+    },
+    {
+      "id": "robertson",
+      "team": "B",
+      "num": 3,
+      "name": "Robertson",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "red",
+        "beard": "stubble",
+        "height": 178
+      },
+      "path": [
+        [
+          0.0,
+          22.93,
+          59.42
+        ],
+        [
+          3.33,
+          22.93,
+          59.42
+        ],
+        [
+          6.65,
+          22.93,
+          59.42
+        ],
+        [
+          9.98,
+          22.93,
+          59.42
+        ],
+        [
+          13.63,
+          39.73,
+          47.09
+        ]
+      ]
+    },
+    {
+      "id": "cooper",
+      "team": "B",
+      "num": 16,
+      "name": "Cooper",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "none",
+        "height": 185
+      },
+      "path": [
+        [
+          0.0,
+          42.18,
+          47.17
+        ],
+        [
+          3.33,
+          42.18,
+          47.17
+        ],
+        [
+          6.65,
+          42.18,
+          47.17
+        ],
+        [
+          9.98,
+          42.18,
+          47.17
+        ],
+        [
+          13.63,
+          59.76,
+          37.06
+        ]
+      ]
+    },
+    {
+      "id": "o-donnell",
+      "team": "B",
+      "num": 2,
+      "name": "O'Donnell",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 180
+      },
+      "path": [
+        [
+          0.0,
+          35.26,
+          6.12
+        ],
+        [
+          3.33,
+          35.26,
+          6.12
+        ],
+        [
+          6.65,
+          35.26,
+          6.12
+        ],
+        [
+          9.98,
+          35.26,
+          6.12
+        ],
+        [
+          13.63,
+          46.73,
+          13.01
+        ]
+      ]
+    },
+    {
+      "id": "marshall",
+      "team": "B",
+      "num": 1,
+      "name": "Marshall",
+      "gk": true,
+      "look": {
+        "skin": "light",
+        "hair": "bald",
+        "hairColor": "dark-brown",
+        "beard": "stubble",
+        "height": 188
+      },
+      "path": [
+        [
+          0,
+          84.45,
+          28.56
+        ],
+        [
+          7.5,
+          85.55,
+          28.56
+        ],
+        [
+          13.63,
+          86.45,
+          28.56
+        ],
+        [
+          18.7,
+          87.95,
+          28.56
+        ]
+      ]
+    },
+    {
+      "id": "hanley",
+      "team": "B",
+      "num": 5,
+      "name": "Hanley",
+      "look": {
+        "skin": "light",
+        "hair": "short",
+        "hairColor": "light-brown",
+        "beard": "stubble",
+        "height": 193
+      },
+      "path": [
+        [
+          0,
+          46.5,
+          23.04
+        ],
+        [
+          7.5,
+          52.21,
+          23.64
+        ],
+        [
+          13.63,
+          56.88,
+          24.14
+        ],
+        [
+          18.7,
+          59.88,
+          23.59
+        ]
+      ]
+    }
+  ],
+  "ball": [
+    {
+      "t": 1.25,
+      "with": "masopust"
+    },
+    {
+      "t": 3.38,
+      "with": "kral"
+    },
+    {
+      "t": 3.5,
+      "with": "armstrong"
+    },
+    {
+      "t": 6.61,
+      "with": "armstrong"
+    },
+    {
+      "t": 8.73,
+      "with": "hendry"
+    },
+    {
+      "t": 9.13,
+      "with": "hendry"
+    },
+    {
+      "t": 9.98,
+      "with": "hendry"
+    },
+    {
+      "t": 10.12,
+      "x": 25.73,
+      "y": 27.88
+    },
+    {
+      "t": 13.63,
+      "with": "schick"
+    },
+    {
+      "t": 16.2,
+      "x": 105.4,
+      "y": 32.64
+    }
+  ],
+  "captions": [
+    {
+      "t": 0,
+      "text": "52' — the Czechs lead 1–0 at Hampden."
+    },
+    {
+      "t": 3.5,
+      "text": "Scotland try to play out through Armstrong."
+    },
+    {
+      "t": 8.7,
+      "text": "Hendry's clearance is headed back into Czech territory."
+    },
+    {
+      "t": 13.6,
+      "text": "Schick takes it down just inside the Scotland half."
+    },
+    {
+      "t": 14.4,
+      "text": "Marshall is a long way off the line."
+    },
+    {
+      "t": 16.2,
+      "text": "From 45 metres — over the keeper and in."
+    }
+  ],
+  "commentary": [
+    {
+      "t": 0,
+      "text": "Just after the hour at Hampden, the Czechs a goal up and Scotland pressing."
+    },
+    {
+      "t": 3.5,
+      "text": "Scotland work it out through Armstrong…"
+    },
+    {
+      "t": 8.7,
+      "text": "…and the clearance is headed straight back upfield."
+    },
+    {
+      "t": 13.6,
+      "text": "Schick, inside the Scotland half, looks up…"
+    },
+    {
+      "t": 15.0,
+      "text": "…and Schick is going to try it from here!"
+    },
+    {
+      "t": 16.2,
+      "text": "OH, IT'S IN! From halfway! Marshall was stranded!"
+    },
+    {
+      "t": 17.6,
+      "text": "Forty-five metres. The longest goal the tournament has ever seen."
+    }
+  ],
+  "events": [
+    {
+      "t": 1.25,
+      "type": "pass",
+      "team": "A"
+    },
+    {
+      "t": 1.25,
+      "type": "tackle",
+      "team": "B"
+    },
+    {
+      "t": 6.61,
+      "type": "pass",
+      "team": "B"
+    },
+    {
+      "t": 9.98,
+      "type": "shot",
+      "team": "B"
+    },
+    {
+      "t": 10.12,
+      "type": "tackle",
+      "team": "A"
+    },
+    {
+      "t": 13.63,
+      "type": "shot",
+      "team": "A"
+    },
+    {
+      "t": 16.2,
+      "type": "goal",
+      "team": "A"
+    }
+  ],
+  "actions": [],
+  "venue": {
+    "time": "day",
+    "roof": "partial",
+    "stands": "#3c4756",
+    "accent": "#b9c2cf",
+    "track": false,
+    "grass": "#4a9a4f",
+    "mowing": "stripes"
+  },
+  "analysis": [
+    {
+      "label": "Context",
+      "text": "The Czechs led 1–0 and Scotland were pushing bodies forward, with the goalkeeper high up to sweep behind a back line playing well away from goal."
+    },
+    {
+      "label": "The turnover",
+      "text": "Scotland tried to build through midfield, but the clearing header went back into their own half. The ball dropped to Schick around the halfway line with the pitch open ahead."
+    },
+    {
+      "label": "The decision",
+      "text": "Schick had checked the goalkeeper's position while the ball was still travelling. Marshall was several metres off the line, which made the goal a bigger target than the distance suggested."
+    },
+    {
+      "label": "The strike",
+      "text": "One touch to set it, then struck with the laces and lifted early. The ball climbed quickly, cleared the retreating keeper and dropped inside the far post from 45 metres."
+    }
+  ],
+  "lessons": [
+    {
+      "label": "Look before it arrives",
+      "text": "Schick checks the keeper's position while the ball is still in the air. Deciding after the touch would have been a second too late."
+    },
+    {
+      "label": "Lift it early",
+      "text": "A long lob has to climb fast to clear a sprinting keeper. Lean back slightly and strike under the middle of the ball."
+    },
+    {
+      "label": "Aim across, not straight",
+      "text": "Sending it towards the far post gives the keeper the longest possible recovery run, and leaves room for the ball to drop inside the post."
+    },
+    {
+      "label": "Keepers: mind the line",
+      "text": "Sweeping high up the pitch is useful until the ball turns over. When possession flips, the first job is getting back."
+    }
+  ],
+  "note": "The ball's path, its timing and the tracked players come from StatsBomb's open data for this match (id 3788748). Players the data only sees at the shot have routes drawn back into those positions, and any extra team-mates are placed by hand. Commentary is original, not the broadcast."
+}

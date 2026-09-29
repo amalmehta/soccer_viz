@@ -284,4 +284,11 @@ CHANGELOG:
   1990, 2018 and 2022 — so Zidane 2002, Ronaldinho 2005, Iniesta 2010, Agüero 2012 and the rest
   cannot be upgraded. Added instead (user choice): Di María's goal in the 2022 final, imported from
   match 3869685 and finished by hand. The library is 17 clips and 2 moves.
+- 2026-09-28 — three more data-backed clips (user request): Pavard's volley (match 7580), Schick
+  from the halfway line (3788748) and Gerrard's header in Istanbul (2302764), each imported and then
+  finished by hand. Two importer bugs fixed on the way: a player first seen in an opponent's freeze
+  frame was put on the wrong team, and the non-scoring side of any shot was labelled team B even
+  when the shot belonged to team B. Finishing is now a shared pass: players the data sees only at
+  the shot get a route drawn back from that spot, and routes are nudged apart so nobody stands
+  inside anyone else. Library: 20 clip files plus the built-in Messi clip and 2 moves.
 

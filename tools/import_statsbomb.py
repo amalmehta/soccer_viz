@@ -216,7 +216,9 @@ def build(match, events, goal, before):
 
     players, ball, actions, play_events = {}, [], [], []
 
-    def note_player(pid, name, team, loc, t, flipped):
+    def note_player(pid, name, team, loc, t, flipped, sure=False):
+        """Record where a player was. `sure` marks a reading from that player's own event, which
+        settles which side they are on: a freeze frame seen first can put them on the wrong team."""
         if not loc:
             return None
         info = squads.get(pid, {})
@@ -229,6 +231,8 @@ def build(match, events, goal, before):
             "gk": bool(info.get("gk")),
             "keys": []
         })
+        if sure:
+            p["team"] = "A" if team == team_a else "B"
         x, y = to_pitch(loc, flipped)
         p["keys"].append((round(t, 2), x, y))
         return p["id"]
@@ -238,7 +242,7 @@ def build(match, events, goal, before):
         kind = ev["type"]["name"]
         f = flip(ev)
         who = ev.get("player")
-        pid = note_player(who["id"], who["name"], ev["team"]["name"], ev.get("location"), t, f) if who else None
+        pid = note_player(who["id"], who["name"], ev["team"]["name"], ev.get("location"), t, f, sure=True) if who else None
         dur = float(ev.get("duration") or 0)
 
         if kind == "Pass" and pid:
@@ -250,7 +254,7 @@ def build(match, events, goal, before):
                 arrive = t + (dur or 0)
                 rec = ev["pass"].get("recipient")
                 if rec:
-                    rid = note_player(rec["id"], rec["name"], ev["team"]["name"], end, arrive, f)
+                    rid = note_player(rec["id"], rec["name"], ev["team"]["name"], end, arrive, f, sure=True)
                     ball.append({"t": arrive, "with": rid, "_pos": (ex, ey),
                                  **({"lofted": True} if ev["pass"].get("height", {}).get("name") == "High Pass" else {})})
                 else:
@@ -260,7 +264,7 @@ def build(match, events, goal, before):
             end = ev["carry"].get("end_location")
             ball.append({"t": t, "with": pid, "_pos": to_pitch(ev["location"], f)})
             if end:
-                note_player(who["id"], who["name"], ev["team"]["name"], end, t + max(dur, 0.4), f)
+                note_player(who["id"], who["name"], ev["team"]["name"], end, t + max(dur, 0.4), f, sure=True)
                 ball.append({"t": t + max(dur, 0.4), "with": pid, "_pos": to_pitch(end, f)})
         elif kind == "Shot" and pid:
             ball.append({"t": t, "with": pid, "_pos": to_pitch(ev["location"], f)})
@@ -279,11 +283,13 @@ def build(match, events, goal, before):
                 ("header" if ev["shot"].get("body_part", {}).get("name") == "Head" else None)
             if special:
                 actions.append({"t": round(t, 2), "id": pid, "type": special})
-            # Everyone the camera could see when the shot was struck: the rest of the shape
+            # Everyone the camera could see when the shot was struck: the rest of the shape.
+            # The other side of a shot is whichever team did not take it, not always team B.
+            other = team_b if ev["team"]["name"] == team_a else team_a
             for frame in ev["shot"].get("freeze_frame", []):
                 fp = frame["player"]
                 note_player(fp["id"], fp["name"],
-                            ev["team"]["name"] if frame["teammate"] else team_b,
+                            ev["team"]["name"] if frame["teammate"] else other,
                             frame["location"], t, f)
         elif kind in ("Duel", "Interception", "Block", "Clearance") and pid:
             play_events.append({"t": t, "type": "tackle", "team": "A" if not f else "B"})
