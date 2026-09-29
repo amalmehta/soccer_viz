@@ -2291,7 +2291,9 @@
     const phrases = phrasesOf(line.text.replace(/^[…—\s]+/, ""));
     if (!phrases.length) return;
     if (!voice) refreshVoices();
-    const good = !!voice && voiceQuality(voice) >= 80;
+    // Anything better than a plain system voice (Premium, Natural, Enhanced, or Chrome's Google
+    // voices) already carries its own intonation, so the delivery only nudges it
+    const good = !!voice && voiceQuality(voice) >= 60;
     const mood = window.BirdseyeCrowd && current ? window.BirdseyeCrowd.levels(current, line.t).excite : 0.3;
     phrases.forEach((phrase, i) => {
       const d = deliveryFor(phrase, mood, good, phrases.length > 1 ? (0.12 * i) / (phrases.length - 1) : 0);
