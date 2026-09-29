@@ -2298,8 +2298,8 @@
     // The ball's route, drawn like a brush stroke: the line the ball will take is barely there, and
     // the line it has taken thickens and darkens towards the ball, fading out well behind it.
     const idx = Math.max(0, Math.min(R.track.length - 1, Math.floor(t / 0.05) || 0));
-    ctx.lineWidth = Math.max(0.8, 0.07 * scale);
-    ctx.strokeStyle = hexA(colors.ink, 0.13);
+    ctx.lineWidth = Math.max(0.6, 0.045 * scale);
+    ctx.strokeStyle = hexA(colors.ink, 0.07);
     ctx.beginPath();
     for (let i = idx; i < R.track.length; i++) {
       const p = R.track[i];
@@ -2307,12 +2307,12 @@
     }
     ctx.stroke();
     if (idx > 0) {
-      const tail = Math.max(0, idx - 90);                       // about four and a half seconds
+      const tail = Math.max(0, idx - 70);                       // about three and a half seconds
       for (let i = tail; i < idx; i++) {
         const a = R.track[i], b = R.track[i + 1];
         const u = (i - tail) / Math.max(1, idx - tail);
-        ctx.strokeStyle = hexA(colors.accent, 0.08 + 0.72 * u * u);
-        ctx.lineWidth = Math.max(0.9, (0.08 + 0.3 * u) * scale);
+        ctx.strokeStyle = hexA(colors.accent, 0.04 + 0.32 * u * u);
+        ctx.lineWidth = Math.max(0.7, (0.05 + 0.14 * u) * scale);
         ctx.beginPath();
         ctx.moveTo(X(a.x), Y(a.y));
         ctx.lineTo(X(b.x), Y(b.y));
