@@ -2345,7 +2345,7 @@
     // tells you someone is running rather than standing. The pose engine already works all of that
     // out for the Broadcast camera; here it is drawn flat — ink lines over the kit colour, at close
     // to life size rather than as a disc three metres across.
-    const FIG = 3.0;                                  // a shade larger than life, to stay legible
+    const FIG = 2.0;                                  // larger than life, because a body is five pixels here
     const u = scale * FIG;                             // pixels per metre of body
     const ink = (a, w) => { ctx.strokeStyle = hexA(colors.ink, a); ctx.lineWidth = Math.max(1.1, w * u); };
 
