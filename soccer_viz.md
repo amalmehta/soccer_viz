@@ -395,3 +395,9 @@ CHANGELOG:
   defender within 10 m faces away, 315 of 382 are sprints where turning is right and the rest are
   bodies mid-turn, which the 7.5 rad/s limit makes unavoidable.
 
+
+- 2026-09-30 — the Broadcast look removed (user request, blunt: "just remove the broadcast tab").
+  With one look left there is nothing to switch between, so the Look toggle went with it, along
+  with the pluggable-look machinery that served the three retired looks: the module loader, the
+  look API handed to them, the per-look playback rate, and the saved preference. looks/ is now
+  gone entirely. Classic — bodies drawn from straight above in ink on paper — is the app.

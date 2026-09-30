@@ -9,8 +9,8 @@ lunges and dives on a scale pitch, with original commentary read aloud over the 
 clips ship with it, from Carlos Alberto in 1970 to the Lusail final, plus two coaching moves.
 Eleven are built from StatsBomb's own match data rather than from memory.
 
-- **Two looks, same play.** Classic, drawn from straight above, and Broadcast, a camera in the
-  stands. Switch while a clip runs.
+- **Drawn from straight above.** Every player is a body seen from overhead — shoulders, head, arms
+  swinging, legs striding — in ink over the kit colour, on a scale pitch.
 - **Real movement.** Players hold shape, mark, press, jockey and tackle; defenders track the ball
   and lunge for it rather than drifting. Speeds stay inside human limits.
 - **Spoken commentary.** Written for this project — never the broadcast audio — read aloud by the

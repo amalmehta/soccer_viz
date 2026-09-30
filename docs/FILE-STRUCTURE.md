@@ -5,7 +5,6 @@
 | Path | What it is |
 | --- | --- |
 | `birdseye.html` | The whole app in one file: pitch model, motion engine, rendering, UI, voice, video export |
-| `looks/` | The Broadcast renderer (Classic lives in `birdseye.html`) |
 | `library/plays/*.json` | One file per clip: players, paths, ball, actions, commentary, venue, analysis |
 | `library/clips.js` | The bundled library the app loads, built from `library/plays/` |
 | `sound/crowd.js` | Crowd bed and goal reaction, mixed live and into downloaded video |
