@@ -1,6 +1,6 @@
 // Birdseye FC offline support. App files are cached when the app installs and refreshed in the
 // background; fonts and libraries from CDNs are cached the first time they load.
-const CACHE = "birdseye-4324de21cc";
+const CACHE = "birdseye-5719872401";
 const SHELL = ["./", "index.html", "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png", "icons/icon-512.png", "icons/icon-512-maskable.png", "looks/broadcast.js", "sound/recordings.js", "sound/crowd.js", "sound/score.js", "library/clips.js"];
 
 self.addEventListener("install", event => {

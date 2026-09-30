@@ -1080,7 +1080,10 @@
       let last = pl.path[0][0];
       for (let i = 1; i < pl.path.length; i++) {
         const a = pl.path[i - 1], b = pl.path[i];
-        if (Math.hypot(b[1] - a[1], b[2] - a[2]) > 0.3) last = b[0];
+        // Real players cover about two metres a second between samples this far apart. A pair of
+        // recorded positions implying a crawl is not a record of someone crawling; it means the
+        // freeze frames stopped following them, so the engine should have them from there.
+        if (Math.hypot(b[1] - a[1], b[2] - a[2]) > Math.max(0.3, 0.45 * (b[0] - a[0]))) last = b[0];
       }
       return last;
     };
@@ -1095,6 +1098,7 @@
     const lim = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
     const step = 0.2, lag = 0.8, ACCEL = 5.5;     // metres per second per second, about a person's best
     const vel = new Map(movers.map(pl => [pl.id, { x: 0, y: 0 }]));
+    const aims = new Map(), gear = new Map();
     const lagged = t => {
       let x = 0, y = 0, n = 0;
       for (let s = t - lag; s <= t + 1e-6; s += 0.2) { const b = ballAt(Math.max(0, s)); x += b.x; y += b.y; n++; }
@@ -1163,7 +1167,7 @@
         // Defenders anchor to where they started (shifted with the ball); attackers follow their runs
         const anchor = pl.team === "B" ? pathPos(pl.path, 0) : pathPos(pl.path, t);
         const ownGoal = pl.team === "B" ? { x: 105, y: 34 } : { x: 0, y: 34 };
-        let target, vmax = 6.5, chasing = false;
+        let target, vmax = 4.8, chasing = false;   // holding shape is a jog; pressing and recovering raise it
         if (pl.gk) {
           const d = Math.hypot(ball.x - ownGoal.x, ball.y - ownGoal.y);
           target = toward(ownGoal, ball, lim(d / 7, 1, 6));
@@ -1172,10 +1176,10 @@
         } else if (pl.team === "B") {
           // Defenders hold shape rather than roam, but nobody stands perfectly still for ten seconds
           // of open play: they shuffle across, check their shoulder, adjust a step at a time.
-          const seed = idHash(pl.id), beat = (seed % 628) / 100, period = 4.2 + (seed % 23) / 10;
+          const seed = idHash(pl.id), beat = (seed % 628) / 100, period = 7.5 + (seed % 23) / 10;
           const fidget = {
-            x: 0.55 * Math.sin((2 * Math.PI * t) / period + beat),
-            y: 0.7 * Math.sin((2 * Math.PI * t) / (period * 1.37) + beat * 1.9)
+            x: 0.3 * Math.sin((2 * Math.PI * t) / period + beat),
+            y: 0.38 * Math.sin((2 * Math.PI * t) / (period * 1.37) + beat * 1.9)
           };
           const zone = {
             x: anchor.x + 0.32 * (drift.x - start.x) + fidget.x,
@@ -1207,18 +1211,50 @@
             chasing = true;
           }
         } else {
-          const seed = idHash(pl.id), phase = (seed % 628) / 100, period = 3.2 + (seed % 17) / 10;
+          const seed = idHash(pl.id), phase = (seed % 628) / 100, period = 6.4 + (seed % 17) / 10;
           target = {
-            x: anchor.x + 0.42 * (drift.x - start.x) + Math.sin((2 * Math.PI * t) / period + phase),
-            y: anchor.y + 0.25 * (drift.y - start.y) + 0.8 * Math.sin((4 * Math.PI * t) / period + phase * 1.7)
+            x: anchor.x + 0.42 * (drift.x - start.x) + 0.7 * Math.sin((2 * Math.PI * t) / period + phase),
+            y: anchor.y + 0.25 * (drift.y - start.y) + 0.5 * Math.sin((4 * Math.PI * t) / period + phase * 1.7)
           };
         }
 
-        // React with a short delay, never faster than a sprint, and never straight off the mark
-        const dx = target.x - prev.x, dy = target.y - prev.y, want = Math.hypot(dx, dy);
+        // Where a player wants to be moves about from one step to the next, and chasing every
+        // wobble of it is what makes a whole team turn constantly. The wanted position is followed
+        // at a lag, so the body commits to a direction and holds it.
+        const held = aims.get(pl.id) || target;
+        const lag = chasing ? 0.25 : 0.7;                   // seconds to come round to a new idea
+        const aim = {
+          x: held.x + (target.x - held.x) * Math.min(1, step / lag),
+          y: held.y + (target.y - held.y) * Math.min(1, step / lag)
+        };
+        aims.set(pl.id, aim);
+
+        // Real football is mostly still, with sudden bursts. The way to get that is to stop
+        // responding to small errors at all: a player a stride out of position simply stands there,
+        // and one ten metres out runs. Answering every small error with a small jog — which is what
+        // a plain proportional chase does — is what leaves twenty-two players permanently busy.
+        const REST = 0.25;                                  // metres nobody bothers to correct
+        const dx = aim.x - prev.x, dy = aim.y - prev.y, want = Math.hypot(dx, dy);
+        const effort = Math.max(0, want - REST);
         const warm = Math.min(1, 0.4 + t * 1.2);
         const ease = chasing ? 0.18 : 0.35;                 // recovery runs start at once
-        const move = Math.min(vmax * step * warm, want * Math.min(1, step / ease));
+
+        // People do not move at a speed proportional to how far they have to go. They stand, walk,
+        // jog, run or sprint, pick one, and hold it until something changes — which is why a real
+        // player's pace is flat for seconds at a time. Setting speed from the distance remaining
+        // instead makes it drift continuously, and a team of that never looks settled. The gear is
+        // held until the one wanted is clearly different, so nobody flickers between two of them.
+        const GEARS = [0, 1.4, 3.2, 5.5, 7.4];
+        let pick = 0;
+        while (pick + 1 < GEARS.length && GEARS[pick + 1] <= Math.min(vmax, effort / ease)) pick++;
+        // Standing perfectly still is rare in open play — a real fifteen seconds has one player in
+        // twenty-five doing it, not one in four. With anywhere at all to be, a player walks.
+        if (pick === 0 && effort > 0.08 && !pl.gk) pick = 1;
+        const before = gear.get(pl.id) || 0;
+        const settled = Math.abs(pick - before) >= 1.5 || effort < 0.2 || chasing ? pick
+                      : (Math.abs(pick - before) >= 1 && (idHash(pl.id) + Math.round(t * 5)) % 3 === 0 ? pick : before);
+        gear.set(pl.id, settled);
+        const move = Math.min(vmax * step * warm, Math.min(GEARS[settled], effort / ease) * step);
         let x = prev.x + (want ? (dx / want) * move : 0), y = prev.y + (want ? (dy / want) * move : 0);
         // While the ball is in front of them, defenders give ground at a jockeying backpedal
         // (2 m/s at most) instead of turning and running from it; once it's past them they sprint back
