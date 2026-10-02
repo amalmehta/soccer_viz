@@ -13,18 +13,28 @@ Eleven are built from StatsBomb's own match data rather than from memory.
   swinging, legs striding — in ink over the kit colour, on a scale pitch.
 - **Real movement.** Players hold shape, mark, press, jockey and tackle; defenders track the ball
   and lunge for it rather than drifting. Speeds stay inside human limits.
+- **A voice worth listening to.** The voice list offers neural voices that run in the page itself —
+  Kokoro, an 82-million-parameter model in the Apache licence, on WebGPU where there is one and
+  WebAssembly where there is not. Nothing leaves the machine. It costs one download of about eighty
+  megabytes, cached afterwards, and the clip's commentary is read ahead in the background so the
+  lines land on the action. If it cannot load, the system voice is used instead.
 - **Spoken commentary.** Written for this project — never the broadcast audio — read aloud by the
   best voice the browser offers.
 - **Crowd sound.** A real stadium recording underneath: a murmur that lifts with the play and a roar
   at the goal, mixed live and into downloaded videos.
 - **An orchestral score, if you want one.** Holst's Mars under the play, lifting as the ball nears
   goal and swelling when one goes in. Off by default; it goes into downloaded videos too.
+- **Keepers that sweep.** A goalkeeper stands on the bisector of the angle the posts make from the
+  ball, at a depth taken from tracking data — a stride off his line when the ball is close, fifteen
+  metres out when play is at the other end — and he sets, stops moving, in the moment before a shot.
 - **Ink or underdrawing.** A clip's record of where a player stood runs out long before the clip
   does — between a half and a third of all body-time is the engine's reconstruction rather than
   anything recorded. A body the clip can still vouch for is drawn in ink; one it cannot is left
   faint, as the underdrawing it is. The passing options respect the same line.
 - **The passes that were on.** At any moment the ball is at someone's feet, draw a line to every
-  team-mate it could have reached without an opponent close enough to cut it out — and separate the
+  team-mate the ball would have reached before a defender could step in front of it — the ball
+  struck at the speed that distance deserves and slowed against the air, the defender given a
+  quarter second to react and then a human's acceleration — and separate the
   ones the player could see from the ones behind their shoulders. The pass they played is solid; an
   option they had and could not see is marked. It is worked out from reconstructed positions, so it
   shows the shape of a decision rather than a record of one.

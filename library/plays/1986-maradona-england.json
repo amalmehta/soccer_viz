@@ -1,913 +1,909 @@
 {
-  "title": "Maradona's Goal of the Century",
-  "subtitle": "FIFA World Cup, quarter-final · Estadio Azteca · 22 Jun 1986",
-  "clock": "55'",
-  "duration": 18.9,
-  "teams": {
-    "A": {
-      "name": "Argentina",
-      "short": "ARG",
-      "color": "#24479A",
-      "color2": "#F4F4EF",
-      "text": "#FFFFFF",
-      "pattern": "plain",
-      "shorts": "#1A1A1E",
-      "socks": "#24479A",
-      "gkColor": "#8E959C"
-    },
-    "B": {
-      "name": "England",
-      "short": "ENG",
-      "color": "#F5F5F2",
-      "color2": "#1C2A5A",
-      "text": "#1C2A5A",
-      "pattern": "plain",
-      "shorts": "#1C2A5A",
-      "socks": "#F5F5F2",
-      "gkColor": "#C9C23F"
-    }
+ "title": "Maradona's Goal of the Century",
+ "subtitle": "FIFA World Cup, quarter-final · Estadio Azteca · 22 Jun 1986",
+ "clock": "55'",
+ "duration": 18.9,
+ "teams": {
+  "A": {
+   "name": "Argentina",
+   "short": "ARG",
+   "color": "#24479A",
+   "color2": "#F4F4EF",
+   "text": "#FFFFFF",
+   "pattern": "plain",
+   "shorts": "#1A1A1E",
+   "socks": "#24479A",
+   "gkColor": "#8E959C"
   },
-  "score": [
-    1,
-    0
-  ],
-  "players": [
-    {
-      "id": "cuciuffo",
-      "team": "A",
-      "num": 9,
-      "name": "Cuciuffo",
-      "look": {
-        "skin": "olive",
-        "hair": "short",
-        "hairColor": "black",
-        "beard": "none",
-        "height": 180
-      },
-      "path": [
-        [
-          0.0,
-          30.8,
-          42.84
-        ],
-        [
-          1.48,
-          31.32,
-          43.6
-        ],
-        [
-          6,
-          36,
-          45
-        ],
-        [
-          12,
-          45,
-          46
-        ],
-        [
-          18.9,
-          52,
-          46
-        ]
-      ]
-    },
-    {
-      "id": "enrique",
-      "team": "A",
-      "num": 12,
-      "name": "Enrique",
-      "look": {
-        "skin": "olive",
-        "hair": "curly",
-        "hairColor": "dark-brown",
-        "beard": "none",
-        "height": 177
-      },
-      "path": [
-        [
-          0.0,
-          40.95,
-          52.1
-        ],
-        [
-          2.37,
-          40.95,
-          52.1
-        ],
-        [
-          4.41,
-          40.43,
-          51.42
-        ],
-        [
-          8,
-          46,
-          50
-        ],
-        [
-          13,
-          55,
-          50
-        ],
-        [
-          18.9,
-          62,
-          50
-        ]
-      ]
-    },
-    {
-      "id": "maradona",
-      "team": "A",
-      "num": 10,
-      "name": "Maradona",
-      "star": true,
-      "look": {
-        "skin": "olive",
-        "hair": "curly",
-        "hairColor": "black",
-        "beard": "none",
-        "height": 165
-      },
-      "path": [
-        [
-          0.0,
-          48.3,
-          47.26
-        ],
-        [
-          2.63,
-          48.3,
-          47.26
-        ],
-        [
-          5.27,
-          48.3,
-          47.26
-        ],
-        [
-          5.8,
-          47.6,
-          47.94
-        ],
-        [
-          8.67,
-          61.91,
-          53.12
-        ],
-        [
-          11.54,
-          76.21,
-          58.31
-        ],
-        [
-          13.52,
-          84.96,
-          46.84
-        ],
-        [
-          15.65,
-          99.23,
-          42.07
-        ],
-        [
-          16.05,
-          99.23,
-          42.07
-        ],
-        [
-          17.4,
-          101,
-          39
-        ],
-        [
-          18.9,
-          99,
-          34
-        ]
-      ]
-    },
-    {
-      "id": "beardsley",
-      "team": "B",
-      "num": 20,
-      "name": "Beardsley",
-      "look": {
-        "skin": "light",
-        "hair": "short",
-        "hairColor": "dark-brown",
-        "beard": "none"
-      },
-      "path": [
-        [
-          0.0,
-          48.21,
-          50.23
-        ],
-        [
-          2.68,
-          48.21,
-          50.23
-        ],
-        [
-          5.36,
-          48.21,
-          50.23
-        ],
-        [
-          5.8,
-          48.8,
-          49.4
-        ],
-        [
-          7.0,
-          51.19,
-          49.55
-        ],
-        [
-          7.53,
-          54,
-          50
-        ],
-        [
-          9.05,
-          62,
-          52
-        ],
-        [
-          10.54,
-          70,
-          52
-        ],
-        [
-          11.3,
-          74,
-          51
-        ],
-        [
-          18.9,
-          74,
-          51
-        ]
-      ]
-    },
-    {
-      "id": "reid",
-      "team": "B",
-      "num": 16,
-      "name": "Reid",
-      "look": {
-        "skin": "light",
-        "hair": "short",
-        "hairColor": "dark-brown",
-        "beard": "none"
-      },
-      "path": [
-        [
-          0.0,
-          45.85,
-          45.05
-        ],
-        [
-          2.96,
-          45.85,
-          45.05
-        ],
-        [
-          4.9,
-          45.39,
-          45.05
-        ],
-        [
-          4.98,
-          45.85,
-          45.05
-        ],
-        [
-          6.12,
-          52,
-          45
-        ],
-        [
-          7.6,
-          60,
-          45
-        ],
-        [
-          8.16,
-          63,
-          45
-        ],
-        [
-          9.0,
-          63,
-          45
-        ],
-        [
-          18.9,
-          63,
-          45
-        ]
-      ]
-    },
-    {
-      "id": "butcher",
-      "team": "B",
-      "num": 6,
-      "name": "Butcher",
-      "look": {
-        "skin": "light",
-        "hair": "short",
-        "hairColor": "light-brown",
-        "beard": "none",
-        "height": 193
-      },
-      "path": [
-        [
-          0,
-          72,
-          52
-        ],
-        [
-          5.8,
-          74,
-          54
-        ],
-        [
-          9,
-          76,
-          56
-        ],
-        [
-          11.5,
-          78.5,
-          57
-        ],
-        [
-          13.5,
-          84,
-          50
-        ],
-        [
-          14.8,
-          88.4,
-          48.1
-        ],
-        [
-          15.7,
-          92.2,
-          46.1
-        ],
-        [
-          16.6,
-          96,
-          41.5
-        ],
-        [
-          18.9,
-          97,
-          40
-        ]
-      ]
-    },
-    {
-      "id": "fenwick",
-      "team": "B",
-      "num": 14,
-      "name": "Fenwick",
-      "look": {
-        "skin": "light",
-        "hair": "short",
-        "hairColor": "dark-brown"
-      },
-      "path": [
-        [
-          0,
-          84,
-          44
-        ],
-        [
-          8,
-          84.5,
-          45
-        ],
-        [
-          12,
-          85.5,
-          47
-        ],
-        [
-          13.52,
-          84.88,
-          46.75
-        ],
-        [
-          13.6,
-          84.93,
-          46.69
-        ],
-        [
-          14.36,
-          88,
-          44
-        ],
-        [
-          14.4,
-          88.25,
-          43.83
-        ],
-        [
-          14.76,
-          90,
-          43
-        ],
-        [
-          18.9,
-          90,
-          43
-        ]
-      ]
-    },
-    {
-      "id": "shilton",
-      "team": "B",
-      "num": 1,
-      "name": "Shilton",
-      "gk": true,
-      "look": {
-        "skin": "light",
-        "hair": "short",
-        "hairColor": "dark-brown",
-        "beard": "none",
-        "height": 183
-      },
-      "path": [
-        [
-          0,
-          100,
-          38
-        ],
-        [
-          10,
-          99,
-          39
-        ],
-        [
-          14,
-          98,
-          40.5
-        ],
-        [
-          15.65,
-          97.21,
-          41.31
-        ],
-        [
-          16.6,
-          98.5,
-          38
-        ],
-        [
-          17.6,
-          99,
-          37
-        ],
-        [
-          18.9,
-          99,
-          37
-        ]
-      ]
-    },
-    {
-      "id": "valdano",
-      "team": "A",
-      "num": 11,
-      "name": "Valdano",
-      "look": {
-        "skin": "light",
-        "hair": "long",
-        "hairColor": "dark-brown",
-        "beard": "none",
-        "height": 188
-      },
-      "path": [
-        [
-          0,
-          70,
-          30
-        ],
-        [
-          6,
-          78,
-          29
-        ],
-        [
-          11,
-          88,
-          28
-        ],
-        [
-          15.7,
-          95.29,
-          26.95
-        ],
-        [
-          18.9,
-          99,
-          30
-        ]
-      ]
-    },
-    {
-      "id": "stevens",
-      "team": "B",
-      "num": 2,
-      "name": "Stevens",
-      "look": {
-        "skin": "light",
-        "hair": "short",
-        "hairColor": "light-brown",
-        "beard": "none",
-        "height": 175
-      },
-      "path": [
-        [
-          0,
-          93,
-          30
-        ],
-        [
-          8,
-          95,
-          33
-        ],
-        [
-          12,
-          97,
-          35.5
-        ],
-        [
-          15.7,
-          99.49,
-          37.82
-        ],
-        [
-          18.9,
-          101,
-          36
-        ]
-      ]
-    },
-    {
-      "id": "burruchaga",
-      "team": "A",
-      "num": 7,
-      "name": "Burruchaga",
-      "look": {
-        "skin": "light",
-        "hair": "short",
-        "hairColor": "dark-brown",
-        "beard": "none",
-        "height": 180
-      },
-      "path": [
-        [
-          0,
-          74,
-          36
-        ],
-        [
-          8,
-          85,
-          35
-        ],
-        [
-          12,
-          92,
-          34
-        ],
-        [
-          15.7,
-          96.08,
-          33.75
-        ],
-        [
-          18.9,
-          99,
-          36
-        ]
-      ]
-    },
-    {
-      "id": "arg-gk",
-      "team": "A",
-      "num": null,
-      "name": null,
-      "gk": true,
-      "path": [
-        [
-          0,
-          8,
-          34
-        ]
-      ]
-    },
-    {
-      "id": "arg-cb",
-      "team": "A",
-      "num": null,
-      "name": null,
-      "path": [
-        [
-          0,
-          40,
-          28
-        ]
-      ]
-    },
-    {
-      "id": "arg-rm",
-      "team": "A",
-      "num": null,
-      "name": null,
-      "path": [
-        [
-          0,
-          58,
-          24
-        ]
-      ]
-    },
-    {
-      "id": "arg-lm",
-      "team": "A",
-      "num": null,
-      "name": null,
-      "path": [
-        [
-          0,
-          60,
-          60
-        ]
-      ]
-    },
-    {
-      "id": "eng-cb",
-      "team": "B",
-      "num": null,
-      "name": null,
-      "path": [
-        [
-          0,
-          80,
-          26
-        ]
-      ]
-    },
-    {
-      "id": "eng-lb",
-      "team": "B",
-      "num": null,
-      "name": null,
-      "path": [
-        [
-          0,
-          72,
-          62
-        ]
-      ]
-    },
-    {
-      "id": "eng-cm",
-      "team": "B",
-      "num": null,
-      "name": null,
-      "path": [
-        [
-          0,
-          66,
-          36
-        ]
-      ]
-    },
-    {
-      "id": "eng-rm",
-      "team": "B",
-      "num": null,
-      "name": null,
-      "path": [
-        [
-          0,
-          70,
-          20
-        ]
-      ]
-    }
-  ],
-  "ball": [
-    {
-      "t": 0.0,
-      "with": "cuciuffo"
-    },
-    {
-      "t": 1.48,
-      "with": "cuciuffo"
-    },
-    {
-      "t": 2.37,
-      "with": "enrique"
-    },
-    {
-      "t": 4.41,
-      "with": "enrique"
-    },
-    {
-      "t": 5.27,
-      "with": "maradona"
-    },
-    {
-      "t": 5.8,
-      "with": "maradona"
-    },
-    {
-      "t": 11.54,
-      "with": "maradona"
-    },
-    {
-      "t": 13.52,
-      "with": "maradona"
-    },
-    {
-      "t": 15.65,
-      "with": "maradona"
-    },
-    {
-      "t": 16.05,
-      "with": "maradona"
-    },
-    {
-      "t": 16.35,
-      "x": 105.4,
-      "y": 35.45
-    }
-  ],
-  "captions": [
-    {
-      "t": 0,
-      "text": "55' — Argentina lead England 1–0 in the quarter-final."
-    },
-    {
-      "t": 2.4,
-      "text": "Cuciuffo finds Enrique, deep in the Argentina half."
-    },
-    {
-      "t": 4.4,
-      "text": "Enrique's pass reaches Maradona, back to goal."
-    },
-    {
-      "t": 5.8,
-      "text": "One turn beats Beardsley and Reid together."
-    },
-    {
-      "t": 8.7,
-      "text": "Into England's half at full speed, down the right."
-    },
-    {
-      "t": 11.5,
-      "text": "Butcher comes across and is beaten."
-    },
-    {
-      "t": 13.5,
-      "text": "Fenwick can't get a tackle in either."
-    },
-    {
-      "t": 15.7,
-      "text": "Round Shilton, and rolled in as Butcher slides."
-    },
-    {
-      "t": 17.2,
-      "text": "Argentina 2–0 England."
-    }
-  ],
-  "commentary": [
-    {
-      "t": 0,
-      "text": "Fifty-five minutes at the Azteca, Argentina a goal up and playing it around at the back."
-    },
-    {
-      "t": 2.4,
-      "text": "Cuciuffo, square to Enrique…"
-    },
-    {
-      "t": 4.4,
-      "text": "…and it's rolled into Maradona, back to goal, inside the Argentina half."
-    },
-    {
-      "t": 5.7,
-      "text": "One turn, and two England shirts are beaten at once!"
-    },
-    {
-      "t": 8.6,
-      "text": "Away goes the number ten, and nobody is getting near."
-    },
-    {
-      "t": 11.4,
-      "text": "Butcher comes across — beaten as well!"
-    },
-    {
-      "t": 13.4,
-      "text": "Fenwick next, and Fenwick can't stop it either!"
-    },
-    {
-      "t": 15.6,
-      "text": "Round Shilton…"
-    },
-    {
-      "t": 16.35,
-      "text": "…IT'S IN! All the way from the Argentina half, alone. Extraordinary."
-    }
-  ],
-  "events": [
-    {
-      "t": 1.48,
-      "type": "pass",
-      "team": "A"
-    },
-    {
-      "t": 4.41,
-      "type": "pass",
-      "team": "A"
-    },
-    {
-      "t": 15.7,
-      "type": "shot",
-      "team": "A"
-    },
-    {
-      "t": 16.35,
-      "type": "goal",
-      "team": "A"
-    }
-  ],
-  "actions": [
-    {
-      "t": 15.9,
-      "id": "shilton",
-      "type": "dive",
-      "side": -1
-    },
-    {
-      "t": 16.2,
-      "id": "butcher",
-      "type": "slide"
-    }
-  ],
-  "venue": {
-    "time": "day",
-    "roof": "partial",
-    "stands": "#8f8a80",
-    "accent": "#bdb6a6",
-    "track": false,
-    "grass": "#5e8c38",
-    "mowing": "stripes"
+  "B": {
+   "name": "England",
+   "short": "ENG",
+   "color": "#F5F5F2",
+   "color2": "#1C2A5A",
+   "text": "#1C2A5A",
+   "pattern": "plain",
+   "shorts": "#1C2A5A",
+   "socks": "#F5F5F2",
+   "gkColor": "#C9C23F"
+  }
+ },
+ "score": [
+  1,
+  0
+ ],
+ "players": [
+  {
+   "id": "cuciuffo",
+   "team": "A",
+   "num": 9,
+   "name": "Cuciuffo",
+   "look": {
+    "skin": "olive",
+    "hair": "short",
+    "hairColor": "black",
+    "beard": "none",
+    "height": 180
+   },
+   "path": [
+    [
+     0.0,
+     30.8,
+     42.84
+    ],
+    [
+     1.48,
+     31.32,
+     43.6
+    ],
+    [
+     6,
+     36,
+     45
+    ],
+    [
+     12,
+     45,
+     46
+    ],
+    [
+     18.9,
+     52,
+     46
+    ]
+   ]
   },
-  "analysis": [
-    {
-      "label": "Context",
-      "text": "Argentina had gone 1–0 up minutes earlier and were playing the ball out from the back. England were chasing the game, pressing high, with the midfield pushed up the pitch."
-    },
-    {
-      "label": "Key moment",
-      "text": "Enrique's pass reached Maradona inside the Argentina half, back to goal. One turn beat Beardsley and Reid at the same time, so both were behind the ball with the whole England back line still to come."
-    },
-    {
-      "label": "Defenders' choices",
-      "text": "Butcher, then Fenwick, came across alone rather than together, so each could be beaten in turn. Valdano's run on the far side gave the defence a second threat to watch."
-    },
-    {
-      "label": "The finish",
-      "text": "Close control at full speed let Maradona wait for Shilton to commit, go round the keeper and roll it in as Butcher's slide arrived too late."
-    }
-  ],
-  "lessons": [
-    {
-      "label": "Turn, then look",
-      "text": "The spin away from two markers beats a whole line at once. Turn out of pressure first and pick the picture up afterwards, rather than checking before every touch."
-    },
-    {
-      "label": "Attack a retreating line",
-      "text": "Defenders moving backwards cannot tackle. Once past the first challenge, run straight at the back line and make them keep retreating."
-    },
-    {
-      "label": "Control within a stride",
-      "text": "Every touch stays under a metre ahead, even at a sprint. Long touches at speed are what let a recovering defender get a foot in."
-    },
-    {
-      "label": "Let the keeper commit",
-      "text": "Keep running until the keeper moves, then go round rather than shooting early into a body that is still set."
-    }
-  ],
-  "note": "Positions and the ball's path come from StatsBomb's open data for this match (id 3750191); players the data only sees at the shot have hand-drawn routes into those positions, and the rest of both teams are placed by hand. Commentary is original, not the broadcast."
+  {
+   "id": "enrique",
+   "team": "A",
+   "num": 12,
+   "name": "Enrique",
+   "look": {
+    "skin": "olive",
+    "hair": "curly",
+    "hairColor": "dark-brown",
+    "beard": "none",
+    "height": 177
+   },
+   "path": [
+    [
+     0.0,
+     40.95,
+     52.1
+    ],
+    [
+     2.37,
+     40.95,
+     52.1
+    ],
+    [
+     4.41,
+     40.43,
+     51.42
+    ],
+    [
+     8,
+     46,
+     50
+    ],
+    [
+     13,
+     55,
+     50
+    ],
+    [
+     18.9,
+     62,
+     50
+    ]
+   ]
+  },
+  {
+   "id": "maradona",
+   "team": "A",
+   "num": 10,
+   "name": "Maradona",
+   "star": true,
+   "look": {
+    "skin": "olive",
+    "hair": "curly",
+    "hairColor": "black",
+    "beard": "none",
+    "height": 165
+   },
+   "path": [
+    [
+     0.0,
+     48.3,
+     47.26
+    ],
+    [
+     2.63,
+     48.3,
+     47.26
+    ],
+    [
+     5.27,
+     48.3,
+     47.26
+    ],
+    [
+     5.8,
+     47.6,
+     47.94
+    ],
+    [
+     8.67,
+     61.91,
+     53.12
+    ],
+    [
+     11.54,
+     76.21,
+     58.31
+    ],
+    [
+     13.52,
+     84.96,
+     46.84
+    ],
+    [
+     15.65,
+     99.23,
+     42.07
+    ],
+    [
+     16.05,
+     99.23,
+     42.07
+    ],
+    [
+     17.4,
+     101,
+     39
+    ],
+    [
+     18.9,
+     99,
+     34
+    ]
+   ]
+  },
+  {
+   "id": "beardsley",
+   "team": "B",
+   "num": 20,
+   "name": "Beardsley",
+   "look": {
+    "skin": "light",
+    "hair": "short",
+    "hairColor": "dark-brown",
+    "beard": "none"
+   },
+   "path": [
+    [
+     0.0,
+     48.21,
+     50.23
+    ],
+    [
+     2.68,
+     48.21,
+     50.23
+    ],
+    [
+     5.36,
+     48.21,
+     50.23
+    ],
+    [
+     5.8,
+     48.8,
+     49.4
+    ],
+    [
+     7.0,
+     51.19,
+     49.55
+    ],
+    [
+     7.53,
+     54,
+     50
+    ],
+    [
+     9.05,
+     62,
+     52
+    ],
+    [
+     10.54,
+     70,
+     52
+    ],
+    [
+     11.3,
+     74,
+     51
+    ],
+    [
+     18.9,
+     74,
+     51
+    ]
+   ]
+  },
+  {
+   "id": "reid",
+   "team": "B",
+   "num": 16,
+   "name": "Reid",
+   "look": {
+    "skin": "light",
+    "hair": "short",
+    "hairColor": "dark-brown",
+    "beard": "none"
+   },
+   "path": [
+    [
+     0.0,
+     45.85,
+     45.05
+    ],
+    [
+     2.96,
+     45.85,
+     45.05
+    ],
+    [
+     4.9,
+     45.39,
+     45.05
+    ],
+    [
+     4.98,
+     45.85,
+     45.05
+    ],
+    [
+     6.12,
+     52,
+     45
+    ],
+    [
+     7.6,
+     60,
+     45
+    ],
+    [
+     8.16,
+     63,
+     45
+    ],
+    [
+     9.0,
+     63,
+     45
+    ],
+    [
+     18.9,
+     63,
+     45
+    ]
+   ]
+  },
+  {
+   "id": "butcher",
+   "team": "B",
+   "num": 6,
+   "name": "Butcher",
+   "look": {
+    "skin": "light",
+    "hair": "short",
+    "hairColor": "light-brown",
+    "beard": "none",
+    "height": 193
+   },
+   "path": [
+    [
+     0,
+     72,
+     52
+    ],
+    [
+     5.8,
+     74,
+     54
+    ],
+    [
+     9,
+     76,
+     56
+    ],
+    [
+     11.5,
+     78.5,
+     57
+    ],
+    [
+     13.5,
+     84,
+     50
+    ],
+    [
+     14.8,
+     88.4,
+     48.1
+    ],
+    [
+     15.7,
+     92.2,
+     46.1
+    ],
+    [
+     16.6,
+     96,
+     41.5
+    ],
+    [
+     18.9,
+     97,
+     40
+    ]
+   ]
+  },
+  {
+   "id": "fenwick",
+   "team": "B",
+   "num": 14,
+   "name": "Fenwick",
+   "look": {
+    "skin": "light",
+    "hair": "short",
+    "hairColor": "dark-brown"
+   },
+   "path": [
+    [
+     0,
+     84,
+     44
+    ],
+    [
+     8,
+     84.5,
+     45
+    ],
+    [
+     12,
+     85.5,
+     47
+    ],
+    [
+     13.52,
+     84.88,
+     46.75
+    ],
+    [
+     13.6,
+     84.93,
+     46.69
+    ],
+    [
+     14.36,
+     88,
+     44
+    ],
+    [
+     14.4,
+     88.25,
+     43.83
+    ],
+    [
+     14.76,
+     90,
+     43
+    ],
+    [
+     18.9,
+     90,
+     43
+    ]
+   ]
+  },
+  {
+   "id": "shilton",
+   "team": "B",
+   "num": 1,
+   "name": "Shilton",
+   "gk": true,
+   "look": {
+    "skin": "light",
+    "hair": "short",
+    "hairColor": "dark-brown",
+    "beard": "none",
+    "height": 183
+   },
+   "path": [
+    [
+     0,
+     100,
+     38
+    ],
+    [
+     10,
+     99,
+     39
+    ],
+    [
+     14,
+     98,
+     40.5
+    ],
+    [
+     15.65,
+     97.21,
+     41.31
+    ],
+    [
+     16.6,
+     98.5,
+     38
+    ],
+    [
+     17.6,
+     99,
+     37
+    ],
+    [
+     18.9,
+     99,
+     37
+    ]
+   ]
+  },
+  {
+   "id": "valdano",
+   "team": "A",
+   "num": 11,
+   "name": "Valdano",
+   "look": {
+    "skin": "light",
+    "hair": "long",
+    "hairColor": "dark-brown",
+    "beard": "none",
+    "height": 188
+   },
+   "path": [
+    [
+     0,
+     70,
+     30
+    ],
+    [
+     6,
+     78,
+     29
+    ],
+    [
+     11,
+     88,
+     28
+    ],
+    [
+     15.7,
+     95.29,
+     26.95
+    ],
+    [
+     18.9,
+     99,
+     30
+    ]
+   ]
+  },
+  {
+   "id": "stevens",
+   "team": "B",
+   "num": 2,
+   "name": "Stevens",
+   "look": {
+    "skin": "light",
+    "hair": "short",
+    "hairColor": "light-brown",
+    "beard": "none",
+    "height": 175
+   },
+   "path": [
+    [
+     0,
+     93,
+     30
+    ],
+    [
+     8,
+     95,
+     33
+    ],
+    [
+     12,
+     97,
+     35.5
+    ],
+    [
+     15.7,
+     99.49,
+     37.82
+    ],
+    [
+     18.9,
+     101,
+     36
+    ]
+   ]
+  },
+  {
+   "id": "burruchaga",
+   "team": "A",
+   "num": 7,
+   "name": "Burruchaga",
+   "look": {
+    "skin": "light",
+    "hair": "short",
+    "hairColor": "dark-brown",
+    "beard": "none",
+    "height": 180
+   },
+   "path": [
+    [
+     0,
+     74,
+     36
+    ],
+    [
+     8,
+     85,
+     35
+    ],
+    [
+     12,
+     92,
+     34
+    ],
+    [
+     15.7,
+     96.08,
+     33.75
+    ],
+    [
+     18.9,
+     99,
+     36
+    ]
+   ]
+  },
+  {
+   "id": "arg-gk",
+   "team": "A",
+   "num": null,
+   "name": null,
+   "gk": true,
+   "path": [
+    [
+     0,
+     8,
+     34
+    ]
+   ]
+  },
+  {
+   "id": "arg-cb",
+   "team": "A",
+   "num": null,
+   "name": null,
+   "path": [
+    [
+     0,
+     40,
+     28
+    ]
+   ]
+  },
+  {
+   "id": "arg-rm",
+   "team": "A",
+   "num": null,
+   "name": null,
+   "path": [
+    [
+     0,
+     58,
+     24
+    ]
+   ]
+  },
+  {
+   "id": "arg-lm",
+   "team": "A",
+   "num": null,
+   "name": null,
+   "path": [
+    [
+     0,
+     60,
+     60
+    ]
+   ]
+  },
+  {
+   "id": "eng-cb",
+   "team": "B",
+   "num": null,
+   "name": null,
+   "path": [
+    [
+     0,
+     80,
+     26
+    ]
+   ]
+  },
+  {
+   "id": "eng-lb",
+   "team": "B",
+   "num": null,
+   "name": null,
+   "path": [
+    [
+     0,
+     72,
+     62
+    ]
+   ]
+  },
+  {
+   "id": "eng-cm",
+   "team": "B",
+   "num": null,
+   "name": null,
+   "path": [
+    [
+     0,
+     66,
+     36
+    ]
+   ]
+  },
+  {
+   "id": "eng-rm",
+   "team": "B",
+   "num": null,
+   "name": null,
+   "path": [
+    [
+     0,
+     70,
+     20
+    ]
+   ]
+  }
+ ],
+ "ball": [
+  {
+   "t": 0.0,
+   "with": "cuciuffo"
+  },
+  {
+   "t": 1.48,
+   "with": "cuciuffo"
+  },
+  {
+   "t": 2.37,
+   "with": "enrique"
+  },
+  {
+   "t": 4.41,
+   "with": "enrique"
+  },
+  {
+   "t": 5.27,
+   "with": "maradona"
+  },
+  {
+   "t": 5.8,
+   "with": "maradona"
+  },
+  {
+   "t": 11.54,
+   "with": "maradona"
+  },
+  {
+   "t": 13.52,
+   "with": "maradona"
+  },
+  {
+   "t": 15.65,
+   "with": "maradona"
+  },
+  {
+   "t": 16.05,
+   "with": "maradona"
+  },
+  {
+   "t": 16.35,
+   "x": 105.4,
+   "y": 35.45
+  }
+ ],
+ "captions": [
+  {
+   "t": 0,
+   "text": "55' — Argentina lead England 1–0 in the quarter-final."
+  },
+  {
+   "t": 2.4,
+   "text": "Cuciuffo finds Enrique, deep in the Argentina half."
+  },
+  {
+   "t": 4.4,
+   "text": "Enrique's pass reaches Maradona, back to goal."
+  },
+  {
+   "t": 5.8,
+   "text": "One turn beats Beardsley and Reid together."
+  },
+  {
+   "t": 8.7,
+   "text": "Into England's half at full speed, down the right."
+  },
+  {
+   "t": 11.5,
+   "text": "Butcher comes across and is beaten."
+  },
+  {
+   "t": 13.5,
+   "text": "Fenwick can't get a tackle in either."
+  },
+  {
+   "t": 15.7,
+   "text": "Round Shilton, and rolled in as Butcher slides."
+  },
+  {
+   "t": 17.2,
+   "text": "Argentina 2–0 England."
+  }
+ ],
+ "commentary": [
+  {
+   "t": 0.0,
+   "text": "Fifty-five minutes at the Azteca, Argentina a goal up."
+  },
+  {
+   "t": 4.4,
+   "text": "Rolled into Maradona, back to goal…"
+  },
+  {
+   "t": 5.7,
+   "text": "One turn, and two England shirts beaten!"
+  },
+  {
+   "t": 8.6,
+   "text": "Away goes the number ten."
+  },
+  {
+   "t": 11.4,
+   "text": "Butcher comes across — beaten as well!"
+  },
+  {
+   "t": 13.4,
+   "text": "Fenwick next, and Fenwick cannot stop it!"
+  },
+  {
+   "t": 15.6,
+   "text": "Round Shilton…"
+  },
+  {
+   "t": 16.4,
+   "text": "…IT'S IN! All the way, alone. Extraordinary."
+  }
+ ],
+ "events": [
+  {
+   "t": 1.48,
+   "type": "pass",
+   "team": "A"
+  },
+  {
+   "t": 4.41,
+   "type": "pass",
+   "team": "A"
+  },
+  {
+   "t": 15.7,
+   "type": "shot",
+   "team": "A"
+  },
+  {
+   "t": 16.35,
+   "type": "goal",
+   "team": "A"
+  }
+ ],
+ "actions": [
+  {
+   "t": 15.9,
+   "id": "shilton",
+   "type": "dive",
+   "side": -1
+  },
+  {
+   "t": 16.2,
+   "id": "butcher",
+   "type": "slide"
+  }
+ ],
+ "venue": {
+  "time": "day",
+  "roof": "partial",
+  "stands": "#8f8a80",
+  "accent": "#bdb6a6",
+  "track": false,
+  "grass": "#5e8c38",
+  "mowing": "stripes"
+ },
+ "analysis": [
+  {
+   "label": "Context",
+   "text": "Argentina had gone 1–0 up minutes earlier and were playing the ball out from the back. England were chasing the game, pressing high, with the midfield pushed up the pitch."
+  },
+  {
+   "label": "Key moment",
+   "text": "Enrique's pass reached Maradona inside the Argentina half, back to goal. One turn beat Beardsley and Reid at the same time, so both were behind the ball with the whole England back line still to come."
+  },
+  {
+   "label": "Defenders' choices",
+   "text": "Butcher, then Fenwick, came across alone rather than together, so each could be beaten in turn. Valdano's run on the far side gave the defence a second threat to watch."
+  },
+  {
+   "label": "The finish",
+   "text": "Close control at full speed let Maradona wait for Shilton to commit, go round the keeper and roll it in as Butcher's slide arrived too late."
+  }
+ ],
+ "lessons": [
+  {
+   "label": "Turn, then look",
+   "text": "The spin away from two markers beats a whole line at once. Turn out of pressure first and pick the picture up afterwards, rather than checking before every touch."
+  },
+  {
+   "label": "Attack a retreating line",
+   "text": "Defenders moving backwards cannot tackle. Once past the first challenge, run straight at the back line and make them keep retreating."
+  },
+  {
+   "label": "Control within a stride",
+   "text": "Every touch stays under a metre ahead, even at a sprint. Long touches at speed are what let a recovering defender get a foot in."
+  },
+  {
+   "label": "Let the keeper commit",
+   "text": "Keep running until the keeper moves, then go round rather than shooting early into a body that is still set."
+  }
+ ],
+ "note": "Positions and the ball's path come from StatsBomb's open data for this match (id 3750191); players the data only sees at the shot have hand-drawn routes into those positions, and the rest of both teams are placed by hand. Commentary is original, not the broadcast."
 }
