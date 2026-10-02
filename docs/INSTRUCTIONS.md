@@ -24,7 +24,9 @@ Eleven are built from StatsBomb's own match data rather than from memory.
   anything recorded. A body the clip can still vouch for is drawn in ink; one it cannot is left
   faint, as the underdrawing it is. The passing options respect the same line.
 - **The passes that were on.** At any moment the ball is at someone's feet, draw a line to every
-  team-mate it could have reached without an opponent close enough to cut it out — and separate the
+  team-mate the ball would have reached before a defender could step in front of it — the ball
+  struck at the speed that distance deserves and slowed against the air, the defender given a
+  quarter second to react and then a human's acceleration — and separate the
   ones the player could see from the ones behind their shoulders. The pass they played is solid; an
   option they had and could not see is marked. It is worked out from reconstructed positions, so it
   shows the shape of a decision rather than a record of one.

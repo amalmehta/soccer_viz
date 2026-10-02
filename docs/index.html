@@ -2823,8 +2823,29 @@
   // seen it. The ones outside their field of view are drawn in the accent colour, because those are
   // the arguments worth having. The pass they did play is drawn solid.
   const FOV = 1.05;          // radians either side of where a body faces: about 120 degrees in all
-  const CUT = 1.7;           // metres from the line an opponent must be within to cut a pass out
   const REACH = 32;          // metres: beyond this a ground pass is a different kind of decision
+
+  // Whether a pass is on is a race, not a measurement. Asking only how near a defender stands to
+  // the line gets it wrong both ways: it calls a pass shut because somebody is standing beside it
+  // facing the wrong way and already beaten, and calls one on when a defender four metres clear has
+  // two full seconds to step into it. So both sides are put on the clock. The ball is given the
+  // speed a player would actually strike it over that distance and slowed against the air the whole
+  // way; the defender gets a quarter second to react, then accelerates like a person. If the
+  // defender can be on the line before the ball reaches that point, the pass is cut out.
+  const PASS_DRAG = 0.0132;  // 1/m, the same ball as everywhere else
+  const REACT = 0.25;        // seconds before a defender moves at all
+  const D_ACCEL = 3.6;       // m/s2 from a standing start
+  const D_TOP = 7.2;         // m/s once up to speed
+  const INTERCEPT = 0.9;     // metres of the defender's reach: a leg, not just their middle
+
+  // How long the ball takes to cover s metres, struck at v0 and slowing against the air
+  const ballTime = (s, v0) => (Math.exp(PASS_DRAG * s) - 1) / (PASS_DRAG * v0);
+  // How long a defender takes to cover d metres from standing
+  function closeTime(d) {
+    const rampD = (D_TOP * D_TOP) / (2 * D_ACCEL);
+    return REACT + (d <= rampD ? Math.sqrt((2 * d) / D_ACCEL)
+                               : D_TOP / D_ACCEL + (d - rampD) / D_TOP);
+  }
 
   function carrierAt(play, t) {
     const k = play.ball;
@@ -2871,13 +2892,17 @@
       const dx = m.body.x - on.body.x, dy = m.body.y - on.body.y;
       const len = Math.hypot(dx, dy);
       if (len < 4 || len > REACH) continue;
-      // Is anybody near enough to this line, and between the two of them, to step in front of it?
+      // Can anybody get to the line before the ball does?
+      const v0 = Math.max(10, Math.min(26, 8 + 0.55 * len));
       let open = true;
       for (const f of foes) {
-        const u = ((f.body.x - on.body.x) * dx + (f.body.y - on.body.y) * dy) / (len * len);
-        if (u <= 0.04 || u >= 0.96) continue;
-        const px = on.body.x + dx * u, py = on.body.y + dy * u;
-        if (Math.hypot(f.body.x - px, f.body.y - py) < CUT) { open = false; break; }
+        for (let s0 = 1.5; s0 < len - 0.5 && open; s0 += 1.2) {
+          const px = on.body.x + (dx / len) * s0, py = on.body.y + (dy / len) * s0;
+          const away = Math.hypot(f.body.x - px, f.body.y - py) - INTERCEPT;
+          if (away <= 0) { open = false; break; }
+          if (closeTime(away) <= ballTime(s0, v0)) open = false;
+        }
+        if (!open) break;
       }
       if (!open) continue;
       const seen = Math.abs(Math.atan2(Math.sin(Math.atan2(dy, dx) - on.h),
