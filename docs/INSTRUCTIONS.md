@@ -13,6 +13,11 @@ Eleven are built from StatsBomb's own match data rather than from memory.
   swinging, legs striding — in ink over the kit colour, on a scale pitch.
 - **Real movement.** Players hold shape, mark, press, jockey and tackle; defenders track the ball
   and lunge for it rather than drifting. Speeds stay inside human limits.
+- **A voice worth listening to.** The voice list offers neural voices that run in the page itself —
+  Kokoro, an 82-million-parameter model in the Apache licence, on WebGPU where there is one and
+  WebAssembly where there is not. Nothing leaves the machine. It costs one download of about eighty
+  megabytes, cached afterwards, and the clip's commentary is read ahead in the background so the
+  lines land on the action. If it cannot load, the system voice is used instead.
 - **Spoken commentary.** Written for this project — never the broadcast audio — read aloud by the
   best voice the browser offers.
 - **Crowd sound.** A real stadium recording underneath: a murmur that lifts with the play and a roar

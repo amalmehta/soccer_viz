@@ -491,6 +491,7 @@
 <script src="sound/recordings.js"></script>
 <script src="sound/crowd.js"></script>
 <script src="sound/score.js"></script>
+<script src="sound/voice.js"></script>
 <script src="library/clips.js"></script>
 <script>
 (() => {
@@ -3263,6 +3264,7 @@
     hushCommentary();
     spokenIndex = -1;
     current = compile(play);
+    warmVoice(play);
     t = 0;
     shownCaption = -2;
     shownScore = "";
@@ -3484,16 +3486,35 @@
       .sort((a, b) => rank(b) - rank(a) || a.name.localeCompare(b.name));
   }
 
+  // A voice that runs in the page rather than one the machine happens to have. It is listed first
+  // because it is better than anything most machines carry, and labelled with what it costs.
+  const neural = window.BirdseyeVoice && window.BirdseyeVoice.supported ? window.BirdseyeVoice : null;
+  const isNeural = name => !!neural && name.startsWith("neural:");
   function refreshVoices() {
     const list = englishVoices();
-    voiceSelect.replaceChildren(...list.map(v => {
+    const options = [];
+    if (neural) {
+      for (const v of neural.voices) {
+        const o = document.createElement("option");
+        o.value = `neural:${v.id}`;
+        o.textContent = `${v.label} · downloads once`;
+        options.push(o);
+      }
+    }
+    options.push(...list.map(v => {
       const o = document.createElement("option");
       o.value = v.name;
       o.textContent = `${v.name.replace(/\s*\((Premium|Enhanced)\)/i, "")} · ${voiceTag(voiceQuality(v))} · ${v.lang}`;
       return o;
     }));
-    voice = list.find(v => v.name === savedVoiceName) || list[0] || null;
-    if (voice) voiceSelect.value = voice.name;
+    voiceSelect.replaceChildren(...options);
+    if (isNeural(savedVoiceName || "")) {
+      voiceSelect.value = savedVoiceName;
+      voice = list[0] || null;          // kept ready in case the neural one cannot load
+    } else {
+      voice = list.find(v => v.name === savedVoiceName) || list[0] || null;
+      if (voice) voiceSelect.value = voice.name;
+    }
     needsVoiceHint = list.length > 0 && voiceQuality(list[0]) < 80;
     const ua = navigator.userAgent;
     voiceHint.textContent = /Mac/.test(ua)
@@ -3505,10 +3526,11 @@
   }
 
   voiceSelect.addEventListener("change", () => {
-    voice = englishVoices().find(v => v.name === voiceSelect.value) || voice;
+    if (!isNeural(voiceSelect.value)) voice = englishVoices().find(v => v.name === voiceSelect.value) || voice;
     savedVoiceName = voiceSelect.value;
     try { localStorage.setItem("birdseye.voiceName", savedVoiceName); } catch (e) { /* ignore */ }
     hushCommentary();
+    if (current) warmVoice(current.play);
     if (voiceOn) sayLine({ t, text: "Into the box… and it's in! What a goal!" });
   });
 
@@ -3587,9 +3609,45 @@
     };
   }
 
+  // A line takes about a second and a quarter to synthesise, which is far too long to wait for when
+  // it is supposed to land on a touch. So the whole clip is read ahead in the background the moment
+  // it is chosen, and by the time anybody presses play the words are already audio sitting in
+  // memory. The hint line doubles as the progress, since it is otherwise telling you to go and
+  // install a better system voice, which is exactly what this replaces.
+  let warming = 0, neuralFailed = false;
+  async function warmVoice(play) {
+    if (!neural || !isNeural(savedVoiceName || "") || !voiceOn) return;
+    const mine = ++warming;
+    neuralFailed = false;
+    const lines = play.commentary.length ? play.commentary : play.captions;
+    const parts = [];
+    for (const line of lines) {
+      const phrases = phrasesOf(line.text.replace(/^[…—\s]+/, ""));
+      const mood = window.BirdseyeCrowd ? 0.5 : 0.3;
+      phrases.forEach((phrase, i) => {
+        const d = deliveryFor(phrase, mood, true, phrases.length > 1 ? (0.12 * i) / (phrases.length - 1) : 0);
+        parts.push({ text: d.text, speed: Math.max(0.85, Math.min(1.25, 0.92 + (d.rate - 1.06) * 0.5)) });
+      });
+    }
+    const say = msg => { if (mine === warming) { voiceHint.textContent = msg; voiceHint.hidden = !msg; } };
+    try {
+      await neural.load(say);
+      await neural.warm(parts, savedVoiceName.slice("neural:".length), say);
+    } catch (e) {
+      say("That voice would not load, so the system one is being used.");
+    }
+  }
+
+  // Is a voice — either kind — still talking?
+  function voiceBusy() {
+    if (neural && isNeural(savedVoiceName || "") && neural.busy()) return true;
+    return !!synth && (synth.speaking || synth.pending);
+  }
+
   function sayLine(line) {
     const phrases = phrasesOf(line.text.replace(/^[…—\s]+/, ""));
     if (!phrases.length) return;
+    if (neural && !neuralFailed && isNeural(savedVoiceName || "")) { sayLineNeural(line, phrases); return; }
     if (!voice) refreshVoices();
     // Anything better than a plain system voice (Premium, Natural, Enhanced, or Chrome's Google
     // voices) already carries its own intonation, so the delivery only nudges it
@@ -3633,8 +3691,40 @@
   function isCall(text) {
     return /[!?]\s*$/.test(text) || /\b[A-Z]{3,}\b/.test(text) || /^[…\s]*…/.test(text);
   }
+  // The same delivery the system voice gets, said in the terms this engine understands. Kokoro has
+  // no mark-up for stress, but what carries a commentator's emphasis is pace and level as much as
+  // pitch, and the page has already decided which phrase is the shout and which is the hanging
+  // pause. Each phrase is rendered at its own pace and played at its own level, so the emphasis
+  // lands where the writing put it, and the joins fall on punctuation where a speaker breathes.
+  function sayLineNeural(line, phrases) {
+    const mood = window.BirdseyeCrowd && current ? window.BirdseyeCrowd.levels(current, line.t).excite : 0.3;
+    const parts = phrases.map((phrase, i) => {
+      const d = deliveryFor(phrase, mood, true, phrases.length > 1 ? (0.12 * i) / (phrases.length - 1) : 0);
+      const behind = Math.max(0, t - line.t);
+      return {
+        text: d.text,
+        speed: Math.max(0.85, Math.min(1.25, 0.92 + (d.rate - 1.06) * 0.5 + Math.min(0.1, behind * 0.03))),
+        gain: d.volume
+      };
+    });
+    const id = savedVoiceName.slice("neural:".length);
+    neural.say(parts, id,
+      () => { if (crowd) crowd.duck(true); if (score) score.duck(true); },
+      () => { if (crowd) crowd.duck(false); if (score) score.duck(false); nextLine(); })
+      .catch(() => {
+        // No network, no WebGPU, a model that will not build — whatever the reason, a silent
+        // commentator is the worst outcome. Fall back to the voice the machine already has.
+        if (crowd) crowd.duck(false);
+        if (score) score.duck(false);
+        neuralFailed = true;
+        voiceHint.textContent = "That voice would not load, so the system one is being used.";
+        voiceHint.hidden = false;
+        sayLine(line);
+      });
+  }
+
   function speakCommentary() {
-    if (!synth || !voiceOn || !playing || !current) return;
+    if ((!synth && !neural) || !voiceOn || !playing || !current) return;
     const lines = current.play.commentary.length ? current.play.commentary : current.play.captions;
     let idx = -1;
     lines.forEach((c, i) => { if (c.t <= t + 1e-6) idx = i; });
@@ -3647,7 +3737,7 @@
       if (t - line.t > 2.5 && isCall(line.text)) continue;   // scrubbed past a call: it is gone
       waiting.push(line);
     }
-    if (!synth.speaking && !synth.pending) nextLine();
+    if (!voiceBusy()) nextLine();
   }
 
   function nextLine() {
@@ -3662,11 +3752,12 @@
 
   function hushCommentary() {
     waiting = [];
+    if (neural) neural.stop();
     if (synth && (synth.speaking || synth.pending)) synth.cancel();
   }
 
   function updateVoiceBtn() {
-    voiceBtn.hidden = !synth;
+    voiceBtn.hidden = !synth && !neural;
     voiceSelect.hidden = voiceBtn.hidden || !voiceSelect.options.length;
     voiceHint.hidden = voiceBtn.hidden || !needsVoiceHint;
     voiceBtn.setAttribute("aria-pressed", String(voiceOn));

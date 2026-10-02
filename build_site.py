@@ -15,7 +15,7 @@ import shutil
 
 ROOT = pathlib.Path(__file__).resolve().parent
 SITE = ROOT / "docs"
-ASSETS = ["sound/recordings.js", "sound/crowd.js", "sound/score.js", "library/clips.js"]
+ASSETS = ["sound/recordings.js", "sound/crowd.js", "sound/score.js", "sound/voice.js", "library/clips.js"]
 INK, GRASS, BALL, GROUND = "#11241A", "#3E9A5A", "#FFC53D", "#EBF0EA"
 TAGLINE = "Famous goals and classic moves, drawn from above."
 
