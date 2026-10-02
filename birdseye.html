@@ -1611,7 +1611,11 @@
       const p = pathPos(pl.path, i * GAIT_DT);
       const ds = Math.hypot(p.x - prev.x, p.y - prev.y);
       const v = ds / GAIT_DT;
-      ph += (ds * Math.PI) / (1.4 + 0.9 * Math.min(1, v / 8));
+      // One turn of the phase is a stride: this foot down to this foot down again, which covers two
+      // steps. Step length is close to linear in speed for a human — about 0.8 m at walking pace,
+      // 1.4 m at a jog, 2.1 m flat out — and the old curve was roughly twice that at the slow end,
+      // which with the feet planted shows up as a walk taken in three-metre paces.
+      ph += (ds * Math.PI) / (0.55 + 0.24 * Math.min(v, 9));
       phase[i] = ph;
       speed[i] = v;
       prev = p;
@@ -1720,6 +1724,65 @@
     const byId = Object.fromEntries(play.players.map(p => [p.id, p]));
     const defaultHeading = team => (team === "A" ? 0 : Math.PI);
     const tables = new Map(play.players.map(p => [p.id, gaitTable(p, play.duration)]));
+
+    // ---------- Where the feet actually are ----------
+    // A foot does not travel with the body. It comes down on a patch of grass, stays on that patch
+    // while the body passes over it, and only then swings through to the next one. Every version of
+    // this has drawn the feet relative to the body instead, so they skate along the ground beneath a
+    // player who is otherwise running correctly — and a stride with no stance in it is a good part
+    // of what reads as clunky however well the body is moving.
+    //
+    // The gait phase is driven by distance covered, so a full stride is one turn of it. Each time a
+    // leg's phase comes round, that is a footfall: the spot it lands on is worked out once, in world
+    // coordinates, and the drawing holds the foot there until the leg swings through.
+    const STANCE = 0.62;                  // the share of a stride a foot spends on the ground
+    const footfalls = new Map();
+    function buildFootfalls(pl) {
+      const src = byId[pl.id], tb = tables.get(pl.id);
+      const n = tb.phase.length;
+      const legs = [[], []];
+      for (let i = 0; i < 2; i++) {
+        const off = i * Math.PI;
+        let last = Math.floor((tb.phase[0] + off) / (2 * Math.PI));
+        legs[i].push({ k: last, ...plantAt(src, pl, 0, i) });
+        for (let j = 1; j < n; j++) {
+          const k = Math.floor((tb.phase[j] + off) / (2 * Math.PI));
+          if (k <= last) continue;
+          const t = j * GAIT_DT;
+          for (let step = last + 1; step <= k; step++) legs[i].push({ k: step, ...plantAt(src, pl, t, i) });
+          last = k;
+        }
+      }
+      return legs;
+    }
+    function plantAt(src, pl, t, i) {
+      const p = pathPos(src.path, t);
+      const h = moveHeading(src, t) ?? defaultHeading(pl.team);
+      const v = gait(pl, t).speed;
+      // A running foot lands well in front of the hip; a standing one lands under it
+      const ahead = 0.18 + 0.42 * Math.min(1, v / 7);
+      const side = (i === 0 ? 1 : -1) * 0.1;
+      return { x: p.x + Math.cos(h) * ahead - Math.sin(h) * side,
+               y: p.y + Math.sin(h) * ahead + Math.cos(h) * side };
+    }
+    // Where a given foot is at time t: still on the ground it came down on, or on its way to the next
+    function footAt(pl, t, i) {
+      let legs = footfalls.get(pl.id);
+      if (!legs) { legs = buildFootfalls(pl); footfalls.set(pl.id, legs); }
+      const list = legs[i];
+      if (!list.length) return null;
+      const th = gait(pl, t).phase + i * Math.PI;
+      const k = Math.floor(th / (2 * Math.PI));
+      const u = th / (2 * Math.PI) - k;
+      const here = list.find(q => q.k === k) || list[0];
+      if (u <= STANCE) return { x: here.x, y: here.y, planted: true };
+      const next = list.find(q => q.k === k + 1);
+      if (!next) return { x: here.x, y: here.y, planted: true };
+      // Through the swing the foot travels from one patch of grass to the next, easing at both ends
+      const w = (u - STANCE) / (1 - STANCE);
+      const e = w * w * (3 - 2 * w);
+      return { x: here.x + (next.x - here.x) * e, y: here.y + (next.y - here.y) * e, planted: false };
+    }
     const looks = new Map(play.players.map(p => [p.id, resolveLook(p)]));
     let actionsBy = null;
     const era = eraFor(yearOf(play));
@@ -2173,7 +2236,7 @@
     const star = play.players.find(p => p.star) || null;
     const aria = `${play.title}. Overhead animation. ${play.captions.map(c => c.text).join(" ")}`;
     return {
-      play, byId, ballAt, track, spin, star, aria, gait, hasBall, era, bodyAt, heatGrid, recordedUntil,
+      play, byId, ballAt, track, spin, star, aria, gait, hasBall, era, bodyAt, heatGrid, recordedUntil, footAt,
       moments: momentsOf(play, byId),
       lookOf: pl => looks.get(pl.id),
       bootColor: pl => era.boots[idHash(pl.id) % era.boots.length]
@@ -2420,11 +2483,22 @@
       ink(s.key ? 0.72 : 0.52, 0.085);
       s.body.legs.forEach((leg, i) => {
         const side = i === 0 ? 0.09 : -0.09;
-        const fold = 1 - 0.3 * Math.min(1.4, Math.max(0, leg.knee));
-        const reach = 0.72 * Math.sin(leg.hip) * fold;
         const [hx, hy] = at(-0.09, side);
-        const [kx, ky] = at(-0.09 + reach * 0.5, side * 1.3);
-        const [fx, fy] = at(-0.09 + reach, side * 1.15);
+        // The foot is a place on the grass, not a part of the body: it is drawn where it was put
+        // down and stays there while the hip travels over it. A body in an action — a dive, a lunge,
+        // a volley — is off its feet, so those keep the old body-relative legs.
+        const put = s.body.action ? null : R.footAt(s.pl, t, i);
+        let fx, fy;
+        if (put) {
+          fx = X(put.x); fy = Y(put.y);
+        } else {
+          const fold = 1 - 0.3 * Math.min(1.4, Math.max(0, leg.knee));
+          const reach = 0.72 * Math.sin(leg.hip) * fold;
+          [fx, fy] = at(-0.09 + reach, side * 1.15);
+        }
+        // The knee rides between hip and foot, pushed out to the side it bends towards
+        const kx = (hx + fx) / 2 - Math.sin(s.h) * side * 0.6 * u;
+        const ky = (hy + fy) / 2 + Math.cos(s.h) * side * 0.6 * u;
         ctx.beginPath();
         ctx.moveTo(hx, hy);
         ctx.quadraticCurveTo(kx, ky, fx, fy);
