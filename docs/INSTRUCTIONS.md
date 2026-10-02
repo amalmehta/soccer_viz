@@ -19,6 +19,11 @@ Eleven are built from StatsBomb's own match data rather than from memory.
   at the goal, mixed live and into downloaded videos.
 - **An orchestral score, if you want one.** Holst's Mars under the play, lifting as the ball nears
   goal and swelling when one goes in. Off by default; it goes into downloaded videos too.
+- **The passes that were on.** At any moment the ball is at someone's feet, draw a line to every
+  team-mate it could have reached without an opponent close enough to cut it out — and separate the
+  ones the player could see from the ones behind their shoulders. The pass they played is solid; an
+  option they had and could not see is marked. It is worked out from reconstructed positions, so it
+  shows the shape of a decision rather than a record of one.
 - **Movement heatmap.** Shade the pitch by where the players spent the clip — everyone, one team,
   or just the player the clip is about. It goes into downloaded videos too.
 - **Ball physics.** A struck ball slows as it travels, swerves with the spin on it and rolls as it

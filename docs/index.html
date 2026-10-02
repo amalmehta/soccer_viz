@@ -370,6 +370,11 @@
     </div>
 
     <div class="looks">
+      <button class="voice-btn" id="optionsBtn" aria-pressed="false"
+        title="Draw the passes that were on at each moment, and mark the ones the player could not see. Worked out from reconstructed positions, so treat it as the shape of the decision rather than a record of it.">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="3.5" cy="8" r="1.8"/><circle cx="12.5" cy="4" r="1.5" opacity="0.6"/><circle cx="12" cy="12.5" r="1.5" opacity="0.6"/><path d="M4.9 7.2 11.2 4.4M4.9 8.9 10.8 11.8" stroke="currentColor" stroke-width="1" fill="none"/></svg>
+        <span id="optionsLabel">Options</span>
+      </button>
       <button class="voice-btn" id="heatBtn" aria-pressed="false"
         title="Shade the pitch by where the players spent the clip. It's also drawn into downloaded videos.">
         <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5c2 2.4 3 4.1 3 5.4a3 3 0 1 1-6 0c0-1.3 1-3 3-5.4z"/><path d="M2 13.2c1.6-1 3.6-1.5 6-1.5s4.4.5 6 1.5v1.3H2z" opacity="0.55"/></svg>
@@ -2358,6 +2363,8 @@
       return { pl, body: b, x: X(b.x), y: Y(b.y), h: b.heading, key: !!(pl.num != null || pl.name || pl.star) };
     });
 
+    if (optionsOn) drawOptions(R, t, states);
+
     // A player seen from straight above is not a counter on a board: you see the shoulders, the head,
     // the arms swinging and the legs reaching past the body, and it is the reach of the limbs that
     // tells you someone is running rather than standing. The pose engine already works all of that
@@ -2559,6 +2566,97 @@
   // pitch, so the browser's own smoothing does the blurring for us.
   let heatLayer = document.createElement("canvas");
   let heatKey = "";
+  // ---------- What was on, and what could be seen ----------
+  // The one thing an overhead view can show a player that no camera can is the ball they did not
+  // play. From inside the game you see what is in front of you; the team-mate behind your shoulder
+  // is a shout you half heard. So at any moment the ball is at someone's feet, this draws every
+  // pass that was actually available — a line to each team-mate the ball could have reached without
+  // an opponent close enough to cut it out — and separates them by whether the player could have
+  // seen it. The ones outside their field of view are drawn in the accent colour, because those are
+  // the arguments worth having. The pass they did play is drawn solid.
+  const FOV = 1.05;          // radians either side of where a body faces: about 120 degrees in all
+  const CUT = 1.7;           // metres from the line an opponent must be within to cut a pass out
+  const REACH = 32;          // metres: beyond this a ground pass is a different kind of decision
+
+  function carrierAt(play, t) {
+    const k = play.ball;
+    for (let i = 0; i < k.length; i++) {
+      if (!k[i].with) continue;
+      if (Math.abs(k[i].t - t) < 0.25) return k[i].with;
+      if (i + 1 < k.length && k[i + 1].with === k[i].with && t >= k[i].t && t <= k[i + 1].t) return k[i].with;
+    }
+    return null;
+  }
+
+  // Who the ball actually went to next, so the option taken can be told from the options refused.
+  // Keyframes where the carrier still has it are them keeping the ball, not a pass, so they are
+  // stepped over — otherwise the answer is always "to themselves" and the pass never shows.
+  function chosenAfter(play, t, holder) {
+    for (let i = 0; i < play.ball.length; i++) {
+      const k = play.ball[i];
+      if (k.t > t + 0.01 && k.with && k.with !== holder) return k.with;
+    }
+    return null;
+  }
+
+  function drawOptions(R, t, states) {
+    const { play } = R;
+    const id = carrierAt(play, t);
+    const on = id && states.find(s => s.pl.id === id);
+    if (!on) return;
+    const chosen = chosenAfter(play, t, id);
+    const mates = states.filter(s => s.pl.team === on.pl.team && s.pl.id !== id && !s.pl.gk);
+    const foes = states.filter(s => s.pl.team !== on.pl.team);
+
+    // The arc a body can see, laid on the grass rather than drawn as a cone in the air
+    ctx.beginPath();
+    ctx.moveTo(on.x, on.y);
+    ctx.arc(on.x, on.y, 13 * scale, on.h - FOV, on.h + FOV);
+    ctx.closePath();
+    ctx.fillStyle = hexA(colors.ink, 0.045);
+    ctx.fill();
+    ctx.strokeStyle = hexA(colors.ink, 0.13);
+    ctx.lineWidth = Math.max(0.7, 0.04 * scale);
+    ctx.stroke();
+
+    for (const m of mates) {
+      const dx = m.body.x - on.body.x, dy = m.body.y - on.body.y;
+      const len = Math.hypot(dx, dy);
+      if (len < 4 || len > REACH) continue;
+      // Is anybody near enough to this line, and between the two of them, to step in front of it?
+      let open = true;
+      for (const f of foes) {
+        const u = ((f.body.x - on.body.x) * dx + (f.body.y - on.body.y) * dy) / (len * len);
+        if (u <= 0.04 || u >= 0.96) continue;
+        const px = on.body.x + dx * u, py = on.body.y + dy * u;
+        if (Math.hypot(f.body.x - px, f.body.y - py) < CUT) { open = false; break; }
+      }
+      if (!open) continue;
+      const seen = Math.abs(Math.atan2(Math.sin(Math.atan2(dy, dx) - on.h),
+                                       Math.cos(Math.atan2(dy, dx) - on.h))) <= FOV;
+      const took = m.pl.id === chosen;
+      ctx.save();
+      ctx.setLineDash(took ? [] : seen ? [5, 5] : [2, 4]);
+      ctx.strokeStyle = took ? hexA(colors.ink, 0.5)
+                             : seen ? hexA(colors.ink, 0.28) : hexA(colors.accent, 0.62);
+      ctx.lineWidth = Math.max(0.9, (took ? 0.1 : 0.07) * scale);
+      ctx.beginPath();
+      ctx.moveTo(on.x, on.y);
+      ctx.lineTo(m.x, m.y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      // A ring on anyone who was free and behind them: the pass that was on and never seen
+      if (!seen && !took) {
+        ctx.strokeStyle = hexA(colors.accent, 0.7);
+        ctx.lineWidth = Math.max(1, 0.07 * scale);
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, 1.15 * scale, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+  }
+
   function drawHeat(R) {
     const who = heatWho === "A" || heatWho === "B" ? heatWho : heatWho === "star" ? "star" : "all";
     const heat = R.heatGrid(who);
@@ -2975,6 +3073,21 @@
     if (!options.some(([value]) => value === heatWho)) heatWho = "all";
     heatSelect.value = heatWho;
   }
+
+  const optionsBtn = $("optionsBtn");
+  let optionsOn = false;
+  try { optionsOn = localStorage.getItem("birdseye.options") === "on"; } catch (e) { /* default */ }
+  function updateOptionsBtn() {
+    optionsBtn.setAttribute("aria-pressed", String(optionsOn));
+    $("optionsLabel").textContent = optionsOn ? "Options on" : "Options";
+  }
+  optionsBtn.addEventListener("click", () => {
+    optionsOn = !optionsOn;
+    try { localStorage.setItem("birdseye.options", optionsOn ? "on" : "off"); } catch (e) { /* ignore */ }
+    updateOptionsBtn();
+    render();
+  });
+  updateOptionsBtn();
 
   function updateHeatBtn() {
     heatBtn.hidden = false;
