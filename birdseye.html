@@ -1082,6 +1082,9 @@
     const from = new Map(play.players.map(pl => [pl.id, handover(pl)]));
     const movers = play.players.filter(pl => from.get(pl.id) < play.duration - 0.4);
     const paths = new Map(movers.map(pl => [pl.id, []]));
+    // The moment each player's own record runs out is worth knowing outside this function: it is
+    // the line between what the clip saw and what the engine is making up, and the drawing says so.
+    paths.recordedUntil = from;
     if (!movers.length) return paths;
     const lim = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
     const step = 0.2, lag = 0.8, ACCEL = 5.5;     // metres per second per second, about a person's best
@@ -1300,6 +1303,7 @@
         now.set(pl.id, { x, y });
       }
     }
+    paths.recordedUntil = from;
     return paths;
   }
 
@@ -1792,7 +1796,9 @@
     }
 
     // Supporting players get off-ball movement; everything below (actions, poses, looks) uses it
-    for (const [id, path] of offBallPaths(play, ballAt)) {
+    const offBall = offBallPaths(play, ballAt);
+    const recordedUntil = offBall.recordedUntil || new Map();
+    for (const [id, path] of offBall) {
       byId[id] = { ...byId[id], path: cleanPath(path) };
       tables.set(id, gaitTable(byId[id], play.duration));
     }
@@ -2167,7 +2173,8 @@
     const star = play.players.find(p => p.star) || null;
     const aria = `${play.title}. Overhead animation. ${play.captions.map(c => c.text).join(" ")}`;
     return {
-      play, byId, ballAt, track, spin, star, aria, gait, hasBall, era, bodyAt, heatGrid, moments: momentsOf(play, byId),
+      play, byId, ballAt, track, spin, star, aria, gait, hasBall, era, bodyAt, heatGrid, recordedUntil,
+      moments: momentsOf(play, byId),
       lookOf: pl => looks.get(pl.id),
       bootColor: pl => era.boots[idHash(pl.id) % era.boots.length]
     };
@@ -2342,9 +2349,17 @@
       }
     }
 
+    // Past the moment a player's own record runs out, the engine is moving them: the position is a
+    // reasonable guess about football rather than a record of what happened. Drawing both the same
+    // way is the quiet dishonesty in a thing like this — it invites someone who knows the match to
+    // find one body in the wrong place and stop believing the rest. So a body the clip can still
+    // vouch for is drawn in ink, and one it cannot is left as the underdrawing it really is.
     const states = play.players.map(pl => {
       const b = R.bodyAt(pl, t);
-      return { pl, body: b, x: X(b.x), y: Y(b.y), h: b.heading, key: !!(pl.num != null || pl.name || pl.star) };
+      const until = R.recordedUntil ? R.recordedUntil.get(pl.id) : null;
+      return { pl, body: b, x: X(b.x), y: Y(b.y), h: b.heading,
+               key: !!(pl.num != null || pl.name || pl.star),
+               sure: until == null || t <= until + 0.25 };
     });
 
     if (optionsOn) drawOptions(R, t, states);
@@ -2387,7 +2402,7 @@
       const tm = play.teams[s.pl.team];
       const kit = s.pl.gk ? tm.gkColor : tm.color;
       const at = frame(s);
-      const solid = s.key ? 1 : 0.82;
+      const solid = (s.key ? 1 : 0.82) * (s.sure ? 1 : 0.55);
       ctx.globalAlpha = solid;
       ctx.lineCap = "round";
 
@@ -2619,10 +2634,14 @@
       const seen = Math.abs(Math.atan2(Math.sin(Math.atan2(dy, dx) - on.h),
                                        Math.cos(Math.atan2(dy, dx) - on.h))) <= FOV;
       const took = m.pl.id === chosen;
+      // An option is only as good as the position it is drawn from. Where the clip's record of this
+      // player has run out the app is guessing where they stood, so the line is drawn as faintly as
+      // the body is, and no claim is made that this was a pass somebody missed.
+      const fade = m.sure ? 1 : 0.45;
       ctx.save();
       ctx.setLineDash(took ? [] : seen ? [5, 5] : [2, 4]);
-      ctx.strokeStyle = took ? hexA(colors.ink, 0.5)
-                             : seen ? hexA(colors.ink, 0.28) : hexA(colors.accent, 0.62);
+      ctx.strokeStyle = took ? hexA(colors.ink, 0.5 * fade)
+                             : seen ? hexA(colors.ink, 0.28 * fade) : hexA(colors.accent, 0.62 * fade);
       ctx.lineWidth = Math.max(0.9, (took ? 0.1 : 0.07) * scale);
       ctx.beginPath();
       ctx.moveTo(on.x, on.y);
@@ -2630,7 +2649,7 @@
       ctx.stroke();
       ctx.setLineDash([]);
       // A ring on anyone who was free and behind them: the pass that was on and never seen
-      if (!seen && !took) {
+      if (!seen && !took && m.sure) {
         ctx.strokeStyle = hexA(colors.accent, 0.7);
         ctx.lineWidth = Math.max(1, 0.07 * scale);
         ctx.beginPath();

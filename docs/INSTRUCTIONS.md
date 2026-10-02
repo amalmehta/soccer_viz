@@ -19,6 +19,10 @@ Eleven are built from StatsBomb's own match data rather than from memory.
   at the goal, mixed live and into downloaded videos.
 - **An orchestral score, if you want one.** Holst's Mars under the play, lifting as the ball nears
   goal and swelling when one goes in. Off by default; it goes into downloaded videos too.
+- **Ink or underdrawing.** A clip's record of where a player stood runs out long before the clip
+  does — between a half and a third of all body-time is the engine's reconstruction rather than
+  anything recorded. A body the clip can still vouch for is drawn in ink; one it cannot is left
+  faint, as the underdrawing it is. The passing options respect the same line.
 - **The passes that were on.** At any moment the ball is at someone's feet, draw a line to every
   team-mate it could have reached without an opponent close enough to cut it out — and separate the
   ones the player could see from the ones behind their shoulders. The pass they played is solid; an
