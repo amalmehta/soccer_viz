@@ -1844,6 +1844,153 @@
     const dragEase = u => (1 - Math.exp(-DRAG * u)) / (1 - Math.exp(-DRAG));
     const bendAt = u => 2.4 * u * (1 - u) * (0.55 + 0.45 * u);   // widest just past halfway, home at the end
 
+    // ---------- How the ball actually gets there ----------
+    // Between two keyframes the ball used to be an interpolation: a straight line, an easing curve
+    // standing in for the slowing, and a sideways offset faking a bend. That puts the endpoints in
+    // the right place and everything between them approximately wrong. The speed falls on a made-up
+    // curve rather than against the air; the bend is a detour that leaves the straight line and
+    // comes back to it, where a spinning ball leaves and keeps going; and a ball in the air is a
+    // parabola that never lands, never bounces and never rolls.
+    //
+    // What the clip knows is where the ball was and when. What it does not know is how it was
+    // struck. So that is what gets solved for: find the velocity off the boot that, under drag,
+    // gravity, the Magnus force from the spin on it and the drag of the grass, puts the ball on the
+    // next keyframe at the moment the clip says it arrived. Guess, fly it, see where it lands,
+    // correct the guess — a few rounds of that and the flight between the two points is the one
+    // physics would have produced, rather than a line with easing on it.
+    const G = 9.81;
+    const DRAG_K = 0.0132;       // 1/m — half rho Cd A over m, for a size-five ball
+    const MAGNUS_K = 0.0105;     // the same shape for the sideways force off sidespin
+    const ROLL_DECEL = 0.52;     // m/s2 — a ball rolling across cut grass
+    const GROUND = 0.11;         // m — the ball's radius: its middle never goes below this
+    const BOUNCE = 0.52;         // how much upward speed survives hitting the ground
+    const SKID = 0.76;           // and how much of the forward speed does
+    const SIM_DT = 0.004;
+
+    // Fly the ball from the origin with a given velocity and spin, and report where it is at each
+    // step. Spin is the authored curve, -1 to 1: a sideways force at right angles to the travel.
+    function flyFrom(vx, vy, vz, spin, span) {
+      const out = [{ t: 0, x: 0, y: 0, z: GROUND }];
+      let x = 0, y = 0, z = GROUND;
+      for (let t = SIM_DT; t <= span + 1e-9; t += SIM_DT) {
+        const v = Math.hypot(vx, vy, vz) || 1e-6;
+        const hs = Math.hypot(vx, vy) || 1e-6;
+        let ax, ay, az;
+        if (z > GROUND + 1e-4 || vz > 0) {
+          ax = -DRAG_K * v * vx;
+          ay = -DRAG_K * v * vy;
+          az = -DRAG_K * v * vz - G;
+        } else {
+          // On the grass the ball is slowed by rolling as well as by the air, and it stays down
+          const decel = ROLL_DECEL + DRAG_K * hs * hs;
+          ax = -decel * (vx / hs);
+          ay = -decel * (vy / hs);
+          az = 0;
+          vz = 0;
+        }
+        // Sidespin pushes at right angles to where the ball is going, which is why a curled ball
+        // leaves the straight line and never comes back to it. The force goes with the square of
+        // the speed, like the drag — which is why a curl only really shows on a ball that is hit.
+        ax += MAGNUS_K * spin * v * v * (-vy / hs);
+        ay += MAGNUS_K * spin * v * v * (vx / hs);
+        vx += ax * SIM_DT; vy += ay * SIM_DT; vz += az * SIM_DT;
+        x += vx * SIM_DT; y += vy * SIM_DT; z += vz * SIM_DT;
+        if (z < GROUND) {                      // it lands, and takes a bounce out of what is left
+          z = GROUND;
+          if (vz < -0.4) { vz = -vz * BOUNCE; vx *= SKID; vy *= SKID; }
+          else vz = 0;
+        }
+        out.push({ t, x, y, z });
+      }
+      return out;
+    }
+
+    // Guess the strike, fly it, correct the guess. Newton on two unknowns for a ball along the
+    // ground and three for one in the air, with the derivatives taken numerically.
+    function solveFlight(dx, dy, span, spin, lofted, lift = 1) {
+      const want = lofted ? [dx, dy, GROUND] : [dx, dy];
+      let g = lofted
+        ? [dx / span, dy / span, ((G * span) / 2) * lift]
+        : [dx / span, dy / span];
+      const landing = path => {
+        const end = path[path.length - 1];
+        return lofted ? [end.x, end.y, end.z] : [end.x, end.y];
+      };
+      const run = v => flyFrom(v[0], v[1], lofted ? v[2] : 0, spin, span);
+      for (let round = 0; round < 12; round++) {
+        const here = landing(run(g));
+        const miss = want.map((w, i) => w - here[i]);
+        if (Math.hypot(...miss) < 0.02) break;
+        // How the landing point moves when each part of the strike is nudged
+        const J = [];
+        for (let i = 0; i < g.length; i++) {
+          const step = Math.max(0.05, Math.abs(g[i]) * 0.02);
+          const probe = g.slice();
+          probe[i] += step;
+          const there = landing(run(probe));
+          J.push(there.map((p, k) => (p - here[k]) / step));
+        }
+        const fix = solveSmall(J, miss);        // J is held column-wise, so transpose as we go
+        if (!fix) break;
+        for (let i = 0; i < g.length; i++) g[i] += Math.max(-25, Math.min(25, fix[i]));
+      }
+      const path = run(g);
+      const end = landing(path);
+      const missed = Math.hypot(...want.map((w, i) => w - end[i]));
+      return missed < 0.6 ? path : null;       // if it will not converge, the old interpolation stands
+    }
+
+    // A ball that is in the air when it arrives — a cross, a chip — should still be in the air the
+    // whole way. Arriving at the right place at the right time can equally be done by driving it
+    // flat and letting it skip off the turf, and the solver will happily find that instead, because
+    // it is nearer the guess it starts from. So a lofted flight that touches down early is tried
+    // again from a higher one, and the arc is kept if it carries.
+    function touchesDownEarly(path) {
+      for (let i = 1; i < path.length - 2; i++) {
+        if (path[i].z <= GROUND + 1e-3 && path[i - 1].z > GROUND + 1e-3) return true;
+      }
+      return false;
+    }
+
+    // Two or three equations in as many unknowns, by elimination. Columns in, so A[i][k] is how
+    // equation k moves when unknown i is nudged.
+    function solveSmall(cols, rhs) {
+      const n = rhs.length;
+      const M = [];
+      for (let k = 0; k < n; k++) M.push(cols.map(c => c[k]).concat([rhs[k]]));
+      for (let i = 0; i < n; i++) {
+        let piv = i;
+        for (let r = i + 1; r < n; r++) if (Math.abs(M[r][i]) > Math.abs(M[piv][i])) piv = r;
+        if (Math.abs(M[piv][i]) < 1e-9) return null;
+        [M[i], M[piv]] = [M[piv], M[i]];
+        for (let r = 0; r < n; r++) {
+          if (r === i) continue;
+          const f = M[r][i] / M[i][i];
+          for (let c = i; c <= n; c++) M[r][c] -= f * M[i][c];
+        }
+      }
+      return M.map((row, i) => row[n] / M[i][i]);
+    }
+
+    // Solved flights, worked out once per clip and kept
+    const flights = new Map();
+    function flightFor(i, pa, pb, span, b) {
+      if (flights.has(i)) return flights.get(i);
+      const dx = pb.x - pa.x, dy = pb.y - pa.y;
+      const len = Math.hypot(dx, dy);
+      // Short hops between crowded keyframes are not flights; solving them is noise
+      const worth = span > 0.55 && len > 7;
+      let path = worth ? solveFlight(dx, dy, span, b.curve || 0, !!b.lofted) : null;
+      if (path && b.lofted && touchesDownEarly(path)) {
+        for (const lift of [1.5, 2.1, 2.8]) {
+          const higher = solveFlight(dx, dy, span, b.curve || 0, true, lift);
+          if (higher && !touchesDownEarly(higher)) { path = higher; break; }
+        }
+      }
+      flights.set(i, path);
+      return path;
+    }
+
     function ballAt(t) {
       const k = play.ball, n = k.length;
       const at = (kf, tt) => (kf.with ? feet(byId[kf.with], tt) : { x: kf.x, y: kf.y });
@@ -1860,6 +2007,18 @@
       const len = Math.hypot(dx, dy) || 1;
       // Slowing only shows over a real flight. A clip cut into short hops (the imported ones are)
       // would otherwise pulse: fast, slow, fast, slow, once per keyframe.
+      // The flight physics worked out for this segment, if it is long enough to be a flight at all
+      const solved = flightFor(i, pa, pb, span, b);
+      if (solved) {
+        const at = (t - a.t) / SIM_DT;
+        const j = Math.max(0, Math.min(solved.length - 2, Math.floor(at)));
+        const f = Math.min(1, at - j), p0 = solved[j], p1 = solved[j + 1];
+        const px = p0.x + (p1.x - p0.x) * f, py = p0.y + (p1.y - p0.y) * f;
+        const pz = p0.z + (p1.z - p0.z) * f;
+        const speed = Math.hypot(p1.x - p0.x, p1.y - p0.y, p1.z - p0.z) / SIM_DT;
+        return { x: pa.x + px, y: pa.y + py, h: Math.max(0, pz - GROUND),
+                 speed, curve: b.curve || 0, power: b.power };
+      }
       const flight = span > 0.55 && len > 7;
       const e = !flight ? u : b.lofted ? u * (1.15 - 0.15 * u) : dragEase(u);
       const bend = (b.curve || 0) * len * BEND * bendAt(u);
