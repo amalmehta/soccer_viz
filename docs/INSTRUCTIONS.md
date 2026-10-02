@@ -19,6 +19,9 @@ Eleven are built from StatsBomb's own match data rather than from memory.
   at the goal, mixed live and into downloaded videos.
 - **An orchestral score, if you want one.** Holst's Mars under the play, lifting as the ball nears
   goal and swelling when one goes in. Off by default; it goes into downloaded videos too.
+- **Keepers that sweep.** A goalkeeper stands on the bisector of the angle the posts make from the
+  ball, at a depth taken from tracking data — a stride off his line when the ball is close, fifteen
+  metres out when play is at the other end — and he sets, stops moving, in the moment before a shot.
 - **Ink or underdrawing.** A clip's record of where a player stood runs out long before the clip
   does — between a half and a third of all body-time is the engine's reconstruction rather than
   anything recorded. A body the clip can still vouch for is drawn in ink; one it cannot is left

@@ -1201,9 +1201,34 @@
         let target, vmax = 4.8, chasing = false;   // holding shape is a jog; pressing and recovering raise it
         if (pl.gk) {
           const d = Math.hypot(ball.x - ownGoal.x, ball.y - ownGoal.y);
-          target = toward(ownGoal, ball, lim(d / 7, 1, 6));
+          // How far off his line a keeper stands, measured from tracking: a stride or two when the
+          // ball is close, and about a quarter of its distance once play is up the other end. Ours
+          // never came further than six metres, so with the ball on the halfway line he was sitting
+          // on his line where a real keeper is fifteen metres out, sweeping.
+          const off = lim(0.235 * d - 2.6, 1.6, 19);
+          // And he stands on the bisector of the angle the posts make from the ball, not on the
+          // line to the middle of the goal. From a wide position those are metres apart, and the
+          // difference is the near post — the one you are not allowed to be beaten at.
+          const near = { x: ownGoal.x, y: 30.34 }, far = { x: ownGoal.x, y: 37.66 };
+          const n1 = Math.hypot(near.x - ball.x, near.y - ball.y) || 1;
+          const n2 = Math.hypot(far.x - ball.x, far.y - ball.y) || 1;
+          let bx = (near.x - ball.x) / n1 + (far.x - ball.x) / n2;
+          let by = (near.y - ball.y) / n1 + (far.y - ball.y) / n2;
+          const bl = Math.hypot(bx, by) || 1;
+          bx /= bl; by /= bl;
+          const standX = ownGoal.x + (ownGoal.x > 52.5 ? -off : off);
+          const steps = Math.abs(bx) > 0.05 ? (standX - ball.x) / bx : 0;
+          target = steps > 0
+            ? { x: standX, y: lim(ball.y + by * steps, 26, 42) }
+            : toward(ownGoal, ball, off);
           target.y += 0.35 * Math.sin((2 * Math.PI * t) / 3.4 + (idHash(pl.id) % 628) / 100);
           vmax = 4.5;
+          // You cannot dive while you are still moving. A keeper sets — stops, small step, square —
+          // in the moment before the ball is struck, and that stillness is why the dive looks like
+          // a reaction rather than a stumble.
+          for (const ev of play.events) {
+            if ((ev.type === "shot" || ev.type === "goal") && ev.t > t && ev.t - t < 0.45) vmax = 0.7;
+          }
         } else if (pl.team === "B") {
           // Defenders hold shape rather than roam, but nobody stands perfectly still for ten seconds
           // of open play: they shuffle across, check their shoulder, adjust a step at a time.
@@ -1355,7 +1380,10 @@
         y = prev.y + vy * step;
         x = lim(x, -2, 107);
         y = lim(y, -2, 70);
-        if (pl.gk) x = pl.team === "B" ? lim(x, 97, 105) : lim(x, 0, 8);
+        // A keeper is allowed off his line. Holding him inside eight metres of it was what kept him
+        // sitting on the goal while the ball was at the other end, where the tracking has him
+        // nineteen metres out, sweeping behind a high line.
+        if (pl.gk) x = pl.team === "B" ? lim(x, 85, 105) : lim(x, 0, 20);
         paths.get(pl.id).push([t, x, y]);
         now.set(pl.id, { x, y });
       }

@@ -1130,6 +1130,23 @@
       return { x: from.x + ((to.x - from.x) / d) * dist, y: from.y + ((to.y - from.y) / d) * dist };
     };
     const start = lagged(0);
+
+    // A back four is not four players each minding their own patch. It steps up and drops as one,
+    // slides across as one, and holds its spacing, because the whole point of it is that there is
+    // no gap to run into. Ours were independent: each held a zone that slid with the ball, which
+    // gives them something in common but not enough. Measured against tracking, the sideways
+    // velocity of a real back-line pair correlates at 0.35 and ours at 0.22.
+    //
+    // So the deepest four are treated as a unit. Each still has its own zone and its own mark, but
+    // is pulled towards the depth the line is holding and the sideways shift the line has made,
+    // using where everyone was a moment ago — which is the lag a real defender reacts on anyway.
+    const backLine = play.players
+      .filter(pl => pl.team === "B" && !pl.gk && paths.has(pl.id))
+      .sort((a, b) => pathPos(b.path, 0).x - pathPos(a.path, 0).x)   // team B defends x = 105
+      .slice(0, 4)
+      .map(pl => pl.id);
+    const inLine = new Set(backLine);
+    const LINE_PULL = 0.5;
     // Attackers first, so defenders can mark where they are
     const order = [...movers].sort((p, q) => (p.team === "A" ? 0 : 1) - (q.team === "A" ? 0 : 1));
 
@@ -1138,6 +1155,29 @@
       const now = new Map();
       for (const pl of play.players) if (!paths.has(pl.id)) now.set(pl.id, pathPos(pl.path, t));
       const carrier = carrierAt(t);
+      // What the line is doing as a whole, from where its members were a moment ago
+      let lineX = 0, lineShift = 0, lineN = 0;
+      for (const id of backLine) {
+        const pl = play.players.find(q => q.id === id);
+        const was = paths.get(id).length ? lastOf(pl, t) : pathPos(pl.path, 0);
+        lineX += was.x;
+        lineShift += was.y - pathPos(pl.path, 0).y;
+        lineN++;
+      }
+      if (lineN) { lineX /= lineN; lineShift /= lineN; }
+      // How far the line as a whole is out of position, so its members can move on one decision
+      let lineEffort = 0;
+      if (lineN) {
+        let sum = 0;
+        for (const id of backLine) {
+          const pl = play.players.find(q => q.id === id);
+          const was = paths.get(id).length ? lastOf(pl, t) : pathPos(pl.path, 0);
+          const a0 = pathPos(pl.path, 0);
+          const want = { x: a0.x + 0.32 * (drift.x - start.x), y: a0.y + 0.38 * (drift.y - start.y) };
+          sum += Math.max(0, Math.hypot(want.x - was.x, want.y - was.y) - 0.25);
+        }
+        lineEffort = sum / lineN;
+      }
       const carrierPos = carrier ? now.get(carrier) || ball : null;
 
       // The defender nearest an attacking ball carrier presses — and while the ball is in flight,
@@ -1177,21 +1217,57 @@
         let target, vmax = 4.8, chasing = false;   // holding shape is a jog; pressing and recovering raise it
         if (pl.gk) {
           const d = Math.hypot(ball.x - ownGoal.x, ball.y - ownGoal.y);
-          target = toward(ownGoal, ball, lim(d / 7, 1, 6));
+          // How far off his line a keeper stands, measured from tracking: a stride or two when the
+          // ball is close, and about a quarter of its distance once play is up the other end. Ours
+          // never came further than six metres, so with the ball on the halfway line he was sitting
+          // on his line where a real keeper is fifteen metres out, sweeping.
+          const off = lim(0.235 * d - 2.6, 1.6, 19);
+          // And he stands on the bisector of the angle the posts make from the ball, not on the
+          // line to the middle of the goal. From a wide position those are metres apart, and the
+          // difference is the near post — the one you are not allowed to be beaten at.
+          const near = { x: ownGoal.x, y: 30.34 }, far = { x: ownGoal.x, y: 37.66 };
+          const n1 = Math.hypot(near.x - ball.x, near.y - ball.y) || 1;
+          const n2 = Math.hypot(far.x - ball.x, far.y - ball.y) || 1;
+          let bx = (near.x - ball.x) / n1 + (far.x - ball.x) / n2;
+          let by = (near.y - ball.y) / n1 + (far.y - ball.y) / n2;
+          const bl = Math.hypot(bx, by) || 1;
+          bx /= bl; by /= bl;
+          const standX = ownGoal.x + (ownGoal.x > 52.5 ? -off : off);
+          const steps = Math.abs(bx) > 0.05 ? (standX - ball.x) / bx : 0;
+          target = steps > 0
+            ? { x: standX, y: lim(ball.y + by * steps, 26, 42) }
+            : toward(ownGoal, ball, off);
           target.y += 0.35 * Math.sin((2 * Math.PI * t) / 3.4 + (idHash(pl.id) % 628) / 100);
           vmax = 4.5;
+          // You cannot dive while you are still moving. A keeper sets — stops, small step, square —
+          // in the moment before the ball is struck, and that stillness is why the dive looks like
+          // a reaction rather than a stumble.
+          for (const ev of play.events) {
+            if ((ev.type === "shot" || ev.type === "goal") && ev.t > t && ev.t - t < 0.45) vmax = 0.7;
+          }
         } else if (pl.team === "B") {
           // Defenders hold shape rather than roam, but nobody stands perfectly still for ten seconds
           // of open play: they shuffle across, check their shoulder, adjust a step at a time.
-          const seed = idHash(pl.id), beat = (seed % 628) / 100, period = 7.5 + (seed % 23) / 10;
+          // Inside the line the shuffle is shared. Four defenders each drifting to their own slow
+          // rhythm pulls the line apart a step at a time; a real back four shifts across together,
+          // and what idle movement it has, it has as one.
+          const solo = idHash(pl.id);
+          const seed = inLine.has(pl.id) ? 101 : solo;
+          const beat = (seed % 628) / 100, period = 7.5 + (seed % 23) / 10;
           const fidget = {
             x: 0.3 * Math.sin((2 * Math.PI * t) / period + beat),
             y: 0.38 * Math.sin((2 * Math.PI * t) / (period * 1.37) + beat * 1.9)
           };
+          const shiftY = inLine.has(pl.id) ? 0.7 : 0.38;   // a back four slides across with the ball
           const zone = {
             x: anchor.x + 0.32 * (drift.x - start.x) + fidget.x,
-            y: anchor.y + 0.38 * (drift.y - start.y) + fidget.y
+            y: anchor.y + shiftY * (drift.y - start.y) + fidget.y
           };
+          // Only the depth is shared as a position: a back line holds one offside line, and a
+          // defender a metre behind it is playing everyone onside. Sideways, each keeps its own
+          // zone — pulling them all towards a common point would have them converge on it, which
+          // is the opposite of moving together.
+          if (lineN && inLine.has(pl.id)) zone.x += (lineX - zone.x) * LINE_PULL;
           target = zone;
           let mark = null, markDist = 16;
           for (const other of play.players) {
@@ -1252,8 +1328,14 @@
         // instead makes it drift continuously, and a team of that never looks settled. The gear is
         // held until the one wanted is clearly different, so nobody flickers between two of them.
         const GEARS = [0, 1.4, 3.2, 5.5, 7.4];
+        // A back line steps as a unit, and what makes that happen is that they decide together.
+        // Leaving each defender to start moving when its own error crosses the threshold is what
+        // pulls them apart: the same shared shift reaches one of them now and the next in half a
+        // second, and four players doing the right thing at four different moments is not a line.
+        // So inside the line the gear is chosen from what the line as a whole needs to do.
+        const drive = inLine.has(pl.id) && lineEffort > 0 ? Math.max(effort, lineEffort) : effort;
         let pick = 0;
-        while (pick + 1 < GEARS.length && GEARS[pick + 1] <= Math.min(vmax, effort / ease)) pick++;
+        while (pick + 1 < GEARS.length && GEARS[pick + 1] <= Math.min(vmax, drive / ease)) pick++;
         // Standing perfectly still is rare in open play — a real fifteen seconds has one player in
         // twenty-five doing it, not one in four. With anywhere at all to be, a player walks.
         if (pick === 0 && effort > 0.08 && !pl.gk) pick = 1;
@@ -1314,7 +1396,10 @@
         y = prev.y + vy * step;
         x = lim(x, -2, 107);
         y = lim(y, -2, 70);
-        if (pl.gk) x = pl.team === "B" ? lim(x, 97, 105) : lim(x, 0, 8);
+        // A keeper is allowed off his line. Holding him inside eight metres of it was what kept him
+        // sitting on the goal while the ball was at the other end, where the tracking has him
+        // nineteen metres out, sweeping behind a high line.
+        if (pl.gk) x = pl.team === "B" ? lim(x, 85, 105) : lim(x, 0, 20);
         paths.get(pl.id).push([t, x, y]);
         now.set(pl.id, { x, y });
       }
