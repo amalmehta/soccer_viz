@@ -196,9 +196,14 @@
     .time { margin-left: auto; }
   }
   .note { margin: 0; font-size: 13px; color: var(--muted); }
+  /* The one place on the page that speaks to you rather than labelling something: what is at stake
+     before the ball moves, what it turned out to mean once it is in. It sits directly above the
+     picture, because that is where your eye already is, and it keeps its height whether or not it
+     has anything to say — a line that appears and disappears must not shove the pitch up and down
+     while you are watching a goal. */
   .stake {
-    margin: 0 0 10px; font-family: var(--display); font-size: clamp(15px, 2.4vw, 19px);
-    line-height: 1.35; color: var(--ink); max-width: 46ch;
+    margin: 0 0 12px; font-family: var(--display); font-size: clamp(15px, 2.4vw, 19px);
+    line-height: 1.35; color: var(--ink); max-width: 46ch; min-height: 2.7em;  /* until measured */
     opacity: 0; transition: opacity 500ms ease;
   }
   .stake.show { opacity: 1; }
@@ -412,12 +417,7 @@
       <select class="voice-select" id="voiceSelect" aria-label="Commentary voice" hidden></select>
     </div>
 
-    <p class="voice-hint" id="voiceOffer" hidden>
-      <span id="voiceOfferText"></span>
-      <button class="link-btn" id="voiceOfferYes" type="button">Use it</button>
-      <button class="link-btn" id="voiceOfferNo" type="button">No thanks</button>
-    </p>
-    <p class="voice-hint" id="voiceHint" hidden></p>
+    <p class="stake" id="stake"></p>
 
     <div class="media" id="media">
       <div class="pitch-wrap" id="pitchWrap">
@@ -430,22 +430,6 @@
         <figcaption><span id="footageSource">Real footage via YouTube</span> · <button class="link-btn" id="footageEdit" type="button">Change</button> · <button class="link-btn" id="footageRemove" type="button">Remove</button></figcaption>
       </figure>
     </div>
-
-    <div class="footage-tools" id="footageTools" hidden>
-      <p class="footage-note" id="footageBlocked" hidden></p>
-      <button class="btn" id="footageAdd" type="button">+ Add real footage</button>
-      <form class="footage-form" id="footageForm" hidden>
-        <label for="footageUrl">YouTube link</label>
-        <input id="footageUrl" type="url" placeholder="https://www.youtube.com/watch?v=…" autocomplete="off">
-        <label for="footageStart">Starts at</label>
-        <input id="footageStart" type="text" inputmode="numeric" placeholder="1:35" size="6" autocomplete="off">
-        <button class="btn primary" type="submit">Show beside the animation</button>
-        <button class="btn" type="button" id="footageCancel">Cancel</button>
-        <p class="footage-note" id="footageNote">Paste a clip of this moment. "Starts at" is where the video lines up with the start of the animation; a time in the link (t=95) works too.</p>
-      </form>
-    </div>
-
-    <p class="stake" id="stake" hidden></p>
 
     <div class="caption-row">
       <span class="caption-time" id="captionTime"></span>
@@ -470,6 +454,25 @@
         <button data-speed="1" aria-pressed="true">1×</button>
         <button data-speed="2" aria-pressed="false">2×</button>
       </div>
+    </div>
+    <p class="voice-hint" id="voiceOffer" hidden>
+      <span id="voiceOfferText"></span>
+      <button class="link-btn" id="voiceOfferYes" type="button">Use it</button>
+      <button class="link-btn" id="voiceOfferNo" type="button">No thanks</button>
+    </p>
+    <p class="voice-hint" id="voiceHint" hidden></p>
+    <div class="footage-tools" id="footageTools" hidden>
+      <p class="footage-note" id="footageBlocked" hidden></p>
+      <button class="btn" id="footageAdd" type="button">+ Add real footage</button>
+      <form class="footage-form" id="footageForm" hidden>
+        <label for="footageUrl">YouTube link</label>
+        <input id="footageUrl" type="url" placeholder="https://www.youtube.com/watch?v=…" autocomplete="off">
+        <label for="footageStart">Starts at</label>
+        <input id="footageStart" type="text" inputmode="numeric" placeholder="1:35" size="6" autocomplete="off">
+        <button class="btn primary" type="submit">Show beside the animation</button>
+        <button class="btn" type="button" id="footageCancel">Cancel</button>
+        <p class="footage-note" id="footageNote">Paste a clip of this moment. "Starts at" is where the video lines up with the start of the animation; a time in the link (t=95) works too.</p>
+      </form>
     </div>
     <div class="foot-row">
       <p class="note" id="note"></p>
@@ -2891,12 +2894,16 @@
     // about first, then whoever is nearest the ball — and one that would land on top of a name
     // already written is tried on the other side of its body, then dropped. A name missing from a
     // ruck is no loss; an illegible pile of them is.
+    const focus = focusAt(play, t);
+    const reach = 22 - 15 * focus;              // metres from the ball that still earn a name
+    const most = Math.round(8 - 6 * focus);     // and at the strike, only two of them
     const named = states
       .filter(s => s.pl.name)
       .map(s => ({ s, gap: Math.hypot(pathPos(R.byId[s.pl.id].path, t).x - ballNow.x,
                                       pathPos(R.byId[s.pl.id].path, t).y - ballNow.y) }))
-      .filter(n => n.s.pl.star || n.gap <= 22)
-      .sort((a, b) => (b.s.pl.star ? 1 : 0) - (a.s.pl.star ? 1 : 0) || a.gap - b.gap);
+      .filter(n => n.s.pl.star || n.gap <= reach)
+      .sort((a, b) => (b.s.pl.star ? 1 : 0) - (a.s.pl.star ? 1 : 0) || a.gap - b.gap)
+      .slice(0, most);
     const placed = [];
     const lineH = cssW < 520 ? 12 : 14;
     for (const { s } of named) {
@@ -3192,7 +3199,9 @@
   const stakeEl = $("stake");
   let feedRows = [];
 
-  const fmt = s => `${Math.floor(s / 60)}:${(s % 60).toFixed(1).padStart(4, "0")}`;
+  // Clamped, because a clip swapping for another one can leave the clock a hair below zero for
+  // a frame, and Math.floor of that prints "-1:-0.2" across the controls.
+  const fmt = s => { const v = Math.max(0, s || 0); return `${Math.floor(v / 60)}:${(v % 60).toFixed(1).padStart(4, "0")}`; };
 
   // How wound up the voice is. The crowd's own figure reacts to what has just happened, which makes
   // a commentator who is always a beat behind the move. Real commentary tightens on the way in: the
@@ -3230,8 +3239,10 @@
   // nobody has written it down the app puts together what it already knows — the competition, the
   // minute, the scoreline it is about to change — because even "a final, and this makes it two"
   // is more than a bare pitch tells you.
-  function stakeFor(play) {
-    if (play.stake) return play.stake;
+  // The situation, in the words a report would use: the round, the time on the clock, the score.
+  // It is built from what every clip already carries, so it exists for all twenty-five of them and
+  // not only the ones somebody has written a sentence for.
+  function situationFor(play) {
     const bits = [];
     // "Quarter-final" and "semi-final" both contain the word final, so the round has to be read from
     // the longest match, not the first one that hits.
@@ -3255,6 +3266,49 @@
     bits.push(a === b ? `level at ${a}–${b}` : `${a}–${b}`);
     if (!bits.length) return "";
     const line = bits.join(", ") + ".";
+    return line.charAt(0).toUpperCase() + line.slice(1);
+  }
+
+  // What the goal changed, for the twenty-four clips nobody has written a sentence for.
+  //
+  // One clip has an ending written by hand — di Maria's, where the thing worth saying is that France
+  // had not had a kick and still came back and drew it. Nothing computes that, and nothing should
+  // pretend to. But most of what makes an ending land is not outside knowledge at all: it is the
+  // arithmetic everyone in the ground is doing while the net is still moving. What is it now, and how
+  // long is left. A goal that makes it one-three with thirty-six minutes to play is a different
+  // object from one that makes it three-one with four, and the clip already knows which it is.
+  //
+  // So: what the score became, said as the change it was rather than as a number, and the time
+  // remaining. Only what the clip itself establishes — never what happened afterwards.
+  const COUNT = ["nil", "one", "two", "three", "four", "five", "six", "seven", "eight"];
+  const spell = n => COUNT[n] || String(n);
+
+  function timeLeft(play) {
+    const mins = parseInt(play.clock, 10);
+    if (!Number.isFinite(mins)) return "";
+    const extra = /extra time/i.test(play.subtitle) || mins > 95;
+    if (extra) return mins >= 116 ? "with seconds of extra time left"
+      : `with ${spell(Math.max(1, 120 - mins))} minutes of extra time left`;
+    if (mins >= 90) return "with the ninety minutes already gone";
+    const left = 90 - mins;
+    return `with ${spell(left)} minutes left`;
+  }
+
+  function consequenceFor(play) {
+    const goal = play.events.find(e => e.type === "goal");
+    if (!goal) return "";
+    const was = play.score.slice();
+    const i = goal.team === "A" ? 0 : 1;
+    const now = was.slice(); now[i]++;
+    const mine = now[i], theirs = now[1 - i], gapWas = was[i] - was[1 - i], gap = mine - theirs;
+    // One goal can only move the gap by one, so there is no "behind to in front" case to write
+    const what = gap === 0 ? "Level"
+      : gap < 0 ? `Still ${spell(-gap)} behind`
+      : was[0] === 0 && was[1] === 0 ? "The deadlock broken"
+      : gapWas === 0 ? "In front"
+      : `${spell(mine)}\u2013${spell(theirs)}`;
+    const when = timeLeft(play);
+    const line = when ? `${what}, ${when}.` : `${what}.`;
     return line.charAt(0).toUpperCase() + line.slice(1);
   }
 
@@ -3286,6 +3340,27 @@
     return rate;
   }
 
+  // How much the drawing should narrow to the people the moment is about. Through the build-up a
+  // plan view names everyone near the ball, and that is what makes it useful — you can read the
+  // shape. At the strike the same rule puts six names in one penalty area and the goal arrives as
+  // a smear of text, which is precisely what someone drawing this by hand would never do. So as
+  // the goal closes in the page stops naming the crowd: the radius tightens and the list is cut
+  // back to the player it is about and whoever is nearest the ball. It opens out again afterwards.
+  function focusAt(play, t) {
+    const ease = u => u * u * (3 - 2 * u);
+    let f = 0;
+    for (const ev of play.events) {
+      if (ev.type === "shot") {
+        if (t > ev.t - 1.2 && t < ev.t) f = Math.max(f, 0.55 * ease((t - ev.t + 1.2) / 1.2));
+      } else if (ev.type === "goal") {
+        if (t >= ev.t - 1.2 && t < ev.t) f = Math.max(f, ease((t - ev.t + 1.2) / 1.2));
+        else if (t < ev.t + 2.4) f = 1;
+        else if (t < ev.t + 5) f = Math.max(f, 1 - ease((t - ev.t - 2.4) / 2.6));
+      }
+    }
+    return f;
+  }
+
   function scoreAt(play, time) {
     const sc = play.score.slice();
     for (const ev of play.events) if (ev.type === "goal" && ev.t <= time) sc[ev.team === "A" ? 0 : 1]++;
@@ -3306,13 +3381,13 @@
     // Before anything moves: what is at stake. Once the ball is in: what it turned out to mean. In
     // between, nothing — the move itself is not the place for words.
     const goalAt = Math.min(...play.events.filter(e => e.type === "goal").map(e => e.t), Infinity);
-    const after = Number.isFinite(goalAt) && t > goalAt + 0.6 ? play.aftermath : "";
-    const before = t < 0.35 ? stakeFor(play) : "";
+    const after = Number.isFinite(goalAt) && t > goalAt + 0.6 ? (play.aftermath || consequenceFor(play)) : "";
+    const before = t < 0.35 ? (play.stake || situationFor(play)) : "";
     const line = after || before;
     if (line !== shownStake) {
       shownStake = line;
+      // The slot keeps its space, so only the words fade
       stakeEl.textContent = line;
-      stakeEl.hidden = !line;
       stakeEl.classList.toggle("show", !!line);
     }
 
@@ -3408,6 +3483,23 @@
     } else render();
   }
 
+  // Both of a clip's lines go in the one slot, and on a narrow screen they do not wrap to the same
+  // number of lines — so a fixed height is either wrong or wasteful. Measure the two for this clip,
+  // at this width, and hold the taller. Nothing then moves when the words change at the goal.
+  function sizeStakeSlot(play) {
+    const open = play.stake || situationFor(play);
+    const close = play.aftermath || consequenceFor(play);
+    stakeEl.style.minHeight = "0px";
+    let tall = 0;
+    for (const text of [open, close]) {
+      if (!text) continue;
+      stakeEl.textContent = text;
+      tall = Math.max(tall, stakeEl.scrollHeight);
+    }
+    stakeEl.textContent = "";
+    stakeEl.style.minHeight = `${tall}px`;
+  }
+
   function loadPlay(play, { autoplay }) {
     hushCommentary();
     spokenIndex = -1;
@@ -3416,6 +3508,7 @@
     t = 0;
     shownCaption = -2;
     shownStake = null;
+    sizeStakeSlot(play);
     shownScore = "";
     shownBall = "";
     const { teams } = play;
@@ -4220,11 +4313,15 @@
       title.textContent = play.title;
       const meta = document.createElement("span");
       meta.className = "pi-meta";
+      // What a row says about a clip decides whether the list is a catalogue or a set of situations.
+      // "LIV v MIL · 2005 · 20s" is filing-card information: it tells you where a thing is kept.
+      // "A final, on 54 minutes, 0–3" tells you why you would want to watch it. The kit colours
+      // beside each row already carry who is playing.
       const first = (play.subtitle.split("·")[0] || "").trim();
-      const year = yearOf(play);
-      meta.textContent = year
-        ? `${play.teams.A.short} v ${play.teams.B.short} · ${year} · ${Math.round(play.duration)}s`
-        : `${first ? first + " · " : ""}${Math.round(play.duration)}s`;
+      // Always the situation here, never a clip's own written sentence: a list wants one kind of
+      // line down its length, and a paragraph of prose in one row among twenty-five breaks the
+      // column. The written sentence belongs above the pitch, where there is room for it.
+      meta.textContent = situationFor(play).replace(/\.$/, "") || `${first} · ${Math.round(play.duration)}s`;
       const kits = document.createElement("span");
       kits.className = "pi-kits";
       for (const side of ["A", "B"]) {
