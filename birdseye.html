@@ -193,6 +193,8 @@
     font: inherit; color: var(--accent); text-decoration: underline; text-underline-offset: 2px;
   }
   .link-btn + .link-btn { color: var(--muted); }
+  .afterward { display: block; margin: 4px 0 0; padding: 0; font-size: 15px; }
+  .analysis.held > :not(.afterward) { display: none; }
   .looks { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; }
   .media { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; align-items: start; }
   /* Side by side at equal height: the pitch is 113:76, the video 16:9 */
@@ -466,6 +468,7 @@
       <ol id="feedBody"></ol>
     </section>
     <section class="analysis" id="analysis" hidden>
+      <button class="link-btn afterward" id="readAnalysis" type="button" hidden>Read what happened and why →</button>
       <h2>Analysis</h2>
       <div id="analysisBody"></div>
       <div class="lessons" id="lessons" hidden>
@@ -3175,6 +3178,37 @@
 
   const fmt = s => `${Math.floor(s / 60)}:${(s % 60).toFixed(1).padStart(4, "0")}`;
 
+  // How wound up the voice is. The crowd's own figure reacts to what has just happened, which makes
+  // a commentator who is always a beat behind the move. Real commentary tightens on the way in: the
+  // sentences get shorter and the pitch climbs through the last ten seconds before a goal, because
+  // the commentator can see it coming too. So the closer a line sits to the finish, the harder it
+  // is said, whatever the crowd is doing.
+  function moodAt(lineT) {
+    const base = window.BirdseyeCrowd && current ? window.BirdseyeCrowd.levels(current, lineT).drama : 0.3;
+    if (!current) return base;
+    let closing = 0;
+    for (const ev of current.play.events) {
+      if (ev.type !== "goal") continue;
+      const lead = ev.t - lineT;
+      if (lead >= 0 && lead < 10) closing = Math.max(closing, Math.pow(1 - lead / 10, 1.6));
+    }
+    return Math.min(1, base + 0.38 * closing);
+  }
+
+  // Before you have watched it, four labelled paragraphs under the pitch are a gallery label telling
+  // you what you are about to see. Afterwards they are the thing you actually want. So they are held
+  // back until the move has played out — not hidden, there is a line to open them at any point, but
+  // not put in front of the goal either. Watching it through opens them on its own, and from then on
+  // this clip keeps them open.
+  const analysisSection = $("analysis"), readAnalysis = $("readAnalysis");
+  let analysisOpen = false;
+  function holdAnalysis(hold) {
+    analysisOpen = !hold;
+    analysisSection.classList.toggle("held", hold);
+    readAnalysis.hidden = !hold;
+  }
+  readAnalysis.addEventListener("click", () => holdAnalysis(false));
+
   // ---------- What is riding on it ----------
   // A goal lands differently when you know what it costs. Clips can say so themselves, and where
   // nobody has written it down the app puts together what it already knows — the competition, the
@@ -3331,6 +3365,7 @@
     if (t >= current.play.duration) {
       t = current.play.duration;
       setPlaying(false, true);
+      holdAnalysis(false);              // watched it through: the words have been earned
     }
     speakCommentary();
     crowdTick();
@@ -3380,6 +3415,7 @@
       k.title = teams[side].name;
     }
     $("note").textContent = play.note;
+    holdAnalysis(play.analysis.length > 0);
     $("analysisBody").replaceChildren(...play.analysis.map(a => {
       const para = document.createElement("p");
       if (a.label) {
@@ -3783,7 +3819,7 @@
     // Anything better than a plain system voice (Premium, Natural, Enhanced, or Chrome's Google
     // voices) already carries its own intonation, so the delivery only nudges it
     const good = !!voice && voiceQuality(voice) >= 60;
-    const mood = window.BirdseyeCrowd && current ? window.BirdseyeCrowd.levels(current, line.t).drama : 0.3;
+    const mood = moodAt(line.t);
     phrases.forEach((phrase, i) => {
       const d = deliveryFor(phrase, mood, good, phrases.length > 1 ? (0.12 * i) / (phrases.length - 1) : 0);
       // Behind the play, a commentator picks up the pace rather than letting it all arrive late
@@ -3828,7 +3864,7 @@
   // pause. Each phrase is rendered at its own pace and played at its own level, so the emphasis
   // lands where the writing put it, and the joins fall on punctuation where a speaker breathes.
   function sayLineNeural(line, phrases) {
-    const mood = window.BirdseyeCrowd && current ? window.BirdseyeCrowd.levels(current, line.t).drama : 0.3;
+    const mood = moodAt(line.t);
     const parts = phrases.map((phrase, i) => {
       const d = deliveryFor(phrase, mood, true, phrases.length > 1 ? (0.12 * i) / (phrases.length - 1) : 0);
       const behind = Math.max(0, t - line.t);
