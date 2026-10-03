@@ -103,6 +103,10 @@ function check(raw) {
     for (const e of list || []) if (PRONOUN.test(e.text || "")) errors.push(`${k}: "${e.text}" uses he/she; use the player's name or role`);
   }
   if (PRONOUN.test(raw.note || "")) errors.push("note uses he/she; use names or roles");
+  for (const k of ["stake", "aftermath"]) {
+    if (PRONOUN.test(raw[k] || "")) errors.push(`${k} uses he/she; use names or roles`);
+    if ((raw[k] || "").length > 160) errors.push(`${k} is ${raw[k].length} characters; keep it under 160`);
+  }
   if ((raw.note || "").length > 400) errors.push(`note is ${raw.note.length} characters; keep it under 400`);
 
   // Special actions must line up with the ball
