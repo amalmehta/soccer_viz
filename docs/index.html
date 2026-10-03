@@ -8,8 +8,16 @@
 <meta name="theme-color" content="#11241A">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="canonical" href="https://amalmehta.github.io/soccer_viz/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Birdseye FC">
+<meta property="og:title" content="Birdseye FC">
+<meta property="og:description" content="Famous goals and classic moves, drawn from above.">
+<meta property="og:url" content="https://amalmehta.github.io/soccer_viz/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Birdseye FC">
+<meta name="twitter:description" content="Famous goals and classic moves, drawn from above.">
 <style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}.gen[hidden]+.lib{border-top:0;padding-top:0}</style>
 <script>window.BIRDSEYE_STANDALONE = true;</script>
 <title>Birdseye FC</title>
@@ -143,12 +151,25 @@
     position: relative; border-radius: 10px; overflow: hidden;
     background: var(--grass-edge); box-shadow: 0 1px 0 var(--shadow), 0 14px 32px -18px var(--shadow);
   }
+  /* Turned upright the canvas is narrower than the column it sits in, so it is centred rather than
+     left against one edge, and the panel shrinks to the drawing instead of leaving a band of felt */
+  .pitch-wrap.upright { display: flex; justify-content: center; background: none; box-shadow: none; }
+  .pitch-wrap.upright canvas {
+    width: auto; border-radius: 10px;
+    box-shadow: 0 1px 0 var(--shadow), 0 14px 32px -18px var(--shadow);
+  }
   canvas { display: block; width: 100%; }
 
   .caption-row { display: flex; gap: 12px; align-items: baseline; min-height: calc(1.35em * 2); font-size: 19px; }
   .caption-time { font: 500 13px/1 var(--mono); color: var(--muted); flex: none; width: 3.2em; }
-  .caption { margin: 0; font-weight: 600; line-height: 1.35; text-wrap: balance; transition: opacity 0.25s; }
-  .caption.fade { opacity: 0.15; }
+  .caption { margin: 0; font-weight: 600; line-height: 1.35; text-wrap: balance; min-width: 0; }
+  /* The line just gone stays while there is still reading left in it, set smaller and lighter so
+     the eye knows which one is now. Subtitlers have always done this: two lines, because a reader
+     who is a beat behind should not lose the sentence. */
+  .cap-now, .cap-prev { display: block; transition: opacity 0.25s; }
+  .cap-prev { font-size: 0.82em; font-weight: 500; color: var(--muted); margin-bottom: 2px; }
+  .cap-prev:empty { display: none; }
+  .caption.fade .cap-now { opacity: 0.15; }
   .ball-meter {
     flex: none; margin-left: auto; align-self: center; padding: 3px 9px; border-radius: 999px;
     font: 500 12px/1.5 var(--mono); color: var(--muted); background: var(--chip); white-space: nowrap;
@@ -192,8 +213,43 @@
   .speed button + button { border-left: 1px solid var(--rule); }
   .speed button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
   @media (max-width: 560px) {
-    .scrub { order: 5; flex-basis: 100%; }
+    /* The bar you drag goes directly under the caption, where a thumb already is, rather than
+       below the play button and the speed switches and therefore below the fold */
+    .scrub { order: -1; flex-basis: 100%; }
     .time { margin-left: auto; }
+  }
+  /* On a phone the masthead, the title, the scoreline, two rows of buttons and a voice menu used to
+     fill four hundred pixels before the pitch began, which left the scrub bar below the fold --
+     you could start a clip but not move through one. Everything above the picture is tightened so
+     the drawing, its caption and its controls arrive on the first screen. */
+  @media (max-width: 560px) {
+    .top { margin-bottom: 14px; }
+    .tag { display: none; }
+    .stage { gap: 10px; }
+    h1 { font-size: clamp(25px, 7.4vw, 32px); }
+    .eyebrow { font-size: 11px; letter-spacing: 0.06em; }
+    .stage-head { gap: 8px 16px; }
+    .board { gap: 9px; }
+    .score { font-size: 30px; }
+    .team { font-size: 16px; }
+    .looks { gap: 6px 7px; }
+    .looks .btn, .voice-btn { padding: 6px 11px; font-size: 13px; }
+    .voice-select { max-width: 100%; font-size: 13px; }
+    .caption-row { font-size: 17px; }
+    /* Settings are not the reason anybody opened this. On a phone the picture, the line under it
+       and the bar you drag come first, and the switches follow underneath, which is what gets the
+       scrubber onto the first screen instead of four hundred pixels below it. */
+    .update-bar { order: -1; }
+    .stake { order: 1; }
+    .media { order: 2; }
+    .caption-row { order: 3; }
+    .controls { order: 4; }
+    .looks { order: 5; }
+    .voice-hint { order: 6; }
+    .footage-tools { order: 7; }
+    .foot-row { order: 8; }
+    .feed { order: 9; }
+    .analysis { order: 10; }
   }
   .note { margin: 0; font-size: 13px; color: var(--muted); }
   /* The one place on the page that speaks to you rather than labelling something: what is at stake
@@ -207,6 +263,10 @@
     opacity: 0; transition: opacity 500ms ease;
   }
   .stake.show { opacity: 1; }
+  .update-bar {
+    margin: 0; padding: 9px 12px; border: 1px solid var(--rule); border-radius: 10px;
+    background: var(--surface); font-size: 14px; color: var(--muted);
+  }
   .link-btn {
     border: 0; background: none; padding: 0 2px; margin-left: 8px; cursor: pointer;
     font: inherit; color: var(--accent); text-decoration: underline; text-underline-offset: 2px;
@@ -223,6 +283,13 @@
   .footage-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   .footage figcaption { font-size: 12.5px; color: var(--muted); }
   .link-btn { border: 0; background: none; padding: 0; font: inherit; color: var(--ink); text-decoration: underline; cursor: pointer; }
+  /* Hidden where there is no keyboard to press, rather than taking up a line on a phone */
+  .keys { margin: -4px 0 0; font-size: 12.5px; color: var(--muted); line-height: 2; }
+  .keys kbd {
+    font: 500 11px/1 var(--mono); color: var(--ink); background: var(--chip);
+    border: 1px solid var(--rule); border-radius: 4px; padding: 3px 5px; margin-right: 2px;
+  }
+  @media (hover: none), (max-width: 680px) { .keys { display: none; } }
   .footage-tools { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
   .footage-form { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; width: 100%; }
   .footage-form label { font-size: 13px; color: var(--muted); }
@@ -358,7 +425,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .score.pop, .status.working::before { animation: none; }
-    .caption { transition: none; }
+    .cap-now, .cap-prev { transition: none; }
   }
 </style>
 
@@ -417,6 +484,11 @@
       <select class="voice-select" id="voiceSelect" aria-label="Commentary voice" hidden></select>
     </div>
 
+    <p class="update-bar" id="updateBar" hidden>
+      A newer version of this page has finished downloading.
+      <button class="link-btn" id="updateNow" type="button">Reload</button>
+    </p>
+
     <p class="stake" id="stake"></p>
 
     <div class="media" id="media">
@@ -433,7 +505,7 @@
 
     <div class="caption-row">
       <span class="caption-time" id="captionTime"></span>
-      <p class="caption" id="caption" aria-live="polite"></p>
+      <p class="caption" id="caption" aria-live="polite"><span class="cap-prev" id="capPrev"></span><span class="cap-now" id="capNow"></span></p>
       <span class="ball-meter" id="ballMeter" title="How the ball is travelling right now"></span>
     </div>
 
@@ -474,13 +546,20 @@
         <p class="footage-note" id="footageNote">Paste a clip of this moment. "Starts at" is where the video lines up with the start of the animation; a time in the link (t=95) works too.</p>
       </form>
     </div>
+    <p class="keys">
+      <kbd>space</kbd> play &nbsp;<kbd>&larr;</kbd><kbd>&rarr;</kbd> a second &nbsp;<kbd>shift</kbd> a tenth
+      &nbsp;<kbd>,</kbd><kbd>.</kbd> a frame &nbsp;<kbd>home</kbd><kbd>end</kbd> ends
+    </p>
+
     <div class="foot-row">
       <p class="note" id="note"></p>
       <div class="video" id="videoControls">
         <span class="video-status" id="videoStatus" role="status"></span>
+        <button class="btn" id="shareBtn" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6.6 9.4a3 3 0 0 0 4.5.3l2-2a3 3 0 0 0-4.2-4.2l-1 1 1 1 1-1a1.6 1.6 0 0 1 2.2 2.2l-2 2a1.6 1.6 0 0 1-2.3 0zM9.4 6.6a3 3 0 0 0-4.5-.3l-2 2a3 3 0 0 0 4.2 4.2l1-1-1-1-1 1a1.6 1.6 0 0 1-2.2-2.2l2-2a1.6 1.6 0 0 1 2.3 0z"/></svg><span id="shareLabel">Copy link</span></button>
         <select id="videoFormat" aria-label="Video format"></select>
         <button class="btn" id="videoBtn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M7 1.5h2v7.1l2.6-2.6 1.4 1.4L8 12.4 3 7.4 4.4 6 7 8.6zM2 13h12v2H2z"/></svg>Download video</button>
       </div>
+      <p class="note" id="videoVoiceNote" hidden></p>
     </div>
     <section class="feed" id="feed" hidden>
       <h3>Play-by-play <span class="live" id="feedLive">Live</span></h3>
@@ -528,11 +607,11 @@
 
 <!-- Video export only: deferred so a slow CDN can never hold up the page -->
 <script defer src="https://cdn.jsdelivr.net/npm/mp4-muxer@5.1.3/build/mp4-muxer.js"></script>
-<script src="sound/recordings.js?v=6627ab4aeb"></script>
-<script src="sound/crowd.js?v=6627ab4aeb"></script>
-<script src="sound/score.js?v=6627ab4aeb"></script>
-<script src="sound/voice.js?v=6627ab4aeb"></script>
-<script src="library/clips.js?v=6627ab4aeb"></script>
+<script src="sound/recordings.js?v=588b059359"></script>
+<script src="sound/crowd.js?v=588b059359"></script>
+<script src="sound/score.js?v=588b059359"></script>
+<script src="sound/voice.js?v=588b059359"></script>
+<script src="library/clips.js?v=588b059359"></script>
 <script>
 (() => {
   "use strict";
@@ -764,6 +843,14 @@
   };
 
   // ---------- Validation (used for built-in and AI plays) ----------
+  // Lower case, words joined by hyphens, accents folded down, and nothing that would need escaping
+  // in a URL -- so "Di Maria in the Lusail final" can be linked to as di-maria-in-the-lusail-final.
+  function slugify(v) {
+    if (typeof v !== "string") return "";
+    return v.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60);
+  }
+
   const EVENT_TYPES = new Set(["pass", "shot", "goal", "save", "tackle"]);
   const PATTERNS = new Set(["plain", "stripes", "hoops", "halves", "sash"]);
   // Stylised player appearance: a handful of features that still read at sprite size
@@ -943,8 +1030,12 @@
       .slice(0, 5);
 
     const score = Array.isArray(raw.score) ? raw.score : [];
+    const name = str(raw.title, 60) || "Untitled play";
     return {
-      title: str(raw.title, 60) || "Untitled play",
+      // What a link to this clip says. Built-in clips take it from their file name; a play made
+      // here takes it from its own title, so it can be linked to as soon as it exists.
+      id: slugify(raw.id) || slugify(name) || "play",
+      title: name,
       subtitle: str(raw.subtitle, 110),
       clock: str(raw.clock, 8),
       duration,
@@ -2596,15 +2687,44 @@
     arc(W, H, 1, Math.PI, Math.PI * 1.5);
   }
 
+  // A pitch is two and a half times wider than it is deep, and a phone is the other way round, so
+  // laying one on the other leaves a letterbox a finger tall with twenty-two people in it. The
+  // renderer has always been able to turn the pitch a quarter turn -- it is how the vertical video
+  // format works, with play running up the screen the way it does on every highlight anybody has
+  // watched on a phone -- and that capability was simply never offered to the page itself.
+  //
+  // Turned, the same phone gives the pitch something over twice the area. The renderer keeps
+  // working in landscape pitch units throughout and the canvas is the thing that is portrait, so
+  // nothing downstream of here needs to know. The height is capped against the window so that the
+  // caption under the picture and the controls under that stay on the first screen.
+  const PORTRAIT_BELOW = 560;      // px of available width
+  const PORTRAIT_MAX_VH = 0.52;
+
   function resize() {
     const wrap = document.getElementById("pitchWrap");
-    cssW = wrap.clientWidth;
-    cssH = (cssW * (H + 2 * M)) / (W + 2 * M);
+    const across = wrap.clientWidth;
+    if (!across) return;
     dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    rotated = across < PORTRAIT_BELOW;
+    if (rotated) {
+      cssH = across;                                        // the pitch's depth runs across the phone
+      cssW = (cssH * (W + 2 * M)) / (H + 2 * M);            // and its length runs up it
+      const cap = (window.innerHeight || 800) * PORTRAIT_MAX_VH;
+      if (cssW > cap) { cssW = cap; cssH = (cssW * (H + 2 * M)) / (W + 2 * M); }
+      canvas.style.width = cssH + "px";
+      canvas.style.height = cssW + "px";
+      canvas.width = Math.round(cssH * dpr);
+      canvas.height = Math.round(cssW * dpr);
+    } else {
+      cssW = across;
+      cssH = (cssW * (H + 2 * M)) / (W + 2 * M);
+      canvas.style.width = "";                              // back to the stylesheet's full width
+      canvas.style.height = cssH + "px";
+      canvas.width = Math.round(cssW * dpr);
+      canvas.height = Math.round(cssH * dpr);
+    }
+    wrap.classList.toggle("upright", rotated);
     scale = cssW / (W + 2 * M);
-    canvas.style.height = cssH + "px";
-    canvas.width = Math.round(cssW * dpr);
-    canvas.height = Math.round(cssH * dpr);
     readColors();
     drawPitchLayer();
     render();
@@ -3195,7 +3315,12 @@
   const playBtn = $("playBtn");
   let current = null;
   let t = 0, playing = false, speed = 1, lastFrame = 0, exporting = false;
-  let shownCaption = -2, shownScore = "", shownMoment = -2, shownBall = "", shownStake = null;
+  let shownCaption = -2, shownScore = "", shownMoment = -2, shownBall = "", shownStake = null, shownPrev = null;
+  const capNow = $("capNow"), capPrev = $("capPrev");
+  // Fifteen characters a second is an unhurried read of a short line on screen; subtitling practice
+  // sits between twelve and twenty depending on how much else the eye is doing, and here the eye is
+  // also watching a goal.
+  const readingTime = text => text.length / 15;
   const stakeEl = $("stake");
   let feedRows = [];
 
@@ -3396,11 +3521,19 @@
       const el = $("caption");
       el.classList.add("fade");
       requestAnimationFrame(() => {
-        el.textContent = ci >= 0 ? play.captions[ci].text : "";
+        capNow.textContent = ci >= 0 ? play.captions[ci].text : "";
         $("captionTime").textContent = ci >= 0 ? fmt(play.captions[ci].t).replace(/\.\d$/, "") : "";
         el.classList.remove("fade");
       });
     }
+    // Most of this writing used to be unreadable: measured against a comfortable fifteen characters
+    // a second, seven captions in ten were replaced before they could be finished, some of them
+    // after half a second. The move is the move — it cannot be slowed down to suit the reading — so
+    // the line that has just gone stays up until it has had the time it needed, and then leaves.
+    // That alone takes the unreadable share from seven in ten to a third.
+    const keep = ci > 0 ? play.captions[ci - 1] : null;
+    const lingering = keep && t - keep.t < readingTime(keep.text) ? keep.text : "";
+    if (lingering !== shownPrev) { shownPrev = lingering; capPrev.textContent = lingering; }
 
     let mi = -1;
     current.moments.forEach((m, i) => { if (m.t <= t + 1e-6) mi = i; });
@@ -3500,6 +3633,59 @@
     stakeEl.style.minHeight = `${tall}px`;
   }
 
+  // Same argument for the captions, which now come in pairs and so vary by a whole line: find this
+  // clip's tallest pair at this width and hold it, rather than letting the controls walk down the
+  // page every time a long caption lands.
+  function sizeCaptionSlot(play) {
+    const row = capNow.closest(".caption-row");
+    row.style.minHeight = "0px";
+    const was = [capPrev.textContent, capNow.textContent];
+    let tall = 0;
+    (play.captions || []).forEach((c, i) => {
+      capNow.textContent = c.text;
+      const before = play.captions[i - 1];
+      capPrev.textContent = before && c.t - before.t < readingTime(before.text) ? before.text : "";
+      tall = Math.max(tall, row.scrollHeight);
+    });
+    [capPrev.textContent, capNow.textContent] = was;
+    row.style.minHeight = `${tall}px`;
+  }
+
+  // ---------- A link to each goal ----------
+  // Everything here is one page with twenty-five things in it, and until now there was no way to
+  // say which one you were looking at. You could not send somebody Iniesta's goal, bookmark the
+  // one you were studying, or press Back after wandering into another clip -- which for an app
+  // whose whole purpose is showing people famous goals is the thing most worth fixing.
+  //
+  // The clip's name goes in the query string, the browser's history gets an entry per clip, and
+  // the tab is titled with what is in it. Deliberately not the hash: a hash is for a place inside
+  // a page, and this is a different thing to look at.
+  function playUrl(play) {
+    const url = new URL(location.href);
+    url.searchParams.set("clip", play.id);
+    url.hash = "";
+    return url;
+  }
+
+  // This page also runs inside Claude's viewer, where the document is sandboxed and the History API
+  // throws rather than working. An address that cannot be written is a small loss; a library whose
+  // rows stop opening clips is not, so every call to it is allowed to fail.
+  function setUrl(play, how) {
+    try { history[how]({ clip: play.id }, "", playUrl(play)); } catch (e) { /* no addresses here */ }
+  }
+
+  function openPlay(play, { push = false, autoplay = true } = {}) {
+    if (push && (!current || current.play !== play)) setUrl(play, "pushState");
+    loadPlay(play, { autoplay });
+  }
+
+  // Back and forward move between clips rather than leaving the app
+  window.addEventListener("popstate", () => {
+    const want = new URLSearchParams(location.search).get("clip");
+    const found = want && library.find(i => i.play.id === want);
+    if (found) loadPlay(found.play, { autoplay: false });
+  });
+
   function loadPlay(play, { autoplay }) {
     hushCommentary();
     spokenIndex = -1;
@@ -3507,12 +3693,17 @@
     warmVoice(play);
     t = 0;
     shownCaption = -2;
+    shownPrev = null;
+    capPrev.textContent = "";
+    capNow.textContent = "";
     shownStake = null;
     sizeStakeSlot(play);
+    sizeCaptionSlot(play);
     shownScore = "";
     shownBall = "";
     const { teams } = play;
     $("title").textContent = play.title;
+    document.title = `${play.title} \u00b7 Birdseye FC`;
     $("subtitle").textContent = play.subtitle;
     $("clock").textContent = play.clock;
     $("shortA").textContent = teams.A.short;
@@ -3632,12 +3823,44 @@
       document.querySelectorAll(".speed button").forEach(o => o.setAttribute("aria-pressed", String(o === b)));
     })
   );
+  // Stepping a second at a time is fine for finding a passage and useless for reading one. Someone
+  // asking why a defender went the wrong way wants the two frames either side of the moment the
+  // striker's hips turned, so the comma and full stop keys step a single frame and shift slows the
+  // arrows to a tenth of a second. The keys are listed under the pitch, because a shortcut nobody
+  // is told about may as well not exist.
+  const STEP_FRAME = 1 / 25;
+  function seek(by) {
+    hushCommentary();
+    t = Math.max(0, Math.min(current.play.duration, t + by));
+    setPlaying(false);
+    render();
+  }
   document.addEventListener("keydown", e => {
-    const tag = document.activeElement?.tagName;
-    if (tag === "TEXTAREA" || tag === "INPUT" || tag === "BUTTON" || !current) return;
+    const el = document.activeElement, tag = el?.tagName;
+    // Typing somewhere beats any shortcut; the scrubber already does the right thing with arrows
+    if (tag === "TEXTAREA" || tag === "INPUT" || tag === "SELECT" || el?.isContentEditable || !current) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    // Space on a focused button is that button being pressed, and clicking Play leaves it focused.
+    // Only space has to stand aside for that; the stepping keys mean nothing to a button, and
+    // taking them away after a click is how a documented shortcut turns out not to work.
+    if (tag === "BUTTON" && (e.key === " " || e.key === "Enter")) return;
+    const step = e.shiftKey ? 0.1 : 1;
     if (e.key === " " || e.key === "k") { e.preventDefault(); setPlaying(!playing); }
-    if (e.key === "ArrowRight") { t = Math.min(current.play.duration, t + 1); render(); }
-    if (e.key === "ArrowLeft") { t = Math.max(0, t - 1); render(); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); seek(step); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); seek(-step); }
+    else if (e.key === ".") { e.preventDefault(); seek(STEP_FRAME); }
+    else if (e.key === ",") { e.preventDefault(); seek(-STEP_FRAME); }
+    else if (e.key === "Home") { e.preventDefault(); seek(-current.play.duration); }
+    else if (e.key === "End") { e.preventDefault(); seek(current.play.duration); }
+  });
+
+  // Picture and sound are driven by two different clocks: the animation by requestAnimationFrame,
+  // which the browser stops when the tab is not visible, and the commentary and crowd by the audio
+  // clock, which does not stop. Leave the tab mid-move and the commentator carries on shouting over
+  // a frozen pitch, then you come back to a goal that has already been called. So playback pauses
+  // when the page goes away, and stays paused until it is asked to run again.
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden" && playing) setPlaying(false);
   });
 
   // ---------- Looks ----------
@@ -3779,6 +4002,7 @@
     savedVoiceName = voiceSelect.value;
     try { localStorage.setItem("birdseye.voiceName", savedVoiceName); } catch (e) { /* ignore */ }
     hushCommentary();
+    updateVideoVoiceNote();
     if (current) warmVoice(current.play);
     if (voiceOn) sayLine({ t, text: "Into the box… and it's in! What a goal!" });
   });
@@ -4048,6 +4272,7 @@
     try { localStorage.setItem("birdseye.voice", voiceOn ? "on" : "off"); } catch (e) { /* ignore */ }
     if (!voiceOn) hushCommentary();
     updateVoiceBtn();
+    updateVideoVoiceNote();
   });
   if (synth) {
     synth.onvoiceschanged = refreshVoices;
@@ -4265,6 +4490,35 @@
 
   // ---------- Library ----------
   const library = [];
+
+  // A goal somebody described and watched appear is the one thing on this page they made, and it
+  // was also the only thing that did not survive a reload -- the crowd setting, the chosen voice
+  // and the heat map were all kept, and the play was not. The label said "Yours this session",
+  // which was honest about a limitation nobody wanted. They are kept now, newest first, with a
+  // ceiling because browser storage is small and a play is a few tens of kilobytes; writing fails
+  // quietly on a full or blocked store, which costs the saving, not the clip on screen.
+  const MINE_KEY = "birdseye.mine", MINE_MAX = 12;
+
+  function myPlays() {
+    try { return JSON.parse(localStorage.getItem(MINE_KEY) || "[]"); } catch (e) { return []; }
+  }
+
+  function rememberMine(play) {
+    try {
+      const kept = myPlays().filter(p => p && p.id !== play.id);
+      kept.unshift(play);
+      while (kept.length) {
+        try { localStorage.setItem(MINE_KEY, JSON.stringify(kept.slice(0, MINE_MAX))); return; }
+        catch (e) { kept.pop(); }            // out of room: drop the oldest and try again
+      }
+    } catch (e) { /* storage unavailable: the clip still plays, it just will not be here later */ }
+  }
+
+  function forgetMine(id) {
+    try { localStorage.setItem(MINE_KEY, JSON.stringify(myPlays().filter(p => p && p.id !== id))); }
+    catch (e) { /* nothing to do */ }
+  }
+
   function addToLibrary(group, raw) {
     try {
       const play = normalizePlay(raw);
@@ -4280,6 +4534,9 @@
   addToLibrary("Moves", OVERLAP);
   // Iconic clips bundled from library/plays/*.json
   for (const clip of window.BirdseyeClips || []) addToLibrary("Clips", clip);
+  // Restored after the built-ins so a play kept from last time cannot shadow a clip of the same
+  // name, and quietly dropped if the shape of a play has changed since it was written
+  for (const mine of myPlays()) if (!addToLibrary("Yours", mine)) forgetMine(mine && mine.id);
 
   const yearOf = play => {
     // The match date comes last in the subtitle ("Premier League 2001–02 · … · 2 Mar 2002")
@@ -4300,7 +4557,7 @@
       if (item.group !== lastGroup) {
         const lbl = document.createElement("p");
         lbl.className = "group-label";
-        lbl.textContent = `${item.group === "Yours" ? "Yours this session" : item.group} · ${counts[item.group]}`;
+        lbl.textContent = `${item.group} · ${counts[item.group]}`;
         root.append(lbl);
         lastGroup = item.group;
       }
@@ -4331,7 +4588,7 @@
         kits.append(i);
       }
       btn.append(title, kits, meta);
-      btn.addEventListener("click", () => loadPlay(play, { autoplay: true }));
+      btn.addEventListener("click", () => openPlay(play, { push: true }));
       root.append(btn);
     }
   }
@@ -4436,8 +4693,16 @@ REQUEST: ${request}`;
         }
       });
       const play = normalizePlay(out);
+      // Two plays can easily be given the same title, and an address has to point at one of them
+      if (library.some(i => i.play.id === play.id)) {
+        let n = 2;
+        while (library.some(i => i.play.id === `${play.id}-${n}`)) n++;
+        play.id = `${play.id}-${n}`;
+      }
       library.push({ group: "Yours", play });
-      loadPlay(play, { autoplay: true });
+      rememberMine(play);
+      renderLibrary();
+      openPlay(play, { push: true });
       setStatus(`Ready: ${play.title}.`);
     } catch (e) {
       setStatus(copyFor(e));
@@ -4486,6 +4751,81 @@ REQUEST: ${request}`;
       fbSend.disabled = false;
     }
   });
+
+  // ---------- Commentary, for the video ----------
+  // Everything a downloaded clip needed in order to be worth sending somebody was already there
+  // except the voice: the crowd went into the file, the score went into the file, and the
+  // commentary -- the part written line by line for each goal -- stopped at the speaker. A clip
+  // shared without it is a silent diagram of a goal with a crowd noise over the top.
+  //
+  // Only the in-page neural voice can be put in a file. The browser's own speech synthesis will
+  // talk but will not hand over the samples, which is a limitation of the platform rather than a
+  // decision, so the export says so instead of quietly dropping the words.
+  //
+  // Timing is the one subtlety. The video runs on the drama clock -- it holds the instant the ball
+  // crosses the line -- so a line written at 21.25 s of play does not sit at 21.25 s of video. The
+  // frame list is already the map: times[i] is the play time of frame i, so frame i is at i/FPS
+  // seconds of video, and a line goes wherever its play time first appears.
+  function videoTimeOf(times, playTime, fps) {
+    let lo = 0, hi = times.length - 1;
+    if (playTime <= times[0]) return 0;
+    if (playTime >= times[hi]) return hi / fps;
+    while (lo < hi) {
+      const mid = (lo + hi) >> 1;
+      if (times[mid] < playTime) lo = mid + 1; else hi = mid;
+    }
+    return lo / fps;
+  }
+
+  async function renderCommentary(R, times, fps, sampleRate, onStatus) {
+    if (!neural || !isNeural(savedVoiceName || "")) return null;
+    const lines = (R.play.commentary || []).filter(l => l && l.text);
+    if (!lines.length) return null;
+    const id = savedVoiceName.slice("neural:".length);
+    const length = Math.ceil((times.length / fps + 2) * sampleRate);
+    const out = new AudioBuffer({ length, numberOfChannels: 1, sampleRate });
+    const data = out.getChannelData(0);
+    const spans = [];
+    let done = 0;
+    for (const line of lines) {
+      // Spoken exactly where it was written, so none of the catching-up the live reading has to do
+      const phrases = phrasesOf(line.text.replace(/^[\u2026\u2014\s]+/, ""));
+      if (!phrases.length) continue;
+      const mood = moodAt(line.t);
+      const parts = phrases.map((phrase, i) => {
+        const d = deliveryFor(phrase, mood, true, phrases.length > 1 ? (0.12 * i) / (phrases.length - 1) : 0);
+        return { text: d.text, speed: Math.max(0.85, Math.min(1.25, 0.92 + (d.rate - 1.06) * 0.5)), gain: d.volume };
+      });
+      const buf = await neural.renderLine(parts, id);
+      onStatus && onStatus(`Reading the commentary\u2026 ${Math.round((++done / lines.length) * 100)}%`);
+      if (!buf) continue;
+      const from = buf.getChannelData(0);
+      const at = Math.round(videoTimeOf(times, line.t, fps) * sampleRate);
+      const step = buf.sampleRate / sampleRate;          // the model renders at its own rate
+      const n = Math.floor(from.length / step);
+      for (let i = 0; i < n && at + i < length; i++) {
+        const u = i * step, k = Math.floor(u), f = u - k;
+        const a = from[k] || 0, b = from[k + 1] !== undefined ? from[k + 1] : a;
+        data[at + i] += a + (b - a) * f;
+      }
+      spans.push([at / sampleRate, (at + n) / sampleRate]);
+    }
+    return spans.length ? { buffer: out, spans } : null;
+  }
+
+  // What crowd.duck() does live, drawn as a curve: down fast when the commentator starts, back up
+  // slowly when the line ends, so the ground is not pulled out from under the noise.
+  function duckingGain(spans, i, sampleRate) {
+    const DOWN = 0.3, ATTACK = 0.06, RELEASE = 0.35;
+    const now = i / sampleRate;
+    let g = 1;
+    for (const [from, to] of spans) {
+      if (now >= from - ATTACK && now < from) g = Math.min(g, 1 - (1 - DOWN) * ((now - from + ATTACK) / ATTACK));
+      else if (now >= from && now < to) g = Math.min(g, DOWN);
+      else if (now >= to && now < to + RELEASE) g = Math.min(g, DOWN + (1 - DOWN) * ((now - to) / RELEASE));
+    }
+    return g;
+  }
 
   // ---------- Video download ----------
   // Frames are drawn offline (faster than real time) and encoded to H.264 MP4 with WebCodecs +
@@ -4863,25 +5203,38 @@ REQUEST: ${request}`;
       let audio = null;
       const wantCrowd = crowdOn && window.BirdseyeCrowd;
       const wantScore = scoreOn && window.BirdseyeScore;
-      if (config && (wantCrowd || wantScore) && window.AudioEncoder && window.AudioData) {
+      const wantVoice = voiceOn && neural && !neuralFailed && isNeural(savedVoiceName || "");
+      if (config && (wantCrowd || wantScore || wantVoice) && window.AudioEncoder && window.AudioData) {
         const audioConfig = { codec: "mp4a.40.2", sampleRate: 48000, numberOfChannels: 2, bitrate: 128000 };
         try {
           if ((await AudioEncoder.isConfigSupported(audioConfig)).supported) {
-            videoStatus.textContent = wantScore ? "Mixing sound…" : "Mixing crowd sound…";
+            videoStatus.textContent = "Mixing sound…";
+            const said = wantVoice
+              ? await renderCommentary(R, times, FPS, 48000, msg => { videoStatus.textContent = msg; })
+              : null;
+            videoStatus.textContent = "Mixing sound…";
             const tracks = [];
             if (wantCrowd) tracks.push(await window.BirdseyeCrowd.renderOffline(R, times, FPS, 48000));
             if (wantScore) tracks.push(await window.BirdseyeScore.renderOffline(R, times, FPS, 48000));
             const parts = tracks.filter(Boolean);
-            // Crowd and score are rendered apart and added together, sample by sample
-            let buffer = parts[0] || null;
-            if (parts.length > 1) {
-              const len = Math.max(...parts.map(b => b.length));
+            // Crowd and score are rendered apart and added together, sample by sample, then pulled
+            // down under the commentator the way they are pulled down live
+            const len = Math.max(said ? said.buffer.length : 0, 0, ...parts.map(b => b.length));
+            let buffer = null;
+            if (len) {
               const mix = new AudioBuffer({ length: len, numberOfChannels: 2, sampleRate: 48000 });
               for (let c = 0; c < 2; c++) {
                 const out = mix.getChannelData(c);
                 for (const part of parts) {
                   const from = part.getChannelData(Math.min(c, part.numberOfChannels - 1));
                   for (let i = 0; i < from.length; i++) out[i] += from[i];
+                }
+                if (said) {
+                  const voiceData = said.buffer.getChannelData(0);
+                  for (let i = 0; i < out.length; i++) {
+                    out[i] *= duckingGain(said.spans, i, 48000);
+                    out[i] += voiceData[i] || 0;
+                  }
                 }
                 for (let i = 0; i < out.length; i++) out[i] = Math.max(-1, Math.min(1, out[i]));
               }
@@ -4921,6 +5274,43 @@ REQUEST: ${request}`;
       render();
     }
   }
+  // Now that a clip has an address, give people a way to take it that does not involve reading the
+  // address bar. The share sheet where there is one -- a phone, mostly -- and the clipboard
+  // everywhere else, with the button saying what happened rather than a notification doing it.
+  const shareBtn = $("shareBtn"), shareLabel = $("shareLabel");
+  let shareSaying = 0;
+  function saidOnShare(word) {
+    shareLabel.textContent = word;
+    clearTimeout(shareSaying);
+    shareSaying = setTimeout(() => { shareLabel.textContent = "Copy link"; }, 2200);
+  }
+  shareBtn.addEventListener("click", async () => {
+    if (!current) return;
+    const url = playUrl(current.play).toString();
+    const data = { title: `${current.play.title} \u00b7 Birdseye FC`, url };
+    try {
+      if (navigator.share && navigator.canShare && navigator.canShare(data)) { await navigator.share(data); return; }
+      await navigator.clipboard.writeText(url);
+      saidOnShare("Link copied");
+    } catch (e) {
+      // A refused share sheet is the person changing their mind, not a failure worth reporting
+      if (e && e.name === "AbortError") return;
+      saidOnShare("Press \u2318C to copy");
+      try { window.prompt("Link to this clip", url); } catch (e2) { /* nothing more to offer */ }
+    }
+  });
+
+  // Say up front what the file will and will not contain, rather than letting somebody download a
+  // clip and find the commentator missing from it.
+  function updateVideoVoiceNote() {
+    const el = $("videoVoiceNote");
+    if (!voiceOn || !neural) { el.hidden = true; return; }
+    const canSay = !neuralFailed && isNeural(savedVoiceName || "");
+    el.hidden = canSay;
+    if (!canSay) el.textContent = "The video will have the crowd but no commentary: this machine's own voice can be heard but not recorded. Switch to one of the neural voices above to put the words in the file.";
+  }
+  updateVideoVoiceNote();
+
   videoBtn.addEventListener("click", downloadVideo);
 
   // ---------- Capabilities ----------
@@ -4942,12 +5332,26 @@ REQUEST: ${request}`;
     genUnavailable();
   }
 
+  // A page that caches itself to work offline will otherwise serve the build it opened with for as
+  // long as the tab is left open, which on a page people keep open is how you end up looking at
+  // last week's app without knowing it. The service worker says when a newer one has downloaded;
+  // all that is offered here is the reload, because taking the page out from under somebody
+  // mid-goal would be worse than the staleness.
+  window.BirdseyeUpdate = () => { $("updateBar").hidden = false; };
+  $("updateNow").addEventListener("click", () => location.reload());
+
   // ---------- Theme + size ----------
   new ResizeObserver(resize).observe($("pitchWrap"));
+  window.addEventListener("resize", resize);   // a turned phone changes the height cap, not the width
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", resize);
   new MutationObserver(resize).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
-  loadPlay(library[0].play, { autoplay: false });
+  // A link that names a clip opens it; one that names nothing, or something no longer in the
+  // library, quietly falls back to the first and tidies the address rather than showing an error.
+  const wanted = new URLSearchParams(location.search).get("clip");
+  const opening = (wanted && library.find(i => i.play.id === wanted)) || library[0];
+  loadPlay(opening.play, { autoplay: false });
+  setUrl(opening.play, "replaceState");
   try {
   } catch (e) { /* storage unavailable: stay on Classic */ }
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
@@ -4958,8 +5362,21 @@ REQUEST: ${request}`;
 </script>
 
 <script>
+  // The app is cached so it opens instantly and works offline, which also means a tab left open
+  // keeps running the build it started with. So: ask for a newer one now and then, and when one
+  // has finished downloading, tell the page rather than waiting for somebody to reload by chance.
   if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+    window.addEventListener("load", async () => {
+      try {
+        const reg = await navigator.serviceWorker.register("sw.js");
+        const watch = sw => sw && sw.addEventListener("statechange", () => {
+          if (sw.state === "installed" && navigator.serviceWorker.controller) window.BirdseyeUpdate?.();
+        });
+        watch(reg.waiting);
+        reg.addEventListener("updatefound", () => watch(reg.installing));
+        setInterval(() => reg.update().catch(() => {}), 30 * 60 * 1000);
+      } catch (e) { /* no offline support here; the app still runs */ }
+    });
   }
 </script>
 </body>

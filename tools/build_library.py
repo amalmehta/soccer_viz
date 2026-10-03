@@ -7,7 +7,13 @@ import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 files = sorted((ROOT / "library" / "plays").glob("*.json"))
-plays = [json.loads(f.read_text(encoding="utf-8")) for f in files]
+plays = []
+for f in files:
+    play = json.loads(f.read_text(encoding="utf-8"))
+    # The file name is the clip's name everywhere else too: it is what a link to this goal says,
+    # so it has to survive the bundling rather than being thrown away with the path.
+    play["id"] = f.stem
+    plays.append(play)
 body = ",\n".join(json.dumps(p, ensure_ascii=False, separators=(",", ":")) for p in plays)
 out = (
     "// Iconic clips for the Birdseye FC library, bundled from library/plays/*.json (one play per file).\n"

@@ -126,11 +126,38 @@
     onStatus && onStatus("");
   }
 
+  // The same phrases a line is spoken from, laid end to end into one buffer instead of being
+  // played. The video exporter needs the commentary as audio it can place on a timeline and mix,
+  // rather than as something that happens live at the speaker, and this is the only voice that can
+  // be rendered at all: the browser's own speech synthesis will talk, but it will not hand over
+  // samples, so a downloaded clip can only carry a commentator if this one is the one in use.
+  async function renderLine(parts, voice) {
+    const ctx = context();
+    if (!ctx) return null;
+    const bufs = [];
+    for (const p of parts) {
+      const buf = await render(p.text, voice, p.speed);
+      if (buf) bufs.push({ buf, gain: p.gain });
+    }
+    if (!bufs.length) return null;
+    const rate = bufs[0].buf.sampleRate;
+    const total = bufs.reduce((n, b) => n + b.buf.length, 0);
+    const out = ctx.createBuffer(1, total, rate);
+    const data = out.getChannelData(0);
+    let at = 0;
+    for (const { buf, gain } of bufs) {
+      const from = buf.getChannelData(0);
+      for (let i = 0; i < from.length; i++) data[at + i] = from[i] * gain;
+      at += from.length;
+    }
+    return out;
+  }
+
   window.BirdseyeVoice = {
     voices: VOICES,
     supported: typeof WebAssembly === "object",
     ready: () => !!tts,
-    load, say, stop, warm,
+    load, say, stop, warm, renderLine,
     busy: () => !!playing
   };
 })();

@@ -18,6 +18,7 @@ SITE = ROOT / "docs"
 ASSETS = ["sound/recordings.js", "sound/crowd.js", "sound/score.js", "sound/voice.js", "library/clips.js"]
 INK, GRASS, BALL, GROUND = "#11241A", "#3E9A5A", "#FFC53D", "#EBF0EA"
 TAGLINE = "Famous goals and classic moves, drawn from above."
+SITE_URL = "https://amalmehta.github.io/soccer_viz/"
 
 ICON_SVG = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
 <rect x="2" y="2" width="60" height="60" rx="14" fill="{GRASS}" stroke="{INK}" stroke-width="3"/>
@@ -103,6 +104,14 @@ def main():
     (SITE / "manifest.webmanifest").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     (SITE / ".nojekyll").write_text("", encoding="utf-8")  # GitHub Pages: serve the files as they are
 
+    # A link to a clip should arrive somewhere looking like something. The icon only exists when
+    # Pillow is installed, so both it and the card image are left out rather than pointing at a
+    # file that is not there -- which is what the apple-touch-icon tag used to do.
+    have_192 = "icons/icon-192.png" in pngs
+    touch_icon = '<link rel="apple-touch-icon" href="icons/icon-192.png">\n' if have_192 else ""
+    og_image = f'<meta property="og:image" content="{SITE_URL}icons/icon-512.png">\n' if "icons/icon-512.png" in pngs else ""
+    twitter_card = "summary" if og_image else "summary_large_image"
+
     index = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -113,16 +122,37 @@ def main():
 <meta name="theme-color" content="{INK}">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
+{touch_icon}<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="canonical" href="{SITE_URL}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Birdseye FC">
+<meta property="og:title" content="Birdseye FC">
+<meta property="og:description" content="{TAGLINE}">
+<meta property="og:url" content="{SITE_URL}">
+{og_image}<meta name="twitter:card" content="{twitter_card}">
+<meta name="twitter:title" content="Birdseye FC">
+<meta name="twitter:description" content="{TAGLINE}">
 <style>body{{margin:0}}[hidden]{{display:none!important}}img{{max-width:100%}}.gen[hidden]+.lib{{border-top:0;padding-top:0}}</style>
 <script>window.BIRDSEYE_STANDALONE = true;</script>
 {head_part}</head>
 <body>
 {body_part}
 <script>
+  // The app is cached so it opens instantly and works offline, which also means a tab left open
+  // keeps running the build it started with. So: ask for a newer one now and then, and when one
+  // has finished downloading, tell the page rather than waiting for somebody to reload by chance.
   if ("serviceWorker" in navigator) {{
-    window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {{}}));
+    window.addEventListener("load", async () => {{
+      try {{
+        const reg = await navigator.serviceWorker.register("sw.js");
+        const watch = sw => sw && sw.addEventListener("statechange", () => {{
+          if (sw.state === "installed" && navigator.serviceWorker.controller) window.BirdseyeUpdate?.();
+        }});
+        watch(reg.waiting);
+        reg.addEventListener("updatefound", () => watch(reg.installing));
+        setInterval(() => reg.update().catch(() => {{}}), 30 * 60 * 1000);
+      }} catch (e) {{ /* no offline support here; the app still runs */ }}
+    }});
   }}
 </script>
 </body>
