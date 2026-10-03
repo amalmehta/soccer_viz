@@ -182,6 +182,11 @@
     .time { margin-left: auto; }
   }
   .note { margin: 0; font-size: 13px; color: var(--muted); }
+  .link-btn {
+    border: 0; background: none; padding: 0 2px; margin-left: 8px; cursor: pointer;
+    font: inherit; color: var(--accent); text-decoration: underline; text-underline-offset: 2px;
+  }
+  .link-btn + .link-btn { color: var(--muted); }
   .looks { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; }
   .media { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; align-items: start; }
   /* Side by side at equal height: the pitch is 113:76, the video 16:9 */
@@ -383,6 +388,11 @@
       <select class="voice-select" id="voiceSelect" aria-label="Commentary voice" hidden></select>
     </div>
 
+    <p class="voice-hint" id="voiceOffer" hidden>
+      <span id="voiceOfferText"></span>
+      <button class="link-btn" id="voiceOfferYes" type="button">Use it</button>
+      <button class="link-btn" id="voiceOfferNo" type="button">No thanks</button>
+    </p>
     <p class="voice-hint" id="voiceHint" hidden></p>
 
     <div class="media" id="media">
@@ -3517,11 +3527,17 @@
     }
     needsVoiceHint = list.length > 0 && voiceQuality(list[0]) < 80;
     const ua = navigator.userAgent;
+    // Where the page carries its own voice there is nothing to go and install, so the hint line is
+    // left to the neural voice's progress and the standing advice is not written at all.
+    if (neural) return finishVoices();
     voiceHint.textContent = /Mac/.test(ua)
       ? "Sounds robotic? Add a Premium English voice in System Settings › Accessibility › Spoken Content › System voice › Manage Voices, then restart your browser."
       : /Windows/.test(ua)
         ? "Sounds robotic? Microsoft Edge has natural voices, or add voices in Settings › Time & language › Speech."
         : "Sounds robotic? Install a higher-quality English voice for your device, then restart your browser.";
+    finishVoices();
+  }
+  function finishVoices() {
     updateVoiceBtn();
   }
 
@@ -3637,6 +3653,33 @@
       say("That voice would not load, so the system one is being used.");
     }
   }
+
+  // The voice that ships with the page is better than anything most machines carry, but it is eighty
+  // megabytes, and nobody should have that arrive uninvited. So it is offered once, in the line that
+  // used to tell people to go and install a system voice — advice this replaces with something that
+  // actually works. Taken or refused, the answer is remembered and the offer is not made again.
+  const offer = $("voiceOffer"), offerYes = $("voiceOfferYes"), offerNo = $("voiceOfferNo");
+  let offerSettled = false;
+  try { offerSettled = localStorage.getItem("birdseye.voiceOffer") === "done"; } catch (e) { /* ask */ }
+  function settleOffer() {
+    offerSettled = true;
+    try { localStorage.setItem("birdseye.voiceOffer", "done"); } catch (e) { /* ignore */ }
+    offer.hidden = true;
+  }
+  function maybeOfferVoice() {
+    const worth = neural && !offerSettled && !isNeural(savedVoiceName || "") && !voiceBtn.hidden;
+    offer.hidden = !worth;
+    if (!worth) return;
+    $("voiceOfferText").textContent = needsVoiceHint
+      ? "This machine's voices are the old robotic ones. There is a far better one built into the page — 80 MB, downloaded once."
+      : "There is a better voice built into the page — 80 MB, downloaded once.";
+  }
+  offerYes.addEventListener("click", () => {
+    settleOffer();
+    voiceSelect.value = `neural:${neural.voices[0].id}`;
+    voiceSelect.dispatchEvent(new Event("change", { bubbles: true }));
+  });
+  offerNo.addEventListener("click", settleOffer);
 
   // Is a voice — either kind — still talking?
   function voiceBusy() {
@@ -3759,7 +3802,10 @@
   function updateVoiceBtn() {
     voiceBtn.hidden = !synth && !neural;
     voiceSelect.hidden = voiceBtn.hidden || !voiceSelect.options.length;
-    voiceHint.hidden = voiceBtn.hidden || !needsVoiceHint;
+    // The hint line is now only used for the neural voice's own progress; the standing advice to go
+    // and install a system voice has been replaced by the offer, which actually solves it.
+    if (!neural) voiceHint.hidden = voiceBtn.hidden || !needsVoiceHint;
+    maybeOfferVoice();
     voiceBtn.setAttribute("aria-pressed", String(voiceOn));
     document.getElementById("voiceLabel").textContent = voiceOn ? "Voice on" : "Voice off";
     document.getElementById("voiceWaves").style.display = voiceOn ? "" : "none";
