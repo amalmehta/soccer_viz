@@ -4843,9 +4843,11 @@ REQUEST: ${request}`;
     const availW = LW - 2 * side;
     const availH = LH - format.safeTop - format.safeBottom - 2 * pad - headerH - footerH - gap;
     const aspect = rotated ? (H + 2 * M) / (W + 2 * M) : (W + 2 * M) / (H + 2 * M);
+    // The pitch is as wide as the frame allows, then shortened to fit the height it has left.
+    // (A second branch here sized the camera-framed looks instead; those went when Broadcast was
+    // removed, and it took `look` with it, so every export since has thrown on this line.)
     let pw = availW, ph = pw / aspect;
-    if (look !== "classic") ph = Math.min(availH, pw * 1.6); // camera-framed looks fill the box
-    else if (ph > availH) { ph = availH; pw = ph * aspect; }
+    if (ph > availH) { ph = availH; pw = ph * aspect; }
     const top = format.safeTop + pad + (LH - format.safeTop - format.safeBottom - 2 * pad - (headerH + footerH + gap + ph)) / 2;
     const px = (LW - pw) / 2;
     return rotated
@@ -5225,7 +5227,7 @@ REQUEST: ${request}`;
       const { blob, ext } = config
         ? await encodeMp4(config, format, times, frameCanvas, renderFrame, audio)
         : await recordRealtime(total, frameCanvas, renderFrame);
-      const filename = `${slug(R.play.title)}${look === "classic" ? "" : "-" + look}-${key}.${ext}`;
+      const filename = `${slug(R.play.title)}-${key}.${ext}`;
       if (downloads) {
         videoStatus.textContent = "Confirm the save…";
         await downloads.save({ filename, data: blob });
