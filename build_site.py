@@ -34,7 +34,7 @@ def draw_png_icons(folder):
     try:
         from PIL import Image, ImageDraw
     except ImportError:
-        print("  Pillow not installed: skipping PNG icons (the app still works, but may not offer install)")
+        print("  Pillow not installed: PNG icons not redrawn")
         return []
 
     def icon(size, maskable):
@@ -69,6 +69,11 @@ def main():
 
     # The written docs (INSTRUCTIONS.md, FILE-STRUCTURE.md) live in docs/ too; keep them across rebuilds
     kept = {f.name: f.read_bytes() for f in SITE.glob("*.md")}
+    # And the PNG icons, which need Pillow to draw. Building on a machine without it used to delete
+    # the ones already there and drop them from the manifest, so whether the site offered itself for
+    # installing came down to what happened to be on the machine that last ran this. Existing icons
+    # are carried across and only replaced when they can actually be redrawn.
+    kept_icons = {f.name: f.read_bytes() for f in (SITE / "icons").glob("*.png")}
     shutil.rmtree(SITE, ignore_errors=True)
     SITE.mkdir(parents=True)
     for name, data in kept.items():
@@ -79,6 +84,11 @@ def main():
     (SITE / "icons").mkdir(parents=True)
     (SITE / "icons" / "icon.svg").write_text(ICON_SVG, encoding="utf-8")
     pngs = draw_png_icons(SITE / "icons")
+    if not pngs and kept_icons:
+        for name, data in kept_icons.items():
+            (SITE / "icons" / name).write_bytes(data)
+        pngs = [f"icons/{n}" for n in sorted(kept_icons)]
+        print(f"  kept the {len(pngs)} PNG icons already in docs/icons")
 
     # Script URLs carry a hash of the assets, so browsers never reuse an old copy after a rebuild
     asset_version = hashlib.sha1(b"".join((ROOT / rel).read_bytes() for rel in ASSETS)).hexdigest()[:10]
