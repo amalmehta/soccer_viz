@@ -85,6 +85,19 @@
     --shadow: rgba(0, 0, 0, 0.5);
   }
 
+  /* One vocabulary of movement for the whole page. Interfaces feel cheap when every element eases
+     differently, so there are three durations and two curves and nothing invents its own: a curve
+     that leaves quickly and settles slowly, which is how a thing with weight moves, and a plain
+     decelerating one for fades. Nothing here is longer than a beat -- motion that has to be waited
+     for stops being smooth and starts being slow. */
+  :root {
+    --ease: cubic-bezier(0.2, 0.8, 0.25, 1);
+    --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+    --t-fast: 110ms;
+    --t-base: 200ms;
+    --t-slow: 420ms;
+  }
+
   * { box-sizing: border-box; }
   body {
     background: var(--ground);
@@ -161,6 +174,18 @@
     box-shadow: 0 1px 0 var(--shadow), 0 14px 32px -18px var(--shadow);
   }
   canvas { display: block; width: 100%; }
+  /* Changing clip used to be a hard cut: twenty-two players in one arrangement replaced by
+     twenty-two in another between one frame and the next, which reads as a glitch rather than as a
+     change of subject. The picture and its heading now settle in, the heading a beat behind the
+     picture so the two do not move as one slab. Nothing waits on it -- the clip is already live
+     underneath. */
+  @keyframes settle-in {
+    from { opacity: 0; transform: translateY(7px); }
+    to { opacity: 1; transform: none; }
+  }
+  .media.swap { animation: settle-in var(--t-slow) var(--ease) both; }
+  .stage-head.swap { animation: settle-in var(--t-slow) var(--ease) 70ms both; }
+  .caption-row.swap { animation: settle-in var(--t-slow) var(--ease) 110ms both; }
 
   .caption-row { display: flex; gap: 12px; align-items: baseline; min-height: calc(1.35em * 2); font-size: 19px; }
   .caption-time { font: 500 13px/1 var(--mono); color: var(--muted); flex: none; width: 3.2em; }
@@ -172,6 +197,7 @@
   .cap-prev { font-size: 0.82em; font-weight: 500; color: var(--muted); margin-bottom: 2px; }
   .cap-prev:empty { display: none; }
   .caption.fade .cap-now { opacity: 0.15; }
+  .cap-prev.dim { opacity: 0; }
   .ball-meter {
     flex: none; margin-left: auto; align-self: center; padding: 3px 9px; border-radius: 999px;
     font: 500 12px/1.5 var(--mono); color: var(--muted); background: var(--chip); white-space: nowrap;
@@ -183,9 +209,20 @@
     width: 40px; height: 40px; flex: none; display: grid; place-items: center;
     border-radius: 50%; border: 1px solid var(--rule); background: var(--surface); cursor: pointer;
   }
-  .icon-btn svg { width: 16px; height: 16px; fill: currentColor; }
+  .icon-btn {
+    transition: transform var(--t-base) var(--ease), border-color var(--t-fast) var(--ease-out),
+                box-shadow var(--t-base) var(--ease);
+  }
+  .icon-btn svg { width: 16px; height: 16px; fill: currentColor; transition: transform var(--t-base) var(--ease); }
+  .icon-btn:hover { border-color: var(--muted); }
+  .icon-btn:active { transform: scale(0.93); }
   .icon-btn.play { width: 46px; height: 46px; background: var(--accent); color: var(--accent-ink); border-color: transparent; }
   .icon-btn.play svg { width: 18px; height: 18px; }
+  #playIcon.swapping { opacity: 0; transform: scale(0.72); transition: none; }
+  .icon-btn.play:hover { transform: scale(1.05); box-shadow: 0 8px 20px -10px var(--accent); }
+  .icon-btn.play:active { transform: scale(0.96); }
+  /* Restart means going back, so its arrow goes back when you reach for it */
+  #restartBtn:hover svg { transform: rotate(-28deg); }
   .scrub { position: relative; flex: 1 1 200px; min-width: 0; height: 28px; }
   .ticks { position: absolute; inset: 0 8px; pointer-events: none; }
   .ticks i { position: absolute; top: 20px; width: 2px; height: 6px; margin-left: -1px; background: var(--muted); opacity: 0.5; border-radius: 1px; }
@@ -195,23 +232,42 @@
     -webkit-appearance: none; appearance: none; position: absolute; inset: 0;
     width: 100%; height: 20px; margin: 0; background: transparent; cursor: pointer;
   }
+  /* The one control people actually hold. The track thickens and the handle grows under the
+     pointer, so the thing being dragged is unmistakably the thing under your finger, and both ease
+     rather than snapping between sizes. */
   input[type="range"]::-webkit-slider-runnable-track {
     height: 6px; border-radius: 3px;
     background: linear-gradient(to right, var(--ink) var(--p, 0%), var(--rule) var(--p, 0%));
+    transition: height var(--t-base) var(--ease);
   }
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none; width: 16px; height: 16px; margin-top: -5px;
     border-radius: 50%; background: var(--accent); border: 2px solid var(--ink);
+    transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
+  }
+  .scrub:hover input[type="range"]::-webkit-slider-thumb { transform: scale(1.22); }
+  input[type="range"]:active::-webkit-slider-thumb {
+    transform: scale(1.32); box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent) 22%, transparent);
   }
   input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; background: var(--rule); }
   input[type="range"]::-moz-range-progress { height: 6px; border-radius: 3px; background: var(--ink); }
-  input[type="range"]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 2px solid var(--ink); }
+  input[type="range"]::-moz-range-thumb {
+    width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 2px solid var(--ink);
+    transition: transform var(--t-base) var(--ease);
+  }
+  .scrub:hover input[type="range"]::-moz-range-thumb { transform: scale(1.22); }
+  /* The marks along the bar lift towards the handle as you come to use it */
+  .ticks i { transition: transform var(--t-base) var(--ease), opacity var(--t-base) var(--ease-out); }
+  .scrub:hover .ticks i { opacity: 0.8; }
+  .scrub:hover .ticks i.goal { transform: scale(1.18); }
   .time { font: 500 13px/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
   .speed { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
   .speed button {
     border: 0; background: var(--surface); padding: 7px 10px; cursor: pointer;
     font: 500 12px/1 var(--mono); color: var(--muted);
+    transition: background var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
   }
+  .speed button:hover:not([aria-pressed="true"]) { background: var(--chip); color: var(--ink); }
   .speed button + button { border-left: 1px solid var(--rule); }
   .speed button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
   @media (max-width: 560px) {
@@ -255,19 +311,32 @@
   }
   .note { margin: 0; font-size: 13px; color: var(--muted); }
   /* The one place on the page that speaks to you rather than labelling something: what is at stake
-     before the ball moves, what it turned out to mean once it is in. It sits directly above the
-     picture, because that is where your eye already is, and it keeps its height whether or not it
-     has anything to say — a line that appears and disappears must not shove the pitch up and down
-     while you are watching a goal. */
+     before the ball moves, what it turned out to mean once it is in.
+     It used to sit above the picture and hold its height whether or not it had anything to say,
+     which kept the pitch still but left seventy pixels of nothing on screen for most of every clip.
+     So it is a title card now, lying over the top of the drawing and fading in and out: no reserved
+     space, nothing moves when it changes, and the two moments it speaks are the two moments nothing
+     is happening on the pitch anyway — before the kick-off, and after the ball is already in. */
+  .pitch-frame { position: relative; }
   .stake {
-    margin: 0 0 12px; font-family: var(--display); font-size: clamp(15px, 2.4vw, 19px);
-    line-height: 1.35; color: var(--ink); max-width: 46ch; min-height: 2.7em;  /* until measured */
-    opacity: 0; transition: opacity 500ms ease;
+    position: absolute; left: 0; right: 0; top: 0; margin: 0;
+    padding: clamp(13px, 2.4vw, 20px) clamp(15px, 2.8vw, 24px) clamp(28px, 5vw, 42px);
+    font-family: var(--display); font-size: clamp(15px, 2.1vw, 20px); line-height: 1.38;
+    /* The scrim is the page's own paper rising over the drawing, not a band of cinema black laid on
+       top of it: it keeps the material of the thing in both themes, and the words stay in ink. */
+    color: var(--ink);
+    background: linear-gradient(to bottom,
+      color-mix(in srgb, var(--ground) 94%, transparent),
+      color-mix(in srgb, var(--ground) 72%, transparent) 58%, transparent);
+    opacity: 0; transform: translateY(-5px); pointer-events: none;
+    transition: opacity var(--t-slow) var(--ease-out), transform var(--t-slow) var(--ease);
   }
-  .stake.show { opacity: 1; }
+  .stake span { display: block; max-width: 42ch; }
+  .stake.show { opacity: 1; transform: none; }
   .update-bar {
     margin: 0; padding: 9px 12px; border: 1px solid var(--rule); border-radius: 10px;
     background: var(--surface); font-size: 14px; color: var(--muted);
+    animation: settle-in var(--t-slow) var(--ease) both;
   }
   .link-btn {
     border: 0; background: none; padding: 0 2px; margin-left: 8px; cursor: pointer;
@@ -286,10 +355,18 @@
   .footage figcaption { font-size: 12.5px; color: var(--muted); }
   .link-btn { border: 0; background: none; padding: 0; font: inherit; color: var(--ink); text-decoration: underline; cursor: pointer; }
   /* Hidden where there is no keyboard to press, rather than taking up a line on a phone */
-  .keys { margin: -4px 0 0; font-size: 12.5px; color: var(--muted); line-height: 2; }
+  /* Six boxed chips in a row under the controls was the loudest thing on a quiet page, for
+     information you need once. It keeps its place -- a shortcut nobody is told about may as well
+     not exist -- but it is set at the weight of a footnote and only comes up to full strength when
+     the eye is already down here, hovering the transport. */
+  .keys {
+    margin: -2px 0 0; font-size: 12px; color: var(--muted); line-height: 1.9;
+    opacity: 0.5; transition: opacity var(--t-base) var(--ease-out);
+  }
+  .keys:hover, .controls:hover + .keys, .controls:focus-within + .keys { opacity: 1; }
   .keys kbd {
-    font: 500 11px/1 var(--mono); color: var(--ink); background: var(--chip);
-    border: 1px solid var(--rule); border-radius: 4px; padding: 3px 5px; margin-right: 2px;
+    font: 500 10.5px/1 var(--mono); color: inherit; background: none;
+    border: 1px solid var(--rule); border-radius: 4px; padding: 2px 4px; margin-right: 1px;
   }
   @media (hover: none), (max-width: 680px) { .keys { display: none; } }
   .footage-tools { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
@@ -347,16 +424,32 @@
     display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; cursor: pointer;
     border: 1px solid var(--rule); border-radius: 999px; background: var(--surface);
     font-size: 13px; font-weight: 600; color: var(--muted);
+    transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out),
+                background var(--t-fast) var(--ease-out), transform var(--t-fast) var(--ease);
   }
-  .voice-btn svg { width: 15px; height: 15px; fill: currentColor; }
+  .voice-btn svg { width: 15px; height: 15px; fill: currentColor; transition: transform var(--t-base) var(--ease); }
+  .voice-btn:hover { color: var(--ink); border-color: var(--muted); }
+  .voice-btn:active { transform: scale(0.97); }
   .voice-btn[aria-pressed="true"] { color: var(--ink); border-color: var(--ink); }
+  /* A switch that has just come on says so by moving, not only by changing colour */
+  .voice-btn[aria-pressed="true"] svg { transform: scale(1.12); }
   .voice-btn[aria-pressed="true"] svg { fill: var(--accent); }
+  /* Sized to the row of switches it sits beside rather than to its longest option, which was a
+     voice name plus the words "downloads once" and left it twice the width of anything near it */
   .voice-select {
-    font: inherit; font-size: 13px; color: var(--ink); background: var(--surface);
-    border: 1px solid var(--rule); border-radius: 8px; padding: 6px 8px; max-width: 240px;
+    font: inherit; font-size: 13px; color: var(--muted); background: var(--surface);
+    border: 1px solid var(--rule); border-radius: 999px; padding: 6px 10px;
+    max-width: 190px; text-overflow: ellipsis; cursor: pointer;
+    transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
   }
+  .voice-select:hover { color: var(--ink); border-color: var(--muted); }
   .voice-hint { margin: -4px 0 0; font-size: 13px; color: var(--muted); }
-  .foot-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px 16px; }
+  /* Below the picture the page changes job: it stops being a thing you watch and starts being a
+     set of tools and notes about it. A hairline and a little more air is all that needs saying. */
+  .foot-row {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px 16px;
+    padding-top: 16px; border-top: 1px solid var(--rule); margin-top: 2px;
+  }
   .video { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px 10px; margin-left: auto; }
   .video select {
     font: inherit; font-size: 13.5px; color: var(--ink); background: var(--surface);
@@ -378,7 +471,11 @@
   .btn {
     padding: 9px 16px; border-radius: 8px; border: 1px solid var(--rule);
     background: var(--surface); font-weight: 600; font-size: 14px; cursor: pointer;
+    transition: border-color var(--t-fast) var(--ease-out), background var(--t-fast) var(--ease-out),
+                transform var(--t-fast) var(--ease), box-shadow var(--t-base) var(--ease);
   }
+  .btn:hover:not(:disabled) { border-color: var(--muted); transform: translateY(-1px); box-shadow: 0 4px 12px -8px var(--shadow); }
+  .btn:active:not(:disabled) { transform: translateY(0) scale(0.99); box-shadow: none; }
   .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
   .btn:disabled { opacity: 0.5; cursor: default; }
   .status { margin: 10px 0 0; font-size: 14px; min-height: 1.4em; }
@@ -399,12 +496,37 @@
     text-align: left; padding: 9px 12px; margin-inline: -12px; width: calc(100% + 24px);
     background: transparent; border: 1px solid transparent; border-radius: 8px; cursor: pointer;
   }
-  .play-item:hover { background: var(--chip); }
+  /* Twenty-five rows of identical weight is a list you scan rather than read. The row you are on
+     carries an accent rule down its edge, and a row under the pointer slides a little towards you,
+     so the list has somewhere to look. */
+  .play-item {
+    position: relative;
+    transition: background var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out),
+                transform var(--t-base) var(--ease);
+  }
+  .play-item::before {
+    content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; border-radius: 2px;
+    background: var(--accent); transform: scaleY(0); transform-origin: center;
+    transition: transform var(--t-base) var(--ease);
+  }
+  .play-item:hover { background: var(--chip); transform: translateX(3px); }
   .play-item[aria-current="true"] { background: var(--surface); border-color: var(--rule); }
-  .pi-title { font-weight: 600; }
+  .play-item[aria-current="true"]::before { transform: scaleY(1); }
+  .pi-title { font-weight: 600; transition: color var(--t-fast) var(--ease-out); }
+  .play-item[aria-current="true"] .pi-title { color: var(--accent); }
   .pi-meta { grid-column: 1; font-size: 12.5px; color: var(--muted); }
   .pi-kits { grid-column: 2; grid-row: 1 / span 2; display: inline-flex; }
-  .pi-kits i { width: 12px; height: 12px; border-radius: 50%; border: 2px solid transparent; }
+  .pi-year {
+    font: 500 11px/1 var(--mono); letter-spacing: 0.02em; margin-right: 7px;
+    opacity: 0.7; transition: opacity var(--t-fast) var(--ease-out);
+  }
+  .play-item:hover .pi-year, .play-item[aria-current="true"] .pi-year { opacity: 1; }
+  .pi-kits i {
+    width: 12px; height: 12px; border-radius: 50%; border: 2px solid transparent;
+    transition: transform var(--t-base) var(--ease);
+  }
+  .play-item:hover .pi-kits i:first-child { transform: translateX(-2px); }
+  .play-item:hover .pi-kits i:last-child { transform: translateX(2px); }
   .pi-kits i + i { margin-left: -3px; }
 
   /* Feedback */
@@ -425,9 +547,14 @@
   .fb-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
   .fb-row .status { margin: 0; font-size: 13px; color: var(--muted); }
 
+  /* Everything above is decoration on top of a page that works without it, so when the machine has
+     been told to keep movement down, all of it goes -- not just the obvious animations. */
   @media (prefers-reduced-motion: reduce) {
-    .score.pop, .status.working::before { animation: none; }
-    .cap-now, .cap-prev { transition: none; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important; scroll-behavior: auto !important;
+    }
+    .play-item:hover, .btn:hover:not(:disabled), .icon-btn.play:hover { transform: none; }
   }
 </style>
 
@@ -491,11 +618,12 @@
       <button class="link-btn" id="updateNow" type="button">Reload</button>
     </p>
 
-    <p class="stake" id="stake"></p>
-
     <div class="media" id="media">
       <div class="pitch-wrap" id="pitchWrap">
-        <canvas id="pitch" role="img"></canvas>
+        <div class="pitch-frame">
+          <canvas id="pitch" role="img"></canvas>
+          <p class="stake" id="stake"><span id="stakeText"></span></p>
+        </div>
       </div>
       <figure class="footage" id="footage" hidden>
         <div class="footage-frame">
@@ -3325,7 +3453,7 @@
   // sits between twelve and twenty depending on how much else the eye is doing, and here the eye is
   // also watching a goal.
   const readingTime = text => text.length / 15;
-  const stakeEl = $("stake");
+  const stakeEl = $("stake"), stakeText = $("stakeText");
   let feedRows = [];
 
   // Clamped, because a clip swapping for another one can leave the clock a hair below zero for
@@ -3516,7 +3644,7 @@
     if (line !== shownStake) {
       shownStake = line;
       // The slot keeps its space, so only the words fade
-      stakeEl.textContent = line;
+      stakeText.textContent = line;
       stakeEl.classList.toggle("show", !!line);
     }
 
@@ -3537,7 +3665,16 @@
     // That alone takes the unreadable share from seven in ten to a third.
     const keep = ci > 0 ? play.captions[ci - 1] : null;
     const lingering = keep && t - keep.t < readingTime(keep.text) ? keep.text : "";
-    if (lingering !== shownPrev) { shownPrev = lingering; capPrev.textContent = lingering; }
+    if (lingering !== shownPrev) {
+      shownPrev = lingering;
+      // Dipped through nothing on the way in and out, like the line below it, so a caption leaving
+      // because its reading time is up does not simply vanish mid-sentence
+      capPrev.classList.add("dim");
+      requestAnimationFrame(() => {
+        capPrev.textContent = lingering;
+        capPrev.classList.remove("dim");
+      });
+    }
 
     let mi = -1;
     current.moments.forEach((m, i) => { if (m.t <= t + 1e-6) mi = i; });
@@ -3611,35 +3748,23 @@
     footageSync();
     playBtn.setAttribute("aria-label", playing ? "Pause" : "Play");
     $("feed").classList.toggle("is-live", playing);
-    $("playIcon").innerHTML = playing
+    // The glyph is swapped outright rather than tweened between a triangle and two bars, so it is
+    // given a quick dip through nothing instead of appearing to pop
+    const icon = $("playIcon");
+    icon.classList.add("swapping");
+    icon.innerHTML = playing
       ? '<path d="M3.5 2.5h3.2v11H3.5zM9.3 2.5h3.2v11H9.3z"/>'
       : '<path d="M4 2.5v11l9.5-5.5z"/>';
+    requestAnimationFrame(() => icon.classList.remove("swapping"));
     if (playing) {
       lastFrame = performance.now();
       requestAnimationFrame(frame);
     } else render();
   }
 
-  // Both of a clip's lines go in the one slot, and on a narrow screen they do not wrap to the same
-  // number of lines — so a fixed height is either wrong or wasteful. Measure the two for this clip,
-  // at this width, and hold the taller. Nothing then moves when the words change at the goal.
-  function sizeStakeSlot(play) {
-    const open = play.stake || situationFor(play);
-    const close = play.aftermath || consequenceFor(play);
-    stakeEl.style.minHeight = "0px";
-    let tall = 0;
-    for (const text of [open, close]) {
-      if (!text) continue;
-      stakeEl.textContent = text;
-      tall = Math.max(tall, stakeEl.scrollHeight);
-    }
-    stakeEl.textContent = "";
-    stakeEl.style.minHeight = `${tall}px`;
-  }
-
-  // Same argument for the captions, which now come in pairs and so vary by a whole line: find this
-  // clip's tallest pair at this width and hold it, rather than letting the controls walk down the
-  // page every time a long caption lands.
+  // The captions still need this: they come in pairs and so vary by a whole line, and the controls
+  // should not walk down the page every time a long one lands. (The stake no longer needs it -- it
+  // lies over the drawing now and takes no space in the column at all.)
   function sizeCaptionSlot(play) {
     const row = capNow.closest(".caption-row");
     row.style.minHeight = "0px";
@@ -3681,6 +3806,13 @@
   function openPlay(play, { push = false, autoplay = true } = {}) {
     if (push && (!current || current.play !== play)) setUrl(play, "pushState");
     loadPlay(play, { autoplay });
+    // Wide enough and the library sits beside the picture, so choosing a clip changes something you
+    // are already looking at. Narrow enough and it sits underneath, and picking a goal left you
+    // looking at a list while the thing you asked for played somewhere above you.
+    if (window.innerWidth < 920) {
+      const top = document.querySelector(".stage");
+      if (top) top.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    }
   }
 
   // Back and forward move between clips rather than leaving the app
@@ -3690,8 +3822,21 @@
     if (found) loadPlay(found.play, { autoplay: false });
   });
 
+  // Restarting a CSS animation means taking the class off, forcing the browser to notice, and
+  // putting it back; without the reflow in the middle it coalesces the two changes into nothing.
+  function settleIn() {
+    if (reduceMotion) return;
+    for (const el of [$("media"), document.querySelector(".stage-head"), document.querySelector(".caption-row")]) {
+      if (!el) continue;
+      el.classList.remove("swap");
+      void el.offsetWidth;
+      el.classList.add("swap");
+    }
+  }
+
   function loadPlay(play, { autoplay }) {
     hushCommentary();
+    settleIn();
     spokenIndex = -1;
     current = compile(play);
     warmVoice(play);
@@ -3701,7 +3846,6 @@
     capPrev.textContent = "";
     capNow.textContent = "";
     shownStake = null;
-    sizeStakeSlot(play);
     sizeCaptionSlot(play);
     shownScore = "";
     shownBall = "";
@@ -3808,7 +3952,7 @@
       i.style.left = `${(ev.t / play.duration) * 100}%`;
       ticks.append(i);
     }
-    renderLibrary();
+    markCurrentRow();
     setPlaying(!!autoplay && !reduceMotion);
     render();
   }
@@ -4548,9 +4692,23 @@
     return years ? +years[years.length - 1] : null;
   };
 
+  // Which row is lit is the only thing that changes when you pick a clip, and rebuilding all
+  // twenty-seven rows to move one marker threw away every hover state, every bit of transition the
+  // rows were mid-way through, and about a hundred and fifty nodes' worth of layout -- on the exact
+  // frame the picture beside it was trying to settle in. The list is built once; after that only
+  // the attribute moves, which is what lets the accent rule grow in rather than appear.
+  const rowFor = new Map();
+  function markCurrentRow() {
+    for (const [play, btn] of rowFor) {
+      if (current && current.play === play) btn.setAttribute("aria-current", "true");
+      else btn.removeAttribute("aria-current");
+    }
+  }
+
   function renderLibrary() {
     const root = $("library");
     root.replaceChildren();
+    rowFor.clear();
     let lastGroup = null;
     const order = ["Yours", "Clips", "Moves"];
     const items = library.slice().sort((a, b) =>
@@ -4578,11 +4736,22 @@
       // "LIV v MIL · 2005 · 20s" is filing-card information: it tells you where a thing is kept.
       // "A final, on 54 minutes, 0–3" tells you why you would want to watch it. The kit colours
       // beside each row already carry who is playing.
+      // When the rows became situations rather than filing cards the year went with them, and for a
+      // shelf of historic goals the year is half of why you reach for one. It leads the line, set in
+      // the mono face so it reads as a date rather than as more sentence -- a column of its own on
+      // the right looked tidy but stole enough width from the titles to set half of them wrapping.
+      const year = yearOf(play);
+      if (year) {
+        const y = document.createElement("span");
+        y.className = "pi-year";
+        y.textContent = year;
+        meta.append(y);
+      }
       const first = (play.subtitle.split("·")[0] || "").trim();
       // Always the situation here, never a clip's own written sentence: a list wants one kind of
       // line down its length, and a paragraph of prose in one row among twenty-five breaks the
       // column. The written sentence belongs above the pitch, where there is room for it.
-      meta.textContent = situationFor(play).replace(/\.$/, "") || `${first} · ${Math.round(play.duration)}s`;
+      meta.append(situationFor(play).replace(/\.$/, "") || `${first} · ${Math.round(play.duration)}s`);
       const kits = document.createElement("span");
       kits.className = "pi-kits";
       for (const side of ["A", "B"]) {
@@ -4593,6 +4762,7 @@
       }
       btn.append(title, kits, meta);
       btn.addEventListener("click", () => openPlay(play, { push: true }));
+      rowFor.set(play, btn);
       root.append(btn);
     }
   }
@@ -5351,6 +5521,9 @@ REQUEST: ${request}`;
   window.addEventListener("resize", resize);   // a turned phone changes the height cap, not the width
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", resize);
   new MutationObserver(resize).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+  // Built once, here, rather than on every clip change
+  renderLibrary();
 
   // A link that names a clip opens it; one that names nothing, or something no longer in the
   // library, quietly falls back to the first and tidies the address rather than showing an error.
