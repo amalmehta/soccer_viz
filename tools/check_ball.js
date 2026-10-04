@@ -13,8 +13,9 @@ const between = (a, b) => {
   return js.slice(i, j);
 };
 const api = new Function(
-  "const W = 105, H = 68;\n" +
-  between("  // ---------- Built-in plays ----------", "  // ---------- Rendering ----------") +
+  // From the pitch geometry rather than from the plays, so the harness has the same constants
+  // the renderer does (the goal mouth among them) instead of redeclaring a couple by hand
+  between("  // ---------- Pitch geometry (metres) ----------", "  // ---------- Rendering ----------") +
   between("  const yearOf = play =>", "  function renderLibrary()") +
   "\nreturn { normalizePlay, compile, pathPos };"
 )();

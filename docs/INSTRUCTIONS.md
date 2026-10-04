@@ -75,7 +75,8 @@ JavaScript, and nothing but the fonts comes from a CDN.
    colours, venue and score over the TODO placeholders, then move it into `library/plays/`.
 2. Check it: `node tools/check_plays.js library/plays/*.json`, then the movement checks —
    `check_motion.js` (facing and stride), `check_glide.js` (speed and acceleration limits),
-   `check_ball.js` (the ball against bodies) and `check_press.js` (defenders closing the ball).
+   `check_ball.js` (the ball against bodies), `check_press.js` (defenders closing the ball) and
+   `check_flight.js` (the ball travelling between keyframes rather than jumping).
 3. Bundle and rebuild: `python3 tools/build_library.py && python3 build_site.py`
 4. Commit `docs/` along with the source; pushing to `main` publishes the site.
 
