@@ -77,7 +77,22 @@
     const ctx = context();
     if (!ctx) return null;
     const buf = ctx.createBuffer(1, samples.length, rate);
-    buf.copyToChannel(Float32Array.from(samples), 0);
+    const pcm = Float32Array.from(samples);
+    // The model puts an impulse in the first few samples of everything it renders -- measured at
+    // -22 where speech sits around 0.02, which is a click at the top of every phrase, heard live as
+    // well as in a downloaded clip. Anything outside the range audio is defined over is brought
+    // back into it, and a five-millisecond fade at each end removes both that transient and the
+    // click at the joins, where one phrase is laid against the next.
+    const edge = Math.min(Math.round(rate * 0.005), pcm.length >> 1);
+    for (let i = 0; i < pcm.length; i++) {
+      let v = pcm[i];
+      if (!(v > -1)) v = v < 0 ? -1 : 0;        // also catches NaN
+      else if (v > 1) v = 1;
+      if (i < edge) v *= i / edge;
+      else if (i >= pcm.length - edge) v *= (pcm.length - 1 - i) / edge;
+      pcm[i] = v;
+    }
+    buf.copyToChannel(pcm, 0);
     cache.set(key, buf);
     return buf;
   }
@@ -126,11 +141,38 @@
     onStatus && onStatus("");
   }
 
+  // The same phrases a line is spoken from, laid end to end into one buffer instead of being
+  // played. The video exporter needs the commentary as audio it can place on a timeline and mix,
+  // rather than as something that happens live at the speaker, and this is the only voice that can
+  // be rendered at all: the browser's own speech synthesis will talk, but it will not hand over
+  // samples, so a downloaded clip can only carry a commentator if this one is the one in use.
+  async function renderLine(parts, voice) {
+    const ctx = context();
+    if (!ctx) return null;
+    const bufs = [];
+    for (const p of parts) {
+      const buf = await render(p.text, voice, p.speed);
+      if (buf) bufs.push({ buf, gain: p.gain });
+    }
+    if (!bufs.length) return null;
+    const rate = bufs[0].buf.sampleRate;
+    const total = bufs.reduce((n, b) => n + b.buf.length, 0);
+    const out = ctx.createBuffer(1, total, rate);
+    const data = out.getChannelData(0);
+    let at = 0;
+    for (const { buf, gain } of bufs) {
+      const from = buf.getChannelData(0);
+      for (let i = 0; i < from.length; i++) data[at + i] = from[i] * gain;
+      at += from.length;
+    }
+    return out;
+  }
+
   window.BirdseyeVoice = {
     voices: VOICES,
     supported: typeof WebAssembly === "object",
     ready: () => !!tts,
-    load, say, stop, warm,
+    load, say, stop, warm, renderLine,
     busy: () => !!playing
   };
 })();

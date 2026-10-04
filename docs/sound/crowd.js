@@ -15,13 +15,33 @@
     for (const ev of play.events) {
       const d = t - ev.t;
       if (ev.type === "goal") {
-        if (d > -0.25 && d < 0) roar = Math.max(roar, 0.6 * (1 + d / 0.25));
-        else if (d >= 0) roar = Math.max(roar, d < 0.35 ? 0.6 + (0.4 * d) / 0.35 : Math.max(0.22, Math.exp(-(d - 0.35) / 3.5)));
+        // Nothing before the ball crosses: the noise is a reaction, and it takes a moment to gather
+        if (d >= 0) roar = Math.max(roar, d < 0.55 ? Math.pow(d / 0.55, 0.7) : Math.max(0.3, Math.exp(-(d - 0.55) / 4.5)));
       } else if (ev.type === "shot" || ev.type === "save") {
         if (d > -0.3 && d < 1.8) gasp = Math.max(gasp, d < 0 ? 0.6 * (1 + d / 0.3) : 0.6 * Math.exp(-d * 1.4));
       }
     }
-    return { murmur: 0.5 + 0.3 * tension, excite: Math.min(1, 0.2 * tension + 0.7 * gasp + roar), roar, gasp };
+    // The thing a recording of a stadium never prepares you for is the silence. A crowd does not
+    // build steadily to a goal: it rises with the move, and then at the moment of the strike eighty
+    // thousand people stop breathing at once. The noise that follows is so much louder because of
+    // the hole in front of it, and it arrives a beat late — after the ball is in, not as it is hit.
+    let hush = 0;
+    for (const ev of play.events) {
+      if (ev.type !== "shot" && ev.type !== "goal") continue;
+      const d = t - ev.t;
+      if (d > -0.55 && d < 0.12) hush = Math.max(hush, Math.min(1, (d + 0.55) / 0.3));
+    }
+    hush = Math.max(0, hush - roar * 1.4);          // once the roar is up there is nothing to hush
+    const quiet = 1 - 0.78 * hush;
+    return {
+      murmur: (0.5 + 0.3 * tension) * quiet,
+      excite: Math.min(1, (0.2 * tension + 0.7 * gasp) * quiet + roar),
+      // The crowd goes quiet at the strike. The commentator does the opposite — the voice climbs as
+      // the ball is hit, which is why the hole is so audible. So the voice reads its own figure,
+      // without the hush in it.
+      drama: Math.min(1, 0.2 * tension + 0.7 * gasp + roar),
+      roar, gasp, hush
+    };
   }
 
   // The recordings arrive as base64 in window.BirdseyeCrowdAudio and are decoded once per context

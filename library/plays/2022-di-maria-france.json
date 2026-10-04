@@ -1,1080 +1,1082 @@
 {
-  "title": "Di María in the Lusail final",
-  "subtitle": "FIFA World Cup, final · Lusail Stadium · 18 Dec 2022",
-  "clock": "36'",
-  "duration": 23.8,
-  "teams": {
-    "A": {
-      "name": "Argentina",
-      "short": "ARG",
-      "color": "#75AADB",
-      "color2": "#F5F5F2",
-      "text": "#1B2A4A",
-      "pattern": "stripes",
-      "shorts": "#1A1A1E",
-      "socks": "#F5F5F2",
-      "gkColor": "#3FB98A"
-    },
-    "B": {
-      "name": "France",
-      "short": "FRA",
-      "color": "#1F3A93",
-      "color2": "#F5F5F2",
-      "text": "#FFFFFF",
-      "pattern": "plain",
-      "shorts": "#F5F5F2",
-      "socks": "#C8102E",
-      "gkColor": "#C9C23F"
-    }
+ "title": "Di María in the Lusail final",
+ "subtitle": "FIFA World Cup, final · Lusail Stadium · 18 Dec 2022",
+ "clock": "36'",
+ "duration": 23.8,
+ "teams": {
+  "A": {
+   "name": "Argentina",
+   "short": "ARG",
+   "color": "#75AADB",
+   "color2": "#F5F5F2",
+   "text": "#1B2A4A",
+   "pattern": "stripes",
+   "shorts": "#1A1A1E",
+   "socks": "#F5F5F2",
+   "gkColor": "#3FB98A"
   },
-  "score": [
-    1,
-    0
-  ],
-  "players": [
-    {
-      "id": "hernandez",
-      "team": "B",
-      "num": 22,
-      "name": "Hernández",
-      "look": {
-        "skin": "light",
-        "hair": "short",
-        "hairColor": "dark-brown",
-        "beard": "stubble",
-        "height": 184
-      },
-      "path": [
-        [
-          0.0,
-          23.54,
-          67.92
-        ],
-        [
-          3.46,
-          33.3,
-          64.99
-        ],
-        [
-          6.93,
-          42.47,
-          62.08
-        ],
-        [
-          10.39,
-          52.81,
-          59.12
-        ],
-        [
-          13.86,
-          62.54,
-          56.77
-        ],
-        [
-          17.32,
-          72.32,
-          53.25
-        ],
-        [
-          20.79,
-          82.08,
-          50.32
-        ],
-        [
-          23.8,
-          87,
-          49
-        ]
-      ]
-    },
-    {
-      "id": "mbappe",
-      "team": "B",
-      "num": 10,
-      "name": "Mbappé",
-      "look": {
-        "skin": "brown",
-        "hair": "short",
-        "hairColor": "black",
-        "beard": "none",
-        "height": 178
-      },
-      "path": [
-        [
-          0.0,
-          8.05,
-          62.05
-        ],
-        [
-          1.24,
-          8.05,
-          62.05
-        ],
-        [
-          2.39,
-          6.12,
-          59.16
-        ],
-        [
-          3.22,
-          6.62,
-          52.96
-        ],
-        [
-          8,
-          20,
-          55
-        ],
-        [
-          14,
-          40,
-          55
-        ],
-        [
-          20,
-          60,
-          52
-        ],
-        [
-          23.8,
-          70,
-          50
-        ]
-      ]
-    },
-    {
-      "id": "romero",
-      "team": "A",
-      "num": 13,
-      "name": "Romero",
-      "look": {
-        "skin": "light",
-        "hair": "short",
-        "hairColor": "dark-brown",
-        "beard": "stubble",
-        "height": 185
-      },
-      "path": [
-        [
-          0.0,
-          6.21,
-          59.24
-        ],
-        [
-          2.39,
-          7.76,
-          60.62
-        ],
-        [
-          8,
-          14,
-          58
-        ],
-        [
-          14,
-          26,
-          56
-        ],
-        [
-          20,
-          40,
-          54
-        ],
-        [
-          23.8,
-          48,
-          52
-        ]
-      ]
-    },
-    {
-      "id": "molina",
-      "team": "A",
-      "num": 26,
-      "name": "Molina",
-      "look": {
-        "skin": "light",
-        "hair": "short",
-        "hairColor": "dark-brown",
-        "beard": "stubble",
-        "height": 175
-      },
-      "path": [
-        [
-          0.0,
-          5.08,
-          46.32
-        ],
-        [
-          3.33,
-          5.08,
-          46.32
-        ],
-        [
-          7.18,
-          13.87,
-          53.67
-        ],
-        [
-          11.03,
-          22.66,
-          61.03
-        ],
-        [
-          16,
-          34,
-          62
-        ],
-        [
-          20,
-          46,
-          60
-        ],
-        [
-          23.8,
-          54,
-          58
-        ]
-      ]
-    },
-    {
-      "id": "martinez",
-      "team": "A",
-      "num": 23,
-      "name": "Martínez",
-      "gk": true,
-      "look": {
-        "skin": "light",
-        "hair": "short",
-        "hairColor": "dark-brown",
-        "beard": "stubble",
-        "height": 195
-      },
-      "path": [
-        [
-          0.0,
-          3.59,
-          35.79
-        ],
-        [
-          2.23,
-          3.59,
-          35.79
-        ],
-        [
-          4.45,
-          3.59,
-          35.79
-        ],
-        [
-          12,
-          5,
-          35
-        ],
-        [
-          23.8,
-          6,
-          35
-        ]
-      ]
-    },
-    {
-      "id": "upamecano",
-      "team": "B",
-      "num": 18,
-      "name": "Upamecano",
-      "look": {
-        "skin": "dark",
-        "hair": "buzz",
-        "hairColor": "black",
-        "beard": "none",
-        "height": 186
-      },
-      "path": [
-        [
-          0.0,
-          44.54,
-          62.05
-        ],
-        [
-          2.75,
-          44.54,
-          62.05
-        ],
-        [
-          5.51,
-          44.54,
-          62.05
-        ],
-        [
-          8.26,
-          44.54,
-          62.05
-        ],
-        [
-          9.43,
-          42.61,
-          63.32
-        ],
-        [
-          13.22,
-          59.76,
-          55.84
-        ],
-        [
-          17.0,
-          76.91,
-          48.36
-        ],
-        [
-          20.79,
-          94.06,
-          40.88
-        ],
-        [
-          23.8,
-          98,
-          38
-        ]
-      ]
-    },
-    {
-      "id": "macallister",
-      "team": "A",
-      "num": 20,
-      "name": "Mac Allister",
-      "look": {
-        "skin": "light",
-        "hair": "curly",
-        "hairColor": "brown",
-        "beard": "stubble",
-        "height": 176
-      },
-      "path": [
-        [
-          0.0,
-          36.57,
-          50.15
-        ],
-        [
-          3.12,
-          36.57,
-          50.15
-        ],
-        [
-          6.25,
-          36.57,
-          50.15
-        ],
-        [
-          9.38,
-          36.57,
-          50.15
-        ],
-        [
-          12.5,
-          36.57,
-          50.15
-        ],
-        [
-          15.8,
-          57.02,
-          48.74
-        ],
-        [
-          19.1,
-          77.47,
-          47.32
-        ],
-        [
-          20.79,
-          87.9,
-          46.15
-        ],
-        [
-          23.8,
-          92,
-          44
-        ]
-      ]
-    },
-    {
-      "id": "messi",
-      "team": "A",
-      "num": 10,
-      "name": "Messi",
-      "look": {
-        "skin": "light",
-        "hair": "short",
-        "hairColor": "dark-brown",
-        "beard": "beard",
-        "height": 170
-      },
-      "path": [
-        [
-          0.0,
-          46.46,
-          52.53
-        ],
-        [
-          3.37,
-          46.46,
-          52.53
-        ],
-        [
-          6.74,
-          46.46,
-          52.53
-        ],
-        [
-          10.11,
-          46.46,
-          52.53
-        ],
-        [
-          13.48,
-          46.46,
-          52.53
-        ],
-        [
-          13.95,
-          46.29,
-          52.53
-        ],
-        [
-          16,
-          52,
-          52
-        ],
-        [
-          20,
-          62,
-          50
-        ],
-        [
-          23.8,
-          70,
-          48
-        ]
-      ]
-    },
-    {
-      "id": "alvarez",
-      "team": "A",
-      "num": 9,
-      "name": "Álvarez",
-      "look": {
-        "skin": "light",
-        "hair": "short",
-        "hairColor": "dark-brown",
-        "beard": "none",
-        "height": 170
-      },
-      "path": [
-        [
-          0.0,
-          55.3,
-          57.97
-        ],
-        [
-          3.85,
-          55.3,
-          57.97
-        ],
-        [
-          7.69,
-          55.3,
-          57.97
-        ],
-        [
-          11.54,
-          55.3,
-          57.97
-        ],
-        [
-          15.38,
-          55.3,
-          57.97
-        ],
-        [
-          15.78,
-          55.3,
-          57.97
-        ],
-        [
-          18.29,
-          67.14,
-          50.48
-        ],
-        [
-          20.79,
-          78.93,
-          43.03
-        ],
-        [
-          23.8,
-          84,
-          40
-        ]
-      ]
-    },
-    {
-      "id": "maria",
-      "team": "A",
-      "num": 11,
-      "name": "Di María",
-      "star": true,
-      "look": {
-        "skin": "light",
-        "hair": "long",
-        "hairColor": "dark-brown",
-        "beard": "stubble",
-        "height": 180
-      },
-      "path": [
-        [
-          0,
-          60,
-          20
-        ],
-        [
-          6,
-          67,
-          18
-        ],
-        [
-          11,
-          75,
-          17
-        ],
-        [
-          15,
-          83,
-          19.5
-        ],
-        [
-          18,
-          90,
-          23
-        ],
-        [
-          20.77,
-          97.8,
-          27.3
-        ],
-        [
-          22.2,
-          101,
-          31
-        ],
-        [
-          23.8,
-          101,
-          33
-        ]
-      ]
-    },
-    {
-      "id": "kounde",
-      "team": "B",
-      "num": 5,
-      "name": "Koundé",
-      "look": {
-        "skin": "dark",
-        "hair": "buzz",
-        "hairColor": "black",
-        "beard": "none",
-        "height": 178
-      },
-      "path": [
-        [
-          0,
-          84,
-          48
-        ],
-        [
-          8,
-          89,
-          46
-        ],
-        [
-          14,
-          93,
-          45
-        ],
-        [
-          20.8,
-          97.7,
-          44
-        ],
-        [
-          23.8,
-          99,
-          42
-        ]
-      ]
-    },
-    {
-      "id": "tchouameni",
-      "team": "B",
-      "num": 8,
-      "name": "Tchouaméni",
-      "look": {
-        "skin": "dark",
-        "hair": "buzz",
-        "hairColor": "black",
-        "beard": "none",
-        "height": 187
-      },
-      "path": [
-        [
-          0,
-          80,
-          34
-        ],
-        [
-          8,
-          86,
-          33
-        ],
-        [
-          14,
-          91,
-          32.5
-        ],
-        [
-          20.8,
-          96.6,
-          32
-        ],
-        [
-          23.8,
-          98,
-          34
-        ]
-      ]
-    },
-    {
-      "id": "varane",
-      "team": "B",
-      "num": 4,
-      "name": "Varane",
-      "look": {
-        "skin": "brown",
-        "hair": "buzz",
-        "hairColor": "black",
-        "beard": "none",
-        "height": 191
-      },
-      "path": [
-        [
-          0,
-          76,
-          42
-        ],
-        [
-          8,
-          80,
-          41.5
-        ],
-        [
-          14,
-          84,
-          41
-        ],
-        [
-          20.8,
-          88.9,
-          40.8
-        ],
-        [
-          23.8,
-          93,
-          40
-        ]
-      ]
-    },
-    {
-      "id": "lloris",
-      "team": "B",
-      "num": 1,
-      "name": "Lloris",
-      "gk": true,
-      "look": {
-        "skin": "light",
-        "hair": "short",
-        "hairColor": "dark-brown",
-        "beard": "stubble",
-        "height": 188
-      },
-      "path": [
-        [
-          0,
-          99,
-          32
-        ],
-        [
-          10,
-          99.6,
-          31
-        ],
-        [
-          20.8,
-          100.3,
-          29.8
-        ],
-        [
-          21.6,
-          101,
-          33
-        ],
-        [
-          23.8,
-          101,
-          34
-        ]
-      ]
-    },
-    {
-      "id": "arg-cb",
-      "team": "A",
-      "num": null,
-      "name": null,
-      "path": [
-        [
-          0,
-          30,
-          30
-        ]
-      ]
-    },
-    {
-      "id": "arg-dm",
-      "team": "A",
-      "num": null,
-      "name": null,
-      "path": [
-        [
-          0,
-          42,
-          38
-        ]
-      ]
-    },
-    {
-      "id": "arg-lb",
-      "team": "A",
-      "num": null,
-      "name": null,
-      "path": [
-        [
-          0,
-          34,
-          22
-        ]
-      ]
-    },
-    {
-      "id": "fra-rm",
-      "team": "B",
-      "num": null,
-      "name": null,
-      "path": [
-        [
-          0,
-          58,
-          30
-        ]
-      ]
-    },
-    {
-      "id": "fra-cm",
-      "team": "B",
-      "num": null,
-      "name": null,
-      "path": [
-        [
-          0,
-          62,
-          44
-        ]
-      ]
-    },
-    {
-      "id": "fra-fw",
-      "team": "B",
-      "num": null,
-      "name": null,
-      "path": [
-        [
-          0,
-          70,
-          36
-        ]
-      ]
-    },
-    {
-      "id": "fra-w",
-      "team": "B",
-      "num": null,
-      "name": null,
-      "path": [
-        [
-          0,
-          66,
-          24
-        ]
-      ]
-    }
-  ],
-  "ball": [
-    {
-      "t": 0.0,
-      "with": "hernandez"
-    },
-    {
-      "t": 1.24,
-      "with": "mbappe"
-    },
-    {
-      "t": 2.39,
-      "with": "mbappe"
-    },
-    {
-      "t": 3.33,
-      "with": "molina"
-    },
-    {
-      "t": 4.45,
-      "with": "martinez"
-    },
-    {
-      "t": 8.26,
-      "with": "upamecano"
-    },
-    {
-      "t": 8.38,
-      "x": 44.62,
-      "y": 62.13
-    },
-    {
-      "t": 9.43,
-      "with": "upamecano"
-    },
-    {
-      "t": 11.03,
-      "with": "molina"
-    },
-    {
-      "t": 11.15,
-      "x": 22.57,
-      "y": 60.95
-    },
-    {
-      "t": 12.5,
-      "with": "macallister"
-    },
-    {
-      "t": 13.48,
-      "with": "messi"
-    },
-    {
-      "t": 13.95,
-      "with": "messi"
-    },
-    {
-      "t": 15.38,
-      "with": "alvarez"
-    },
-    {
-      "t": 15.78,
-      "with": "alvarez"
-    },
-    {
-      "t": 19.1,
-      "with": "macallister"
-    },
-    {
-      "t": 20.77,
-      "with": "maria"
-    },
-    {
-      "t": 21.25,
-      "x": 105.4,
-      "y": 35.45,
-      "power": 0.8
-    }
-  ],
-  "captions": [
-    {
-      "t": 0,
-      "text": "36' — Argentina lead 1–0 and France can't get out."
-    },
-    {
-      "t": 2.4,
-      "text": "Mbappé loses it deep in the Argentina half."
-    },
-    {
-      "t": 9.4,
-      "text": "Upamecano's clearance only reaches Molina."
-    },
-    {
-      "t": 12.5,
-      "text": "Mac Allister carries it, then Messi moves it on first time."
-    },
-    {
-      "t": 15.4,
-      "text": "Álvarez takes it wide of the last defender."
-    },
-    {
-      "t": 19.1,
-      "text": "Mac Allister arrives on the overlap and squares it."
-    },
-    {
-      "t": 20.8,
-      "text": "Di María, alone at the far post, finishes first time."
-    },
-    {
-      "t": 21.9,
-      "text": "Argentina 2–0 France."
-    }
-  ],
-  "commentary": [
-    {
-      "t": 0,
-      "text": "Thirty-six minutes in Lusail, Argentina a goal up and France yet to settle."
-    },
-    {
-      "t": 2.4,
-      "text": "Mbappé is dispossessed, and Argentina have it back…"
-    },
-    {
-      "t": 9.4,
-      "text": "The clearance drops to Molina, and Argentina go again."
-    },
-    {
-      "t": 12.5,
-      "text": "Mac Allister drives forward, into Messi…"
-    },
-    {
-      "t": 15.4,
-      "text": "…first time to Álvarez, and Argentina are through the middle!"
-    },
-    {
-      "t": 19.1,
-      "text": "Mac Allister, overlapping, squares it…"
-    },
-    {
-      "t": 20.8,
-      "text": "…DI MARÍA! First time, and it's two!"
-    },
-    {
-      "t": 22.4,
-      "text": "Four passes from their own third to the France net. Ruthless."
-    }
-  ],
-  "events": [
-    {
-      "t": 0.0,
-      "type": "pass",
-      "team": "B"
-    },
-    {
-      "t": 3.33,
-      "type": "pass",
-      "team": "A"
-    },
-    {
-      "t": 4.45,
-      "type": "pass",
-      "team": "A"
-    },
-    {
-      "t": 9.43,
-      "type": "pass",
-      "team": "B"
-    },
-    {
-      "t": 11.03,
-      "type": "pass",
-      "team": "A"
-    },
-    {
-      "t": 12.5,
-      "type": "pass",
-      "team": "A"
-    },
-    {
-      "t": 13.95,
-      "type": "pass",
-      "team": "A"
-    },
-    {
-      "t": 15.45,
-      "type": "pass",
-      "team": "A"
-    },
-    {
-      "t": 19.1,
-      "type": "pass",
-      "team": "A"
-    },
-    {
-      "t": 20.79,
-      "type": "shot",
-      "team": "A"
-    },
-    {
-      "t": 21.25,
-      "type": "goal",
-      "team": "A"
-    }
-  ],
-  "actions": [],
-  "venue": {
-    "time": "night",
-    "roof": "partial",
-    "stands": "#8d6b32",
-    "accent": "#d8b25a",
-    "track": false,
-    "grass": "#3a8a45",
-    "mowing": "stripes"
+  "B": {
+   "name": "France",
+   "short": "FRA",
+   "color": "#1F3A93",
+   "color2": "#F5F5F2",
+   "text": "#FFFFFF",
+   "pattern": "plain",
+   "shorts": "#F5F5F2",
+   "socks": "#C8102E",
+   "gkColor": "#C9C23F"
+  }
+ },
+ "score": [
+  1,
+  0
+ ],
+ "players": [
+  {
+   "id": "hernandez",
+   "team": "B",
+   "num": 22,
+   "name": "Hernández",
+   "look": {
+    "skin": "light",
+    "hair": "short",
+    "hairColor": "dark-brown",
+    "beard": "stubble",
+    "height": 184
+   },
+   "path": [
+    [
+     0.0,
+     23.54,
+     67.92
+    ],
+    [
+     3.46,
+     33.3,
+     64.99
+    ],
+    [
+     6.93,
+     42.47,
+     62.08
+    ],
+    [
+     10.39,
+     52.81,
+     59.12
+    ],
+    [
+     13.86,
+     62.54,
+     56.77
+    ],
+    [
+     17.32,
+     72.32,
+     53.25
+    ],
+    [
+     20.79,
+     82.08,
+     50.32
+    ],
+    [
+     23.8,
+     87,
+     49
+    ]
+   ]
   },
-  "analysis": [
-    {
-      "label": "Context",
-      "text": "Argentina led 1–0 and France had barely strung two passes together. When Mbappé was dispossessed deep in the Argentina half, France were caught with players committed and no shape to fall back into."
-    },
-    {
-      "label": "The turnover",
-      "text": "Argentina went forward the moment they won it. From Molina's ball to the finish there are four passes, and none of them go backwards: the counter arrives before the French midfield can turn and run."
-    },
-    {
-      "label": "The break",
-      "text": "Mac Allister carried into the space Mbappé had left, Messi moved it on first time rather than taking a touch, and Álvarez released Mac Allister wide of the last defender."
-    },
-    {
-      "label": "The finish",
-      "text": "Di María had drifted to the far post, with no defender tracking that run. The square ball came across the six-yard box and the finish was first time, past Lloris before the keeper could reset."
-    }
-  ],
-  "lessons": [
-    {
-      "label": "Go at once",
-      "text": "Argentina attack the moment they win the ball, while France still have players ahead of it. A counter delayed by one extra touch usually meets a reorganised defence."
-    },
-    {
-      "label": "Pass, don't dwell",
-      "text": "Messi takes no touch to control it. Every first-time pass on a counter is time the recovering defenders don't get."
-    },
-    {
-      "label": "Run past the ball",
-      "text": "Mac Allister passes and keeps going, arriving wide of the last defender. A midfielder running beyond the attack is the hardest runner to pick up."
-    },
-    {
-      "label": "Wait at the far post",
-      "text": "Di María stays on the far side, out of the defenders' eyeline. Balls across the six-yard box find whoever held that run."
-    }
-  ],
-  "note": "The ball's path, its timing and the tracked players come from StatsBomb's open data for this match (id 3869685). Players the data only sees at the shot have hand-drawn routes into those positions, and the rest of both teams are placed by hand. Commentary is original, not the broadcast."
+  {
+   "id": "mbappe",
+   "team": "B",
+   "num": 10,
+   "name": "Mbappé",
+   "look": {
+    "skin": "brown",
+    "hair": "short",
+    "hairColor": "black",
+    "beard": "none",
+    "height": 178
+   },
+   "path": [
+    [
+     0.0,
+     8.05,
+     62.05
+    ],
+    [
+     1.24,
+     8.05,
+     62.05
+    ],
+    [
+     2.39,
+     6.12,
+     59.16
+    ],
+    [
+     3.22,
+     6.62,
+     52.96
+    ],
+    [
+     8,
+     20,
+     55
+    ],
+    [
+     14,
+     40,
+     55
+    ],
+    [
+     20,
+     60,
+     52
+    ],
+    [
+     23.8,
+     70,
+     50
+    ]
+   ]
+  },
+  {
+   "id": "romero",
+   "team": "A",
+   "num": 13,
+   "name": "Romero",
+   "look": {
+    "skin": "light",
+    "hair": "short",
+    "hairColor": "dark-brown",
+    "beard": "stubble",
+    "height": 185
+   },
+   "path": [
+    [
+     0.0,
+     6.21,
+     59.24
+    ],
+    [
+     2.39,
+     7.76,
+     60.62
+    ],
+    [
+     8,
+     14,
+     58
+    ],
+    [
+     14,
+     26,
+     56
+    ],
+    [
+     20,
+     40,
+     54
+    ],
+    [
+     23.8,
+     48,
+     52
+    ]
+   ]
+  },
+  {
+   "id": "molina",
+   "team": "A",
+   "num": 26,
+   "name": "Molina",
+   "look": {
+    "skin": "light",
+    "hair": "short",
+    "hairColor": "dark-brown",
+    "beard": "stubble",
+    "height": 175
+   },
+   "path": [
+    [
+     0.0,
+     5.08,
+     46.32
+    ],
+    [
+     3.33,
+     5.08,
+     46.32
+    ],
+    [
+     7.18,
+     13.87,
+     53.67
+    ],
+    [
+     11.03,
+     22.66,
+     61.03
+    ],
+    [
+     16,
+     34,
+     62
+    ],
+    [
+     20,
+     46,
+     60
+    ],
+    [
+     23.8,
+     54,
+     58
+    ]
+   ]
+  },
+  {
+   "id": "martinez",
+   "team": "A",
+   "num": 23,
+   "name": "Martínez",
+   "gk": true,
+   "look": {
+    "skin": "light",
+    "hair": "short",
+    "hairColor": "dark-brown",
+    "beard": "stubble",
+    "height": 195
+   },
+   "path": [
+    [
+     0.0,
+     3.59,
+     35.79
+    ],
+    [
+     2.23,
+     3.59,
+     35.79
+    ],
+    [
+     4.45,
+     3.59,
+     35.79
+    ],
+    [
+     12,
+     5,
+     35
+    ],
+    [
+     23.8,
+     6,
+     35
+    ]
+   ]
+  },
+  {
+   "id": "upamecano",
+   "team": "B",
+   "num": 18,
+   "name": "Upamecano",
+   "look": {
+    "skin": "dark",
+    "hair": "buzz",
+    "hairColor": "black",
+    "beard": "none",
+    "height": 186
+   },
+   "path": [
+    [
+     0.0,
+     44.54,
+     62.05
+    ],
+    [
+     2.75,
+     44.54,
+     62.05
+    ],
+    [
+     5.51,
+     44.54,
+     62.05
+    ],
+    [
+     8.26,
+     44.54,
+     62.05
+    ],
+    [
+     9.43,
+     42.61,
+     63.32
+    ],
+    [
+     13.22,
+     59.76,
+     55.84
+    ],
+    [
+     17.0,
+     76.91,
+     48.36
+    ],
+    [
+     20.79,
+     94.06,
+     40.88
+    ],
+    [
+     23.8,
+     98,
+     38
+    ]
+   ]
+  },
+  {
+   "id": "macallister",
+   "team": "A",
+   "num": 20,
+   "name": "Mac Allister",
+   "look": {
+    "skin": "light",
+    "hair": "curly",
+    "hairColor": "brown",
+    "beard": "stubble",
+    "height": 176
+   },
+   "path": [
+    [
+     0.0,
+     36.57,
+     50.15
+    ],
+    [
+     3.12,
+     36.57,
+     50.15
+    ],
+    [
+     6.25,
+     36.57,
+     50.15
+    ],
+    [
+     9.38,
+     36.57,
+     50.15
+    ],
+    [
+     12.5,
+     36.57,
+     50.15
+    ],
+    [
+     15.8,
+     57.02,
+     48.74
+    ],
+    [
+     19.1,
+     77.47,
+     47.32
+    ],
+    [
+     20.79,
+     87.9,
+     46.15
+    ],
+    [
+     23.8,
+     92,
+     44
+    ]
+   ]
+  },
+  {
+   "id": "messi",
+   "team": "A",
+   "num": 10,
+   "name": "Messi",
+   "look": {
+    "skin": "light",
+    "hair": "short",
+    "hairColor": "dark-brown",
+    "beard": "beard",
+    "height": 170
+   },
+   "path": [
+    [
+     0.0,
+     46.46,
+     52.53
+    ],
+    [
+     3.37,
+     46.46,
+     52.53
+    ],
+    [
+     6.74,
+     46.46,
+     52.53
+    ],
+    [
+     10.11,
+     46.46,
+     52.53
+    ],
+    [
+     13.48,
+     46.46,
+     52.53
+    ],
+    [
+     13.95,
+     46.29,
+     52.53
+    ],
+    [
+     16,
+     52,
+     52
+    ],
+    [
+     20,
+     62,
+     50
+    ],
+    [
+     23.8,
+     70,
+     48
+    ]
+   ]
+  },
+  {
+   "id": "alvarez",
+   "team": "A",
+   "num": 9,
+   "name": "Álvarez",
+   "look": {
+    "skin": "light",
+    "hair": "short",
+    "hairColor": "dark-brown",
+    "beard": "none",
+    "height": 170
+   },
+   "path": [
+    [
+     0.0,
+     55.3,
+     57.97
+    ],
+    [
+     3.85,
+     55.3,
+     57.97
+    ],
+    [
+     7.69,
+     55.3,
+     57.97
+    ],
+    [
+     11.54,
+     55.3,
+     57.97
+    ],
+    [
+     15.38,
+     55.3,
+     57.97
+    ],
+    [
+     15.78,
+     55.3,
+     57.97
+    ],
+    [
+     18.29,
+     67.14,
+     50.48
+    ],
+    [
+     20.79,
+     78.93,
+     43.03
+    ],
+    [
+     23.8,
+     84,
+     40
+    ]
+   ]
+  },
+  {
+   "id": "maria",
+   "team": "A",
+   "num": 11,
+   "name": "Di María",
+   "star": true,
+   "look": {
+    "skin": "light",
+    "hair": "long",
+    "hairColor": "dark-brown",
+    "beard": "stubble",
+    "height": 180
+   },
+   "path": [
+    [
+     0,
+     60,
+     20
+    ],
+    [
+     6,
+     67,
+     18
+    ],
+    [
+     11,
+     75,
+     17
+    ],
+    [
+     15,
+     83,
+     19.5
+    ],
+    [
+     18,
+     90,
+     23
+    ],
+    [
+     20.77,
+     97.8,
+     27.3
+    ],
+    [
+     22.2,
+     101,
+     31
+    ],
+    [
+     23.8,
+     101,
+     33
+    ]
+   ]
+  },
+  {
+   "id": "kounde",
+   "team": "B",
+   "num": 5,
+   "name": "Koundé",
+   "look": {
+    "skin": "dark",
+    "hair": "buzz",
+    "hairColor": "black",
+    "beard": "none",
+    "height": 178
+   },
+   "path": [
+    [
+     0,
+     84,
+     48
+    ],
+    [
+     8,
+     89,
+     46
+    ],
+    [
+     14,
+     93,
+     45
+    ],
+    [
+     20.8,
+     97.7,
+     44
+    ],
+    [
+     23.8,
+     99,
+     42
+    ]
+   ]
+  },
+  {
+   "id": "tchouameni",
+   "team": "B",
+   "num": 8,
+   "name": "Tchouaméni",
+   "look": {
+    "skin": "dark",
+    "hair": "buzz",
+    "hairColor": "black",
+    "beard": "none",
+    "height": 187
+   },
+   "path": [
+    [
+     0,
+     80,
+     34
+    ],
+    [
+     8,
+     86,
+     33
+    ],
+    [
+     14,
+     91,
+     32.5
+    ],
+    [
+     20.8,
+     96.6,
+     32
+    ],
+    [
+     23.8,
+     98,
+     34
+    ]
+   ]
+  },
+  {
+   "id": "varane",
+   "team": "B",
+   "num": 4,
+   "name": "Varane",
+   "look": {
+    "skin": "brown",
+    "hair": "buzz",
+    "hairColor": "black",
+    "beard": "none",
+    "height": 191
+   },
+   "path": [
+    [
+     0,
+     76,
+     42
+    ],
+    [
+     8,
+     80,
+     41.5
+    ],
+    [
+     14,
+     84,
+     41
+    ],
+    [
+     20.8,
+     88.9,
+     40.8
+    ],
+    [
+     23.8,
+     93,
+     40
+    ]
+   ]
+  },
+  {
+   "id": "lloris",
+   "team": "B",
+   "num": 1,
+   "name": "Lloris",
+   "gk": true,
+   "look": {
+    "skin": "light",
+    "hair": "short",
+    "hairColor": "dark-brown",
+    "beard": "stubble",
+    "height": 188
+   },
+   "path": [
+    [
+     0,
+     99,
+     32
+    ],
+    [
+     10,
+     99.6,
+     31
+    ],
+    [
+     20.8,
+     100.3,
+     29.8
+    ],
+    [
+     21.6,
+     101,
+     33
+    ],
+    [
+     23.8,
+     101,
+     34
+    ]
+   ]
+  },
+  {
+   "id": "arg-cb",
+   "team": "A",
+   "num": null,
+   "name": null,
+   "path": [
+    [
+     0,
+     30,
+     30
+    ]
+   ]
+  },
+  {
+   "id": "arg-dm",
+   "team": "A",
+   "num": null,
+   "name": null,
+   "path": [
+    [
+     0,
+     42,
+     38
+    ]
+   ]
+  },
+  {
+   "id": "arg-lb",
+   "team": "A",
+   "num": null,
+   "name": null,
+   "path": [
+    [
+     0,
+     34,
+     22
+    ]
+   ]
+  },
+  {
+   "id": "fra-rm",
+   "team": "B",
+   "num": null,
+   "name": null,
+   "path": [
+    [
+     0,
+     58,
+     30
+    ]
+   ]
+  },
+  {
+   "id": "fra-cm",
+   "team": "B",
+   "num": null,
+   "name": null,
+   "path": [
+    [
+     0,
+     62,
+     44
+    ]
+   ]
+  },
+  {
+   "id": "fra-fw",
+   "team": "B",
+   "num": null,
+   "name": null,
+   "path": [
+    [
+     0,
+     70,
+     36
+    ]
+   ]
+  },
+  {
+   "id": "fra-w",
+   "team": "B",
+   "num": null,
+   "name": null,
+   "path": [
+    [
+     0,
+     66,
+     24
+    ]
+   ]
+  }
+ ],
+ "ball": [
+  {
+   "t": 0.0,
+   "with": "hernandez"
+  },
+  {
+   "t": 1.24,
+   "with": "mbappe"
+  },
+  {
+   "t": 2.39,
+   "with": "mbappe"
+  },
+  {
+   "t": 3.33,
+   "with": "molina"
+  },
+  {
+   "t": 4.45,
+   "with": "martinez"
+  },
+  {
+   "t": 8.26,
+   "with": "upamecano"
+  },
+  {
+   "t": 8.38,
+   "x": 44.62,
+   "y": 62.13
+  },
+  {
+   "t": 9.43,
+   "with": "upamecano"
+  },
+  {
+   "t": 11.03,
+   "with": "molina"
+  },
+  {
+   "t": 11.15,
+   "x": 22.57,
+   "y": 60.95
+  },
+  {
+   "t": 12.5,
+   "with": "macallister"
+  },
+  {
+   "t": 13.48,
+   "with": "messi"
+  },
+  {
+   "t": 13.95,
+   "with": "messi"
+  },
+  {
+   "t": 15.38,
+   "with": "alvarez"
+  },
+  {
+   "t": 15.78,
+   "with": "alvarez"
+  },
+  {
+   "t": 19.1,
+   "with": "macallister"
+  },
+  {
+   "t": 20.77,
+   "with": "maria"
+  },
+  {
+   "t": 21.25,
+   "x": 105.4,
+   "y": 35.45,
+   "power": 0.8
+  }
+ ],
+ "captions": [
+  {
+   "t": 0,
+   "text": "36' — Argentina lead 1–0 and France can't get out."
+  },
+  {
+   "t": 2.4,
+   "text": "Mbappé loses it deep in the Argentina half."
+  },
+  {
+   "t": 9.4,
+   "text": "Upamecano's clearance only reaches Molina."
+  },
+  {
+   "t": 12.5,
+   "text": "Mac Allister carries it, then Messi moves it on first time."
+  },
+  {
+   "t": 15.4,
+   "text": "Álvarez takes it wide of the last defender."
+  },
+  {
+   "t": 19.1,
+   "text": "Mac Allister arrives on the overlap and squares it."
+  },
+  {
+   "t": 20.8,
+   "text": "Di María, alone at the far post, finishes first time."
+  },
+  {
+   "t": 21.9,
+   "text": "Argentina 2–0 France."
+  }
+ ],
+ "commentary": [
+  {
+   "t": 0,
+   "text": "Thirty-six minutes in Lusail, Argentina a goal up and France yet to settle."
+  },
+  {
+   "t": 2.4,
+   "text": "Mbappé is dispossessed, and Argentina have it back…"
+  },
+  {
+   "t": 9.4,
+   "text": "The clearance drops to Molina, and Argentina go again."
+  },
+  {
+   "t": 12.5,
+   "text": "Mac Allister drives forward, into Messi…"
+  },
+  {
+   "t": 15.4,
+   "text": "…first time to Álvarez, and Argentina are through the middle!"
+  },
+  {
+   "t": 19.1,
+   "text": "Mac Allister, overlapping, squares it…"
+  },
+  {
+   "t": 20.8,
+   "text": "…DI MARÍA! First time, and it's two!"
+  },
+  {
+   "t": 22.4,
+   "text": "Four passes from their own third to the France net. Ruthless."
+  }
+ ],
+ "events": [
+  {
+   "t": 0.0,
+   "type": "pass",
+   "team": "B"
+  },
+  {
+   "t": 3.33,
+   "type": "pass",
+   "team": "A"
+  },
+  {
+   "t": 4.45,
+   "type": "pass",
+   "team": "A"
+  },
+  {
+   "t": 9.43,
+   "type": "pass",
+   "team": "B"
+  },
+  {
+   "t": 11.03,
+   "type": "pass",
+   "team": "A"
+  },
+  {
+   "t": 12.5,
+   "type": "pass",
+   "team": "A"
+  },
+  {
+   "t": 13.95,
+   "type": "pass",
+   "team": "A"
+  },
+  {
+   "t": 15.45,
+   "type": "pass",
+   "team": "A"
+  },
+  {
+   "t": 19.1,
+   "type": "pass",
+   "team": "A"
+  },
+  {
+   "t": 20.79,
+   "type": "shot",
+   "team": "A"
+  },
+  {
+   "t": 21.25,
+   "type": "goal",
+   "team": "A"
+  }
+ ],
+ "actions": [],
+ "venue": {
+  "time": "night",
+  "roof": "partial",
+  "stands": "#8d6b32",
+  "accent": "#d8b25a",
+  "track": false,
+  "grass": "#3a8a45",
+  "mowing": "stripes"
+ },
+ "analysis": [
+  {
+   "label": "Context",
+   "text": "Argentina led 1–0 and France had barely strung two passes together. When Mbappé was dispossessed deep in the Argentina half, France were caught with players committed and no shape to fall back into."
+  },
+  {
+   "label": "The turnover",
+   "text": "Argentina went forward the moment they won it. From Molina's ball to the finish there are four passes, and none of them go backwards: the counter arrives before the French midfield can turn and run."
+  },
+  {
+   "label": "The break",
+   "text": "Mac Allister carried into the space Mbappé had left, Messi moved it on first time rather than taking a touch, and Álvarez released Mac Allister wide of the last defender."
+  },
+  {
+   "label": "The finish",
+   "text": "Di María had drifted to the far post, with no defender tracking that run. The square ball came across the six-yard box and the finish was first time, past Lloris before the keeper could reset."
+  }
+ ],
+ "lessons": [
+  {
+   "label": "Go at once",
+   "text": "Argentina attack the moment they win the ball, while France still have players ahead of it. A counter delayed by one extra touch usually meets a reorganised defence."
+  },
+  {
+   "label": "Pass, don't dwell",
+   "text": "Messi takes no touch to control it. Every first-time pass on a counter is time the recovering defenders don't get."
+  },
+  {
+   "label": "Run past the ball",
+   "text": "Mac Allister passes and keeps going, arriving wide of the last defender. A midfielder running beyond the attack is the hardest runner to pick up."
+  },
+  {
+   "label": "Wait at the far post",
+   "text": "Di María stays on the far side, out of the defenders' eyeline. Balls across the six-yard box find whoever held that run."
+  }
+ ],
+ "note": "The ball's path, its timing and the tracked players come from StatsBomb's open data for this match (id 3869685). Players the data only sees at the shot have hand-drawn routes into those positions, and the rest of both teams are placed by hand. Commentary is original, not the broadcast.",
+ "stake": "Argentina have not won it since 1986, and this is Messi's last World Cup.",
+ "aftermath": "Two–nil, and France had barely touched it. Forty-five minutes later it was two–all."
 }
