@@ -4266,12 +4266,19 @@
     for (let i = 0; i < phrase.text.length; i++) { h ^= phrase.text.charCodeAt(i); h = Math.imul(h, 16777619); }
     const wobble = (((h >>> 0) % 1000) / 1000 - 0.5) * 2;   // -1..1
     const trailing = phrase.end === "," ? 0.04 : 0;          // a clause still hanging keeps its pace up
+    // Pitch is held almost still on purpose. It reads like the obvious handle for excitement, and
+    // it is the one the Web Speech API gives you, but on most engines it does not raise the voice
+    // the way a person raises theirs -- it resamples the output, which shortens the vocal tract and
+    // turns the commentator into a smaller person. Driven to the 1.4 this used to reach, a standard
+    // system voice sounds like a cartoon, and that is most of what made it grating. Energy is
+    // carried by pace and loudness instead, which are the two the engine changes without distorting
+    // anything, and pitch moves just enough that a run of phrases does not drone.
     return {
       // Capitalised words are said, not spelled out; awkward names are spelled the way they sound
       text: sayAs(phrase.text.replace(/\b[A-Z][A-Z']+\b/g, w => w.toLowerCase())),
-      rate: Math.min(1.6, 1.06 + k * 0.3 * energy - (suspense ? 0.12 * k : 0) + trailing + wobble * 0.045),
-      pitch: Math.min(1.7, 1 + k * (0.04 + 0.38 * energy) + (suspense ? 0.06 * k : 0) + wobble * 0.03),
-      volume: 0.85 + 0.15 * energy
+      rate: Math.min(1.45, 1.04 + k * 0.22 * energy - (suspense ? 0.1 * k : 0) + trailing + wobble * 0.035),
+      pitch: Math.min(1.16, 1 + k * (0.02 + 0.1 * energy) + (suspense ? 0.03 * k : 0) + wobble * 0.012),
+      volume: 0.82 + 0.18 * energy
     };
   }
 
@@ -4286,15 +4293,10 @@
     const mine = ++warming;
     neuralFailed = false;
     const lines = play.commentary.length ? play.commentary : play.captions;
-    const parts = [];
-    for (const line of lines) {
-      const phrases = phrasesOf(line.text.replace(/^[…—\s]+/, ""));
-      const mood = window.BirdseyeCrowd ? 0.5 : 0.3;
-      phrases.forEach((phrase, i) => {
-        const d = deliveryFor(phrase, mood, true, phrases.length > 1 ? (0.12 * i) / (phrases.length - 1) : 0);
-        parts.push({ text: d.text, speed: Math.max(0.85, Math.min(1.25, 0.92 + (d.rate - 1.06) * 0.5)) });
-      });
-    }
+    // Built exactly the way it will be spoken, and at the same mood, or the audio read ahead here
+    // is keyed on different text and pace than the line that eventually plays, the cache misses and
+    // the reading happens live after all -- which is the one thing this is here to avoid.
+    const parts = lines.map(line => neuralLine(line, moodAt(line.t)));
     const say = msg => { if (mine === warming) { voiceHint.textContent = msg; voiceHint.hidden = !msg; } };
     try {
       await neural.load(say);
@@ -4340,7 +4342,7 @@
   function sayLine(line) {
     const phrases = phrasesOf(line.text.replace(/^[…—\s]+/, ""));
     if (!phrases.length) return;
-    if (neural && !neuralFailed && isNeural(savedVoiceName || "")) { sayLineNeural(line, phrases); return; }
+    if (neural && !neuralFailed && isNeural(savedVoiceName || "")) { sayLineNeural(line); return; }
     if (!voice) refreshVoices();
     // Anything better than a plain system voice (Premium, Natural, Enhanced, or Chrome's Google
     // voices) already carries its own intonation, so the delivery only nudges it
@@ -4389,19 +4391,43 @@
   // pitch, and the page has already decided which phrase is the shout and which is the hanging
   // pause. Each phrase is rendered at its own pace and played at its own level, so the emphasis
   // lands where the writing put it, and the joins fall on punctuation where a speaker breathes.
-  function sayLineNeural(line, phrases) {
-    const mood = moodAt(line.t);
-    const parts = phrases.map((phrase, i) => {
-      const d = deliveryFor(phrase, mood, true, phrases.length > 1 ? (0.12 * i) / (phrases.length - 1) : 0);
-      const behind = Math.max(0, t - line.t);
-      return {
-        text: d.text,
-        speed: Math.max(0.85, Math.min(1.25, 0.92 + (d.rate - 1.06) * 0.5 + Math.min(0.1, behind * 0.03))),
-        gain: d.volume
-      };
-    });
+  // One line, said once.
+  //
+  // A line used to be cut into phrases and each phrase synthesised on its own, then the pieces laid
+  // end to end — so that the page could give each phrase its own pace and loudness, which is how
+  // the system voice has to be driven because rate and volume are the only handles it has.
+  //
+  // Done to a neural voice that is the wrong idea entirely. The model reads a whole sentence and
+  // writes one intonation contour across it: where the stress falls, where the pitch rises into a
+  // comma and settles at a full stop. Hand it three fragments and it writes three contours, each
+  // ending the way a sentence ends, and they are then butted together at three different tempos and
+  // three different levels, with a fade at every join. That is most of what makes it sound like a
+  // machine: not the voice, the stitching.
+  //
+  // So the model gets the line whole, with its punctuation, which is what it reads the shape from.
+  // The only thing still set from outside is a single pace for the line, because a commentator does
+  // speak faster as a move builds — and it is a narrow range, since a big swing in tempo is itself
+  // a thing real speakers do not do.
+  // Note there is no speeding-up-when-late here, as there is for the system voice. The whole clip
+  // is read ahead into memory before anybody presses play, and audio is cached on its exact text
+  // and pace: nudging the pace because a line is running late would miss that cache and synthesise
+  // from scratch, which takes about a second and a quarter -- making the late line later still.
+  function neuralLine(line, mood) {
+    const text = line.text.replace(/^[\u2026\u2014\s]+/, "");
+    const shout = /[!?]\s*$/.test(text) || /\b[A-Z][A-Z']+\b/.test(text);
+    const energy = Math.min(1, shout ? Math.max(mood, 0.8) : mood);
+    return {
+      // Capitalised words are said, not spelled out; awkward names spelled the way they sound
+      text: sayAs(text.replace(/\b[A-Z][A-Z']+\b/g, w => w.toLowerCase())),
+      speed: +Math.max(0.92, Math.min(1.14, 0.96 + 0.12 * energy)).toFixed(3),
+      gain: +(0.88 + 0.12 * energy).toFixed(3)
+    };
+  }
+
+  function sayLineNeural(line) {
+    const part = neuralLine(line, moodAt(line.t));
     const id = savedVoiceName.slice("neural:".length);
-    neural.say(parts, id,
+    neural.say([part], id,
       () => { if (crowd) crowd.duck(true); if (score) score.duck(true); },
       () => { if (crowd) crowd.duck(false); if (score) score.duck(false); nextLine(); })
       .catch(() => {
@@ -5008,14 +5034,9 @@ REQUEST: ${request}`;
     let done = 0;
     for (const line of lines) {
       // Spoken exactly where it was written, so none of the catching-up the live reading has to do
-      const phrases = phrasesOf(line.text.replace(/^[\u2026\u2014\s]+/, ""));
-      if (!phrases.length) continue;
-      const mood = moodAt(line.t);
-      const parts = phrases.map((phrase, i) => {
-        const d = deliveryFor(phrase, mood, true, phrases.length > 1 ? (0.12 * i) / (phrases.length - 1) : 0);
-        return { text: d.text, speed: Math.max(0.85, Math.min(1.25, 0.92 + (d.rate - 1.06) * 0.5)), gain: d.volume };
-      });
-      const buf = await neural.renderLine(parts, id);
+      const part = neuralLine(line, moodAt(line.t));
+      if (!part.text) continue;
+      const buf = await neural.renderLine([part], id);
       onStatus && onStatus(`Reading the commentary\u2026 ${Math.round((++done / lines.length) * 100)}%`);
       if (!buf) continue;
       const from = buf.getChannelData(0);
