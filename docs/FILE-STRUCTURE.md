@@ -16,6 +16,7 @@
 | `tools/check_glide.js` | Holds every body to a human top speed and a human change of pace |
 | `tools/check_ball.js` | Checks the ball never travels through a player who is not playing it |
 | `tools/check_press.js` | Checks the defender nearest the ball closes it down rather than backing off |
+| `tools/check_flight.js` | Checks the ball travels between keyframes rather than jumping to the next one |
 | `tools/quicken_chases.py` | Finds defenders loitering behind the play and re-times their route into a chase |
 | `tools/shot.js` | Screenshots the running app with headless Chrome, for checking what it draws |
 | `tools/build_library.py` | Bundles `library/plays/*.json` into `library/clips.js` |

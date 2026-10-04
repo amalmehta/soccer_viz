@@ -2177,6 +2177,7 @@
     const BOUNCE = 0.52;         // how much upward speed survives hitting the ground
     const SKID = 0.76;           // and how much of the forward speed does
     const SIM_DT = 0.004;
+    const NET_TAU = 0.035, NET_DEPTH = 1.3;   // how quickly the netting takes the pace off, and how deep it is
 
     // Fly the ball from the origin with a given velocity and spin, and report where it is at each
     // step. Spin is the authored curve, -1 to 1: a sideways force at right angles to the travel.
@@ -2285,8 +2286,20 @@
 
     // Solved flights, worked out once per clip and kept
     const flights = new Map();
+    // The cache is keyed on where the ball is actually going, not just on which segment it is.
+    //
+    // A kicked ball's start and end are a player's foot, and where a foot is depends on the stride
+    // they are in -- which is decided by the gait tables, and those are rebuilt several times while
+    // a play compiles, as kicks and dives and celebration runs are added to it. Keyed on the
+    // segment alone, every flight was solved against whatever the feet happened to be at the moment
+    // it was first asked for, and then kept after the feet had moved. The trajectory went on aiming
+    // at the old spot while the next segment began at the new one, so the ball flew to the wrong
+    // place and jumped to the right one at the keyframe: half a metre at the ninetieth percentile
+    // and two and a half at worst, which on a shot is the ball visibly skipping sideways as it is
+    // struck. Keyed on the endpoints it cannot happen, whatever order the compile does things in.
     function flightFor(i, pa, pb, span, b) {
-      if (flights.has(i)) return flights.get(i);
+      const key = `${i}|${pa.x.toFixed(3)},${pa.y.toFixed(3)}|${pb.x.toFixed(3)},${pb.y.toFixed(3)}`;
+      if (flights.has(key)) return flights.get(key);
       const dx = pb.x - pa.x, dy = pb.y - pa.y;
       const len = Math.hypot(dx, dy);
       // Short hops between crowded keyframes are not flights; solving them is noise
@@ -2298,7 +2311,7 @@
           if (higher && !touchesDownEarly(higher)) { path = higher; break; }
         }
       }
-      flights.set(i, path);
+      flights.set(key, path);
       return path;
     }
 
@@ -2306,7 +2319,32 @@
       const k = play.ball, n = k.length;
       const at = (kf, tt) => (kf.with ? feet(byId[kf.with], tt) : { x: kf.x, y: kf.y });
       if (t <= k[0].t) return { ...at(k[0], t), h: 0, speed: 0, curve: 0 };
-      if (t >= k[n - 1].t) return { ...at(k[n - 1], t), h: 0, speed: 0, curve: 0 };
+      if (t >= k[n - 1].t) {
+        const last = k[n - 1], rest = at(last, t);
+        // A ball hit into the net does not stop on the line. Every goal in the library is authored
+        // to finish about four tenths of a metre past it, with another metre and a half of netting
+        // in front of it, and the ball was arriving there at twenty-odd metres a second and coming
+        // to an absolute stop inside one frame. The drama clock is holding time at exactly that
+        // moment, so the stop was being shown in slow motion -- which is what made a goal going in
+        // look like the animation had hit a wall. It carries into the net now and is brought up by
+        // it over about two tenths, which is what a net does.
+        if (!last.with && last.x > W && n >= 2) {
+          const dt = 0.02;
+          const before = ballAt(last.t - dt);
+          const vx = (rest.x - before.x) / dt, vy = (rest.y - before.y) / dt;
+          const sp = Math.hypot(vx, vy);
+          if (sp > 6) {
+            const gone = 1 - Math.exp(-(t - last.t) / NET_TAU);
+            const reach = Math.min(sp * NET_TAU, NET_DEPTH);
+            return {
+              x: Math.min(W + NET_DEPTH, rest.x + (vx / sp) * reach * gone),
+              y: Math.max(GOAL_Y0 + 0.25, Math.min(GOAL_Y1 - 0.25, rest.y + (vy / sp) * reach * gone)),
+              h: 0, speed: sp * (1 - gone), curve: 0
+            };
+          }
+        }
+        return { ...rest, h: 0, speed: 0, curve: 0 };
+      }
       let i = 0;
       while (i < n - 2 && t > k[i + 1].t) i++;
       const a = k[i], b = k[i + 1];
@@ -2327,7 +2365,14 @@
         const px = p0.x + (p1.x - p0.x) * f, py = p0.y + (p1.y - p0.y) * f;
         const pz = p0.z + (p1.z - p0.z) * f;
         const speed = Math.hypot(p1.x - p0.x, p1.y - p0.y, p1.z - p0.z) / SIM_DT;
-        return { x: pa.x + px, y: pa.y + py, h: Math.max(0, pz - GROUND),
+        // Shooting for a launch velocity is a numerical solve and it stops when it is close enough,
+        // which leaves the ball landing a few centimetres from the foot that is about to play it --
+        // and a few centimetres of teleport is still a teleport. Whatever it is still out by is
+        // ramped in across the flight, so the shape stays the one the physics produced and the
+        // arrival is exact.
+        const last = solved[solved.length - 1];
+        const offX = (dx - last.x) * Math.min(1, u), offY = (dy - last.y) * Math.min(1, u);
+        return { x: pa.x + px + offX, y: pa.y + py + offY, h: Math.max(0, pz - GROUND),
                  speed, curve: b.curve || 0, power: b.power };
       }
       const flight = span > 0.55 && len > 7;
