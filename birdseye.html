@@ -335,11 +335,14 @@
      information you need once. It keeps its place -- a shortcut nobody is told about may as well
      not exist -- but it is set at the weight of a footnote and only comes up to full strength when
      the eye is already down here, hovering the transport. */
+  /* Likewise: this was at 0.5, which is 1.95:1 and effectively unreadable to anyone who needs the
+     contrast. Its quietness comes from size and colour now, and it still comes up to full ink when
+     the eye is already down here on the transport. */
   .keys {
     margin: -2px 0 0; font-size: 12px; color: var(--muted); line-height: 1.9;
-    opacity: 0.5; transition: opacity var(--t-base) var(--ease-out);
+    transition: color var(--t-base) var(--ease-out);
   }
-  .keys:hover, .controls:hover + .keys, .controls:focus-within + .keys { opacity: 1; }
+  .keys:hover, .controls:hover + .keys, .controls:focus-within + .keys { color: var(--ink); }
   .keys kbd {
     font: 500 10.5px/1 var(--mono); color: inherit; background: none;
     border: 1px solid var(--rule); border-radius: 4px; padding: 2px 4px; margin-right: 1px;
@@ -359,14 +362,18 @@
   .analysis p { margin: 0 0 10px; line-height: 1.6; text-wrap: pretty; }
   .analysis strong { font-weight: 700; }
   .feed { margin: 16px 0 4px; }
-  .feed h3 {
+  .feed h2 {
     display: flex; align-items: center; gap: 8px; margin: 0 0 10px;
     font: 500 15px/1.2 var(--display); letter-spacing: 0; color: var(--muted);
   }
-  .feed h3 .live { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); }
-  .feed h3 .live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--rule); }
-  .feed.is-live h3 .live { color: var(--ink); }
-  .feed.is-live h3 .live::before { background: #d64545; animation: pulse 1.4s ease-in-out infinite; }
+  .feed h2 .live { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); }
+  .feed h2 .live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--rule); }
+  /* What was said, as against what happened: the serif the rest of the page speaks in, indented
+     under the action it belongs to, so the two read as different kinds of line at a glance. */
+  .feed li.said .what { font-family: var(--display); font-style: italic; }
+  .feed li.said .at { opacity: 0.55; }
+  .feed.is-live h2 .live { color: var(--ink); }
+  .feed.is-live h2 .live::before { background: #d64545; animation: pulse 1.4s ease-in-out infinite; }
   @keyframes pulse { 50% { opacity: 0.25; } }
   .feed ol { margin: 0; padding: 0; list-style: none; max-height: 232px; overflow-y: auto; scroll-behavior: smooth; }
   .feed li { display: flex; gap: 10px; align-items: baseline; padding: 6px 10px 6px 8px; border-left: 2px solid transparent; border-radius: 0 8px 8px 0; }
@@ -463,6 +470,20 @@
   .fine { margin: 6px 0 0; font-size: 12.5px; color: var(--muted); }
 
   .lib { border-top: 1px solid var(--rule); padding-top: 22px; }
+  /* Twenty-seven clips is past the point where a list is something you read rather than search */
+  .lib-find {
+    width: 100%; margin: 2px 0 12px; padding: 8px 11px; font: inherit; font-size: 13.5px;
+    color: var(--ink); background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
+    transition: border-color var(--t-fast) var(--ease-out);
+  }
+  .lib-find:hover, .lib-find:focus { border-color: var(--muted); }
+  .lib-empty { margin: 0 0 10px; font-size: 13px; color: var(--muted); }
+  /* A clip you have watched through keeps a mark, so a long list stays navigable on a second visit */
+  .play-item .pi-seen {
+    grid-column: 2; grid-row: 1; justify-self: end; align-self: start;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: 0.55;
+    margin: -6px -6px 0 0;
+  }
   .group-label {
     margin: 14px 0 4px; font-size: 11px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted);
   }
@@ -492,11 +513,10 @@
   .play-item[aria-current="true"] .pi-title { color: var(--accent); }
   .pi-meta { grid-column: 1; font-size: 12.5px; color: var(--muted); }
   .pi-kits { grid-column: 2; grid-row: 1 / span 2; display: inline-flex; }
-  .pi-year {
-    font: 500 11px/1 var(--mono); letter-spacing: 0.02em; margin-right: 7px;
-    opacity: 0.7; transition: opacity var(--t-fast) var(--ease-out);
-  }
-  .play-item:hover .pi-year, .play-item[aria-current="true"] .pi-year { opacity: 1; }
+  /* No opacity on small text: muted on paper is 4.69:1 and passes, but the 0.7 this used to carry
+     blends it back towards the page and lands at 2.70, which is below the 4.5 small text needs.
+     It is quiet enough from being small, grey and set in the mono face. */
+  .pi-year { font: 500 11px/1 var(--mono); letter-spacing: 0.02em; margin-right: 7px; }
   .pi-kits i {
     width: 12px; height: 12px; border-radius: 50%; border: 2px solid transparent;
     transition: transform var(--t-base) var(--ease);
@@ -549,7 +569,7 @@
         <p class="eyebrow" id="subtitle"></p>
         <h1 id="title"></h1>
       </div>
-      <div class="board" aria-label="Scoreline">
+      <div class="board" aria-label="Scoreline" aria-live="polite" aria-atomic="true">
         <span class="clock" id="clock"></span>
         <span class="team"><i class="kit" id="kitA"></i><span id="shortA"></span></span>
         <span class="score" id="score"><span id="scoreA">0</span><span class="dash">–</span><span id="scoreB">0</span></span>
@@ -652,7 +672,7 @@
     </div>
     <p class="keys">
       <kbd>space</kbd> play &nbsp;<kbd>&larr;</kbd><kbd>&rarr;</kbd> a second &nbsp;<kbd>shift</kbd> a tenth
-      &nbsp;<kbd>,</kbd><kbd>.</kbd> a frame &nbsp;<kbd>home</kbd><kbd>end</kbd> ends
+      &nbsp;<kbd>,</kbd><kbd>.</kbd> a frame &nbsp;<kbd>home</kbd><kbd>end</kbd> ends &nbsp;<kbd>[</kbd><kbd>]</kbd> clip
     </p>
 
     <div class="foot-row">
@@ -666,8 +686,8 @@
       <p class="note" id="videoVoiceNote" hidden></p>
     </div>
     <section class="feed" id="feed" hidden>
-      <h3>Play-by-play <span class="live" id="feedLive">Live</span></h3>
-      <ol id="feedBody"></ol>
+      <h2>Play-by-play <span class="live" id="feedLive">Live</span></h2>
+      <ol id="feedBody" tabindex="0" role="region" aria-label="Play-by-play, scrollable"></ol>
     </section>
     <section class="analysis" id="analysis" hidden>
       <button class="link-btn afterward" id="readAnalysis" type="button" hidden>Read what happened and why →</button>
@@ -694,6 +714,9 @@
     </section>
     <section class="lib">
       <h2>Library</h2>
+      <input class="lib-find" id="libFind" type="search" autocomplete="off"
+             placeholder="Find a goal, a team, a year" aria-label="Filter the library">
+      <p class="lib-empty" id="libEmpty" hidden>Nothing matches that.</p>
       <div id="library"></div>
     </section>
   </aside>
@@ -2007,6 +2030,11 @@
       return pl.num != null ? `${short} ${pl.num}` : `The ${short} player`;
     };
     const rows = play.captions.map(c => ({ t: c.t, text: c.text, tag: "", key: false }));
+    // The commentary is the best writing in a clip and it was only ever audible — nowhere on the
+    // page could you read it. Anyone with the sound off, or who cannot hear it, got the captions
+    // and never the lines the commentator says. They go into the record too, set apart so the
+    // column still reads as what happened with what was said about it, rather than as one voice.
+    for (const c of play.commentary) rows.push({ t: c.t, text: c.text, tag: "", key: false, said: true });
     const nameOfId = id => {
       const pl = byId[id];
       return pl ? (pl.name || (pl.num != null ? `${play.teams[pl.team].short} ${pl.num}` : "The player")) : "";
@@ -3748,6 +3776,7 @@
     t += dt * speed * dramaRate(current.play, t);
     if (t >= current.play.duration) {
       t = current.play.duration;
+      markSeen(current.play);
       setPlaying(false, true);
       holdAnalysis(false);              // watched it through: the words have been earned
     }
@@ -3915,7 +3944,7 @@
     shownMoment = -2;
     feedRows = current.moments.map(m => {
       const row = document.createElement("li");
-      row.className = m.key ? "key ahead" : "ahead";
+      row.className = `${m.key ? "key " : ""}${m.said ? "said " : ""}ahead`;
       const jump = document.createElement("button");
       jump.type = "button";
       const at = document.createElement("span");
@@ -3996,6 +4025,16 @@
   // arrows to a tenth of a second. The keys are listed under the pitch, because a shortcut nobody
   // is told about may as well not exist.
   const STEP_FRAME = 1 / 25;
+
+  // Along the shelf without reaching for the list. Walks the rows as they are shown, so it follows
+  // whatever the filter has narrowed the library to rather than some hidden ordering.
+  function stepClip(by) {
+    const rows = [...rowFor.entries()].filter(([, btn]) => !btn.hidden);
+    if (rows.length < 2) return;
+    const at = rows.findIndex(([play]) => current && current.play === play);
+    const next = rows[(Math.max(0, at) + by + rows.length) % rows.length];
+    if (next) openPlay(next[0], { push: true, autoplay: false });
+  }
   function seek(by) {
     hushCommentary();
     t = Math.max(0, Math.min(current.play.duration, t + by));
@@ -4019,6 +4058,8 @@
     else if (e.key === ",") { e.preventDefault(); seek(-STEP_FRAME); }
     else if (e.key === "Home") { e.preventDefault(); seek(-current.play.duration); }
     else if (e.key === "End") { e.preventDefault(); seek(current.play.duration); }
+    else if (e.key === "[") { e.preventDefault(); stepClip(-1); }
+    else if (e.key === "]") { e.preventDefault(); stepClip(1); }
   });
 
   // Picture and sound are driven by two different clocks: the animation by requestAnimationFrame,
@@ -4416,28 +4457,80 @@
       });
   }
 
+  // How long a line will take to say. The neural voice knows exactly, because the clip was read
+  // ahead into memory before anybody pressed play; the system voice has to be estimated, and
+  // 0.085 seconds a character is what the rendered lines actually measure out at.
+  const SAY_RATE = 0.085, STALE_REMARK = 4.5;
+  function goalTime() {
+    const g = current && current.play.events.find(e => e.type === "goal");
+    return g ? g.t : Infinity;
+  }
+  function lineSeconds(line) {
+    if (neural && !neuralFailed && isNeural(savedVoiceName || "")) {
+      const known = neural.secondsOf([neuralLine(line, moodAt(line.t))], savedVoiceName.slice("neural:".length));
+      if (known) return known;
+    }
+    return line.text.length * SAY_RATE;
+  }
+
+  // When the next call is due, so a remark can be asked whether it would still be talking over it
+  function nextCallAt(lines, from) {
+    for (const l of lines) if (l.t >= from && isCall(l.text)) return l.t;
+    return null;
+  }
+
+  // There is about half again as much commentary written as there is clip to play it over -- 30
+  // seconds of speech for Istanbul's 20 -- so the commentator is permanently behind, and what got
+  // lost to that was the worst possible line: the call of the goal. Measured over the library,
+  // "…DI MARÍA! First time, and it's two!" and "…MESSI! Up above them all!" were both being thrown
+  // away, because the voice was still working through a remark when the ball hit the net and a call
+  // that misses its moment is dropped rather than said late.
+  //
+  // So remarks now look before they start. A remark that would still be running when the next call
+  // is due holds its place and waits, and the call goes out on the beat; the remark follows it,
+  // which is where it belonged anyway -- that is what a commentator does over a replay. Nothing is
+  // dropped that used to be said, and the line everybody is waiting for is no longer the casualty.
   function speakCommentary() {
     if ((!synth && !neural) || !voiceOn || !playing || !current) return;
     const lines = current.play.commentary.length ? current.play.commentary : current.play.captions;
     let idx = -1;
     lines.forEach((c, i) => { if (c.t <= t + 1e-6) idx = i; });
-    if (idx < 0 || idx === spokenIndex) return;
-    const first = spokenIndex;
-    spokenIndex = idx;
-    // Everything that has come due since the last check, not only the latest of them
-    for (let i = Math.max(0, first + 1); i <= idx; i++) {
-      const line = lines[i];
-      if (t - line.t > 2.5 && isCall(line.text)) continue;   // scrubbed past a call: it is gone
-      waiting.push(line);
+    if (idx >= 0 && idx !== spokenIndex) {
+      const first = spokenIndex;
+      spokenIndex = idx;
+      // Everything that has come due since the last check, not only the latest of them
+      for (let i = Math.max(0, first + 1); i <= idx; i++) {
+        const line = lines[i];
+        if (t - line.t > 2.5 && isCall(line.text)) continue;   // scrubbed past a call: it is gone
+        waiting.push(line);
+      }
     }
+    // Tried every frame the voice is free, not only when a new line falls due, or a remark that is
+    // holding for a call would never be let go afterwards
     if (!voiceBusy()) nextLine();
   }
 
   function nextLine() {
+    if (!current) return;
+    const lines = current.play.commentary.length ? current.play.commentary : current.play.captions;
     while (waiting.length) {
-      const line = waiting.shift();
+      // A call that is due goes ahead of anything still queued in front of it
+      const callIdx = waiting.findIndex(l => isCall(l.text) && l.t <= t);
+      const i = callIdx >= 0 ? callIdx : 0;
+      const line = waiting[i];
       // A call only counts if it is still roughly on the beat; a remark waits its turn however long
-      if (isCall(line.text) && t - line.t > CALL_WINDOW) continue;
+      if (isCall(line.text) && t - line.t > CALL_WINDOW) { waiting.splice(i, 1); continue; }
+      if (!isCall(line.text)) {
+        // Holding remarks for the call fixes what was being lost, but it cannot make time that is
+        // not there, so the backlog has to go somewhere. A remark about the build-up that is this
+        // far behind is describing something that left the screen seconds ago -- it is the line
+        // worth losing. After the goal the same remark is the payoff, said over the replay the way
+        // it is on television, so nothing from the goal onwards is ever dropped for being late.
+        if (t - line.t > STALE_REMARK && line.t < goalTime()) { waiting.splice(i, 1); continue; }
+        const due = nextCallAt(lines, t);
+        if (due !== null && due < t + lineSeconds(line) - 0.2) return;   // it would talk over the goal
+      }
+      waiting.splice(i, 1);
       sayLine(line);
       return;
     }
@@ -4692,6 +4785,24 @@
   // quietly on a full or blocked store, which costs the saving, not the clip on screen.
   const MINE_KEY = "birdseye.mine", MINE_MAX = 12;
 
+  // Which clips have been watched through. A shelf of twenty-seven is hard to keep your place in,
+  // and the one thing the page can tell you for free is which ones you have already seen.
+  const SEEN_KEY = "birdseye.seen";
+  let seen = new Set();
+  try { seen = new Set(JSON.parse(localStorage.getItem(SEEN_KEY) || "[]")); } catch (e) { /* none */ }
+  function markSeen(play) {
+    if (!play || seen.has(play.id)) return;
+    seen.add(play.id);
+    try { localStorage.setItem(SEEN_KEY, JSON.stringify([...seen].slice(-200))); } catch (e) { /* full */ }
+    const btn = rowFor.get(play);
+    if (btn && !btn.querySelector(".pi-seen")) {
+      const dot = document.createElement("i");
+      dot.className = "pi-seen";
+      dot.title = "You have watched this";
+      btn.append(dot);
+    }
+  }
+
   function myPlays() {
     try { return JSON.parse(localStorage.getItem(MINE_KEY) || "[]"); } catch (e) { return []; }
   }
@@ -4806,6 +4917,12 @@
         kits.append(i);
       }
       btn.append(title, kits, meta);
+      if (seen.has(play.id)) {
+        const dot = document.createElement("i");
+        dot.className = "pi-seen";
+        dot.title = "You have watched this";
+        btn.append(dot);
+      }
       btn.addEventListener("click", () => openPlay(play, { push: true }));
       rowFor.set(play, btn);
       root.append(btn);
@@ -5564,6 +5681,32 @@ REQUEST: ${request}`;
 
   // Built once, here, rather than on every clip change
   renderLibrary();
+
+  // Filtering hides rows rather than rebuilding the list, so the row you are on keeps its place and
+  // its marker. Matched against everything a person might half-remember about a goal: who scored,
+  // who it was against, the competition and the year.
+  const libFind = $("libFind"), libEmpty = $("libEmpty");
+  function hayFor(play) {
+    return `${play.title} ${play.subtitle} ${play.teams.A.name} ${play.teams.B.name} ${play.teams.A.short} ${play.teams.B.short}`.toLowerCase();
+  }
+  libFind.addEventListener("input", () => {
+    const q = libFind.value.trim().toLowerCase();
+    let shown = 0;
+    for (const [play, btn] of rowFor) {
+      const hit = !q || hayFor(play).includes(q);
+      btn.hidden = !hit;
+      if (hit) shown++;
+    }
+    // A group heading with nothing left under it is noise
+    for (const label of document.querySelectorAll(".group-label")) {
+      let any = false;
+      for (let n = label.nextElementSibling; n && n.classList.contains("play-item"); n = n.nextElementSibling) {
+        if (!n.hidden) { any = true; break; }
+      }
+      label.hidden = !any;
+    }
+    libEmpty.hidden = shown > 0;
+  });
 
   // A link that names a clip opens it; one that names nothing, or something no longer in the
   // library, quietly falls back to the first and tidies the address rather than showing an error.
