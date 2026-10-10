@@ -9,4 +9,4 @@ animations on a scale pitch, with original commentary read aloud over the top.
 
 ![The written analysis and the coaching points under a clip](screenshots/analysis.png)
 
-**[Instructions →](docs/INSTRUCTIONS.md)** · [File structure](docs/FILE-STRUCTURE.md) · [Live site](https://amalmehta.github.io/soccer_viz/)
+**[Instructions →](docs/INSTRUCTIONS.md)** · [File structure](docs/FILE-STRUCTURE.md) · [System design](docs/SYSTEM-DESIGN.md) · [Live site](https://amalmehta.github.io/soccer_viz/)

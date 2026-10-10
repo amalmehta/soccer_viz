@@ -1,6 +1,6 @@
 # File structure
 
-[← README](../README.md) · [Instructions](INSTRUCTIONS.md)
+[← README](../README.md) · [Instructions](INSTRUCTIONS.md) · [System design](SYSTEM-DESIGN.md)
 
 | Path | What it is |
 | --- | --- |
@@ -10,10 +10,12 @@
 | `looks/stadium3d.js` | The Stadium 3D look: a Three.js ground, posed from the page's own body model |
 | `sound/crowd.js` | Crowd bed and goal reaction, mixed live and into downloaded video |
 | `sound/score.js` | The optional orchestral score, its level following the play |
+| `sound/voice.js` | The optional neural commentary voice (Kokoro), run in the page and put into downloaded video |
 | `sound/recordings.js` | The crowd and score audio itself, embedded so the page needs no network |
 | `docs/` | The built website — this is what GitHub Pages serves |
 | `tools/check_plays.js` | Validator: timing, speeds, spacing, kits, wording, goal geometry |
 | `tools/check_motion.js` | Checks how bodies move: facing vs direction of travel, turn rate, run cycle |
+| `tools/check_turn.js` | Checks bodies turn no faster than a person can, without flicking between directions |
 | `tools/check_glide.js` | Holds every body to a human top speed and a human change of pace |
 | `tools/check_ball.js` | Checks the ball never travels through a player who is not playing it |
 | `tools/check_press.js` | Checks the defender nearest the ball closes it down rather than backing off |
@@ -25,4 +27,5 @@
 | `library/imported/` | Drafts from the importer, before the words are written |
 | `build_site.py` | Builds `docs/` from `birdseye.html` (icons, manifest, service worker) |
 | `build_sounds.py` | Embeds the crowd and score recordings from `sound/recordings/` into the page |
+| `docs/SYSTEM-DESIGN.md` | How it fits together: architecture, flows, where data lives, decisions, limits |
 | `soccer_viz.md` | The spec this was built from, with a changelog |
