@@ -7,6 +7,7 @@
 | `birdseye.html` | The whole app in one file: pitch model, motion engine, rendering, UI, voice, video export |
 | `library/plays/*.json` | One file per clip: players, paths, ball, actions, commentary, venue, analysis |
 | `library/clips.js` | The bundled library the app loads, built from `library/plays/` |
+| `looks/stadium3d.js` | The Stadium 3D look: a Three.js ground, posed from the page's own body model |
 | `sound/crowd.js` | Crowd bed and goal reaction, mixed live and into downloaded video |
 | `sound/score.js` | The optional orchestral score, its level following the play |
 | `sound/recordings.js` | The crowd and score audio itself, embedded so the page needs no network |

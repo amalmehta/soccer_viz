@@ -11,6 +11,10 @@ Eleven are built from StatsBomb's own match data rather than from memory.
 
 - **Drawn from straight above.** Every player is a body seen from overhead — shoulders, head, arms
   swinging, legs striding — in ink over the kit colour, on a scale pitch.
+- **Or from the stands.** The Look switch above the pitch offers Stadium 3D: the same play in a
+  floodlit ground, posed from the same body model, so a lunge there is the lunge the ink figure
+  makes. It fetches a 3D engine from a CDN the first time it is picked, and nothing loads it
+  otherwise. The heat map and passing lanes are drawn flat, so they belong to Classic only.
 - **Real movement.** Players hold shape, mark, press, jockey and tackle; defenders track the ball
   and lunge for it rather than drifting. Speeds stay inside human limits.
 - **A voice worth listening to.** The voice list offers neural voices that run in the page itself —
