@@ -216,6 +216,17 @@ every 30 minutes and shows an update bar rather than reloading under someone mid
 | Feedback | The claude.ai Artifact's `db`, collection `feedback` | Text, clip title, timestamp. Not available on the standalone site. |
 | App shell offline | Service worker cache `birdseye-<hash>` | Old caches deleted on activate. |
 
+## Testing
+
+There is no unit-test suite and no CI. What holds quality is the seven checkers in `tools/`, run by
+hand before bundling: they load the page's own code rather than a copy of it, so they judge exactly
+what ships. `tools/shot.js` screenshots the running page with headless Chrome when a change needs
+looking at rather than measuring.
+
+The gap to keep in mind is that they only ever exercise the clip pipeline — the model, the motion
+engine and the ball. Nothing automated touches the renderer's output, the audio mix or the video
+export, which is how the export managed to fail silently for months.
+
 ## Key decisions
 
 - **One HTML file, no framework, no bundler.** The page has to run as a claude.ai Artifact and as a
