@@ -168,11 +168,23 @@
     return out;
   }
 
+  // How long a line will take to say, for anything that needs to fit it into a gap. Only answers
+  // from what has already been rendered -- the point is to decide without waiting for the model.
+  function secondsOf(parts, voice) {
+    let total = 0;
+    for (const p of parts) {
+      const buf = cache.get(`${voice}|${p.speed}|${p.text}`);
+      if (!buf) return null;
+      total += buf.duration;
+    }
+    return total;
+  }
+
   window.BirdseyeVoice = {
     voices: VOICES,
     supported: typeof WebAssembly === "object",
     ready: () => !!tts,
-    load, say, stop, warm, renderLine,
+    load, say, stop, warm, renderLine, secondsOf,
     busy: () => !!playing
   };
 })();
