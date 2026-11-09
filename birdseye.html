@@ -4521,7 +4521,11 @@
       // Capitalised words are said, not spelled out; awkward names spelled the way they sound
       text: sayAs(text.replace(/\b[A-Z][A-Z']+\b/g, w => w.toLowerCase())),
       speed: +Math.max(0.92, Math.min(1.14, 0.96 + 0.12 * energy)).toFixed(3),
-      gain: +(0.88 + 0.12 * energy).toFixed(3)
+      gain: +(0.88 + 0.12 * energy).toFixed(3),
+      // How hard the line is being called, which is how hard it hits the microphone. The model
+      // renders a shout at the same polite level as everything else, so this is what the difference
+      // between a remark and a goal being called actually comes out as.
+      drive: +Math.min(1, energy).toFixed(2)
     };
   }
 

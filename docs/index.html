@@ -780,12 +780,12 @@
 
 <!-- Video export only: deferred so a slow CDN can never hold up the page -->
 <script defer src="https://cdn.jsdelivr.net/npm/mp4-muxer@5.1.3/build/mp4-muxer.js"></script>
-<script src="sound/recordings.js?v=e44899e97e"></script>
-<script src="sound/crowd.js?v=e44899e97e"></script>
-<script src="sound/score.js?v=e44899e97e"></script>
-<script src="sound/voice.js?v=e44899e97e"></script>
-<script src="library/clips.js?v=e44899e97e"></script>
-<script src="looks/stadium3d.js?v=e44899e97e"></script>
+<script src="sound/recordings.js?v=b55e9bc1ca"></script>
+<script src="sound/crowd.js?v=b55e9bc1ca"></script>
+<script src="sound/score.js?v=b55e9bc1ca"></script>
+<script src="sound/voice.js?v=b55e9bc1ca"></script>
+<script src="library/clips.js?v=b55e9bc1ca"></script>
+<script src="looks/stadium3d.js?v=b55e9bc1ca"></script>
 <script>
 (() => {
   "use strict";
@@ -4547,7 +4547,11 @@
       // Capitalised words are said, not spelled out; awkward names spelled the way they sound
       text: sayAs(text.replace(/\b[A-Z][A-Z']+\b/g, w => w.toLowerCase())),
       speed: +Math.max(0.92, Math.min(1.14, 0.96 + 0.12 * energy)).toFixed(3),
-      gain: +(0.88 + 0.12 * energy).toFixed(3)
+      gain: +(0.88 + 0.12 * energy).toFixed(3),
+      // How hard the line is being called, which is how hard it hits the microphone. The model
+      // renders a shout at the same polite level as everything else, so this is what the difference
+      // between a remark and a goal being called actually comes out as.
+      drive: +Math.min(1, energy).toFixed(2)
     };
   }
 
