@@ -100,6 +100,7 @@ DELIVERABLES:
 - library/clips.js — the clips bundled for the page
 - build_site.py — builds the standalone website into docs/
 - build_sounds.py — turns the crowd recordings in sound/recordings/ into sound/recordings.js
+- tests/ — the automated tests: `node tests/run.js` (add `--all` for the two that open a browser)
 - tools/check_plays.js — checks play files (page validator + realism checks)
 - tools/build_library.py — bundles library/plays/*.json into library/clips.js
 - tools/import_statsbomb.py — builds a play file from StatsBomb open data (real ball path)
@@ -401,3 +402,21 @@ CHANGELOG:
   with the pluggable-look machinery that served the three retired looks: the module loader, the
   look API handed to them, the per-look playback rate, and the saved preference. looks/ is now
   gone entirely. Classic — bodies drawn from straight above in ink on paper — is the app.
+
+- 2026-11-25 — automated tests (user request). The checkers in tools/ measure the clips; nothing held the
+  rules they measure against, and nothing at all touched the things that only exist in a browser. tests/
+  now runs in plain Node with nothing installed, pulling the page's own functions out of birdseye.html the
+  way the checkers do and working on a play small enough to read: what normalizePlay accepts, bends and
+  refuses (including that a play Claude makes up cannot smuggle an unknown action, an off-pitch keyframe or
+  an unreadable kit past it); top speed, change of pace, turn rate, stride against speed, and the handover
+  from a clip's own keys to the off-ball engine; that compiling the same play twice gives the same movement,
+  which the gait tables make easy to break; the ball's flight, bend, drag, loft and where it crosses the
+  line; what earns a line in the play-by-play and what merely badges one already there; the video layout in
+  all four formats; and whether docs/ is the app as it stands, since it is committed and goes stale in
+  silence. `node tests/run.js --all` adds two that drive headless Chrome over the DevTools protocol, the way
+  tools/shot.js already does: the page opens a clip, plays it to the end with nothing thrown, seeks from the
+  feed and fits a 400 px phone; and a video is exported in each of the four formats and checked as a file on
+  disk, at the size the format promises. That last one is the point of the exercise — video export threw on
+  its first line for weeks after the Broadcast look was removed and nothing noticed, because the failure
+  lands in a status message beside the button while the clips go on playing. Breaking that line again fails
+  the test. 48 tests, all passing; the 24 clips and 3 built-ins still pass all seven checkers.
