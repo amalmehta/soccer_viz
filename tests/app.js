@@ -22,6 +22,9 @@ function between(a, b) {
 // the era table compile() reads, then the video export's own layout arithmetic. Nothing here
 // touches the DOM; everything that does stays in the page, where the end-to-end test drives it.
 const api = new Function(
+  // videoLayout only turns the pitch for the Classic look, which it reads from the page's own
+  // `look`; the tests lay out Classic.
+  'let look = "classic";\n' +
   between("  // ---------- Pitch geometry (metres) ----------", "  // ---------- Rendering ----------") +
   between("  const yearOf = play =>", "  function renderLibrary()") +
   between("  const VIDEO_FORMATS = {", "  const FONT_MONO") +

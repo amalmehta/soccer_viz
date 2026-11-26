@@ -14,7 +14,8 @@ const { test, ok, equal, same, fail } = require("./harness");
 const read = rel => fs.readFileSync(path.join(ROOT, rel), "utf8");
 const bytes = rel => fs.readFileSync(path.join(ROOT, rel));
 const sha = buffers => crypto.createHash("sha1").update(Buffer.concat(buffers)).digest("hex").slice(0, 10);
-const ASSETS = ["sound/recordings.js", "sound/crowd.js", "sound/score.js", "sound/voice.js", "library/clips.js"];
+const ASSETS = ["sound/recordings.js", "sound/crowd.js", "sound/score.js", "sound/voice.js", "library/clips.js",
+  "looks/stadium3d.js"];
 
 test("the bundled library is the one in library/plays", () => {
   const sandbox = { window: {} };

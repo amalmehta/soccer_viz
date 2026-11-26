@@ -83,7 +83,7 @@ test("a player with no name is called something a viewer can follow", () => {
     events: [],
     players: basePlay().players.map(p => (p.id === "winger" ? { ...p, name: undefined } : p)),
     actions: [{ t: 2, id: "winger", type: "header" }]
-  }));
+  })).filter(r => !r.said);  // the commentary's own lines are not what this is about
   equal(rows.length, 1, "lines");
   ok(rows[0].text.startsWith("RED 7"), `the shirt stands in for the name: ${JSON.stringify(rows[0].text)}`);
 });
