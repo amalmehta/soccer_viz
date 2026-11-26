@@ -49,8 +49,10 @@ test("the page opens on the clip it was asked for and plays it to the end", asyn
       document.getElementById("playBtn").click();
       return true;`);
     await page.until(`document.querySelectorAll("#feedBody li.now").length === 1`, { tries: 40, what: "the feed to follow the play" });
-    await page.until(`+document.getElementById("scrubber").value >= ${play.duration - 0.05}`,
-      { tries: 60, what: "the clip to reach its end" });
+    // Wait for the app to say it has stopped, not for the scrubber to read full: the clock can
+    // reach the end a frame before playback ends, and then the button still says Pause
+    await page.until(`document.getElementById("playBtn").getAttribute("aria-label") === "Play"`,
+      { tries: 60, what: "the clip to reach its end and stop" });
 
     const ended = await page.run(`
       return {

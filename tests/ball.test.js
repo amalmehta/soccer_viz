@@ -5,7 +5,7 @@
 "use strict";
 const { normalizePlay, compile, GOAL_Y0, GOAL_Y1, W } = require("./app");
 const { basePlay, playWith } = require("./fixtures");
-const { test, ok, equal, close, within, fail } = require("./harness");
+const { test, ok, close, within, fail } = require("./harness");
 
 const DT = 0.004;    // finer than any frame the screen will draw
 
@@ -99,19 +99,3 @@ test("a lofted ball leaves the ground and a ground pass does not", () => {
   close(Math.max(...heights(false)), 0, 0.4, "a ball played along the ground");
 });
 
-test("the ball is somewhere sensible at every moment of every library clip", () => {
-  const { libraryFiles, readPlay } = require("./app");
-  for (const file of libraryFiles) {
-    const play = normalizePlay(readPlay(file));
-    const R = compile(play);
-    for (let t = 0; t <= play.duration + 1e-9; t += 0.05) {
-      const b = R.ballAt(t);
-      if (!Number.isFinite(b.x) || !Number.isFinite(b.y) || !Number.isFinite(b.h)) {
-        fail(`${play.id}: the ball is nowhere at ${t.toFixed(2)}s`);
-      }
-      if (b.x < -4 || b.x > 112 || b.y < -4 || b.y > 74 || b.h < -0.01 || b.h > 30) {
-        fail(`${play.id}: the ball is off the map at ${t.toFixed(2)}s (${b.x.toFixed(1)}, ${b.y.toFixed(1)}, ${b.h.toFixed(1)} m up)`);
-      }
-    }
-  }
-});

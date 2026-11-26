@@ -22,16 +22,13 @@ test("a well-formed play comes through with nothing lost", () => {
   same(p.players[0].path[0], [0, 60, 34], "the star's first keyframe");
 });
 
-test("anything that is not a play is refused rather than half-drawn", () => {
+test("anything the renderer could not animate is refused rather than half-drawn", () => {
   for (const junk of [null, undefined, "a play", 7, [], [basePlay()]]) {
     throws(() => normalizePlay(junk), /wasn't a play/, `${JSON.stringify(junk) || String(junk)} refused`);
   }
   // Claude is asked to explain itself rather than invent a play it cannot reconstruct, and that
   // explanation is what the viewer should read
   throws(() => normalizePlay({ error: "I don't know that match." }), /don't know that match/, "an error in place of a play");
-});
-
-test("a play the renderer could not animate is refused", () => {
   throws(() => normalizePlay(playWith({ players: [basePlay().players[0]] })), /enough players/, "one player");
   throws(() => normalizePlay(playWith({ players: [] })), /enough players/, "no players");
   throws(() => normalizePlay(playWith({ ball: [] })), /without a ball/, "no ball");

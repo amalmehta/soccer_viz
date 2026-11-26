@@ -5,7 +5,7 @@
 "use strict";
 const { normalizePlay, compile } = require("./app");
 const { basePlay, playWith } = require("./fixtures");
-const { test, ok, equal, same, fail } = require("./harness");
+const { test, ok, equal, same } = require("./harness");
 
 const feedOf = raw => compile(normalizePlay(raw)).moments;
 const tagged = (rows, tag) => rows.filter(r => r.tag === tag);
@@ -88,16 +88,3 @@ test("a player with no name is called something a viewer can follow", () => {
   ok(rows[0].text.startsWith("RED 7"), `the shirt stands in for the name: ${JSON.stringify(rows[0].text)}`);
 });
 
-test("every library clip has a feed worth reading", () => {
-  const { libraryFiles, readPlay } = require("./app");
-  for (const file of libraryFiles) {
-    const play = normalizePlay(readPlay(file));
-    const rows = compile(play).moments;
-    if (rows.length < 3) fail(`${play.id}: only ${rows.length} line(s) in the feed`);
-    if (!rows.some(r => r.key)) fail(`${play.id}: nothing in the feed is badged as a moment`);
-    for (const r of rows) {
-      if (!(r.t >= 0 && r.t <= play.duration)) fail(`${play.id}: a line at ${r.t}s, outside a clip of ${play.duration}s`);
-      if (!r.text || !r.text.trim()) fail(`${play.id}: an empty line at ${r.t}s`);
-    }
-  }
-});

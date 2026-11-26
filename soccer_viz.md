@@ -419,6 +419,19 @@ CHANGELOG:
   disk, at the size the format promises. That last one is the point of the exercise — video export threw on
   its first line for weeks after the Broadcast look was removed and nothing noticed, because the failure
   lands in a status message beside the button while the clips go on playing. Breaking that line again fails
-  the test. 48 tests, all passing; the 24 clips and 3 built-ins still pass all seven checkers.
-  Every push runs the whole suite, the browser tests included, on GitHub Actions
-  (.github/workflows/tests.yml) — one job on the runner's own Chrome, nothing installed.
+  the test. 40 tests, all passing; the 24 clips and 3 built-ins still pass all seven checkers.
+
+- 2026-11-26 — the tests run on every push (user request), on GitHub Actions
+  (.github/workflows/tests.yml): one job, 18 lines, the whole suite including the real video export, driven
+  by the Chrome already on the runner, nothing installed. Linux Chrome does encode the mp4s — the first run
+  was green. Written first as push + pull_request, which ran everything twice on a branch with a PR open.
+
+- 2026-11-26 — trimmed the suite (user request). Eight tests out of 48 went, on one rule: a test earns its
+  place only if it is not asserting a constant against itself, not already implied by a stronger test, and
+  not sweeping the clips where a checker already sweeps them. So the frame sizes (the export test reads the
+  real size out of each file), the spline-overshoot test (the top-speed and change-of-pace test holds it),
+  the two sweeps over every clip's ball and feed (check_ball, check_flight and check_plays do exactly
+  that), and four pairs that walked the same ground twice became four single tests. Nothing in the suite was
+  the only thing holding a rule before the cut, and nothing is now. It also turned up a flake worth more
+  than the eight: the end-to-end test waited for the clock to read full rather than for the app to say it
+  had stopped, so the button could still say Pause a frame later. It waits on the app now.
