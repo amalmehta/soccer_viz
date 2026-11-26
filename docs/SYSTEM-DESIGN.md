@@ -103,7 +103,7 @@ with a long format-and-rules prompt through the page's `sample` capability; the 
 
 ## Testing
 
-Two layers, no CI and nothing to install. The **checkers** in `tools/` measure the clips: `check_plays.js`
+Two layers and nothing to install. The **checkers** in `tools/` measure the clips: `check_plays.js`
 (the page's validator plus timing, speeds, spacing, kits, wording, goal geometry), `check_motion.js`,
 `check_turn.js`, `check_glide.js`, `check_ball.js`, `check_press.js` and `check_flight.js`. They answer
 "is this clip plausible?", and they are run before bundling a new one.
@@ -120,6 +120,9 @@ URL, plays it to the end with nothing thrown, seeks from the feed and fits a 400
 export in all four formats, checked as files on disk. That last one exists because the export is reachable
 no other way and has broken silently before — the failure lands in a status message beside the button while
 the clips go on playing. `tools/shot.js` screenshots the running page for visual checks.
+
+Every push runs `node tests/run.js --all` on GitHub Actions
+(`.github/workflows/tests.yml`): one job, the runner's own Chrome, nothing installed.
 
 ## Limits
 

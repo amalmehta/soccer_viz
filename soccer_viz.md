@@ -420,3 +420,5 @@ CHANGELOG:
   its first line for weeks after the Broadcast look was removed and nothing noticed, because the failure
   lands in a status message beside the button while the clips go on playing. Breaking that line again fails
   the test. 48 tests, all passing; the 24 clips and 3 built-ins still pass all seven checkers.
+  Every push runs the whole suite, the browser tests included, on GitHub Actions
+  (.github/workflows/tests.yml) — one job on the runner's own Chrome, nothing installed.

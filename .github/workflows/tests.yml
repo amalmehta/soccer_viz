@@ -2,7 +2,7 @@
 # own code, and the browser tests drive the Chrome that is already on the runner.
 name: tests
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   tests:
