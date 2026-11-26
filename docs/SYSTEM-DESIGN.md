@@ -41,6 +41,7 @@ flowchart LR
 | **Video export** | Renders frames offline to H.264 MP4 with WebCodecs and mp4-muxer, with the sound mixed in; falls back to real-time `MediaRecorder`. | `birdseye.html` (Video download) |
 | **Library tools** | Import a StatsBomb goal as a draft, bundle play files, re-time slow chasers. | `tools/import_statsbomb.py`, `build_library.py`, `quicken_chases.py` |
 | **Checkers** | Load the page's own validator and engine into Node and test clips for realism. | `tools/check_*.js` |
+| **Tests** | Hold the rules themselves rather than the clips: what the validator accepts and refuses, how bodies and the ball move, the play-by-play, the video layout, and whether `docs/` is in step. Two run the app in headless Chrome. | `tests/` |
 | **Site builder** | Bakes the page into `docs/`: `index.html`, manifest, icons, a service worker, hashed asset URLs. | `build_site.py` |
 
 ## Main flows
@@ -102,10 +103,26 @@ with a long format-and-rules prompt through the page's `sample` capability; the 
 
 ## Testing
 
-There is no unit-test suite or CI. Quality is held by the clip checkers, run by hand before bundling:
-`check_plays.js` (the page's validator plus timing, speeds, spacing, kits, wording, goal geometry),
-`check_motion.js`, `check_turn.js`, `check_glide.js`, `check_ball.js` and `check_press.js`. `tools/shot.js`
-screenshots the running page with headless Chrome for visual checks.
+Two layers and nothing to install. The **checkers** in `tools/` measure the clips: `check_plays.js`
+(the page's validator plus timing, speeds, spacing, kits, wording, goal geometry), `check_motion.js`,
+`check_turn.js`, `check_glide.js`, `check_ball.js`, `check_press.js` and `check_flight.js`. They answer
+"is this clip plausible?", and they are run before bundling a new one.
+
+The **tests** in `tests/` hold the rules those checkers measure against — run them with `node tests/run.js`.
+They pull the page's own functions out of `birdseye.html` the way the checkers do, and work on a play small
+enough to read, so a failure says which rule broke rather than which clip looks odd: what `normalizePlay`
+accepts, bends and refuses; top speed, change of pace, turn rate, stride and the handover to the off-ball
+engine; the ball's flight, bend, drag and where it crosses the line; what earns a line in the play-by-play;
+the video layout in all four formats; and whether `docs/` is the app as it stands.
+
+`node tests/run.js --all` adds the two that open headless Chrome: the page itself (it loads the clip in the
+URL, plays it to the end with nothing thrown, seeks from the feed and fits a 400 px phone) and a real video
+export in all four formats, checked as files on disk. That last one exists because the export is reachable
+no other way and has broken silently before — the failure lands in a status message beside the button while
+the clips go on playing. `tools/shot.js` screenshots the running page for visual checks.
+
+Every push runs `node tests/run.js --all` on GitHub Actions
+(`.github/workflows/tests.yml`): one job, the runner's own Chrome, nothing installed.
 
 ## Limits
 
