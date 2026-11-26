@@ -12,6 +12,7 @@
 | `sound/recordings.js` | The crowd and score audio itself, embedded so the page needs no network |
 | `docs/` | The built website — this is what GitHub Pages serves |
 | `docs/SYSTEM-DESIGN.md` | How the app is put together: components, flows, data, design decisions |
+| `tools/check_all.js` | Runs every checker below over `library/plays/*.json`, plus `library/clips.js` against them |
 | `tools/check_plays.js` | Validator: timing, speeds, spacing, kits, wording, goal geometry |
 | `tools/check_motion.js` | Checks how bodies move: facing vs direction of travel, turn rate, run cycle |
 | `tools/check_glide.js` | Holds every body to a human top speed and a human change of pace |
