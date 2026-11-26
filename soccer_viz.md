@@ -435,3 +435,14 @@ CHANGELOG:
   the only thing holding a rule before the cut, and nothing is now. It also turned up a flake worth more
   than the eight: the end-to-end test waited for the clock to read full rather than for the app to say it
   had stopped, so the button could still say Pause a frame later. It waits on the app now.
+
+- 2026-11-26 — one command for the whole library gate (user request): tools/check_all.js runs
+  check_plays, check_motion, check_turn, check_glide, check_ball, check_press and check_flight over
+  library/plays/*.json, and checks library/clips.js is the bundle of those files as they stand. Every
+  checker runs even when an earlier one fails — one clip over the speed limit says nothing about
+  whether the ball passes through bodies — and the exit code of each is what decides its line in the
+  summary, with the per-clip lines only counted to say how many clips were at fault. The bundle check
+  rebuilds into a temp mirror holding the build tool and a link to the real plays, so the committed
+  file is never touched. The 24 clips pass all eight checks. It runs on every push too (user
+  request), as a second job beside the tests: a clip changed without rebuilding the bundle now fails
+  the push, which is the point, because the site serves the bundle and not the play files.

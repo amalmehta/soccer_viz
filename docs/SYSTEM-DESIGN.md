@@ -121,8 +121,11 @@ export in all four formats, checked as files on disk. That last one exists becau
 no other way and has broken silently before — the failure lands in a status message beside the button while
 the clips go on playing. `tools/shot.js` screenshots the running page for visual checks.
 
-Every push runs `node tests/run.js --all` on GitHub Actions
-(`.github/workflows/tests.yml`): one job, the runner's own Chrome, nothing installed.
+Every push runs `node tests/run.js --all` and `node tools/check_all.js` on GitHub Actions
+(`.github/workflows/tests.yml`): two jobs, the runner's own Chrome and its python3, nothing
+installed. They are separate jobs because a clip that breaks a rule and a test that fails are
+separate pieces of news, and a push is worth telling both at once. The library job is also what
+catches a clip edited without rebuilding `library/clips.js`, since the site serves the bundle.
 
 ## Limits
 

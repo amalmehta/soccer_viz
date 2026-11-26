@@ -26,7 +26,7 @@
 | `tests/*.e2e.js` | The same app in headless Chrome: it opens and plays, and exports a real video file |
 | `tests/app.js` | Lifts the page's own functions out of `birdseye.html` so a test can call them |
 | `tests/harness.js`, `tests/chrome.js`, `tests/fixtures.js` | The runner, the browser driver and a play small enough to read |
-| `.github/workflows/tests.yml` | Runs the tests on every push, the browser ones included |
+| `.github/workflows/tests.yml` | Every push: the tests (browser ones included) and `tools/check_all.js`, as two jobs |
 | `tools/shot.js` | Screenshots the running app with headless Chrome, for checking what it draws |
 | `tools/build_library.py` | Bundles `library/plays/*.json` into `library/clips.js` |
 | `tools/import_statsbomb.py` | Builds a play file from StatsBomb open data: the real ball path and player positions |
