@@ -126,6 +126,8 @@ missing and the build only has to copy files.
 | `build_site.py` | Builds `docs/`: wraps the page in a full HTML document with meta tags, copies the modules with a content hash in each script URL, draws the icons, writes the manifest and a service worker whose cache name is a hash of the shell. Keeps any `*.md` in `docs/` across rebuilds. |
 | `tools/check_plays.js` | The page's own validator (nothing may be silently dropped) plus realism: timing, speeds, spacing, kits and contrast, goal geometry, venue, analysis, and wording that names people rather than using pronouns. |
 | `tools/check_motion.js`, `check_glide.js`, `check_turn.js`, `check_press.js`, `check_ball.js`, `check_flight.js` | Movement checks against the compiled clip: facing against travel, speed and change of pace, turn rate and flicker, defenders closing the ball, the ball never passing through a body, and no ball jumping across a keyframe. |
+| `tools/check_all.js` | Runs all seven checkers over `library/plays/*.json` and checks `library/clips.js` is the bundle of those files as they stand. Every checker runs even when an earlier one fails. |
+| `tests/run.js` | The test suite: holds the rules themselves rather than the clips, pulling the page's own functions out of `birdseye.html`. `--all` adds the two headless-Chrome tests, the page end to end and a real video export. |
 | `tools/quicken_chases.py` | Re-times defenders loitering behind the play into a chase. |
 | `tools/shot.js` | Screenshots the running app in headless Chrome, for checking what it draws. |
 
@@ -218,10 +220,29 @@ every 30 minutes and shows an update bar rather than reloading under someone mid
 
 ## Testing
 
-There is no unit-test suite and no CI. What holds quality is the seven checkers in `tools/`, run by
-hand before bundling: they load the page's own code rather than a copy of it, so they judge exactly
-what ships. `tools/shot.js` screenshots the running page with headless Chrome when a change needs
-looking at rather than measuring.
+Two layers and nothing to install. The **checkers** in `tools/` measure the clips: `check_plays.js`
+(the page's validator plus timing, speeds, spacing, kits, wording, goal geometry), `check_motion.js`,
+`check_turn.js`, `check_glide.js`, `check_ball.js`, `check_press.js` and `check_flight.js`. They answer
+"is this clip plausible?", and they are run before bundling a new one.
+
+The **tests** in `tests/` hold the rules those checkers measure against — run them with `node tests/run.js`.
+They pull the page's own functions out of `birdseye.html` the way the checkers do, and work on a play small
+enough to read, so a failure says which rule broke rather than which clip looks odd: what `normalizePlay`
+accepts, bends and refuses; top speed, change of pace, turn rate, stride and the handover to the off-ball
+engine; the ball's flight, bend, drag and where it crosses the line; what earns a line in the play-by-play;
+the video layout in all four formats; and whether `docs/` is the app as it stands.
+
+`node tests/run.js --all` adds the two that open headless Chrome: the page itself (it loads the clip in the
+URL, plays it to the end with nothing thrown, seeks from the feed and fits a 400 px phone) and a real video
+export in all four formats, checked as files on disk. That last one exists because the export is reachable
+no other way and has broken silently before — the failure lands in a status message beside the button while
+the clips go on playing. `tools/shot.js` screenshots the running page for visual checks.
+
+Every push runs `node tests/run.js --all` and `node tools/check_all.js` on GitHub Actions
+(`.github/workflows/tests.yml`): two jobs, the runner's own Chrome and its python3, nothing
+installed. They are separate jobs because a clip that breaks a rule and a test that fails are
+separate pieces of news, and a push is worth telling both at once. The library job is also what
+catches a clip edited without rebuilding `library/clips.js`, since the site serves the bundle.
 
 The gap to keep in mind is that they only ever exercise the clip pipeline — the model, the motion
 engine and the ball. Nothing automated touches the renderer's output, the audio mix or the video

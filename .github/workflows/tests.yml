@@ -1,0 +1,35 @@
+# The tests and the library checks on every push. There is nothing to install: the suite is plain
+# Node and the app's own code, the browser tests drive the Chrome that is already on the runner, and
+# the library checks need only Node and the runner's python3.
+#
+# They are two jobs rather than two steps so that neither hides the other: a clip that breaks a rule
+# and a test that fails are separate pieces of news, and both are worth having in one push.
+name: tests
+
+on: [push]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CHROME_PATH: /usr/bin/google-chrome
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node tests/run.js --all
+
+  # Every checker over library/plays/*.json, and library/clips.js against those files. A clip changed
+  # without rebuilding the bundle fails here, which is the point: the site serves the bundle, not the
+  # play files.
+  library:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node tools/check_all.js

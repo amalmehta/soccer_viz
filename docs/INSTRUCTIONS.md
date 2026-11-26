@@ -67,6 +67,25 @@ python3 -m http.server 8777 --directory docs
 Then open http://localhost:8777. No build step, no dependencies — it is plain HTML, CSS and
 JavaScript, and nothing but the fonts comes from a CDN.
 
+## Tests
+
+```bash
+node tests/run.js
+```
+
+Nothing to install: the tests run the page's own code, pulled out of `birdseye.html`. They cover what
+the validator accepts and refuses, how bodies and the ball move, what earns a line in the play-by-play,
+the video layout in all four formats, and whether `docs/` is the app as it stands. A few seconds.
+
+```bash
+node tests/run.js --all
+```
+
+Adds the two that open headless Chrome (Google Chrome, or `CHROME_PATH` pointing at it): the page loads
+a clip and plays it to the end with nothing thrown, seeks from the play-by-play and fits a 400 px phone;
+and a real video is exported in each of the four formats and checked as a file on disk. About a minute.
+`node tests/run.js validate ball` runs only the tests whose file or name says that.
+
 ## Adding a clip
 
 1. Write `library/plays/<year>-<name>.json` — copy an existing one for the shape. For a match
@@ -77,12 +96,22 @@ JavaScript, and nothing but the fonts comes from a CDN.
    That writes a draft into `library/imported/` with the ball's real path, the order of events and
    every player the data places. Write the title, captions, commentary, analysis, lessons, kit
    colours, venue and score over the TODO placeholders, then move it into `library/plays/`.
-2. Check it: `node tools/check_plays.js library/plays/*.json`, then the movement checks —
-   `check_motion.js` (facing and stride), `check_glide.js` (speed and acceleration limits),
-   `check_ball.js` (the ball against bodies), `check_press.js` (defenders closing the ball) and
-   `check_flight.js` (the ball travelling between keyframes rather than jumping).
+2. Check it:
+   ```bash
+   node tools/check_all.js
+   ```
+   That runs every checker over `library/plays/*.json` and prints a line per checker at the end:
+   `check_plays.js` (timing, speeds, spacing, kits, wording, goal geometry), `check_motion.js`
+   (facing and stride), `check_turn.js` (how fast shoulders come round), `check_glide.js` (speed and
+   acceleration limits), `check_ball.js` (the ball against bodies), `check_press.js` (defenders
+   closing the ball) and `check_flight.js` (the ball travelling between keyframes rather than
+   jumping). It also rebuilds the bundle somewhere else and compares, so a stale `library/clips.js`
+   is caught here rather than on the site — for a clip this new, that line fails until step 3 has
+   run. Every checker runs even when an earlier one fails, and it exits non-zero if any did. Each one also takes clip paths of its own, which is what to reach for
+   while fixing one clip: `node tools/check_glide.js library/plays/2012-aguero-qpr.json`.
 3. Bundle and rebuild: `python3 tools/build_library.py && python3 build_site.py`
-4. Commit `docs/` along with the source; pushing to `main` publishes the site.
+4. Run `node tests/run.js`: the new clip has to animate, and `docs/` has to be the app as it stands.
+5. Commit `docs/` along with the source; pushing to `main` publishes the site.
 
 The checkers reject anything physically implausible — a 40 m/s pass, a 12 m/s sprint, a body
 changing pace faster than legs can push, a ball travelling through someone, players standing

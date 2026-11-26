@@ -596,6 +596,7 @@ DELIVERABLES:
 - library/clips.js — the clips bundled for the page
 - build_site.py — builds the standalone website into docs/
 - build_sounds.py — turns the crowd recordings in sound/recordings/ into sound/recordings.js
+- tests/ — the automated tests: `node tests/run.js` (add `--all` for the two that open a browser)
 - tools/check_plays.js — checks play files (page validator + realism checks)
 - tools/build_library.py — bundles library/plays/*.json into library/clips.js
 - tools/import_statsbomb.py — builds a play file from StatsBomb open data (real ball path)
@@ -899,3 +900,47 @@ CHANGELOG:
   gone entirely. Classic — bodies drawn from straight above in ink on paper — is the app.
 - 2026-11-09 — updated the meta-instructions to the current meta doc
 - 2026-11-25 — updated the meta-instructions to the current meta doc
+
+- 2026-11-25 — automated tests (user request). The checkers in tools/ measure the clips; nothing held the
+  rules they measure against, and nothing at all touched the things that only exist in a browser. tests/
+  now runs in plain Node with nothing installed, pulling the page's own functions out of birdseye.html the
+  way the checkers do and working on a play small enough to read: what normalizePlay accepts, bends and
+  refuses (including that a play Claude makes up cannot smuggle an unknown action, an off-pitch keyframe or
+  an unreadable kit past it); top speed, change of pace, turn rate, stride against speed, and the handover
+  from a clip's own keys to the off-ball engine; that compiling the same play twice gives the same movement,
+  which the gait tables make easy to break; the ball's flight, bend, drag, loft and where it crosses the
+  line; what earns a line in the play-by-play and what merely badges one already there; the video layout in
+  all four formats; and whether docs/ is the app as it stands, since it is committed and goes stale in
+  silence. `node tests/run.js --all` adds two that drive headless Chrome over the DevTools protocol, the way
+  tools/shot.js already does: the page opens a clip, plays it to the end with nothing thrown, seeks from the
+  feed and fits a 400 px phone; and a video is exported in each of the four formats and checked as a file on
+  disk, at the size the format promises. That last one is the point of the exercise — video export threw on
+  its first line for weeks after the Broadcast look was removed and nothing noticed, because the failure
+  lands in a status message beside the button while the clips go on playing. Breaking that line again fails
+  the test. 40 tests, all passing; the 24 clips and 3 built-ins still pass all seven checkers.
+
+- 2026-11-26 — the tests run on every push (user request), on GitHub Actions
+  (.github/workflows/tests.yml): one job, 18 lines, the whole suite including the real video export, driven
+  by the Chrome already on the runner, nothing installed. Linux Chrome does encode the mp4s — the first run
+  was green. Written first as push + pull_request, which ran everything twice on a branch with a PR open.
+
+- 2026-11-26 — trimmed the suite (user request). Eight tests out of 48 went, on one rule: a test earns its
+  place only if it is not asserting a constant against itself, not already implied by a stronger test, and
+  not sweeping the clips where a checker already sweeps them. So the frame sizes (the export test reads the
+  real size out of each file), the spline-overshoot test (the top-speed and change-of-pace test holds it),
+  the two sweeps over every clip's ball and feed (check_ball, check_flight and check_plays do exactly
+  that), and four pairs that walked the same ground twice became four single tests. Nothing in the suite was
+  the only thing holding a rule before the cut, and nothing is now. It also turned up a flake worth more
+  than the eight: the end-to-end test waited for the clock to read full rather than for the app to say it
+  had stopped, so the button could still say Pause a frame later. It waits on the app now.
+
+- 2026-11-26 — one command for the whole library gate (user request): tools/check_all.js runs
+  check_plays, check_motion, check_turn, check_glide, check_ball, check_press and check_flight over
+  library/plays/*.json, and checks library/clips.js is the bundle of those files as they stand. Every
+  checker runs even when an earlier one fails — one clip over the speed limit says nothing about
+  whether the ball passes through bodies — and the exit code of each is what decides its line in the
+  summary, with the per-clip lines only counted to say how many clips were at fault. The bundle check
+  rebuilds into a temp mirror holding the build tool and a link to the real plays, so the committed
+  file is never touched. The 24 clips pass all eight checks. It runs on every push too (user
+  request), as a second job beside the tests: a clip changed without rebuilding the bundle now fails
+  the push, which is the point, because the site serves the bundle and not the play files.

@@ -14,14 +14,22 @@
 | `sound/recordings.js` | The crowd and score audio itself, embedded so the page needs no network |
 | `docs/` | The built website — this is what GitHub Pages serves |
 | `docs/SYSTEM-DESIGN.md` | How the app is put together: components, flows, data, design decisions |
+| `tools/check_all.js` | Runs every checker below over `library/plays/*.json`, plus `library/clips.js` against them |
 | `tools/check_plays.js` | Validator: timing, speeds, spacing, kits, wording, goal geometry |
 | `tools/check_motion.js` | Checks how bodies move: facing vs direction of travel, turn rate, run cycle |
 | `tools/check_turn.js` | Checks bodies turn no faster than a person can, without flicking between directions |
 | `tools/check_glide.js` | Holds every body to a human top speed and a human change of pace |
 | `tools/check_ball.js` | Checks the ball never travels through a player who is not playing it |
 | `tools/check_press.js` | Checks the defender nearest the ball closes it down rather than backing off |
+| `tools/check_turn.js` | Checks bodies turn no faster than shoulders come round, and without flicking |
 | `tools/check_flight.js` | Checks the ball travels between keyframes rather than jumping to the next one |
 | `tools/quicken_chases.py` | Finds defenders loitering behind the play and re-times their route into a chase |
+| `tests/run.js` | Runs the tests: `node tests/run.js`, or `--all` to include the browser ones |
+| `tests/*.test.js` | What the app must do: validation, motion, the ball, the play-by-play, video layout, the built site |
+| `tests/*.e2e.js` | The same app in headless Chrome: it opens and plays, and exports a real video file |
+| `tests/app.js` | Lifts the page's own functions out of `birdseye.html` so a test can call them |
+| `tests/harness.js`, `tests/chrome.js`, `tests/fixtures.js` | The runner, the browser driver and a play small enough to read |
+| `.github/workflows/tests.yml` | Every push: the tests (browser ones included) and `tools/check_all.js`, as two jobs |
 | `tools/shot.js` | Screenshots the running app with headless Chrome, for checking what it draws |
 | `tools/build_library.py` | Bundles `library/plays/*.json` into `library/clips.js` |
 | `tools/import_statsbomb.py` | Builds a play file from StatsBomb open data: the real ball path and player positions |
