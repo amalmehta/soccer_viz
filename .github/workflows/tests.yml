@@ -1,0 +1,18 @@
+# The tests on every push. There is nothing to install: the suite is plain Node and the app's
+# own code, and the browser tests drive the Chrome that is already on the runner.
+name: tests
+
+on: [push, pull_request]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CHROME_PATH: /usr/bin/google-chrome
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node tests/run.js --all
